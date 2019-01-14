@@ -1,0 +1,329 @@
+/*Style for example network*/
+
+#mynetwork {
+    width: 100%;
+    height: 500px;
+    border: 5px solid lightgray;
+}
+
+/*Custom Colours*/
+
+.red {
+    background: #FF5E36;
+    color: #000000;
+}
+
+.orange {
+    background: #FB4A08;
+    color: #000000;
+}
+
+.green {
+    background: #24C533;
+    color: #000000;
+}
+
+.blue {
+    background: #6D8DB5;
+    color: #000000;
+}
+
+.yellow {
+    background: #fecc3f;
+    color: #000000;
+}
+
+/*Custom Shapes*/
+
+.box {
+    border-radius: 5px;
+    border-color: #172B4D;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    padding: 10px 10px;
+    width: 100px;
+    height: 25px;
+    display: inline-block;
+}
+
+.ellipse {
+    border-radius: 50px;
+    border-color: #172B4D;
+    border-style: solid;
+    border-width: 1px;
+    width: 35px;
+    height: 15px;
+    display: inline-block;
+}
+
+/*Top Navigation bar*/
+
+.topnav {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #272727;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #E0E0E0;
+    text-align: center;
+    padding: 14px 25px;
+    margin-top: 3px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.topnav a:hover {
+    background-color: #474747;
+    color: #17b2ad;
+}
+
+.topnav .search-container {
+    float: right;
+    margin-top: 3px;
+}
+
+.topnav input[type=text] {
+    padding: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+}
+
+.topnav input[type=number] {
+    padding: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+}
+
+.topnav .search-container button {
+    float: right;
+    padding: 10px 10px;
+    margin-top: 10px;
+    margin-right: 16px;
+    background: #17b2ad;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.topnav .search-container button:hover {
+    background: #138f8b;
+}
+
+/*Buttons*/
+
+.button {
+    background-color: #17b2ad;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.layer {
+    font-size: 25px;
+    padding: 5px 15px;
+    min-height: 45px;
+    min-width: 45px;
+}
+
+.add {
+    background-color: #17b2ad;
+}
+
+.remove {
+    background-color: #FB4A08;
+}
+
+.button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.jira {
+    background-color: #FB4A08;
+    padding: 15px 30px;
+    margin: auto;
+}
+
+.back {
+    background-color: #FB4A08;
+    padding: 15px 25px;
+    font-size: 25px;
+}
+
+.button-effect-teal:hover {
+    background-color: #138f8b; /* Green */
+    color: white;
+}
+
+.button-effect-orange:hover {
+    background-color: #d83d04; /* Green */
+    color: white;
+}
+
+/*Pop up Window for microservice functionality*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Spinning circle to indicate that the site is loading*/
+
+.loader {
+    border: 11px solid #17b2ad;
+    border-top: 11px solid #FB4A08;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*Navigation buttons for vis, if they are enabled*/
+
+div.vis-network div.vis-navigation div.vis-button.vis-up,
+div.vis-network div.vis-navigation div.vis-button.vis-down,
+div.vis-network div.vis-navigation div.vis-button.vis-left,
+div.vis-network div.vis-navigation div.vis-button.vis-right,
+div.vis-network div.vis-navigation div.vis-button.vis-zoomIn,
+div.vis-network div.vis-navigation div.vis-button.vis-zoomOut,
+div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
+    background-image: none !important;
+}
+
+div.vis-network div.vis-navigation div.vis-button:hover {
+    box-shadow: none !important;
+}
+
+.vis-button:after {
+    font-size: 2em;
+    color: #17b2ad;
+}
+
+.vis-button:hover:after {
+    font-size: 2em;
+    color: #138f8b;
+}
+
+.vis-button.vis-up:after {
+    content: "\25B2";
+}
+
+.vis-button.vis-down:after {
+    content: "\25BC";
+}
+
+.vis-button.vis-left:after {
+    content: "\25C0";
+}
+
+.vis-button.vis-right:after {
+    content: "\25B6";
+}
+
+.vis-button.vis-zoomIn:after {
+    content: "\002B";
+    font-size: 2em
+}
+
+.vis-button.vis-zoomOut:after {
+    content: "\002D";
+    font-size: 2em
+}
+
+.vis-button.vis-zoomExtends:after {
+    content: "\2610";
+    color: #FB4A08;
+    font-weight: bold;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-up {
+    bottom: 50px;
+    right: 55px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-down {
+    bottom: 10px;
+    right: 55px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-left {
+    bottom: 10px;
+    right: 15px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-right {
+    bottom: 10px;
+    right: 95px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
+    top: 50px;
+    left: 17px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
+    top: 90px;
+    left: 20px;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
+    top: 10px;
+    left: 15px;
+}
+
