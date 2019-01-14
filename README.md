@@ -47,7 +47,7 @@ Visualising the link network and recommending missing links.
 Only the public issues are available. If a person has a Qt account, they should be able to see all the issues In the link map that they would be able to see in JIRA.
 
 ### Technical structure
-
+![techstructure](https://github.com/OpenReqEU/qthulhu/blob/master/TechnicalStructure.png)
 The service sends a request (JIRA keys, e.g. “QTWB-30”) for data to mulperi and receives a JSON with the issue data. This data is then visualized.
 
 ## How to contribute
