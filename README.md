@@ -32,9 +32,11 @@ Filtering the issue link map for specified properties
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
 
 ### Accessing the application
-The application is accessible here: http://217.172.12.199;10201
+The application is accessible here: http://217.172.12.199:10201
+
 Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa.
-What does this application do?
+
+#### What does this application do?
 Visualising the link network and recommending missing links.
 
 ### What’s next?
