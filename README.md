@@ -5,7 +5,7 @@ This web application was created as a result of the OpenReq project funded by th
 This web application visualizes the links between issues inside Qt’s JIRA. It uses the microservices of UH to manage links and the similarity detection of UPC to recommend missing links.
 
 ## Technical description
-The following technologies are used:
+### Technologies used:
 - Spring Boot
 - Tomcat
 - Vis.js
