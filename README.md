@@ -5,7 +5,7 @@ This web application was created as a result of the OpenReq project funded by th
 This web application visualizes the links between issues inside Qt’s JIRA. It uses the microservices of UH ([API references](https://api.openreq.eu/#/services/milla)) to manage links and the similarity detection of UPC ([API references](https://api.openreq.eu/#/services/similarity-detection)) to recommend missing links.
 
 ## Technical description
-### Technologies used:
+### Technologies used
 - Spring Boot
 - Tomcat
 - Vis.js
@@ -16,20 +16,24 @@ This web application visualizes the links between issues inside Qt’s JIRA. It 
 
 ### Functionalities of the OpenReq Issue Link Map
 #### Currently available features
-- Visualization of the link network of public issues in Qt’s JIRA (bugreports.qt.io)
+- *Visualization* of the link network of public issues in [Qt’s JIRA](https://bugreports.qt.io/secure/Dashboard.jspa)
 While in JIRA the user can only see the direct links, this tool enables the user to go more in-depth and also view indirect links between JIRA items.
-- Quick info for selected issue
+- Quick *info* for selected issue
 Essential information of an issue is displayed on the right-hand side.
-- Navigating the link network
+- *Navigating* the link network
 The user can drag items and add or remove layers.
 
 #### Functionalities in development
-- Accepting & rejecting proposed links
+- *Accepting & rejecting *proposed links
 The results of a similarity detection are also visualized, this view should be toggled on and off. While the similarity detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
-- Editing links
+- *Editing* links
 By right-clicking an edge, the user can change the link type, switch direction or remove the link
-Filtering the issue link map for specified properties
+- *Filtering* the issue link map for specified properties
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
+
+#### Functionalities planned
+- *Consistency Checker*
+Checking if the issues in the link map do not have conflicting link type and priority
 
 ### Accessing the application
 The application is accessible here: http://217.172.12.199:10201 
@@ -52,9 +56,6 @@ which will then give you the LinkMap for issue QTWB-30 with layer 2.
 
 Alternatively, you can access the test instance of Qt's jira https://bugreports-test.qt.io/secure/Dashboard.jspa and search for an issue. On the view page you can scroll down Issue Links, underneath this you will find OpenReq Dependency Browser (old name, needs to be updated to OpenReq Link Map)
 ![Search3](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search3.png)
-
-- bugreport.qt
-- over home page
 
 #### What does this application do?
 Visualising the link network and recommending missing links.
