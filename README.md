@@ -42,9 +42,11 @@ Additionally, a connection to the tool is in https://bugreports-test.qt.io/secur
 
 ### How to use
 You can directly search for an issue here http://217.172.12.199:10201 or here http://bugreports-test.qt.io:10201/
-![Seacrh1](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search.png)
+![Search1](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search1.png)
+
 for example Issue: QTWB-30 and layer 2.
-![Search2](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search1.png)
+![Search2](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search2.png)
+
 which will then give you the LinkMap for issue QTWB-30 with layer 2.
 ![LinkMapEx](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/ExampleLinkMap.png)
 
