@@ -46,16 +46,16 @@ Additionally, a connection to the tool is in https://bugreports-test.qt.io/secur
 
 ### How to use
 You can directly search for an issue here http://217.172.12.199:10201 or here http://bugreports-test.qt.io:10201/
-![Search1](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search1.png)
+![Search1](https://github.com/OpenReqEU/qthulhu/blob/master/Search1.png)
 
 for example Issue: QTWB-30 and layer 2.
-![Search2](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search2.png)
+![Search2](https://github.com/OpenReqEU/qthulhu/blob/master/Search2.png)
 
 which will then give you the LinkMap for issue QTWB-30 with layer 2.
-![LinkMapEx](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/ExampleLinkMap.png)
+![LinkMapEx](https://github.com/OpenReqEU/qthulhu/blob/master/ExampleLinkMap.png)
 
 Alternatively, you can access the test instance of Qt's jira https://bugreports-test.qt.io/secure/Dashboard.jspa and search for an issue. On the view page you can scroll down Issue Links, underneath this you will find OpenReq Dependency Browser (old name, needs to be updated to OpenReq Link Map)
-![Search3](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/Search3.png)
+![Search3](https://github.com/OpenReqEU/qthulhu/blob/master/Search3.png)
 
 #### What does this application do?
 Visualising the link network and recommending missing links.
@@ -68,7 +68,7 @@ Visualising the link network and recommending missing links.
 Only the public issues are available. If a person has a Qt account, they should be able to see all the issues In the link map that they would be able to see in JIRA.
 
 ### Technical structure
-![techstructure](https://github.com/OpenReqEU/qthulhu/blob/master/pictures/TechnicalStructure.png)
+![techstructure](https://github.com/OpenReqEU/qthulhu/blob/master/TechnicalStructure.png)
 The service sends a request (JIRA keys, e.g. “QTWB-30”) for data to mulperi and receives a JSON with the issue data. This data is then visualized.
 
 ## How to contribute
