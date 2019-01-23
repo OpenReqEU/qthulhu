@@ -42,7 +42,7 @@ and an older version here: http://bugreports-test.qt.io:10201/
 Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa.
 
 ### How to install
-
+This is a maven project, so use 'mvn clean package' in your IDE and then run 'java -jar qthulhu-webapp-1.0.war'.
 
 ### How to use
 You can directly search for an issue here http://217.172.12.199:10201 or here http://bugreports-test.qt.io:10201/
