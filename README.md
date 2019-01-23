@@ -24,7 +24,7 @@ Essential information of an issue is displayed on the right-hand side.
 The user can drag items and add or remove layers.
 
 #### Functionalities in development
-- *Accepting & rejecting *proposed links
+- *Accepting & rejecting* proposed links
 The results of a similarity detection are also visualized, this view should be toggled on and off. While the similarity detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
 - *Editing* links
 By right-clicking an edge, the user can change the link type, switch direction or remove the link
