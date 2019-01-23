@@ -78,6 +78,10 @@ Only the public issues are available. If a person has a Qt account, they should 
 ![techstructure](https://github.com/OpenReqEU/qthulhu/blob/master/pics/TechnicalStructure.png)
 The service sends a request (JIRA keys, e.g. “QTWB-30”) for data to mulperi and receives a JSON with the issue data. This data is then visualized.
 
+## Notes for Developers
+I tried to comment most of the code to make it understandable. 
+The Java part just gets the data in a vis.js friendlier format. The javascript & HTML/CSS will get some more functionality in the next iterations.
+
 ## How to contribute
 See [OpenReq project contribution guidelines](https://github.com/OpenReqEU/OpenReq/blob/master/CONTRIBUTING.md). 
 
