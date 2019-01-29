@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
-// TODO: all code requires unCLARAfication
+// TODO: all code requires un_CLARA_fication
 
 /**
  * This class controlls the behaviour of the web application
@@ -156,11 +156,11 @@ public class NetworkController
         }
     }
 }
-
-
-// #### GRAVEYARD ###
+//
+//
+// #### GRAVEYARD ####
 //all old methods
-
+//
 //    @RequestMapping(value = "/issueold", method = RequestMethod.POST)
 //    public ModelAndView issueold(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth, @RequestParam("layerChange") Integer layerChange)
 //    {
