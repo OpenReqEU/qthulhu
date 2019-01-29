@@ -33,15 +33,15 @@
             width: 150px;
         }
 
-        /*.box {*/
-            /*border-radius: 5px;*/
-            /*border-color: #172B4D;*/
-            /*border-style: solid;*/
-            /*border-width: 1px;*/
-            /*width: 100px;*/
-            /*height: 25px;*/
-            /*display: inline-block;*/
-        /*}*/
+        .box {
+            border-radius: 5px;
+            border-color: #172B4D;
+            border-style: solid;
+            border-width: 1px;
+            width: 100px;
+            height: auto;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
