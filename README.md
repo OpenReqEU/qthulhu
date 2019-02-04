@@ -86,4 +86,4 @@ The Java part just gets the data in a vis.js friendlier format. The javascript &
 See [OpenReq project contribution guidelines](https://github.com/OpenReqEU/OpenReq/blob/master/CONTRIBUTING.md). 
 
 ## License
-Free use of this software is granted under the terms of the [EPL version 2 (EPL2.0)](https://github.com/OpenReqEU/qthulhu/blob/master/LICENSE).
+Free use of this software is granted under the terms of the [EPL version 2 (EPL2.0)](https://www.eclipse.org/legal/epl-2.0/).
