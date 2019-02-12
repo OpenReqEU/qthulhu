@@ -647,26 +647,44 @@
             },
             "physics": {
                 "enabled": true,
-                "minVelocity": 50,
-                // "repulsion": {
-                //     "nodeDistance": 150
-                // },
-                "barnesHut":
-                    {
-                        "avoidOverlap": 1
-                    },
-                "stabilization": {
-                    "enabled": true,
-                    "iterations": 50, // maximum number of iteration to stabilize
-                    "updateInterval": 1,
-                    "onlyDynamicEdges": false,
-                    "fit": true
+                'forceAtlas2Based': {
+                    'gravitationalConstant': -26,
+                    'centralGravity': 0.005,
+                    'springLength': 230,
+                    'springConstant': 0.18,
+                    'avoidOverlap': 1.5
+                },
+                'maxVelocity': 146,
+                'solver': 'forceAtlas2Based',
+                'timestep': 0.35,
+                'stabilization': {
+                    'enabled': true,
+                    "iterations": 1000,
+                    "updateInterval": 25
+                // "minVelocity": 50,
+                // // "repulsion": {
+                // //     "nodeDistance": 150
+                // // },
+                // "barnesHut":
+                //     {
+                //         "avoidOverlap": 1
+                //     },
+                // "stabilization": {
+                //     "enabled": true,
+                //     "iterations": 50, // maximum number of iteration to stabilize
+                //     "updateInterval": 1,
+                //     "onlyDynamicEdges": false,
+                //     "fit": true
                 }
             }
         };
 
         //initialize network
         let network = new vis.Network(networkContainer, data, options);
+
+        network.on("stabilizationIterationsDone", function () {
+            network.setOptions( { physics: false } );
+        });
 
         //interact with network
 
@@ -729,6 +747,7 @@
         });
 
     });
+
     $(document).on("load")
 
 
