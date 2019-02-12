@@ -22,7 +22,7 @@
     <style>
         #issueDep {
             width: 100%;
-            height: auto;
+            height: 60%;
         }
 
         input[type=number] {
@@ -177,14 +177,17 @@
                             To-Do
                         </div>
                         <br>
+
                         <div class="box red">
                             Stuck
                         </div>
                         <br>
+
                         <div class="box yellow">
                             In Progress
                         </div>
                         <br>
+
                         <div class="box green">
                             Done
                         </div>
