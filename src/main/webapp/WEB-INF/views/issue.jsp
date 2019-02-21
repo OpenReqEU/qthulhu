@@ -51,6 +51,8 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
+
+    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <div class="search-container">
         <form action="/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
@@ -390,15 +392,15 @@
 
     //map to create the correct type of error, links like duplicates do not have a direction
     let arrowPaletteType = {
-        'CONTRIBUTES': 'to',
-        'DAMAGES': 'to',
-        'REFINES': 'to', //work breakdown, test
-        'REQUIRES': 'to', //dependency
-        'INCOMPATIBLE': '',
-        'DECOMPOSITION': 'to', //sub-task, epic
-        'SIMILAR': '', //relates
-        'DUPLICATES': '', //duplicate
-        'REPLACES': 'to' //replaces
+        'contributes': 'to',
+        'damages': 'to',
+        'refines': 'to', //work breakdown, test
+        'requires': 'to', //dependency
+        'incompatible': '',
+        'decomposition': 'to', //sub-task, epic
+        'similar': '', //relates
+        'duplicates': '', //duplicate
+        'replaces': 'to' //replaces
     };
 
     //map to visually differentiate between accepted and proposed links
@@ -652,7 +654,7 @@
                     'centralGravity': 0.005,
                     'springLength': 230,
                     'springConstant': 0.18,
-                    'avoidOverlap': 1.5
+                    'avoidOverlap': 2
                 },
                 'maxVelocity': 146,
                 'solver': 'forceAtlas2Based',
