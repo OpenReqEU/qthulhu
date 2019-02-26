@@ -74,6 +74,7 @@ public class NetworkController
 
             //build nodeEdgeSet
             JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
+            System.out.println(nodeEdgeSet);
 
             //add objects to model
             ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
@@ -138,7 +139,7 @@ public class NetworkController
                 return model;
             }
             JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
-            System.out.println(nodeEdgeSet);
+//            System.out.println(nodeEdgeSet);
 
             //add objects to model
             ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
@@ -156,7 +157,28 @@ public class NetworkController
             return model;
         }
     }
+
+    /**
+     * Example page
+     *
+     * @return view and model that contains example information
+     */
+    @RequestMapping(value = "/example", method = RequestMethod.POST)
+    public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
+    {
+        if(layerDepth > 2)
+        {
+            layerDepth = 2;
+        }
+
+        ModelAndView model = new ModelAndView("example", HttpStatus.OK);
+        model.addObject("issue", issues);
+        model.addObject("layerDepth", layerDepth);
+        model.addObject("maxLayer", 2);
+        return model;
+    }
 }
+
 //
 //
 // #### GRAVEYARD ####

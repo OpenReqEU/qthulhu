@@ -51,8 +51,8 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
-
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
+    <a href="/">Go Back</a>
     <div class="search-container">
         <form action="/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
@@ -152,18 +152,10 @@
 
                     <br>
 
-                    <!-- Trigger/Open The Modal -->
-                    <button class="button button-effect-teal" id="DDBtn">Dependency<br>Detection</button>
+                    <!-- Add proposed nodes & edges -->
+                    <button class="button button-effect-teal" id="SDBtn" onclick="addProposedIssues();">Similarity<br>Detection</button>
 
-                    <!-- The Modal -->
-                    <div id="DDModal" class="modal">
 
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <span class="close" id="ddspan">&times;</span>
-                            <p>We are very sorry, the Dependency Detection View is not fully available.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -232,31 +224,20 @@
 
     // Get the modal
     var ccmodal = document.getElementById('CCModal');
-    var ddmodal = document.getElementById('DDModal');
 
     // Get the button that opens the modal
     var ccbtn = document.getElementById("CCBtn");
-    var ddbtn = document.getElementById("DDBtn");
 
     // Get the <span> element that closes the modal
     var ccspan = document.getElementById("ccspan");
-    var ddspan = document.getElementById("ddspan");
-
 
     // When the user clicks on the button, open the modal
     ccbtn.onclick = function () {
         ccmodal.style.display = "block";
     };
-    ddbtn.onclick = function () {
-        ddmodal.style.display = "block";
-    };
-
     // When the user clicks on <span> (x), close the modal
     ccspan.onclick = function () {
         ccmodal.style.display = "none";
-    };
-    ddspan.onclick = function () {
-        ddmodal.style.display = "none";
     };
 
     // When the user clicks anywhere outside of the modal, close it
@@ -265,13 +246,6 @@
             ccmodal.style.display = "none";
         }
     };
-
-    window.onclick = function (event) {
-        if (event.target == ddmodal) {
-            ddmodal.style.display = "none";
-        }
-    };
-
 
     //Display loading circle when a request is submitted
     $('#add-layer').submit(function () {
@@ -428,7 +402,7 @@
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             if (!(nodetype == null)) {
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString().toLocaleLowerCase());
+                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
             }
             else
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
@@ -613,6 +587,11 @@
                     color: {background: '#FF9D84', border: '#172B4D'},
                     borderWidth: 2,
                     font: {color: 'black', multi: 'html'}
+                },
+                "proposed": {
+                    color: {background: '#17b2ad', border: '#172B4D'},
+                    borderWidth: 2,
+                    font: {color: 'black', multi: 'html'}
                 }
             },
             //nodedesign
@@ -688,6 +667,25 @@
             network.setOptions( { physics: false } );
         });
 
+        //Similarity detection functionality
+        //Showing and removing proposed issues
+        function addProposedIssues(){
+            try {
+                nodes.add({
+                    id: 1,
+                    label: "TEST-1" + "<i>".concat(nodekey).concat("</i>").concat("\n").concat("Bug"),
+                    group: nodegroup,
+                    shape: 'box',
+                    title: "Unresolved, Open",
+                    level: 1,
+                    hidden: false
+                });
+            }
+            catch (err)
+            {
+                alert(err);
+            }
+        }
         //interact with network
 
         //if a node is selected display information in infobox

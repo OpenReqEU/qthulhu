@@ -29,6 +29,7 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
+    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
 </div>
 
 <%--This is the main body of the site, it contains some explanation about the service and a search box--%>
@@ -37,7 +38,7 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/issue" method="post" id="search-id">
+        <form action="/issue" method="post" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
@@ -85,7 +86,7 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Info</h3>
-                <p class="card-text">This tool visualizes links of issues.<br>
+                <p class="card-text">This tool visualizes the link map of issues.<br>
                     Typing in an issue key from <a
                             href="https://bugreports.qt.io/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=software">Qt's
                         public JIRA</a> can show you its direct and indirect links to other issues.
@@ -97,14 +98,25 @@
                     by commas (f.e. <i>QTWB-30, QTWB-6, QTWB-32</i>).
                     The service will then look up the corresponding issues in University of Helsinki's service milla and
                     get the information about the links and issues.</p>
-                <h5 class="card-title">Layer Depth</h5>
-                <p class="card-text">This service can show you direct (layer 1) and indirect links (layer 2-5).
-                    Layer 2 are the links of issues that are directly connected to the searched issue, layer 3 are the
-                    links of issues of layer 2 and so on, up until 5 layers.
-                    If you do not specify a layer depth the default value is 1.
-                    While viewing the issue link graph you can add and remove layers with the buttons on the left.</p>
+                <h5 class="card-title">Depth</h5>
+                <p class="card-text">This service can show you direct (depth 1) and indirect links (depth 2-5).
+                    Depth 2 are the links of issues that are directly connected to the searched issue, depth 3 are the
+                    links of issues of depth 2 and so on, up until depth 5.
+                    If you do not specify a depth the default value is 1.
+                    While viewing the issue link map you can switch between the different depths.
+                <form action="/example" method="post" id="example" style="display:inline-block;">
+                    <%--This is needed to implement the add and remove layer functionality--%>
+                    <input type="hidden" name="layerDepth" value="1"/>
+                    <input type="hidden" name="issues" value="EX-3"/>
+                    <input type="submit"
+                           class="button search button-effect-teal"
+                           value="See Example">
+                </form>
+                </p>
                 <h5 class="card-title">Dependency Detection & Consistency Checker</h5>
-                <p class="card-text">The microservices for Dependency Detection and Consistency Checker are currently being implemented.</p>
+                <p class="card-text">The microservices for Dependency Detection and Consistency Checker are currently
+                    being implemented.</p>
+                </p>
             </div>
         </div>
     </div>
