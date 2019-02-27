@@ -168,10 +168,18 @@
     color: white;
 }
 
+/*nav pill customisation*/
+
 .nav-pills a {
     background-color: #17b2ad;
     color: white;
     border-radius: 4px;
+}
+
+.tab-pane {
+    background-color: white;
+    color: #272727;
+    margin: 10px;
 }
 
 /*Spinning circle to indicate that the site is loading*/

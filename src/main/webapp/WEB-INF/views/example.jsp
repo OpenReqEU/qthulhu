@@ -25,7 +25,7 @@
     <style>
         #issueLinkMap {
             width: 100%;
-            height: 100%;
+            height: 80%;
         }
 
         input[type=number] {
@@ -46,15 +46,57 @@
             display: inline-block;
         }
 
-        .nav-link .active {
+        .nav-pills > li > a.active {
             background-color: #138f8b;
             color: white;
             border-radius: 4px;
         }
-        .tab-pane {
+
+        .nav-pills .nav-item .nav-link .active {
+            background-color: #138f8b;
+            color: white;
+            border-radius: 4px;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .custom-select {
+            position: relative;
+            display: block;
+            max-width: 400px;
+            min-width: 180px;
+            margin: 0 auto;
+            border: 1px solid #138f8b;
             background-color: white;
-            color: #172B4D;
-            margin: 10px;
+        }
+
+        select {
+            border: none;
+            outline: none;
+            background: transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+            margin: 0;
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            color: #272727;
+        }
+
+        .reject {
+            background-color: #FB4A08;
+            padding: 15px 25px;
+            font-size: 25px;
+        }
+
+        .accept {
+            background-color: #17b2ad;
+            padding: 15px 25px;
+            font-size: 25px;
         }
     </style>
 </head>
@@ -89,7 +131,7 @@
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <%--Network--%>
     <div class="row">
-        <div class="col-7">
+        <div class="col-8">
             <div class="row">
                 <%--Depth buttons--%>
                 <form action="/example" method="post" id="depth-1" style="display: inline-block">
@@ -130,13 +172,18 @@
             </div>
         </div>
         <%--Information--%>
-        <div class="col-5">
+        <div class="col-4">
 
             <%--Information buttons--%>
             <ul class="nav nav-pills nav-fill mb-3" id="info-nav" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="info-tab" data-toggle="pill" href="#info-box" role="tab"
-                       aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Issue Info
+                       aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="list-tab" data-toggle="pill" href="#list-box" role="tab"
+                       aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
                     </a>
                 </li>
                 <li class="nav-item">
@@ -170,11 +217,21 @@
                     <br>
                     <div id="infoBoxIssueLinkTestJIRA"></div>
                 </div>
+                <div class="tab-pane fade show" id="list-box" role="tabpanel"
+                     aria-labelledby="list-tab">
+                    <h5>Issue List</h5>
+                    <p id="IssuesList"></p>
+                </div>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
+                    <h5>Proposed Similarities
+                        <button>Save</button>
+                    </h5>
                     <p id="proposedIssuesList"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
+                    <h5>Result</h5>
                     <p id="ccResult"></p>
+                    <h5>Diagnosis</h5>
                 </div>
             </div>
         </div>
@@ -314,6 +371,7 @@
         } else {
             $("#depth-5-btn").attr('class', "button layer button-effect-teal");
         }
+        infoTab()
     });
 
     //function to help find a specific item depending on its identifier
@@ -376,6 +434,7 @@
 
     let edgeElements = [];
     let nodeElements = [];
+    let issueList = [];
 
     //add nodes
     $.each(nodeEdgeObject['nodes'], function (i, v) {
@@ -405,6 +464,9 @@
             title: nodetitle,
             level: nodelayer,
             hidden: nodehidden
+        });
+        issueList.push({
+            id: nodekey
         })
     });
 
@@ -467,7 +529,7 @@
             hidden: nodehidden
         });
         proposedIssuesList.push({
-            ID
+            id: nodekey
         })
     });
 
@@ -497,13 +559,30 @@
                 nodes.add(proposedNodeElements);
                 edges.add(proposedEdgeElements);
                 proposedViewActive = true;
-                stringList = "";
-                for(i = 0; i<proposedIssuesList.length; i++)
-                {
-                    console.log(i);
-                    stringList = stringList.concat(proposedIssuesList[i].toString())+"<br>";
-                    console.log(stringList)
+                stringList = " <table style='width: 100%'><tr>\n" +
+                    "<th>Issue Key</th>" +
+                    "<th>Link type</th>" +
+                    "<th>Accept</th>" +
+                    "<th>Reject</th>" +
+                    "</tr>";
+                selectionList = '<div class="custom-select">' +
+                    '<select> ' +
+                    '<option value="duplicate">Duplicate</option> ' +
+                    '<option value="similar">Similar</option> ' +
+                    '<option value="depends">Dependency</option> ' +
+                    '</select>' +
+                    '</div>';
+
+                acceptBtn = "<button class='button accept button-teal-effect'>" +
+                    "v" +
+                    "</button>";
+                rejectBtn = "<button class='button reject button-teal-effect'>" +
+                    "x" +
+                    "</button>";
+                for (i = 0; i < proposedIssuesList.length; i++) {
+                    stringList = stringList + "<tr><td>" + JSON.stringify(proposedIssuesList[i]) + "</td><td>" + selectionList + "</td><td>" + acceptBtn + "</td><td>" + rejectBtn + "</td></tr>";
                 }
+                stringList = stringList + "</table>";
                 document.getElementById('proposedIssuesList').innerHTML = stringList;
             }
             catch (err) {
@@ -524,6 +603,14 @@
             }
         }
         document.getElementById('ccResult').innerHTML = "".concat("Everything is consistent!");
+    }
+
+    function listTab() {
+        stringList = "";
+        for (i = 0; i < issueList.length; i++) {
+            stringList = stringList + JSON.stringify(issueList[i])+'<br>';
+        }
+        document.getElementById('IssuesList').innerHTML = stringList;
     }
 
     //TODO Remeber last selected issue
