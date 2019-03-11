@@ -88,15 +88,27 @@
         }
 
         .reject {
-            background-color: #FB4A08;
-            padding: 15px 25px;
+            background-color: #ffffff;
+            border: 2px solid #FB4A08;
+            padding: 4px 15px;
             font-size: 25px;
+            color: #272727;
         }
 
         .accept {
-            background-color: #17b2ad;
-            padding: 15px 25px;
+            background-color: #ffffff;
+            border: 2px solid #17b2ad;
+            padding: 4px 15px;
             font-size: 25px;
+            color: #272727;
+        }
+        .reject:active {
+            background-color: #FB4A08;
+            color: #ffffff;
+        }
+        .accept:active {
+            background-color: #17b2ad;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -574,12 +586,20 @@
 
     function registerClick(elem) {
         if (elem.id.charAt(1) == 'r') {
-            linkDetectionResponse[elem.id.charAt(0)] = "reject"
+            linkDetectionResponse[elem.id.charAt(0)] = "reject";
+            let btnid = "#" + elem.id;
+            $(btnid).click(function() {
+                $(btnid).addClass('active');
+            });
         }
         else {
             let selectid = elem.id.charAt(0) + "s";
             let selectedItem = document.getElementById(selectid).value;
             linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+            let btnid = "#" + elem.id;
+            $(btnid).click(function() {
+                $(btnid).addClass('acitve');
+            });
         }
         console.log(linkDetectionResponse)
     }
@@ -601,12 +621,12 @@
                     "</tr>";
                 selectionList = '<div class="custom-select">';
                 acceptBtn = "<button class='button accept button-teal-effect' onclick=\"registerClick(this)\" id=";
-                rejectBtn = "<button class='button reject button-teal-effect' onclick=\"registerClick(this)\" id=";
+                rejectBtn = "<button class='button reject button-orange-effect' onclick=\"registerClick(this)\" id=";
                 for (i = 0; i < proposedIssuesList.length; i++) {
                     stringList = stringList + "<tr><td>" + proposedIssuesList[i].id + "</td><td>" + selectionList + "<select id=" + i + "s>" +
                         "<option value='duplicate'>Duplicate</option>" +
                         "<option value='similar'>Similar</option>" +
-                        "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>v</button></td><td>" + rejectBtn + +i + "r>x</button></td></tr>";
+                        "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                 }
                 stringList = stringList + "</table>";
                 document.getElementById('proposedIssuesList').innerHTML = stringList;

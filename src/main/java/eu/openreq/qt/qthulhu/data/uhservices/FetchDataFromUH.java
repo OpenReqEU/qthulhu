@@ -24,6 +24,7 @@ public class FetchDataFromUH
     {
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue network of an specified issue)
+        //String transitiveClosureURL = "https://api.openreq.eu/milla/getTransitiveClosureOfARequirement?requirementId=";
         String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfARequirement?requirementId=";
         String requirement;
         try
