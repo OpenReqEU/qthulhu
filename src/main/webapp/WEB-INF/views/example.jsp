@@ -25,7 +25,7 @@
     <style>
         #issueLinkMap {
             width: 100%;
-            height: 80%;
+            height: 70%;
         }
 
         input[type=number] {
@@ -170,6 +170,26 @@
                 <div class="card" id="issueLinkMap"></div>
                 <br>
             </div>
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Legend</h5>
+                        <p class="card-text">
+                        <div class="box blue" style="display: inline-block;">
+                            To-Do
+                        </div>
+                        <div class="box red" style="display: inline-block;">
+                            Stuck
+                        </div>
+                        <div class="box yellow" style="display: inline-block;">
+                            In Progress
+                        </div>
+                        <div class="box green" style="display: inline-block;">
+                            Done
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <%--Information--%>
         <div class="col-4">
@@ -188,7 +208,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="sd-tab" data-toggle="pill" href="#sd-box" role="tab"
-                       aria-controls="sd-tab" aria-selected="false" onclick="proposedSimilarities();">Similarity
+                       aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
                         Detection
                     </a>
                 </li>
@@ -223,8 +243,7 @@
                     <p id="IssuesList"></p>
                 </div>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
-                    <h5>Proposed Similarities
-                        <button>Save</button>
+                    <h5>Proposed Links
                     </h5>
                     <p id="proposedIssuesList"></p>
                 </div>
@@ -551,9 +570,24 @@
             dashes: true
         });
     });
+    let linkDetectionResponse = [];
+
+    function registerClick(elem) {
+        if (elem.id.charAt(1) == 'r') {
+            linkDetectionResponse[elem.id.charAt(0)] = "reject"
+        }
+        else {
+            let selectid = elem.id.charAt(0) + "s";
+            let selectedItem = document.getElementById(selectid).value;
+            linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+        }
+        console.log(linkDetectionResponse)
+    }
+
+
     //Similarity detection functionality
     //Showing and removing proposed issues
-    function proposedSimilarities() {
+    function proposedLinks() {
         if (proposedViewActive == false) {
             try {
                 nodes.add(proposedNodeElements);
@@ -565,22 +599,14 @@
                     "<th>Accept</th>" +
                     "<th>Reject</th>" +
                     "</tr>";
-                selectionList = '<div class="custom-select">' +
-                    '<select> ' +
-                    '<option value="duplicate">Duplicate</option> ' +
-                    '<option value="similar">Similar</option> ' +
-                    '<option value="depends">Dependency</option> ' +
-                    '</select>' +
-                    '</div>';
-
-                acceptBtn = "<button class='button accept button-teal-effect'>" +
-                    "v" +
-                    "</button>";
-                rejectBtn = "<button class='button reject button-teal-effect'>" +
-                    "x" +
-                    "</button>";
+                selectionList = '<div class="custom-select">';
+                acceptBtn = "<button class='button accept button-teal-effect' onclick=\"registerClick(this)\" id=";
+                rejectBtn = "<button class='button reject button-teal-effect' onclick=\"registerClick(this)\" id=";
                 for (i = 0; i < proposedIssuesList.length; i++) {
-                    stringList = stringList + "<tr><td>" + JSON.stringify(proposedIssuesList[i]) + "</td><td>" + selectionList + "</td><td>" + acceptBtn + "</td><td>" + rejectBtn + "</td></tr>";
+                    stringList = stringList + "<tr><td>" + proposedIssuesList[i].id + "</td><td>" + selectionList + "<select id=" + i + "s>" +
+                        "<option value='duplicate'>Duplicate</option>" +
+                        "<option value='similar'>Similar</option>" +
+                        "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>v</button></td><td>" + rejectBtn + +i + "r>x</button></td></tr>";
                 }
                 stringList = stringList + "</table>";
                 document.getElementById('proposedIssuesList').innerHTML = stringList;
@@ -608,7 +634,7 @@
     function listTab() {
         stringList = "";
         for (i = 0; i < issueList.length; i++) {
-            stringList = stringList + JSON.stringify(issueList[i])+'<br>';
+            stringList = stringList + issueList[i].id + '<br>';
         }
         document.getElementById('IssuesList').innerHTML = stringList;
     }
