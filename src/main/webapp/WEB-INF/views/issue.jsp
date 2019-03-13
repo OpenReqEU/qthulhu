@@ -218,6 +218,13 @@
     let nodeEdgeSet = '${nodeEdgeSet}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let issueArray = issue.replace(/ /g, "").split(",");
+
+    let proposedNodesEdges = [];
+    //proposed View active boolean
+    let proposedViewActive = false;
+    //proposed View active boolean
+    let consistencyViewActive = false;
+
     //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
     //TODO: make it visible that these buttons are disabled by greying them out
     //Remove-Layer Button
@@ -358,73 +365,347 @@
         'proposed': true
     };
 
+    let edgeElements = [];
+    let nodeElements = [];
+    let issueList = [];
+
+    //add nodes
+    $.each(nodeEdgeObject['nodes'], function (i, v) {
+        let ID = v['nodeid'];
+        let nodekey = v['id'];
+        let nodetype = v['requirement_type'];
+        //TODO: Add first 20 characters of title to box beneath id (QTPROJECT_XXX)
+        //let nodename = v['name'];
+        let nodestatus = v['status'];
+        let nodelayer = v['layer'];
+        let noderesolution = v['resolution'];
+        let nodegroup = colorPaletteStatus[nodestatus] + "_layer_" + nodelayer;
+        let nodehidden = v['layer'] > depth;
+        let nodelabel = "";
+        if (!(nodetype == null)) {
+            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+        }
+        else
+            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+        let nodetitle = "";
+        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+        nodeElements.push({
+            id: ID,
+            label: nodelabel,
+            group: nodegroup,
+            shape: 'box',
+            title: nodetitle,
+            level: nodelayer,
+            hidden: nodehidden
+        });
+        issueList.push({
+            id: nodekey
+        })
+    });
+
+    //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
+    function findProposed(status, type) {
+        if (status == "proposed")
+            return "proposed";
+        else {
+            return type;
+        }
+    }
+
+    //add edges
+    $.each(nodeEdgeObject['edges'], function (i, v) {
+        let edgestatus = v['status'];
+        let fromID = v['node_fromid'];
+        let toID = v['node_toid'];
+        let edgelabel = findProposed(v['status'], v['dependency_type']);
+        let edgearrow = arrowPaletteType[edgelabel];
+        let edgedashes = edgeStatusPalette[edgestatus];
+        edgeElements.push({
+            from: fromID,
+            to: toID,
+            arrows: edgearrow,
+            label: edgelabel,
+            color: {color: '#172B4D', inherit: false},
+            width: 2,
+            dashes: edgedashes
+        });
+    });
+    //create an array with nodes
+    let nodes = new vis.DataSet(nodeElements);
+    // create an array with edges
+    let edges = new vis.DataSet(edgeElements);
+
+    let proposedNodeElements = [];
+    let proposedEdgeElements = [];
+    let proposedIssuesList = [];
+
+    //add nodes
+    $.each(proposedNodesEdges['nodes'], function (i, v) {
+        let ID = v['nodeid'];
+        let nodekey = v['id'];
+        let nodetype = v['requirement_type'];
+        //TODO: Add first 20 characters of title to box beneath id (QTPROJECT_XXX)
+        //let nodename = v['name'];
+        let nodestatus = v['status'];
+        let nodelayer = v['layer'];
+        let noderesolution = v['resolution'];
+        let nodehidden = v['layer'] > depth;
+        let nodelabel = "";
+        if (!(nodetype == null)) {
+            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+        }
+        else
+            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+        let nodetitle = "";
+        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+        proposedNodeElements.push({
+            id: ID,
+            label: nodelabel,
+            group: "proposed",
+            shape: 'box',
+            title: nodetitle,
+            level: nodelayer,
+            hidden: nodehidden
+        });
+        proposedIssuesList.push({
+            id: nodekey
+        })
+    });
+
+    //add edges
+    $.each(proposedNodesEdges['edges'], function (i, v) {
+        let edgestatus = v['status'];
+        let fromID = v['node_fromid'];
+        let toID = v['node_toid'];
+        let edgelabel = findProposed(v['status'], v['dependency_type']);
+        let edgearrow = arrowPaletteType[edgelabel];
+
+        proposedEdgeElements.push({
+            from: fromID,
+            to: toID,
+            arrows: edgearrow,
+            label: edgelabel,
+            color: {color: '#172B4D', inherit: false},
+            width: 2,
+            dashes: true
+        });
+    });
+
+    function updateGraphDepth(){
+
+
+    }
+    let numberOfProposedLinks = 0;
+    let linkDetectionResponse;
+
+    function registerClick(elem) {
+        if (elem.id.charAt(1) == 'r') {
+            let btnid = "#" + elem.id;
+            if ($(btnid).hasClass('reject')) {
+                let otherbtnid = "#" + elem.id.charAt(0) + "a";
+                if ($(otherbtnid).hasClass('accepted')) {
+                    $(otherbtnid).removeClass('accepted');
+                    $(otherbtnid).addClass('accept');
+                }
+                $(btnid).removeClass('reject');
+                $(btnid).addClass('rejected');
+                linkDetectionResponse[elem.id.charAt(0)] = "reject";
+            }
+            else {
+                $(btnid).removeClass('rejected');
+                $(btnid).addClass('reject');
+                delete linkDetectionResponse[elem.id.charAt(0)];
+            }
+        }
+        else {
+            let selectid = elem.id.charAt(0) + "s";
+            let selectedItem = document.getElementById(selectid).value;
+            let btnid = "#" + elem.id;
+            if ($(btnid).hasClass('accept')) {
+                let otherbtnid = "#" + elem.id.charAt(0) + "r";
+                if ($(otherbtnid).hasClass('rejected')) {
+                    $(otherbtnid).removeClass('rejected');
+                    $(otherbtnid).addClass('reject');
+                }
+                $(btnid).removeClass('accept');
+                $(btnid).addClass('accepted');
+                linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+            }
+            else {
+                $(btnid).removeClass('accepted');
+                $(btnid).addClass('accept');
+                delete linkDetectionResponse[elem.id.charAt(0)];
+            }
+        }
+    }
+
+    function sendLinkData() {
+        let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
+            return {
+                dependency_type: d.dependency_type,
+                fromid: d.fromid,
+                toid: d.toid,
+                status: d.status
+            };
+        });
+        for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
+            if (linkDetectionResponse[i] != undefined) {
+                if (linkDetectionResponse[i] != "reject") {
+                    linkDetectionResponseJSON[i].dependency_type = linkDetectionResponse[i];
+                    linkDetectionResponseJSON[i].status = "accepted"
+                }
+                else {
+                    linkDetectionResponseJSON[i].status = "rejected"
+                }
+            }
+            else {
+                linkDetectionResponseJSON.splice(i, i);
+            }
+        }
+        // for(i = linkDetectionResponse.length-1; i >=0 ; i++)
+        // {
+        //     if(linkDetectionResponse[i] == undefined)
+        //     {
+        //         linkDetectionResponseJSON.splice(i,i);
+        //         console.log("bla")
+        //     }
+        // }
+        let linkResponseJSON =
+            {
+                "dependencies":
+                    {linkDetectionResponseJSON}
+            };
+        console.log(linkResponseJSON);
+
+        // Sending and receiving data in JSON format using POST method
+//
+        let xhr = new XMLHttpRequest();
+        let url = "url";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let json = JSON.parse(xhr.responseText);
+                console.log(json.email + ", " + json.password);
+            }
+        };
+        var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
+        xhr.send(data);
+    }
+
+
+    //Similarity detection functionality
+    //Showing and removing proposed issues
+    function proposedLinks() {
+        if (proposedViewActive == false) {
+            try {
+                numberOfProposedLinks = proposedEdgeElements.length;
+                linkDetectionResponse = Array(numberOfProposedLinks);
+                nodes.add(proposedNodeElements);
+                edges.add(proposedEdgeElements);
+                proposedViewActive = true;
+                stringList = " <table style='width: 100%'><tr>\n" +
+                    "<th>Issue Key</th>" +
+                    "<th>Link type</th>" +
+                    "<th>Accept</th>" +
+                    "<th>Reject</th>" +
+                    "</tr>";
+                selectionList = '<div class="custom-select">';
+                acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
+                rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
+                for (i = 0; i < proposedIssuesList.length; i++) {
+                    stringList = stringList + "<tr><td>" + proposedIssuesList[i].id + "</td><td>" + selectionList + "<select id=" + i + "s>" +
+                        "<option value='duplicate'>Duplicate</option>" +
+                        "<option value='similar'>Similar</option>" +
+                        "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                }
+                stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
+                document.getElementById('proposedIssuesList').innerHTML = stringList;
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+    }
+
+    function checkConsistency() {
+        if (proposedViewActive == true) {
+            try {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+                proposedViewActive = false;
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+        document.getElementById('ccResult').innerHTML = "".concat("Everything is consistent!");
+    }
+
+    function listTab() {
+        stringList = "";
+        for (i = 0; i < issueList.length; i++) {
+            stringList = stringList + issueList[i].id + '<br>';
+        }
+        document.getElementById('IssuesList').innerHTML = stringList;
+    }
+
+    //TODO Remeber last selected issue
+    function infoTab() {
+        if (proposedViewActive == true) {
+            try {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+                proposedViewActive = false;
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+        //display the initial infobox only if the user put exactly one issue in the input
+        if (issueArray.length == 1) {
+            //get coressponding JSON
+            let issueInfo = findElement(nodeEdgeObject.nodes, "id", issue);
+
+            //get information that should be displayed
+            let infoLink = "https://bugreports.qt.io/browse/" + issue;
+            let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + issue;
+            let infoTitle = issueInfo.name;
+            //let infoType = issueInfo.requirement_type;
+            let infoStatus = issueInfo.status;
+            //let infoDescription = issueInfo.issueDescription;
+            let infoResolution = issueInfo.resolution;
+            let infoEnvironment = issueInfo.environment;
+            let infoComponent = issueInfo.components;
+            let infoLabel = issueInfo.labels;
+            let infoVersion = issueInfo.versions;
+            let infoPlatform = issueInfo.platforms;
+            let infoFixVersion = issueInfo.fixversion;
+
+            //put the issues in the corressponding part of the website
+            document.getElementById('infoBoxHeading').innerHTML = "".concat(issue);
+            document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
+            document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
+            document.getElementById('infoBoxIssueStatus').innerHTML = "<b>Status: </b>".concat(infoStatus);
+            document.getElementById('infoBoxIssueSummary').innerHTML = "<b>Summary: </b>".concat(infoTitle);
+            document.getElementById('infoBoxIssueResolution').innerHTML = "<b>Resolution: </b>".concat(infoResolution);
+            document.getElementById('infoBoxIssueEnv').innerHTML = "<b>Environment: </b>".concat(infoEnvironment);
+            document.getElementById('infoBoxIssueComponent').innerHTML = "<b>Component: </b>".concat(infoComponent);
+            document.getElementById('infoBoxIssueLabel').innerHTML = "<b>Label: </b>".concat(infoLabel);
+            document.getElementById('infoBoxIssueVersion').innerHTML = "<b>Version: </b>".concat(infoVersion);
+            document.getElementById('infoBoxIssueFix').innerHTML = "<b>Fix Version: </b>".concat(infoFixVersion);
+            document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(infoPlatform);
+        }
+        //if the user searched for multiple issues, hide the infobox until an issue is selected
+        else {
+            $(".infobox").css("display", "none");
+        }
+    }
+
     console.log(nodeEdgeObject);
     // Create the network after the page is loaded and the network containing div is rendered
     $(document).ready(function () {
-        let edgeElements = [];
-        let nodeElements = [];
-        //add nodes
-        $.each(nodeEdgeObject['nodes'], function (i, v) {
-            let ID = v['nodeid'];
-            let nodekey = v['id'];
-            let nodetype = v['requirement_type'];
-            //TODO: Add first 20 characters of title to box beneath id (QTPROJECT_XXX)
-            //let nodename = v['name'];
-            let nodestatus = v['status'];
-            let nodelayer = v['layer'];
-            let noderesolution = v['resolution'];
-            let nodegroup = colorPaletteStatus[nodestatus] + "_layer_" + nodelayer;
-            let nodehidden = v['layer'] > depth;
-            let nodelabel = "";
-            if (!(nodetype == null)) {
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
-            }
-            else
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-            let nodetitle = "";
-            nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-            nodeElements.push({
-                id: ID,
-                label: nodelabel,
-                group: nodegroup,
-                shape: 'box',
-                title: nodetitle,
-                level: nodelayer,
-                hidden: nodehidden
-            })
-        });
 
-        //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
-        function findProposed(status, type) {
-            if (status == "proposed")
-                return "proposed";
-            else {
-                return type;
-            }
-        }
-
-        //add edges
-        $.each(nodeEdgeObject['edges'], function (i, v) {
-            let edgestatus = v['status'];
-            let fromID = v['node_fromid'];
-            let toID = v['node_toid'];
-            let edgelabel = findProposed(v['status'], v['dependency_type']);
-            let edgearrow = arrowPaletteType[edgelabel];
-            let edgedashes = edgeStatusPalette[edgestatus];
-            edgeElements.push({
-                from: fromID,
-                to: toID,
-                arrows: edgearrow,
-                label: edgelabel,
-                color: {color: '#172B4D', inherit: false},
-                width: 2,
-                dashes: edgedashes
-            });
-        });
-        //create an array with nodes
-        let nodes = new vis.DataSet(nodeElements);
-        // create an array with edges
-        let edges = new vis.DataSet(edgeElements);
         // create a network
         let networkContainer = document.getElementById('issueLinkMap');
         // provide the data in the vis format
