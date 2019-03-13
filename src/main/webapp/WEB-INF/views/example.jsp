@@ -36,80 +36,7 @@
             width: 150px;
         }
 
-        .box {
-            border-radius: 5px;
-            border-color: #172B4D;
-            border-style: solid;
-            border-width: 1px;
-            width: 100px;
-            height: auto;
-            display: inline-block;
-        }
 
-        .nav-pills > li > a.active {
-            background-color: #138f8b;
-            color: white;
-            border-radius: 4px;
-        }
-
-        .nav-pills .nav-item .nav-link .active {
-            background-color: #138f8b;
-            color: white;
-            border-radius: 4px;
-        }
-
-        th, td {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .custom-select {
-            position: relative;
-            display: block;
-            max-width: 400px;
-            min-width: 180px;
-            margin: 0 auto;
-            border: 1px solid #138f8b;
-            background-color: white;
-        }
-
-        select {
-            border: none;
-            outline: none;
-            background: transparent;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0;
-            margin: 0;
-            display: block;
-            width: 100%;
-            font-size: 14px;
-            color: #272727;
-        }
-
-        .reject {
-            background-color: #ffffff;
-            border: 2px solid #FB4A08;
-            padding: 4px 15px;
-            font-size: 25px;
-            color: #272727;
-        }
-
-        .accept {
-            background-color: #ffffff;
-            border: 2px solid #17b2ad;
-            padding: 4px 15px;
-            font-size: 25px;
-            color: #272727;
-        }
-        .reject:active {
-            background-color: #FB4A08;
-            color: #ffffff;
-        }
-        .accept:active {
-            background-color: #17b2ad;
-            color: #ffffff;
-        }
     </style>
 </head>
 <body>
@@ -182,6 +109,7 @@
                 <div class="card" id="issueLinkMap"></div>
                 <br>
             </div>
+            <br>
             <div class="row">
                 <div class="card">
                     <div class="card-body">
@@ -582,26 +510,87 @@
             dashes: true
         });
     });
-    let linkDetectionResponse = [];
+    let numberOfProposedLinks = 0;
+    let linkDetectionResponse;
 
     function registerClick(elem) {
         if (elem.id.charAt(1) == 'r') {
-            linkDetectionResponse[elem.id.charAt(0)] = "reject";
             let btnid = "#" + elem.id;
-            $(btnid).click(function() {
-                $(btnid).addClass('active');
-            });
+            if ($(btnid).hasClass('reject')) {
+                let otherbtnid = "#" + elem.id.charAt(0) + "a";
+                if ($(otherbtnid).hasClass('accepted')) {
+                    $(otherbtnid).removeClass('accepted');
+                    $(otherbtnid).addClass('accept');
+                }
+                $(btnid).removeClass('reject');
+                $(btnid).addClass('rejected');
+                linkDetectionResponse[elem.id.charAt(0)] = "reject";
+            }
+            else {
+                $(btnid).removeClass('rejected');
+                $(btnid).addClass('reject');
+                delete linkDetectionResponse[elem.id.charAt(0)];
+            }
         }
         else {
             let selectid = elem.id.charAt(0) + "s";
             let selectedItem = document.getElementById(selectid).value;
-            linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
             let btnid = "#" + elem.id;
-            $(btnid).click(function() {
-                $(btnid).addClass('acitve');
-            });
+            if ($(btnid).hasClass('accept')) {
+                let otherbtnid = "#" + elem.id.charAt(0) + "r";
+                if ($(otherbtnid).hasClass('rejected')) {
+                    $(otherbtnid).removeClass('rejected');
+                    $(otherbtnid).addClass('reject');
+                }
+                $(btnid).removeClass('accept');
+                $(btnid).addClass('accepted');
+                linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+            }
+            else {
+                $(btnid).removeClass('accepted');
+                $(btnid).addClass('accept');
+                delete linkDetectionResponse[elem.id.charAt(0)];
+            }
         }
-        console.log(linkDetectionResponse)
+    }
+
+    function sendLinkData() {
+        let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
+            return {
+                dependency_type: d.dependency_type,
+                fromid: d.fromid,
+                toid: d.toid,
+                status: d.status
+            };
+        });
+        for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
+            if (linkDetectionResponse[i] != undefined) {
+                if (linkDetectionResponse[i] != "reject") {
+                    linkDetectionResponseJSON[i].dependency_type = linkDetectionResponse[i];
+                    linkDetectionResponseJSON[i].status = "accepted"
+                }
+                else {
+                    linkDetectionResponseJSON[i].status = "rejected"
+                }
+            }
+            else {
+                linkDetectionResponseJSON.splice(i, i);
+            }
+        }
+        // for(i = linkDetectionResponse.length-1; i >=0 ; i++)
+        // {
+        //     if(linkDetectionResponse[i] == undefined)
+        //     {
+        //         linkDetectionResponseJSON.splice(i,i);
+        //         console.log("bla")
+        //     }
+        // }
+        let linkResponseJSON =
+            {
+                "dependencies":
+                    {linkDetectionResponseJSON}
+            };
+        console.log(linkResponseJSON)
     }
 
 
@@ -610,6 +599,8 @@
     function proposedLinks() {
         if (proposedViewActive == false) {
             try {
+                numberOfProposedLinks = proposedEdgeElements.length;
+                linkDetectionResponse = Array(numberOfProposedLinks);
                 nodes.add(proposedNodeElements);
                 edges.add(proposedEdgeElements);
                 proposedViewActive = true;
@@ -620,15 +611,15 @@
                     "<th>Reject</th>" +
                     "</tr>";
                 selectionList = '<div class="custom-select">';
-                acceptBtn = "<button class='button accept button-teal-effect' onclick=\"registerClick(this)\" id=";
-                rejectBtn = "<button class='button reject button-orange-effect' onclick=\"registerClick(this)\" id=";
+                acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
+                rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                 for (i = 0; i < proposedIssuesList.length; i++) {
                     stringList = stringList + "<tr><td>" + proposedIssuesList[i].id + "</td><td>" + selectionList + "<select id=" + i + "s>" +
                         "<option value='duplicate'>Duplicate</option>" +
                         "<option value='similar'>Similar</option>" +
                         "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                 }
-                stringList = stringList + "</table>";
+                stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                 document.getElementById('proposedIssuesList').innerHTML = stringList;
             }
             catch (err) {

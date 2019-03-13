@@ -9,20 +9,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>WP7 - Qt Trial</title>
+    <title>WP7 Qt Trial</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script type="text/javascript"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        #issueDep {
+        #issueLinkMap {
             width: 100%;
-            height: 80%;
+            height: 70%;
         }
 
         input[type=number] {
@@ -33,18 +35,11 @@
             width: 150px;
         }
 
-        .box {
-            border-radius: 5px;
-            border-color: #172B4D;
-            border-style: solid;
-            border-width: 1px;
-            width: 100px;
-            height: auto;
-            display: inline-block;
-        }
+
     </style>
 </head>
 <body>
+
 
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
@@ -65,7 +60,6 @@
     </div>
 </div>
 
-<%--Title--%>
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <%--Header and Loader--%>
     <div class="row">
@@ -81,142 +75,133 @@
     </div>
 </div>
 
-<%--Main body of the web page--%>
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
+    <%--Network--%>
     <div class="row">
-        <%--(Left) Functionalities of the web application--%>
-        <div class="col-2">
-            <%--My try to get a button to center the graph--%>
-            <%--<div class="col-3">--%>
-            <%--<input type="button" onclick="centerGraph();"--%>
-            <%--class="btn btn-default button-_layer button-effect-teal"--%>
-            <%--value="Refresh Graph">--%>
-            <%--</div>--%>
-
-            <%--Layer buttons and information--%>
+        <div class="col-8">
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Layer</h5>
-                        <h7 class="card-subtitle">Current: ${layerDepth}
-                            <br>
-                            Max: ${maxLayer}
-                        </h7>
-                        <div class="row">
-                            <%--Add Layer Button--%>
-                            <div class="col-6">
-                                <form action="/issue" method="post" id="add-layer">
-                                    <input type="hidden" name="issues" value="${issue}"/>
-                                    <input type="hidden" name="layerDepth" value="${layerDepth}"/>
-                                    <input type="hidden" name="layerChange" value="1"/>
-                                    <input type="submit" class="button layer add button-effect-teal"
-                                           id="add-btn"
-                                           value="&#43">
-                                </form>
-                            </div>
-                            <%--Remove Layer Button--%>
-                            <div class="col-6">
-                                <form action="/issue" method="post" id="remove-layer">
-                                    <input type="hidden" name="issues" value="${issue}"/>
-                                    <input type="hidden" name="layerDepth" value="${layerDepth}"/>
-                                    <input type="hidden" name="layerChange" value="-1"/>
-                                    <input type="submit"
-                                           class="button layer remove button-effect-orange"
-                                           id="remove-btn"
-                                           value="&#45">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%--Depth buttons--%>
+                <form action="/example" method="post" id="depth-1" style="display: inline-block">
+                    <input type="hidden" name="issues" value="${issue}"/>
+                    <input type="hidden" name="layerDepth" value="1"/>
+                    <input type="submit" class="button layer button-effect-teal" id="depth-1-btn"
+                           value="Depth 1">
+                </form>
+                <form action="/example" method="post" id="depth-2" style="display: inline-block">
+                    <input type="hidden" name="issues" value="${issue}"/>
+                    <input type="hidden" name="layerDepth" value="2"/>
+                    <input type="submit" class="button layer button-effect-teal" id="depth-2-btn"
+                           value="Depth 2">
+                </form>
+                <form action="/example" method="post" id="depth-3" style="display: inline-block">
+                    <input type="hidden" name="issues" value="${issue}"/>
+                    <input type="hidden" name="layerDepth" value="3"/>
+                    <input type="submit" class="button layer button-effect-teal" id="depth-3-btn"
+                           value="Depth 3">
+                </form>
+                <form action="/example" method="post" id="depth-4" style="display: inline-block">
+                    <input type="hidden" name="issues" value="${issue}"/>
+                    <input type="hidden" name="layerDepth" value="4"/>
+                    <input type="submit" class="button layer button-effect-teal" id="depth-4-btn"
+                           value="Depth 4">
+                </form>
+                <form action="/example" method="post" id="depth-5">
+                    <input type="hidden" name="issues" value="${issue}"/>
+                    <input type="hidden" name="layerDepth" value="5"/>
+                    <input type="submit" class="button layer button-effect-teal" id="depth-5-btn"
+                           value="Depth 5">
+                </form>
             </div>
-
-            <br>
-
-            <%--Buttons to trigger the functionality of the microservices--%>
             <div class="row">
-                <div class="card">
-                    <!-- Trigger/Open The Modal -->
-                    <button class="button button-effect-teal" id="CCBtn">Consistency<br>Checker</button>
-
-                    <!-- The Modal -->
-                    <div id="CCModal" class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <span class="close" id="ccspan">&times;</span>
-                            <p>We are very sorry, the Consistency Checker is not yet available.</p>
-                        </div>
-
-                    </div>
-
-                    <br>
-
-                    <!-- Add proposed nodes & edges -->
-                    <button class="button button-effect-teal" id="SDBtn" onclick="addProposedIssues();">Similarity<br>Detection</button>
-
-
-                </div>
+                <%--Issue Link Map--%>
+                <div class="card" id="issueLinkMap"></div>
+                <br>
             </div>
-
             <br>
-
-            <%--Legende--%>
             <div class="row">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Legend</h5>
                         <p class="card-text">
-                        <div class="box blue">
+                        <div class="box blue" style="display: inline-block;">
                             To-Do
                         </div>
-                        <br>
-
-                        <div class="box red">
+                        <div class="box red" style="display: inline-block;">
                             Stuck
                         </div>
-                        <br>
-
-                        <div class="box yellow">
+                        <div class="box yellow" style="display: inline-block;">
                             In Progress
                         </div>
-                        <br>
-
-                        <div class="box green">
+                        <div class="box green" style="display: inline-block;">
                             Done
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <%--Information--%>
+        <div class="col-4">
 
-        <%--(Middle) The network--%>
-        <div class="col-7">
-            <div class="card" id="issueDep"></div>
-            <br>
-        </div>
-
-        <%--(Right) The information box--%>
-        <div class="col-3">
-            <div class="card infobox">
-                <div class="card-body">
-                    <h5 class="card-title" id="infoBoxHeading"></h5>
-                    <p class="card-text" id="infoBoxIssueSummary"></p>
-                    <p class="card-text" id="infoBoxIssueStatus"></p>
-                    <p class="card-text" id="infoBoxIssueResolution"></p>
-                    <p class="card-text" id="infoBoxIssueComponent"></p>
-                    <p class="card-text" id="infoBoxIssueLabel"></p>
-                    <p class="card-text" id="infoBoxIssueVersion"></p>
-                    <p class="card-text" id="infoBoxIssueFix"></p>
-                    <p class="card-text" id="infoBoxIssuePlatform"></p>
-                    <p class="card-text" id="infoBoxIssueEnv"></p>
+            <%--Information buttons--%>
+            <ul class="nav nav-pills nav-fill mb-3" id="info-nav" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="info-tab" data-toggle="pill" href="#info-box" role="tab"
+                       aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="list-tab" data-toggle="pill" href="#list-box" role="tab"
+                       aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="sd-tab" data-toggle="pill" href="#sd-box" role="tab"
+                       aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
+                        Detection
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="cc-tab" data-toggle="pill" href="#cc-box" role="tab"
+                       aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency
+                        Checker
+                    </a>
+                </li>
+            </ul>
+            <%--Information box--%>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="info-box" role="tabpanel"
+                     aria-labelledby="info-tab">
+                    <h5 id="infoBoxHeading"></h5>
+                    <p id="infoBoxIssueSummary"></p>
+                    <p id="infoBoxIssueStatus"></p>
+                    <p id="infoBoxIssueResolution"></p>
+                    <p id="infoBoxIssueComponent"></p>
+                    <p id="infoBoxIssueLabel"></p>
+                    <p id="infoBoxIssueVersion"></p>
+                    <p id="infoBoxIssueFix"></p>
+                    <p id="infoBoxIssuePlatform"></p>
+                    <p id="infoBoxIssueEnv"></p>
                     <div id="infoBoxIssueLink"></div>
                     <br>
                     <div id="infoBoxIssueLinkTestJIRA"></div>
                 </div>
+                <div class="tab-pane fade show" id="list-box" role="tabpanel"
+                     aria-labelledby="list-tab">
+                    <h5>Issue List</h5>
+                    <p id="IssuesList"></p>
+                </div>
+                <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
+                    <h5>Proposed Links
+                    </h5>
+                    <p id="proposedIssuesList"></p>
+                </div>
+                <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
+                    <h5>Result</h5>
+                    <p id="ccResult"></p>
+                    <h5>Diagnosis</h5>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 

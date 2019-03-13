@@ -158,13 +158,55 @@
     font-size: 25px;
 }
 
+.reject {
+    background-color: #ffffff;
+    border: 2px solid #FB4A08;
+    padding: 4px 15px;
+    font-size: 25px;
+    color: #272727;
+}
+
+.accept {
+    background-color: #ffffff;
+    border: 2px solid #17b2ad;
+    padding: 4px 15px;
+    font-size: 25px;
+    color: #272727;
+}
+
+.rejected {
+    background-color: #FB4A08;
+    border: 2px solid #FB4A08;
+    padding: 4px 15px;
+    font-size: 25px;
+    color: #ffffff;
+}
+
+.accepted {
+    background-color: #17b2ad;
+    border: 2px solid #17b2ad;
+    padding: 4px 15px;
+    font-size: 25px;
+    color: #ffffff;
+}
+
 .active, .button-effect-teal:hover {
-    background-color: #138f8b; /* Green */
+    background-color: #138f8b;
     color: white;
 }
 
 .button-effect-orange:hover {
-    background-color: #d83d04; /* Green */
+    background-color: #d83d04;
+    color: white;
+}
+
+.button-effect-teal-light:hover {
+    background-color: #17b2ad;
+    color: white;
+}
+
+.button-effect-orange-light:hover {
+    background-color: #FB4A08;
     color: white;
 }
 
@@ -181,6 +223,12 @@
     color: #272727;
     margin: 10px;
 }
+
+.nav-pills .nav-link.active,.nav-pills .show>.nav-link {
+    color:#fff;
+    background-color:#138f8b
+}
+
 
 /*Spinning circle to indicate that the site is loading*/
 
@@ -294,5 +342,38 @@ div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
 div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
     top: 10px;
     left: 15px;
+}
+
+
+/*Select Design*/
+.custom-select {
+    position: relative;
+    display: block;
+    max-width: 400px;
+    min-width: 180px;
+    margin: 0 auto;
+    border: 1px solid #138f8b;
+    background-color: white;
+}
+
+select {
+    border: none;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    margin: 0;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    color: #272727;
+}
+
+/*Tables*/
+
+th, td {
+    border-bottom: 1px solid #ddd;
 }
 

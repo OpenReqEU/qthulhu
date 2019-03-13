@@ -17,18 +17,20 @@ public class FetchDataFromUH
      *
      * @param issueKey the issue key of the issue you want information of
      * @return the JSON with the information
-     * @throws HttpClientErrorException rethrow errors cause by user input
-     * @throws HttpServerErrorException rethrow errors cause by user input
+     * @throws HttpClientErrorException rethrow errors caused by user input
+     * @throws HttpServerErrorException rethrow errors caused by user input
      */
     public static JsonObject fetchData(String issueKey) throws HttpClientErrorException, HttpServerErrorException
     {
         RestTemplate template = new RestTemplate();
-        //gets transitive Closure (means the whole issue network of an specified issue)
+        //gets transitive Closure (means the whole issue link map of an specified issue)
         //String transitiveClosureURL = "https://api.openreq.eu/milla/getTransitiveClosureOfARequirement?requirementId=";
-        String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfARequirement?requirementId=";
+        String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=";
         String requirement;
         try
         {
+            System.out.println(transitiveClosureURL);
+            System.out.println(issueKey);
             requirement = template.postForObject(transitiveClosureURL, issueKey, String.class);
         }
         catch (HttpClientErrorException e)
