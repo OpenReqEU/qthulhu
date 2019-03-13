@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>WP7 Qt Trial</title>
+    <title>WP7 - Qt Trial</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -21,6 +21,7 @@
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #issueLinkMap {
             width: 100%;
@@ -34,8 +35,6 @@
         input[type=text] {
             width: 150px;
         }
-
-
     </style>
 </head>
 <body>
@@ -81,33 +80,38 @@
         <div class="col-8">
             <div class="row">
                 <%--Depth buttons--%>
-                <form action="/example" method="post" id="depth-1" style="display: inline-block">
+                <form action="/issue" method="post" id="depth-1" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="1"/>
+                    <input type="hidden" name="layerChange" value="0"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-1-btn"
                            value="Depth 1">
                 </form>
-                <form action="/example" method="post" id="depth-2" style="display: inline-block">
+                <form action="/issue" method="post" id="depth-2" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="2"/>
+                    <input type="hidden" name="layerChange" value="0"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-2-btn"
                            value="Depth 2">
                 </form>
-                <form action="/example" method="post" id="depth-3" style="display: inline-block">
+                <form action="/issue" method="post" id="depth-3" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="3"/>
+                    <input type="hidden" name="layerChange" value="0"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-3-btn"
                            value="Depth 3">
                 </form>
-                <form action="/example" method="post" id="depth-4" style="display: inline-block">
+                <form action="/issue" method="post" id="depth-4" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="4"/>
+                    <input type="hidden" name="layerChange" value="0"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-4-btn"
                            value="Depth 4">
                 </form>
-                <form action="/example" method="post" id="depth-5">
+                <form action="/issue" method="post" id="depth-5">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="5"/>
+                    <input type="hidden" name="layerChange" value="0"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-5-btn"
                            value="Depth 5">
                 </form>
@@ -124,17 +128,13 @@
                         <h5 class="card-title">Legend</h5>
                         <p class="card-text">
                         <div class="box blue" style="display: inline-block;">
-                            To-Do
-                        </div>
+                        </div> To-Do
                         <div class="box red" style="display: inline-block;">
-                            Stuck
-                        </div>
+                        </div> Stuck
                         <div class="box yellow" style="display: inline-block;">
-                            In Progress
-                        </div>
+                        </div> In Progress
                         <div class="box green" style="display: inline-block;">
-                            Done
-                        </div>
+                        </div> Done
                     </div>
                 </div>
             </div>
@@ -143,32 +143,32 @@
         <div class="col-4">
 
             <%--Information buttons--%>
-            <ul class="nav nav-pills nav-fill mb-3" id="info-nav" role="tablist">
+            <ul class="nav nav-tabs nav-fill mb-3" id="info-nav" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="info-tab" data-toggle="pill" href="#info-box" role="tab"
+                    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info-box" role="tab"
                        aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="list-tab" data-toggle="pill" href="#list-box" role="tab"
+                    <a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"
                        aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="sd-tab" data-toggle="pill" href="#sd-box" role="tab"
+                    <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
                         Detection
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="cc-tab" data-toggle="pill" href="#cc-box" role="tab"
+                    <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency
                         Checker
                     </a>
                 </li>
             </ul>
             <%--Information box--%>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content" id="tabs-tabContent">
                 <div class="tab-pane fade show active" id="info-box" role="tabpanel"
                      aria-labelledby="info-tab">
                     <h5 id="infoBoxHeading"></h5>
@@ -206,77 +206,73 @@
 </div>
 
 <script>
-
-    // Get the modal
-    var ccmodal = document.getElementById('CCModal');
-
-    // Get the button that opens the modal
-    var ccbtn = document.getElementById("CCBtn");
-
-    // Get the <span> element that closes the modal
-    var ccspan = document.getElementById("ccspan");
-
-    // When the user clicks on the button, open the modal
-    ccbtn.onclick = function () {
-        ccmodal.style.display = "block";
-    };
-    // When the user clicks on <span> (x), close the modal
-    ccspan.onclick = function () {
-        ccmodal.style.display = "none";
-    };
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == ccmodal) {
-            ccmodal.style.display = "none";
-        }
-    };
-
-    //Display loading circle when a request is submitted
-    $('#add-layer').submit(function () {
-        $('#loader').show();
-    });
-
-    $('#remove-layer').submit(function () {
-        $('#loader').show();
-    });
-
     $('#search-id').submit(function () {
         $('#loader').show();
     });
-
     //getting the data for the network and layer disabling
-    var issue = '${issue}';
-    var depth = '${layerDepth}';
+    let issue = '${issue}';
+    let depth = '${layerDepth}';
     //console.log("LAYER DEPTH:" + depth);
-    var max_depth = '${maxLayer}';
+    let max_depth = '${maxLayer}';
     //console.log("MAX DEPTH:" + max_depth);
-    var nodeEdgeSet = '${nodeEdgeSet}';
-    var nodeEdgeObject = JSON.parse(nodeEdgeSet);
-    var issueArray = issue.replace(/ /g, "").split(",");
-
+    let nodeEdgeSet = '${nodeEdgeSet}';
+    let nodeEdgeObject = JSON.parse(nodeEdgeSet);
+    let issueArray = issue.replace(/ /g, "").split(",");
     //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
     //TODO: make it visible that these buttons are disabled by greying them out
-
     //Remove-Layer Button
     $(document).ready(function () {
-        //console.log("RMV LAYER DEPTH:" + depth);
-        if (depth <= 1) {
-            $("#remove-btn").prop("disabled", true);
+        if (1 > max_depth) {
+            $("#depth-1-btn").prop("disabled", true);
         } else {
-            $("#remove-btn").removeAttr('disabled');
-
+            $("#depth-1-btn").removeAttr('disabled');
         }
-    });
-
-    //Add-Layer Button
-    $(document).ready(function () {
-        //console.log("ADD LAYER DEPTH:" + depth);
-        if (depth >= max_depth) {
-            $("#add-btn").prop("disabled", true);
+        if (2 > max_depth) {
+            $("#depth-2-btn").prop("disabled", true);
         } else {
-            $("#add-btn").removeAttr('disabled');
+            $("#depth-2-btn").removeAttr('disabled');
         }
+        if (3 > max_depth) {
+            $("#depth-3-btn").prop("disabled", true);
+        } else {
+            $("#depth-3-btn").removeAttr('disabled');
+        }
+        if (4 > max_depth) {
+            $("#depth-4-btn").prop("disabled", true);
+        } else {
+            $("#depth-4-btn").removeAttr('disabled');
+        }
+        if (5 > max_depth) {
+            $("#depth-5-btn").prop("disabled", true);
+        } else {
+            $("#depth-5-btn").removeAttr('disabled');
+        }
+        if (1 == depth) {
+            $("#depth-1-btn").attr("class", "button layer button-effect-teal active");
+        } else {
+            $("#depth-1-btn").attr('class', "button layer button-effect-teal");
+        }
+        if (2 == depth) {
+            $("#depth-2-btn").attr("class", "button layer button-effect-teal active");
+        } else {
+            $("#depth-2-btn").attr('class', "button layer button-effect-teal");
+        }
+        if (3 == depth) {
+            $("#depth-3-btn").attr("class", "button layer button-effect-teal active");
+        } else {
+            $("#depth-3-btn").attr('class', "button layer button-effect-teal");
+        }
+        if (4 == depth) {
+            $("#depth-4-btn").attr("class", "button layer button-effect-teal active");
+        } else {
+            $("#depth-4-btn").attr('class', "button layer button-effect-teal");
+        }
+        if (5 == depth) {
+            $("#depth-5-btn").attr("class", "button layer button-effect-teal active");
+        } else {
+            $("#depth-5-btn").attr('class', "button layer button-effect-teal");
+        }
+        // infoTab()
     });
 
     //function to help find a specific item depending on its identifier
@@ -290,7 +286,6 @@
     if (issueArray.length == 1) {
         //get coressponding JSON
         let issueInfo = findElement(nodeEdgeObject.nodes, "id", issue);
-
         //get information that should be displayed
         let infoLink = "https://bugreports.qt.io/browse/" + issue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + issue;
@@ -305,7 +300,6 @@
         let infoVersion = issueInfo.versions;
         let infoPlatform = issueInfo.platforms;
         let infoFixVersion = issueInfo.fixversion;
-
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(issue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
@@ -320,12 +314,10 @@
         document.getElementById('infoBoxIssueFix').innerHTML = "<b>Fix Version: </b>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(infoPlatform);
     }
-
     //if the user searched for multiple issues, hide the infobox until an issue is selected
     else {
         $(".infobox").css("display", "none");
     }
-
     //color map for status according to bucketing in Kanban board
     //Open blue, Blocked red, In Progress yellow, Done green
     let colorPaletteStatus = {
@@ -348,7 +340,6 @@
         'Verified': 'green',
         'undefined': 'yellow'
     };
-
     //map to create the correct type of error, links like duplicates do not have a direction
     let arrowPaletteType = {
         'contributes': 'to',
@@ -361,18 +352,17 @@
         'duplicates': '', //duplicate
         'replaces': 'to' //replaces
     };
-
     //map to visually differentiate between accepted and proposed links
     let edgeStatusPalette = {
         'accepted': false,
         'proposed': true
     };
 
+    console.log(nodeEdgeObject);
     // Create the network after the page is loaded and the network containing div is rendered
     $(document).ready(function () {
         let edgeElements = [];
         let nodeElements = [];
-
         //add nodes
         $.each(nodeEdgeObject['nodes'], function (i, v) {
             let ID = v['nodeid'];
@@ -421,7 +411,6 @@
             let edgelabel = findProposed(v['status'], v['dependency_type']);
             let edgearrow = arrowPaletteType[edgelabel];
             let edgedashes = edgeStatusPalette[edgestatus];
-
             edgeElements.push({
                 from: fromID,
                 to: toID,
@@ -432,22 +421,17 @@
                 dashes: edgedashes
             });
         });
-
         //create an array with nodes
         let nodes = new vis.DataSet(nodeElements);
-
         // create an array with edges
         let edges = new vis.DataSet(edgeElements);
-
         // create a network
-        let networkContainer = document.getElementById('issueDep');
-
+        let networkContainer = document.getElementById('issueLinkMap');
         // provide the data in the vis format
         let data = {
             nodes: nodes,
             edges: edges
         };
-
         //specify options such as physics
         let options = {
             //specify the different groups
@@ -627,64 +611,38 @@
                     'enabled': true,
                     "iterations": 1000,
                     "updateInterval": 25
-                // "minVelocity": 50,
-                // // "repulsion": {
-                // //     "nodeDistance": 150
-                // // },
-                // "barnesHut":
-                //     {
-                //         "avoidOverlap": 1
-                //     },
-                // "stabilization": {
-                //     "enabled": true,
-                //     "iterations": 50, // maximum number of iteration to stabilize
-                //     "updateInterval": 1,
-                //     "onlyDynamicEdges": false,
-                //     "fit": true
+                    // "minVelocity": 50,
+                    // // "repulsion": {
+                    // //     "nodeDistance": 150
+                    // // },
+                    // "barnesHut":
+                    //     {
+                    //         "avoidOverlap": 1
+                    //     },
+                    // "stabilization": {
+                    //     "enabled": true,
+                    //     "iterations": 50, // maximum number of iteration to stabilize
+                    //     "updateInterval": 1,
+                    //     "onlyDynamicEdges": false,
+                    //     "fit": true
                 }
             }
         };
-
         //initialize network
         let network = new vis.Network(networkContainer, data, options);
-
         network.on("stabilizationIterationsDone", function () {
-            network.setOptions( { physics: false } );
+            network.setOptions({physics: false});
         });
 
-        //Similarity detection functionality
-        //Showing and removing proposed issues
-        function addProposedIssues(){
-            try {
-                nodes.add({
-                    id: 1,
-                    label: "TEST-1" + "<i>".concat(nodekey).concat("</i>").concat("\n").concat("Bug"),
-                    group: nodegroup,
-                    shape: 'box',
-                    title: "Unresolved, Open",
-                    level: 1,
-                    hidden: false
-                });
-            }
-            catch (err)
-            {
-                alert(err);
-            }
-        }
         //interact with network
-
         //if a node is selected display information in infobox
         network.on("selectNode", function (params) {
             params.event = "[original event]";
-
             $(".infobox").css("display", "flex");
-
             //get information of selected issue
             let node = nodes.get(params.nodes);
             let issueID = node[0].id;
-
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-
             let issueKey = issueNode.id;
             let issueLink = "https://bugreports.qt.io/browse/" + issueKey;
             let issueLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + issueKey;
@@ -697,7 +655,6 @@
             let issueVersion = issueNode.versions;
             let issuePlatform = issueNode.platforms;
             let issueFixVersion = issueNode.fixversion;
-
             //update corressponding element in HTML
             document.getElementById('infoBoxHeading').innerHTML = "".concat(issueKey);
             document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + issueLink + '\" class=\"button jira  button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
@@ -712,41 +669,33 @@
             document.getElementById('infoBoxIssueFix').innerHTML = "<b>Fix Version: </b>".concat(issueFixVersion);
             document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(issuePlatform);
         });
-
         //doubleclicking searches for the clicked issue
         network.on("doubleClick", function (params) {
             params.event = "[original event]";
-
             let node = nodes.get(params.nodes);
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
             let issueKey = issueNode.id;
-
             console.log(depth);
-
             $('#issueInput').val(issueKey);
             $('#layerInput').val(depth);
             $('#changeInput').val(0);
             //
             document.forms["search-id"].submit();
         });
-
     });
-
     $(document).on("load")
-
-
-//    ######GRAVEYARD & INFORMATION######
-//    LINKS in Qt and OpenReq JSON
-//         'CONTRIBUTES'
-//         'DAMAGES'
-//         'REFINES'        work breakdown, test
-//         'REQUIRES'       dependency
-//         'INCOMPATIBLE'
-//         'DECOMPOSITION'  sub-task, epic
-//         'SIMILAR'        relates
-//         'DUPLICATES'     duplicate
-//         'REPLACES'       replaces
+    //    ######GRAVEYARD & INFORMATION######
+    //    LINKS in Qt and OpenReq JSON
+    //         'CONTRIBUTES'
+    //         'DAMAGES'
+    //         'REFINES'        work breakdown, test
+    //         'REQUIRES'       dependency
+    //         'INCOMPATIBLE'
+    //         'DECOMPOSITION'  sub-task, epic
+    //         'SIMILAR'        relates
+    //         'DUPLICATES'     duplicate
+    //         'REPLACES'       replaces
 </script>
 </body>
 </html>

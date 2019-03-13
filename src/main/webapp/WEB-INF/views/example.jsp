@@ -32,10 +32,6 @@
             width: 100px;
         }
 
-        input[type=text] {
-            width: 150px;
-        }
-
 
     </style>
 </head>
@@ -135,32 +131,32 @@
         <div class="col-4">
 
             <%--Information buttons--%>
-            <ul class="nav nav-pills nav-fill mb-3" id="info-nav" role="tablist">
+            <ul class="nav nav-tabs nav-fill mb-3" id="info-nav" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="info-tab" data-toggle="pill" href="#info-box" role="tab"
+                    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info-box" role="tab"
                        aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="list-tab" data-toggle="pill" href="#list-box" role="tab"
+                    <a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"
                        aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="sd-tab" data-toggle="pill" href="#sd-box" role="tab"
+                    <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
                         Detection
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="cc-tab" data-toggle="pill" href="#cc-box" role="tab"
+                    <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency
                         Checker
                     </a>
                 </li>
             </ul>
             <%--Information box--%>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content" id="tabs-tabContent">
                 <div class="tab-pane fade show active" id="info-box" role="tabpanel"
                      aria-labelledby="info-tab">
                     <h5 id="infoBoxHeading"></h5>
@@ -196,6 +192,10 @@
         </div>
     </div>
 </div>
+        input[type=text] {
+            width: 150px;
+        }
+
 
 <%--&lt;%&ndash;(Right) The information box&ndash;%&gt;--%>
 <%--<div class="col-3">--%>
@@ -275,8 +275,6 @@
         ']}');
 
     //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
-    //TODO: make it visible that these buttons are disabled by greying them out
-
     //Depth Buttons
     //TODO: THIS IS VERY VERY BAD CODING, pls improve
     $(document).ready(function () {
@@ -415,18 +413,20 @@
             nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
         let nodetitle = "";
         nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        nodeElements.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodelayer,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
+        if (nodelayer <= depth) {
+            nodeElements.push({
+                id: ID,
+                label: nodelabel,
+                group: nodegroup,
+                shape: 'box',
+                title: nodetitle,
+                level: nodelayer,
+                hidden: nodehidden
+            });
+            issueList.push({
+                id: nodekey
+            })
+        }
     });
 
     //add edges
@@ -510,6 +510,11 @@
             dashes: true
         });
     });
+
+    function updateGraphDepth(){
+
+
+    }
     let numberOfProposedLinks = 0;
     let linkDetectionResponse;
 
@@ -590,7 +595,22 @@
                 "dependencies":
                     {linkDetectionResponseJSON}
             };
-        console.log(linkResponseJSON)
+        console.log(linkResponseJSON);
+
+        // Sending and receiving data in JSON format using POST method
+//
+        let xhr = new XMLHttpRequest();
+        let url = "url";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let json = JSON.parse(xhr.responseText);
+                console.log(json.email + ", " + json.password);
+            }
+        };
+        var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
+        xhr.send(data);
     }
 
 

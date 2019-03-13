@@ -37,6 +37,8 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
+    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
+    <a href="/">Go Back</a>
     <div class="search-container">
         <form action="/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>

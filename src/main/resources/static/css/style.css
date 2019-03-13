@@ -41,9 +41,8 @@
     border-style: solid;
     border-width: 1px;
     text-align: center;
-    padding: 10px 10px;
-    width: 150px;
-    height: 50px;
+    width: 25px;
+    height: 10px;
     display: inline-block;
 }
 
@@ -212,10 +211,16 @@
 
 /*nav pill customisation*/
 
-.nav-pills a {
-    background-color: #17b2ad;
-    color: white;
+.nav-tabs a {
+    border: 2px solid #17b2ad;
+    background-color: #ffffff;
+    color: #138f8b;
     border-radius: 4px;
+}
+
+.nav-tabs a:hover {
+    color: #fff;
+    background-color: #17b2ad
 }
 
 .tab-pane {
@@ -224,11 +229,14 @@
     margin: 10px;
 }
 
-.nav-pills .nav-link.active,.nav-pills .show>.nav-link {
-    color:#fff;
-    background-color:#138f8b
+.nav-tabs .nav-link.active, .nav-tabs .nav-link.hover, .nav-tabs .show > .nav-link {
+    color: #fff;
+    background-color: #138f8b
 }
 
+.nav-tabs a:hover {
+    background-color: #17b2ad;
+}
 
 /*Spinning circle to indicate that the site is loading*/
 
@@ -343,7 +351,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
     top: 10px;
     left: 15px;
 }
-
 
 /*Select Design*/
 .custom-select {

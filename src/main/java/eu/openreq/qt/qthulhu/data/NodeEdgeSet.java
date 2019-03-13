@@ -145,41 +145,44 @@ public class NodeEdgeSet
 
                 //get a unique integer id for vis.js
                 String key = currentReq.get("id").getAsString();
-                long nodeId = calculateUniqueID(key);
-
-                currentReq.addProperty("nodeid", nodeId);
-
-                //get title of issue if it has one
-                String nameCleaned = "no name";
-                if (currentReq.has("name"))
+                if(!key.contains("mock"))
                 {
-                    JsonElement name = currentReq.get("name");
+                    long nodeId = calculateUniqueID(key);
 
-                    nameCleaned = cleanText(name);
+                    currentReq.addProperty("nodeid", nodeId);
 
-                    currentReq.remove("name");
+                    //get title of issue if it has one
+                    String nameCleaned = "no name";
+                    if (currentReq.has("name"))
+                    {
+                        JsonElement name = currentReq.get("name");
+
+                        nameCleaned = cleanText(name);
+
+                        currentReq.remove("name");
+                    }
+                    currentReq.addProperty("name", nameCleaned);
+
+                    //add layer information to issue data
+                    currentReq.addProperty("layer", _layer.get(key));
+
+                    //get additional information like status, etc
+                    JsonArray parts = currentReq.getAsJsonArray("requirementParts");
+
+                    for (int k = 0; k < parts.size(); k++)
+                    {
+                        JsonObject part = parts.get(k).getAsJsonObject();
+                        JsonElement name = part.get("name");
+                        String nameAsString = name.getAsString().toLowerCase();
+                        JsonElement text = part.get("text");
+                        String textCleaned = cleanText(text);
+                        currentReq.addProperty(nameAsString, textCleaned);
+                    }
+                    currentReq.remove("requirementParts");
+
+                    _idSet.put(key, nodeId);
+                    nodeSet.put(key, currentReq);
                 }
-                currentReq.addProperty("name", nameCleaned);
-
-                //add layer information to issue data
-                currentReq.addProperty("layer", _layer.get(key));
-
-                //get additional information like status, etc
-                JsonArray parts = currentReq.getAsJsonArray("requirementParts");
-
-                for (int k = 0; k < parts.size(); k++)
-                {
-                    JsonObject part = parts.get(k).getAsJsonObject();
-                    JsonElement name = part.get("name");
-                    String nameAsString = name.getAsString().toLowerCase();
-                    JsonElement text = part.get("text");
-                    String textCleaned = cleanText(text);
-                    currentReq.addProperty(nameAsString, textCleaned);
-                }
-                currentReq.remove("requirementParts");
-
-                _idSet.put(key, nodeId);
-                nodeSet.put(key, currentReq);
             }
         }
         return nodeSet;
@@ -208,9 +211,12 @@ public class NodeEdgeSet
                 JsonObject currentDep = deps.get(j).getAsJsonObject();
                 String fromKey = currentDep.get("fromid").getAsString();
                 String toKey = currentDep.get("toid").getAsString();
-                currentDep.addProperty("node_fromid", _idSet.get(fromKey));
-                currentDep.addProperty("node_toid", _idSet.get(toKey));
-                edgeSet.add(currentDep);
+                if(!fromKey.contains("mock") && !toKey.contains("mock"))
+                {
+                    currentDep.addProperty("node_fromid", _idSet.get(fromKey));
+                    currentDep.addProperty("node_toid", _idSet.get(toKey));
+                    edgeSet.add(currentDep);
+                }
             }
         }
         return edgeSet;

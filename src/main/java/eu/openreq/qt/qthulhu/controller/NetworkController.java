@@ -139,7 +139,6 @@ public class NetworkController
                 return model;
             }
             JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
-//            System.out.println(nodeEdgeSet);
 
             //add objects to model
             ModelAndView model = new ModelAndView("issue", HttpStatus.OK);

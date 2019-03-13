@@ -25,13 +25,11 @@ public class FetchDataFromUH
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
         //String transitiveClosureURL = "https://api.openreq.eu/milla/getTransitiveClosureOfARequirement?requirementId=";
-        String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=";
+        String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=" + issueKey;
         String requirement;
         try
         {
-            System.out.println(transitiveClosureURL);
-            System.out.println(issueKey);
-            requirement = template.postForObject(transitiveClosureURL, issueKey, String.class);
+            requirement = template.getForObject(transitiveClosureURL, String.class);
         }
         catch (HttpClientErrorException e)
         {
