@@ -67,6 +67,7 @@
             <h2>Issue Links of ${issue}</h2>
         </div>
 
+
         <div class="col-2">
             <div class="loader" id="loader"></div>
         </div>
@@ -128,13 +129,17 @@
                         <h5 class="card-title">Legend</h5>
                         <p class="card-text">
                         <div class="box blue" style="display: inline-block;">
-                        </div> To-Do
+                        </div>
+                        To-Do
                         <div class="box red" style="display: inline-block;">
-                        </div> Stuck
+                        </div>
+                        Stuck
                         <div class="box yellow" style="display: inline-block;">
-                        </div> In Progress
+                        </div>
+                        In Progress
                         <div class="box green" style="display: inline-block;">
-                        </div> Done
+                        </div>
+                        Done
                     </div>
                 </div>
             </div>
@@ -196,9 +201,7 @@
                     <p id="proposedIssuesList"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
-                    <h5>Result</h5>
                     <p id="ccResult"></p>
-                    <h5>Diagnosis</h5>
                 </div>
             </div>
         </div>
@@ -211,6 +214,7 @@
     });
     //getting the data for the network and layer disabling
     let issue = '${issue}';
+    let currentIssue = '${issue}';
     let depth = '${layerDepth}';
     //console.log("LAYER DEPTH:" + depth);
     let max_depth = '${maxLayer}';
@@ -491,10 +495,11 @@
         });
     });
 
-    function updateGraphDepth(){
+    function updateGraphDepth() {
 
 
     }
+
     let numberOfProposedLinks = 0;
     let linkDetectionResponse;
 
@@ -579,18 +584,7 @@
 
         // Sending and receiving data in JSON format using POST method
 //
-        let xhr = new XMLHttpRequest();
-        let url = "url";
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let json = JSON.parse(xhr.responseText);
-                console.log(json.email + ", " + json.password);
-            }
-        };
-        var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
-        xhr.send(data);
+
     }
 
 
@@ -599,6 +593,22 @@
     function proposedLinks() {
         if (proposedViewActive == false) {
             try {
+
+                let xhr = new XMLHttpRequest();
+
+                let url = "/getTopProposedLinksOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
+                xhr.open("GET", url, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let json = JSON.parse(xhr.responseText);
+                        console.log(json);
+                    }
+
+                };
+
+                xhr.send(null);
+
                 numberOfProposedLinks = proposedEdgeElements.length;
                 linkDetectionResponse = Array(numberOfProposedLinks);
                 nodes.add(proposedNodeElements);
@@ -629,17 +639,33 @@
     }
 
     function checkConsistency() {
-        if (proposedViewActive == true) {
-            try {
-                nodes.remove(proposedNodeElements);
-                edges.remove(proposedEdgeElements);
+        try {
+            let xhr = new XMLHttpRequest();
+
+            let url = "/getConsistencyCheckOfRequirement?requirementId=" + currentIssue;
+            xhr.open("GET", url, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let json = JSON.parse(xhr.responseText);
+                    document.getElementById('ccResult').innerHTML = "<h5>Result</h5>".concat(json.response[0].Consistent_msg);
+                }
+            };
+
+            xhr.send(null);
+
+            nodes.remove(proposedNodeElements);
+            edges.remove(proposedEdgeElements);
+            if (proposedViewActive == true) {
                 proposedViewActive = false;
             }
-            catch (err) {
-                alert(err);
-            }
+
+
         }
-        document.getElementById('ccResult').innerHTML = "".concat("Everything is consistent!");
+        catch
+            (err) {
+            alert(err);
+        }
     }
 
     function listTab() {
@@ -665,11 +691,11 @@
         //display the initial infobox only if the user put exactly one issue in the input
         if (issueArray.length == 1) {
             //get coressponding JSON
-            let issueInfo = findElement(nodeEdgeObject.nodes, "id", issue);
+            let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
 
             //get information that should be displayed
-            let infoLink = "https://bugreports.qt.io/browse/" + issue;
-            let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + issue;
+            let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
+            let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
             let infoTitle = issueInfo.name;
             //let infoType = issueInfo.requirement_type;
             let infoStatus = issueInfo.status;
@@ -683,7 +709,7 @@
             let infoFixVersion = issueInfo.fixversion;
 
             //put the issues in the corressponding part of the website
-            document.getElementById('infoBoxHeading').innerHTML = "".concat(issue);
+            document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
             document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
             document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
             document.getElementById('infoBoxIssueStatus').innerHTML = "<b>Status: </b>".concat(infoStatus);
@@ -702,7 +728,6 @@
         }
     }
 
-    console.log(nodeEdgeObject);
     // Create the network after the page is loaded and the network containing div is rendered
     $(document).ready(function () {
 
@@ -925,6 +950,7 @@
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
             let issueKey = issueNode.id;
+            currentIssue = issueKey;
             let issueLink = "https://bugreports.qt.io/browse/" + issueKey;
             let issueLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + issueKey;
             let issueTitle = issueNode.name;

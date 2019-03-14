@@ -13,7 +13,7 @@ class NetworkControllerTest
     {
         String issueKey = "QTWB-30";
 
-        JsonObject issueJSON = FetchDataFromUH.fetchData(issueKey);
+        JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
 
         JsonArray reqs = issueJSON.getAsJsonArray("requirements");
         JsonArray deps = issueJSON.getAsJsonArray("dependencies");

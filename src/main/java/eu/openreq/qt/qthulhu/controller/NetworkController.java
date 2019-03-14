@@ -57,7 +57,7 @@ public class NetworkController
         {
             //fetch issue data from mallikas (Database of UH)
             JsonArray issueData = new JsonArray();
-            JsonObject issueJSON = FetchDataFromUH.fetchData(issue);
+            JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issue);
             issueData.add(issueJSON);
 
             //in case the issue is not contained in mallikas
@@ -124,7 +124,7 @@ public class NetworkController
             JsonArray issueData = new JsonArray();
             for (String issueKey : issueKeyArray)
             {
-                JsonObject issueJSON = FetchDataFromUH.fetchData(issueKey);
+                JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
                 //work around since the endpoint accepts all strings
                 if (issueJSON.getAsJsonArray("requirements").size() != 0)
                 {
