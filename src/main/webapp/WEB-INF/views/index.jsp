@@ -38,13 +38,13 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/issue" method="post" id="search-id" style="display:inline-block;">
+        <form action="/oneIssue" method="post" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
                     <div class="col-4">
                         <h4>Issue Key(s):</h4>
-                        <input type="text" name="issues" id="issues" required="required" width="200px"><br>
+                        <input type="text" name="issue" id="issue" required="required" width="200px"><br>
                         <i>
                             <small>You can search for single issue keys or multiple issue keys seperated by a comma.<br>
                                 For example: QTBUG-62132, QTWB-30
@@ -53,8 +53,8 @@
                     </div>
                     <%--Layer Input--%>
                     <div class="col-4">
-                        <h4>Layers:</h4>
-                        <input type="number" name="layerDepth" id="layerDepth" min="1" max="5" width="100px"><br>
+                        <h4>Depth:</h4>
+                        <input type="number" name="depth" id="layerDepth" min="1" max="5" width="100px"><br>
                         <i>
                             <small>This number should be between 1 and 5.<br>
                                 For example: 2
@@ -65,7 +65,6 @@
                     <div class="col-2">
                         <br>
                         <%--This is needed to implement the add and remove layer functionality--%>
-                        <input type="hidden" name="layerChange" value="0"/>
                         <input type="submit"
                                class="button search button-effect-teal"
                                value="Search">

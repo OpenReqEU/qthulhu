@@ -18,6 +18,11 @@
     color: #000000;
 }
 
+.teal {
+    background: #17b2ad;
+    color: #000000;
+}
+
 .green {
     background: #24C533;
     color: #000000;
@@ -68,17 +73,19 @@
 .topnav a {
     float: left;
     display: block;
-    color: #E0E0E0;
+    color: #ffffff;
     text-align: center;
-    padding: 14px 25px;
+    padding: 15px 30px;
     margin-top: 3px;
+    margin-left: 2px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
+    border-radius: 4px;
 }
 
 .topnav a:hover {
-    background-color: #474747;
-    color: #17b2ad;
+    background-color: #606060;
+    color: #ffffff;
 }
 
 .topnav .search-container {
@@ -131,7 +138,7 @@
 }
 
 .layer {
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 32px;
 }
 
@@ -153,7 +160,7 @@
 
 .back {
     background-color: #FB4A08;
-    padding: 15px 25px;
+    padding: 15px 30px;
     font-size: 25px;
 }
 
@@ -212,15 +219,12 @@
 /*nav pill customisation*/
 
 .nav-tabs a {
-    border: 2px solid #17b2ad;
-    background-color: #ffffff;
-    color: #138f8b;
+    border: none;
+    background-color: #17b2ad;
+    color: #ffffff;
     border-radius: 4px;
-}
-
-.nav-tabs a:hover {
-    color: #fff;
-    background-color: #17b2ad
+    font-size: 16px;
+    padding: 8px 32px;
 }
 
 .tab-pane {
@@ -231,11 +235,13 @@
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-link.hover, .nav-tabs .show > .nav-link {
     color: #fff;
-    background-color: #138f8b
+    background-color: #138f8b;
+    border: none;
 }
 
 .nav-tabs a:hover {
-    background-color: #17b2ad;
+    background-color: #138f8b;
+    border: none;
 }
 
 /*Spinning circle to indicate that the site is loading*/

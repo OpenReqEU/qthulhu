@@ -52,7 +52,7 @@
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key(s)..."
                    style="margin-right: 20px">
-            <input type="number" name="layerDepth" id="layerInput" min="1" max="5" placeholder="Layer(s)..."
+            <input type="number" name="layerDepth" id="layerInput" min="1" max="5" placeholder="Depth..."
                    style="margin-right: 20px">
             <input type="hidden" name="layerChange" id="changeInput" value="0"/>
         </form>
@@ -154,11 +154,11 @@
                        aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"
-                       aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
-                    </a>
-                </li>
+                <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"--%>
+                       <%--aria-controls="list-tab" aria-selected="true" onclick="listTab();">List--%>
+                    <%--</a>--%>
+                <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
@@ -190,17 +190,16 @@
                     <br>
                     <div id="infoBoxIssueLinkTestJIRA"></div>
                 </div>
-                <div class="tab-pane fade show" id="list-box" role="tabpanel"
-                     aria-labelledby="list-tab">
-                    <h5>Issue List</h5>
-                    <p id="IssuesList"></p>
-                </div>
+                <%--<div class="tab-pane fade show" id="list-box" role="tabpanel"--%>
+                     <%--aria-labelledby="list-tab">--%>
+                    <%--<h5>Issue List</h5>--%>
+                    <%--<p id="IssuesList"></p>--%>
+                <%--</div>--%>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
-                    <h5>Proposed Links
-                    </h5>
                     <p id="proposedIssuesList"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
+                    <p>Checks if the release plan of this issue link map is consistent.</p>
                     <p id="ccResult"></p>
                 </div>
             </div>
@@ -226,8 +225,6 @@
     let proposedNodesEdges = [];
     //proposed View active boolean
     let proposedViewActive = false;
-    //proposed View active boolean
-    let consistencyViewActive = false;
 
     //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
     //TODO: make it visible that these buttons are disabled by greying them out
@@ -591,6 +588,7 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
+
         if (proposedViewActive == false) {
             try {
 
@@ -603,8 +601,8 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let json = JSON.parse(xhr.responseText);
                         console.log(json);
+                        proposedNodesEdges = JSON.parse(xhr.responseText);
                     }
-
                 };
 
                 xhr.send(null);
@@ -614,7 +612,8 @@
                 nodes.add(proposedNodeElements);
                 edges.add(proposedEdgeElements);
                 proposedViewActive = true;
-                stringList = " <table style='width: 100%'><tr>\n" +
+                stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
+                    "<table style='width: 100%'><tr>\n" +
                     "<th>Issue Key</th>" +
                     "<th>Link type</th>" +
                     "<th>Accept</th>" +

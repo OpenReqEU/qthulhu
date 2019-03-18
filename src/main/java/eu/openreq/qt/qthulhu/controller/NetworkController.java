@@ -3,6 +3,7 @@ package eu.openreq.qt.qthulhu.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import eu.openreq.qt.qthulhu.data.NodeEdgeSet;
+import eu.openreq.qt.qthulhu.data.newNodeEdgeSet;
 import eu.openreq.qt.qthulhu.data.uhservices.FetchDataFromUH;
 import eu.openreq.qt.qthulhu.data.uhservices.LayerDepthChecker;
 import org.springframework.http.HttpStatus;
@@ -158,6 +159,63 @@ public class NetworkController
     }
 
     /**
+     * Creates a new issue network depending on the inputs.
+     * Then adds all information to the model which is then redirected to the corresponding jsp
+     *
+     * @param issue issuekey
+     * @param depth amount of layers
+     * @return view and model that contains the necessary information
+     */
+    @RequestMapping(value = "/oneIssue", method = RequestMethod.POST)
+    public ModelAndView oneIissue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
+    {
+        //Check if layerDepth had an input, if not use default value of 1
+        depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
+
+        //split the string
+        issue = issue.toUpperCase();
+
+        try
+        {
+            //put all the fetched information into on Array
+            JsonObject issueData = new JsonObject();
+
+            JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issue);
+            //work around since the endpoint accepts all strings
+            if (issueJSON.getAsJsonArray("requirements").size() != 0)
+            {
+                issueData = issueJSON;
+            }
+
+            // this is a workaround since the qtcontroller accepts all strings.
+            if (issueData.equals(new JsonObject()))
+            {
+                ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+                model.addObject("issue", issue);
+                return model;
+            }
+
+            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
+
+            //add objects to model
+            ModelAndView model = new ModelAndView("oneIssue", HttpStatus.OK);
+            model.addObject("issue", issue);
+            model.addObject("depth", depth);
+            model.addObject("nodeEdgeSet", nodeEdgeSet);
+            model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
+            return model;
+        }
+        catch (HttpClientErrorException e)
+        {
+            //in case something goes wrong
+            ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+            model.addObject("issue", issue);
+            return model;
+        }
+    }
+
+
+    /**
      * Example page
      *
      * @return view and model that contains example information
@@ -165,7 +223,7 @@ public class NetworkController
     @RequestMapping(value = "/example", method = RequestMethod.POST)
     public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
     {
-        if(layerDepth > 2)
+        if (layerDepth > 2)
         {
             layerDepth = 2;
         }
