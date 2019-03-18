@@ -137,11 +137,11 @@
                        aria-controls="info-tab" aria-selected="true" onclick="infoTab();">Info
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"
-                       aria-controls="list-tab" aria-selected="true" onclick="listTab();">List
-                    </a>
-                </li>
+                <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link" id="list-tab" data-toggle="tab" href="#list-box" role="tab"--%>
+                       <%--aria-controls="list-tab" aria-selected="true" onclick="listTab();">List--%>
+                    <%--</a>--%>
+                <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
@@ -173,11 +173,11 @@
                     <br>
                     <div id="infoBoxIssueLinkTestJIRA"></div>
                 </div>
-                <div class="tab-pane fade show" id="list-box" role="tabpanel"
-                     aria-labelledby="list-tab">
-                    <h5>Issue List</h5>
-                    <p id="IssuesList"></p>
-                </div>
+                <%--<div class="tab-pane fade show" id="list-box" role="tabpanel"--%>
+                     <%--aria-labelledby="list-tab">--%>
+                    <%--<h5>Issue List</h5>--%>
+                    <%--<p id="IssuesList"></p>--%>
+                <%--</div>--%>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
                     <h5>Proposed Links
                     </h5>
