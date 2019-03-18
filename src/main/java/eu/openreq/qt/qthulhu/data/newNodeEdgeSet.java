@@ -156,20 +156,22 @@ public class newNodeEdgeSet
             String fromKey =currentDep.get("fromid").getAsString();
             String toKey = currentDep.get("toid").getAsString();
 
-            int fromLayer = _layer.get(fromKey);
-            int toLayer = _layer.get(toKey);
-
-            int depLayer = Math.max(fromLayer, toLayer);
-
-            JsonObject depth = depthNodeEdgeSet.get(Integer.toString(depLayer)).getAsJsonObject();
-            JsonArray depthEdges = depth.getAsJsonArray("edges");
-
-            if(!fromKey.contains("mock") && !toKey.contains("mock"))
+            if(_layer.containsKey(fromKey) && _layer.containsKey(toKey))
             {
-                currentDep.addProperty("node_fromid", _idSet.get(fromKey));
-                currentDep.addProperty("node_toid", _idSet.get(toKey));
-                currentDep.addProperty("depth", depLayer);
-                depthEdges.add(currentDep);
+                int fromLayer = _layer.get(fromKey);
+                int toLayer = _layer.get(toKey);
+                int depLayer = Math.max(fromLayer, toLayer);
+
+                JsonObject depth = depthNodeEdgeSet.get(Integer.toString(depLayer)).getAsJsonObject();
+                JsonArray depthEdges = depth.getAsJsonArray("edges");
+
+                if(!fromKey.contains("mock") && !toKey.contains("mock"))
+                {
+                    currentDep.addProperty("node_fromid", _idSet.get(fromKey));
+                    currentDep.addProperty("node_toid", _idSet.get(toKey));
+                    currentDep.addProperty("depth", depLayer);
+                    depthEdges.add(currentDep);
+                }
             }
         }
         return depthNodeEdgeSet;

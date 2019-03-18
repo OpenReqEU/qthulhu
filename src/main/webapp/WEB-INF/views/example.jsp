@@ -192,9 +192,6 @@
         </div>
     </div>
 </div>
-        input[type=text] {
-            width: 150px;
-        }
 
 
 <%--&lt;%&ndash;(Right) The information box&ndash;%&gt;--%>
