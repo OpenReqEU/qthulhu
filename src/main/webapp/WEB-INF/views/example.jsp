@@ -255,13 +255,13 @@
 
     //this will be replaced by an API call with an issue key
     let proposedNodesEdges = JSON.parse('{"nodes": ' +
-        '[{"id": "PROP-1", "created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 10,"name": "Proposed Issue 1 ","resolution": "Fixed","platforms": "none",' +
+        '[{"id": "PROP-1", "created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 10,"name": "Proposed Issue 1 ", "layer": 1, "resolution": "Fixed","platforms": "none",' +
         '"versions": "1. 0","labels": "","environment": "none","status": "Closed","fixversion": "No FixVersion","components": "General"},' +
-        '{"id": "PROP-2","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 20,"name": "Proposed Issue 2 ","resolution": "Open","platforms": "none",' +
+        '{"id": "PROP-2","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 20,"name": "Proposed Issue 2 ", "layer": 1,"resolution": "Open","platforms": "none",' +
         '"versions": "1. 0","labels": "","environment": "none","status": "Assigned","fixversion": "No FixVersion","components": "General"},' +
-        '{"id": "PROP-3","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 30,"name": "Proposed Issue 3  ","resolution": "Open","platforms": "none",' +
+        '{"id": "PROP-3","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 30,"name": "Proposed Issue 3  ", "layer": 1,"resolution": "Open","platforms": "none",' +
         '"versions": "1. 0","labels": "","environment": "none","status": "In Progress","fixversion": "No FixVersion","components": "General"},' +
-        '{"id": "PROP-4","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 40,"name": "Proposed Issue 4  ","resolution": "Open","platforms": "none",' +
+        '{"id": "PROP-4","created_at": 0,"modified_at": 0,"priority": 7,"requirement_type": "user story","effort": 0,"nodeid": 40,"name": "Proposed Issue 4  ", "layer": 1,"resolution": "Open","platforms": "none",' +
         '"versions": "1. 0","labels": "","environment": "none","status": "In Progress","fixversion": "No FixVersion","components": "General"}' +
         '],' +
         '"edges": [' +
@@ -512,6 +512,7 @@
 
 
     }
+
     let numberOfProposedLinks = 0;
     let linkDetectionResponse;
 
@@ -887,6 +888,14 @@
             },
             //physics, interaction
             "layout": {
+                "hierarchical":
+                    {
+                        "enabled": true,
+                        "nodeSpacing": 150,
+                        "blockShifting": false,
+                        "edgeMinimization": false,
+                        "sortMethod": "directed"
+                    },
                 "randomSeed": 9
             },
             "interaction": {
@@ -896,11 +905,11 @@
             "physics": {
                 "enabled": true,
                 'forceAtlas2Based': {
-                    'gravitationalConstant': -26,
+                    'gravitationalConstant': 26,
                     'centralGravity': 0.005,
                     'springLength': 230,
                     'springConstant': 0.18,
-                    'avoidOverlap': 2
+                    'avoidOverlap': 10
                 },
                 'maxVelocity': 146,
                 'solver': 'forceAtlas2Based',

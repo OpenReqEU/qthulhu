@@ -19,7 +19,9 @@ public class MillaController
     {
 
         JsonObject topProposedLinks = fetchTopProposedLinks(requirementId, maxResults);
+        System.out.println(topProposedLinks);
         topProposedLinks = buildNodeEdgeSet(topProposedLinks);
+        //System.out.println(topProposedLinks);
         return topProposedLinks.toString();
 
     }

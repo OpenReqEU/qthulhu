@@ -20,7 +20,7 @@ public class proposedNodeEdgeSet
         _idSet = new HashMap<String, Long>();
 
         JsonArray reqs = issueData.getAsJsonArray("requirements");
-        for (int i = 0; reqs.size() < 6; i++)
+        for (int i = 0; i < reqs.size(); i++)
         {
             JsonObject currentReq = reqs.get(i).getAsJsonObject();
             String key = currentReq.get("id").getAsString();

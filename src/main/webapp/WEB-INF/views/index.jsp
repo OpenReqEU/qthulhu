@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <%--This is the navigation bar located at the top, it contains a link to the project website--%>
 <body>
 <div class="topnav">
@@ -31,14 +30,13 @@
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
 </div>
-
 <%--This is the main body of the site, it contains some explanation about the service and a search box--%>
 <div class="container" style="padding-top: 30px">
     <div class="row">
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/oneIssue" method="post" id="search-id" style="display:inline-block;">
+        <form action="/issue" method="post" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
@@ -46,8 +44,8 @@
                         <h4>Issue Key(s):</h4>
                         <input type="text" name="issue" id="issue" required="required" width="200px"><br>
                         <i>
-                            <small>You can search for single issue keys or multiple issue keys seperated by a comma.<br>
-                                For example: QTBUG-62132, QTWB-30
+                            <small>You can search for single issue keys.<br>
+                                For example: QTWB-30
                             </small>
                         </i>
                     </div>
@@ -79,7 +77,6 @@
         </form>
     </div>
     <br>
-
     <%--Information about this web application--%>
     <div class="row">
         <div class="card">
@@ -93,10 +90,9 @@
                     side of the graph as well as a button which will redirect you to the JIRA page of that issue.
                 </p>
                 <h5 class="card-title">Issue Key(s)</h5>
-                <p class="card-text">You can type in a single issue (f.e. <i>QTWB-30</i>) or multiple issues separated
-                    by commas (f.e. <i>QTWB-30, QTWB-6, QTWB-32</i>).
-                    The service will then look up the corresponding issues in University of Helsinki's service milla and
-                    get the information about the links and issues.</p>
+                <p class="card-text">You can type in a single issue (f.e. <i>QTWB-30</i>).
+                    The service will then look up the corresponding issue in University of Helsinki's service milla and
+                    get the information about links and issues.</p>
                 <h5 class="card-title">Depth</h5>
                 <p class="card-text">This service can show you direct (depth 1) and indirect links (depth 2-5).
                     Depth 2 are the links of issues that are directly connected to the searched issue, depth 3 are the
@@ -120,13 +116,11 @@
         </div>
     </div>
 </div>
-
 <script>
     <%--If the search button is pressed a loading circle appears--%>
     $('#search-id').submit(function () {
         $('#loader').show();
     });
-
 </script>
 </body>
 </html>

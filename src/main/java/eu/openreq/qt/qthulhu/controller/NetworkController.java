@@ -2,7 +2,6 @@ package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import eu.openreq.qt.qthulhu.data.NodeEdgeSet;
 import eu.openreq.qt.qthulhu.data.newNodeEdgeSet;
 import eu.openreq.qt.qthulhu.data.uhservices.FetchDataFromUH;
 import eu.openreq.qt.qthulhu.data.uhservices.LayerDepthChecker;
@@ -43,13 +42,11 @@ public class NetworkController
     ModelAndView issueByIssueKey(@PathVariable String issue)
     {
         //here the default value is 1, since currently the user in JIRA cannot set a layerdepth in JIRA
-        int layerDepth = 1;
-        //this is 0 because the function on the issue.jsp to add and remove layers uses this value
-        int layerChange = 0;
+        int depth = 1;
 
         //checks if the layer specified by the user is between 1 and max_layer of the corresponding
         //issue link network
-        layerDepth = LayerDepthChecker.checkForValidLayerDepth(layerDepth, layerChange);
+        depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
 
         //issues are saved in uppercase in the database, lowercase does not return anything
         issue = issue.toUpperCase();
@@ -57,9 +54,7 @@ public class NetworkController
         try
         {
             //fetch issue data from mallikas (Database of UH)
-            JsonArray issueData = new JsonArray();
-            JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issue);
-            issueData.add(issueJSON);
+            JsonObject issueData = FetchDataFromUH.fetchTransitiveClosure(issue);
 
             //in case the issue is not contained in mallikas
             if (issueData.equals(new JsonArray()))
@@ -70,19 +65,16 @@ public class NetworkController
             }
 
             //to getNodeEdgeSet method only accepts arrays
-            String[] issueKeyArray = new String[1];
-            issueKeyArray[0] = issue;
+            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
+            //System.out.println(nodeEdgeSet);
 
-            //build nodeEdgeSet
-            JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
-            System.out.println(nodeEdgeSet);
 
             //add objects to model
             ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
             model.addObject("issue", issue);
-            model.addObject("layerDepth", layerDepth);
+            model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
-            model.addObject("maxLayer", nodeEdgeSet.get("max_layer").getAsInt());
+            model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
             return model;
         }
         catch (HttpClientErrorException e)
@@ -94,69 +86,7 @@ public class NetworkController
         }
     }
 
-    /**
-     * Creates a new issue network depending on the inputs.
-     * Then adds all information to the model which is then redirected to the corresponding jsp
-     *
-     * @param issues      issuekeys
-     * @param layerDepth  amount of layers
-     * @param layerChange increasing / decreasing layers (only important for add/remove)
-     * @return view and model that contains the necessary information
-     */
-    @RequestMapping(value = "/issue", method = RequestMethod.POST)
-    public ModelAndView issue(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth, @RequestParam("layerChange") Integer layerChange)
-    {
-        //Check if layerDepth had an input, if not use default value of 1
-        layerDepth = LayerDepthChecker.checkForValidLayerDepth(layerDepth, layerChange);
 
-        //split the string
-        issues = issues.toUpperCase();
-
-        //if multiple issue keys were entered they are splitted
-        String[] issueKeyArray = issues.split(",");
-        for (int i = 0; i < issueKeyArray.length; i++)
-        {
-            issueKeyArray[i] = issueKeyArray[i].trim().toUpperCase();
-        }
-
-        try
-        {
-            //put all the fetched information into on Array
-            JsonArray issueData = new JsonArray();
-            for (String issueKey : issueKeyArray)
-            {
-                JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
-                //work around since the endpoint accepts all strings
-                if (issueJSON.getAsJsonArray("requirements").size() != 0)
-                {
-                    issueData.add(issueJSON);
-                }
-            }
-            // this is a workaround since the qtcontroller accepts all strings.
-            if (issueData.equals(new JsonArray()))
-            {
-                ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-                model.addObject("issue", issues);
-                return model;
-            }
-            JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
-
-            //add objects to model
-            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
-            model.addObject("issue", issues);
-            model.addObject("layerDepth", layerDepth);
-            model.addObject("nodeEdgeSet", nodeEdgeSet);
-            model.addObject("maxLayer", nodeEdgeSet.get("max_layer").getAsInt());
-            return model;
-        }
-        catch (HttpClientErrorException e)
-        {
-            //in case something goes wrong
-            ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-            model.addObject("issue", issues);
-            return model;
-        }
-    }
 
     /**
      * Creates a new issue network depending on the inputs.
@@ -166,8 +96,8 @@ public class NetworkController
      * @param depth amount of layers
      * @return view and model that contains the necessary information
      */
-    @RequestMapping(value = "/oneIssue", method = RequestMethod.POST)
-    public ModelAndView oneIissue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
+    @RequestMapping(value = "/issue", method = RequestMethod.POST)
+    public ModelAndView issue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
     {
         //Check if layerDepth had an input, if not use default value of 1
         depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
@@ -195,12 +125,12 @@ public class NetworkController
                 return model;
             }
 
-            System.out.println(issueData);
+            //System.out.println(issueData);
 
             JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
 
             //add objects to model
-            ModelAndView model = new ModelAndView("oneIssue", HttpStatus.OK);
+            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
             model.addObject("issue", issue);
             model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
@@ -242,6 +172,70 @@ public class NetworkController
 //
 // #### GRAVEYARD ####
 //all old methods
+//
+//    /**
+//     * Creates a new issue network depending on the inputs.
+//     * Then adds all information to the model which is then redirected to the corresponding jsp
+//     *
+//     * @param issues      issuekeys
+//     * @param layerDepth  amount of layers
+//     * @param layerChange increasing / decreasing layers (only important for add/remove)
+//     * @return view and model that contains the necessary information
+//     */
+//    @RequestMapping(value = "/issue", method = RequestMethod.POST)
+//    public ModelAndView issue(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth, @RequestParam("layerChange") Integer layerChange)
+//    {
+//        //Check if layerDepth had an input, if not use default value of 1
+//        layerDepth = LayerDepthChecker.checkForValidLayerDepth(layerDepth, layerChange);
+//
+//        //split the string
+//        issues = issues.toUpperCase();
+//
+//        //if multiple issue keys were entered they are splitted
+//        String[] issueKeyArray = issues.split(",");
+//        for (int i = 0; i < issueKeyArray.length; i++)
+//        {
+//            issueKeyArray[i] = issueKeyArray[i].trim().toUpperCase();
+//        }
+//
+//        try
+//        {
+//            //put all the fetched information into on Array
+//            JsonArray issueData = new JsonArray();
+//            for (String issueKey : issueKeyArray)
+//            {
+//                JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
+//                //work around since the endpoint accepts all strings
+//                if (issueJSON.getAsJsonArray("requirements").size() != 0)
+//                {
+//                    issueData.add(issueJSON);
+//                }
+//            }
+//            // this is a workaround since the qtcontroller accepts all strings.
+//            if (issueData.equals(new JsonArray()))
+//            {
+//                ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+//                model.addObject("issue", issues);
+//                return model;
+//            }
+//            JsonObject nodeEdgeSet = NodeEdgeSet.buildNodeEdgeSet(issueData, issueKeyArray);
+//
+//            //add objects to model
+//            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
+//            model.addObject("issue", issues);
+//            model.addObject("layerDepth", layerDepth);
+//            model.addObject("nodeEdgeSet", nodeEdgeSet);
+//            model.addObject("maxLayer", nodeEdgeSet.get("max_layer").getAsInt());
+//            return model;
+//        }
+//        catch (HttpClientErrorException e)
+//        {
+//            //in case something goes wrong
+//            ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+//            model.addObject("issue", issues);
+//            return model;
+//        }
+//    }
 //
 //    @RequestMapping(value = "/issueold", method = RequestMethod.POST)
 //    public ModelAndView issueold(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth, @RequestParam("layerChange") Integer layerChange)
