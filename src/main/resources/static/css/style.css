@@ -228,6 +228,7 @@
 }
 
 .tab-pane {
+    border: none;
     background-color: white;
     color: #272727;
     margin: 10px;

@@ -830,11 +830,6 @@
     // create an array with edges
     edges = new vis.DataSet(edgeElements);
 
-    let proposedNodeElements = [];
-    let proposedEdgeElements = [];
-    let proposedIssuesList = [];
-
-    let numberOfProposedLinks = 0;
     let linkDetectionResponse;
 
     function registerClick(elem) {
@@ -879,6 +874,7 @@
     }
 
     function sendLinkData() {
+
         let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
             return {
                 dependency_type: d.dependency_type,
@@ -909,14 +905,22 @@
         console.log(linkResponseJSON);
     }
 
+    let proposedNodeElements = [];
+    let proposedEdgeElements = [];
+    let proposedNodesEdges = [];
+    let proposedIssuesList = [];
+    let numberOfProposedLinks = 0;
 
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
-
-        let proposedNodesEdges = [];
         nodes.remove(proposedNodeElements);
         edges.remove(proposedEdgeElements);
+
+        proposedNodeElements = [];
+        proposedEdgeElements = [];
+        proposedNodesEdges = [];
+        proposedIssuesList = [];
 
         if (proposedViewActive == false) {
             try {
@@ -926,10 +930,17 @@
                 let url = "/getTopProposedLinksOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
 
+                let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
+                let level = issueInfo.depth + 1;
+
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let json = JSON.parse(xhr.responseText);
-                        console.log(json);
+
+                        console.log(proposedNodeElements);
+                        nodes.remove(proposedNodeElements);
+                        edges.remove(proposedEdgeElements);
+
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
@@ -938,7 +949,6 @@
                             let nodetype = v['requirement_type'];
                             let nodename = v['name'];
                             let nodestatus = v['status'];
-                            let nodelayer = v['layer'];
                             let noderesolution = v['resolution'];
                             let nodehidden = v['layer'] > depth;
                             let nodelabel = "";
@@ -962,7 +972,7 @@
                                 group: "proposed",
                                 shape: 'box',
                                 title: nodetitle,
-                                level: nodelayer,
+                                level: level,
                                 hidden: nodehidden
                             });
                             proposedIssuesList.push({
@@ -997,7 +1007,7 @@
 
                         proposedViewActive = true;
                         console.log(proposedNodesEdges.dependencies);
-                        if (proposedNodesEdges.dependencies.length == 0) {
+                        if (proposedNodesEdges.edges.length == 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
@@ -1012,7 +1022,7 @@
                             acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                             for (i = 0; i < proposedIssuesList.length; i++) {
-                                stringList = stringList + "<tr><td>" + proposedIssuesList[i].id + "</td><td>" + selectionList + "<select id=" + i + "s>" +
+                                stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/"+ proposedIssuesList[i].id + "' target='_blank'>"+ proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='duplicate'>Duplicate</option>" +
                                     "<option value='similar'>Similar</option>" +
                                     "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";

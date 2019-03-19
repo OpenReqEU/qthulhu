@@ -15,7 +15,7 @@ public class proposedNodeEdgeSet
     private static HashMap<String, Long> _idSet;
 
     //builds and returns the node and edge set of one or multiple issues
-    public static JsonObject buildNodeEdgeSet(JsonObject issueData)
+    public static JsonObject buildNodeEdgeSet(JsonObject issueData, String issue)
     {
         _idSet = new HashMap<String, Long>();
 
@@ -31,6 +31,16 @@ public class proposedNodeEdgeSet
 
         JsonArray deps = issueData.getAsJsonArray("dependencies");
         JsonObject proposedNodeEdgeSet = buildProposedNodeEdgeSet(reqs, deps);
+        System.out.println(proposedNodeEdgeSet);
+        JsonArray proposedReqs = proposedNodeEdgeSet.getAsJsonArray("nodes");
+        for (int i = 0; i < proposedReqs.size(); i++)
+        {
+            JsonObject currentNode = proposedReqs.get(i).getAsJsonObject();
+            if (currentNode.get("id").getAsString().equals(issue))
+            {
+                proposedReqs.remove(i);
+            }
+        }
 
         return proposedNodeEdgeSet;
     }
