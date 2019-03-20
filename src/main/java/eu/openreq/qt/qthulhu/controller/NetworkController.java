@@ -3,8 +3,8 @@ package eu.openreq.qt.qthulhu.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import eu.openreq.qt.qthulhu.data.newNodeEdgeSet;
-import eu.openreq.qt.qthulhu.data.uhservices.FetchDataFromUH;
 import eu.openreq.qt.qthulhu.data.uhservices.LayerDepthChecker;
+import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +54,7 @@ public class NetworkController
         try
         {
             //fetch issue data from mallikas (Database of UH)
-            JsonObject issueData = FetchDataFromUH.fetchTransitiveClosure(issue);
+            JsonObject issueData = UHServicesConnections.fetchTransitiveClosure(issue);
 
             //in case the issue is not contained in mallikas
             if (issueData.equals(new JsonArray()))
@@ -108,7 +108,7 @@ public class NetworkController
             //put all the fetched information into on Array
             JsonObject issueData = new JsonObject();
 
-            JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issue);
+            JsonObject issueJSON = UHServicesConnections.fetchTransitiveClosure(issue);
             //work around since the endpoint accepts all strings
             if (issueJSON.getAsJsonArray("requirements").size() != 0)
             {
@@ -202,7 +202,7 @@ public class NetworkController
 //            JsonArray issueData = new JsonArray();
 //            for (String issueKey : issueKeyArray)
 //            {
-//                JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
+//                JsonObject issueJSON = UHServicesConnections.fetchTransitiveClosure(issueKey);
 //                //work around since the endpoint accepts all strings
 //                if (issueJSON.getAsJsonArray("requirements").size() != 0)
 //                {

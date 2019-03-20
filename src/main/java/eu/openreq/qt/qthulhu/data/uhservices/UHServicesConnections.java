@@ -1,7 +1,6 @@
 package eu.openreq.qt.qthulhu.data.uhservices;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.springframework.web.client.HttpClientErrorException;
@@ -11,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * This class manages the requests to UH's services
  */
-public class FetchDataFromUH
+public class UHServicesConnections
 {
     /**
      * This fetches the data contained in a JSON that follows the OpenReq JSON format standard
@@ -77,12 +76,30 @@ public class FetchDataFromUH
         return gson.fromJson(proposedLinks, JsonElement.class).getAsJsonObject();
     }
 
-    public static String sendUpdatedProposedLinks(JsonArray updatedProposedLinks) throws HttpClientErrorException, HttpServerErrorException
+    public static String sendUpdatedProposedLinks(String updatedProposedLinks) throws HttpClientErrorException, HttpServerErrorException
     {
         RestTemplate template = new RestTemplate();
-        String response = "";
+        String updateProposedDependenciesURL = "http://217.172.12.199:9203/updateProposedDependencies";
+        String response;
+        System.out.println("1");
 
-        Gson gson = new Gson();
+        try
+        {
+            System.out.println("2");
+            response = template.postForObject(updateProposedDependenciesURL, updatedProposedLinks, String.class);
+            System.out.println("3");
+        }
+        catch (HttpClientErrorException e)
+        {
+            System.out.println("Error " + e);
+            throw (e);
+        }
+        catch (HttpServerErrorException e)
+        {
+            throw (e);
+        }
+        System.out.println("4");
+        System.out.println(response);
         return response;
     }
 

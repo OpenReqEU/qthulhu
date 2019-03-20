@@ -2,7 +2,7 @@ package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import eu.openreq.qt.qthulhu.data.uhservices.FetchDataFromUH;
+import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,7 +13,7 @@ class NetworkControllerTest
     {
         String issueKey = "QTWB-30";
 
-        JsonObject issueJSON = FetchDataFromUH.fetchTransitiveClosure(issueKey);
+        JsonObject issueJSON = UHServicesConnections.fetchTransitiveClosure(issueKey);
 
         JsonArray reqs = issueJSON.getAsJsonArray("requirements");
         JsonArray deps = issueJSON.getAsJsonArray("dependencies");

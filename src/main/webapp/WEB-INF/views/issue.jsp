@@ -884,7 +884,7 @@
         //         status: d.status
         //     };
         // });
-        let bla =
+        let updatedProposedLinksJSON =
             {
                 dependencies: []
             };
@@ -893,7 +893,7 @@
             let fromid = v['fromid'];
             let toid = v['toid'];
 
-            bla.dependencies.push({
+            updatedProposedLinksJSON.dependencies.push({
                 dependency_type: dep_type,
                 fromid: fromid,
                 toid: toid
@@ -904,38 +904,35 @@
         for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
             if (linkDetectionResponse[i] != undefined) {
                 if (linkDetectionResponse[i] != "reject") {
-                    bla.dependencies[i].dependency_type = linkDetectionResponse[i];
-                    bla.dependencies[i].status = "accepted"
+                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i];
+                    updatedProposedLinksJSON.dependencies[i].status = "accepted"
                 }
                 else {
-                    bla.dependencies[i].status = "rejected"
+                    updatedProposedLinksJSON.dependencies[i].status = "rejected"
                 }
             }
             else {
-                bla.dependencies.splice(i, i);
+                updatedProposedLinksJSON.dependencies.splice(i, i);
 
             }
-            console.log(bla)
+            console.log(updatedProposedLinksJSON)
         }
-        // console.log(linkDetectionResponseJSON)
-        // let blub = JSON.parse(JSON.stringify(linkDetectionResponseJSON));
-        // console.log(blub)
-        //
-        // let linkResponseString = JSON.stringify(linkDetectionResponseJSON);
+        let updatedPropsedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
         try {
 
             let xhr = new XMLHttpRequest();
 
-            let url = "/sendUpdatedProposedLinks?linkDetectionResponseJSON=" + bla;
-            xhr.open("GET", url, true);
+            let url = "/sendUpdatedProposedLinks";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "plain/text");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let string = xhr.responseText;
                     console.log(string);
                 }
             };
-            xhr.send(null);
+            xhr.send(updatedPropsedLinksResponse);
         }
         catch
             (err) {
