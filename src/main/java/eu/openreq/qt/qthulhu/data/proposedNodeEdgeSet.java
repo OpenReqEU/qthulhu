@@ -31,7 +31,7 @@ public class proposedNodeEdgeSet
 
         JsonArray deps = issueData.getAsJsonArray("dependencies");
         JsonObject proposedNodeEdgeSet = buildProposedNodeEdgeSet(reqs, deps);
-        System.out.println(proposedNodeEdgeSet);
+        //System.out.println(proposedNodeEdgeSet);
         JsonArray proposedReqs = proposedNodeEdgeSet.getAsJsonArray("nodes");
         for (int i = 0; i < proposedReqs.size(); i++)
         {

@@ -1,6 +1,7 @@
 package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,4 +34,13 @@ public class MillaController
 
     }
 
+    @RequestMapping(value = "/sendUpdatedProposedLinks", method = RequestMethod.GET)
+    public @ResponseBody String sendUpdatedProposedLinks(@RequestParam("linkDetectionResponseJSON") String linkDetectionResponseJSON)
+    {
+        JsonParser parser = new JsonParser();
+        System.out.println(linkDetectionResponseJSON);
+        //JsonObject json = parser.parse(linkDetectionResponseJSON).getAsJsonObject();
+        //System.out.println(linkDetectionResponseJSON);
+        return "Stuff sent";
+    }
 }

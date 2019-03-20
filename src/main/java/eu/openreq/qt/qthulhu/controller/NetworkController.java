@@ -86,8 +86,6 @@ public class NetworkController
         }
     }
 
-
-
     /**
      * Creates a new issue network depending on the inputs.
      * Then adds all information to the model which is then redirected to the corresponding jsp

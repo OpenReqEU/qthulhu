@@ -451,6 +451,7 @@
         nodes.add(depth5Nodes);
         edges.add(depth5Edges)
     }
+
     function add4layer() {
         nodes.add(depth4Nodes);
         edges.add(depth4Edges);
@@ -875,34 +876,71 @@
 
     function sendLinkData() {
 
-        let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
-            return {
-                dependency_type: d.dependency_type,
-                fromid: d.fromid,
-                toid: d.toid,
-                status: d.status
+        // let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
+        //     return {
+        //         dependency_type: d.dependency_type,
+        //         fromid: d.fromid,
+        //         toid: d.toid,
+        //         status: d.status
+        //     };
+        // });
+        let bla =
+            {
+                dependencies: []
             };
+        $.each(proposedNodesEdges['edges'], function (i, v) {
+            let dep_type = v['dependency_type'];
+            let fromid = v['fromid'];
+            let toid = v['toid'];
+
+            bla.dependencies.push({
+                dependency_type: dep_type,
+                fromid: fromid,
+                toid: toid
+            })
         });
+
+
         for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
             if (linkDetectionResponse[i] != undefined) {
                 if (linkDetectionResponse[i] != "reject") {
-                    linkDetectionResponseJSON[i].dependency_type = linkDetectionResponse[i];
-                    linkDetectionResponseJSON[i].status = "accepted"
+                    bla.dependencies[i].dependency_type = linkDetectionResponse[i];
+                    bla.dependencies[i].status = "accepted"
                 }
                 else {
-                    linkDetectionResponseJSON[i].status = "rejected"
+                    bla.dependencies[i].status = "rejected"
                 }
             }
             else {
-                linkDetectionResponseJSON.splice(i, i);
+                bla.dependencies.splice(i, i);
+
             }
+            console.log(bla)
         }
-        let linkResponseJSON =
-            {
-                "dependencies":
-                    {linkDetectionResponseJSON}
+        // console.log(linkDetectionResponseJSON)
+        // let blub = JSON.parse(JSON.stringify(linkDetectionResponseJSON));
+        // console.log(blub)
+        //
+        // let linkResponseString = JSON.stringify(linkDetectionResponseJSON);
+
+        try {
+
+            let xhr = new XMLHttpRequest();
+
+            let url = "/sendUpdatedProposedLinks?linkDetectionResponseJSON=" + bla;
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let string = xhr.responseText;
+                    console.log(string);
+                }
             };
-        console.log(linkResponseJSON);
+            xhr.send(null);
+        }
+        catch
+            (err) {
+            alert(err);
+        }
     }
 
     let proposedNodeElements = [];
@@ -937,7 +975,7 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let json = JSON.parse(xhr.responseText);
 
-                        console.log(proposedNodeElements);
+                        //console.log(proposedNodeElements);
                         nodes.remove(proposedNodeElements);
                         edges.remove(proposedEdgeElements);
 
@@ -1006,7 +1044,7 @@
                         edges.add(proposedEdgeElements);
 
                         proposedViewActive = true;
-                        console.log(proposedNodesEdges.dependencies);
+                        //console.log(proposedNodesEdges.dependencies);
                         if (proposedNodesEdges.edges.length == 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
@@ -1022,7 +1060,7 @@
                             acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                             for (i = 0; i < proposedIssuesList.length; i++) {
-                                stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/"+ proposedIssuesList[i].id + "' target='_blank'>"+ proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
+                                stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='duplicate'>Duplicate</option>" +
                                     "<option value='similar'>Similar</option>" +
                                     "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
