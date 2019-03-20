@@ -215,22 +215,22 @@
         edges.add(depth1Edges);
         updateDepthButtons();
         if (depth == 2) {
-            depth2();
+            add2layer()
         }
         else if (depth == 3) {
-            depth2();
-            depth3();
+            add2layer();
+            add3layer();
         }
         else if (depth == 4) {
-            depth2();
-            depth3();
-            depth4();
+            add2layer();
+            add3layer();
+            add4layer();
         }
         else if (depth == 5) {
-            depth2();
-            depth3();
-            depth4();
-            depth5();
+            add2layer();
+            add3layer();
+            add4layer();
+            add5layer();
         }
     });
 
@@ -509,6 +509,7 @@
         nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
         depth0Nodes.push({
             id: ID,
+            font: {multi: true},
             label: nodelabel,
             group: nodegroup,
             shape: 'box',
@@ -910,9 +911,11 @@
                 else {
                     updatedProposedLinksJSON.dependencies[i].status = "rejected"
                 }
+                console.log(updatedProposedLinksJSON)
             }
             else {
-                updatedProposedLinksJSON.dependencies.splice(i, i);
+                updatedProposedLinksJSON.dependencies.splice(i, 1);
+                console.log(updatedProposedLinksJSON)
 
             }
             console.log(updatedProposedLinksJSON)
@@ -1313,7 +1316,8 @@
                     "right": 10,
                     "bottom": 10,
                     "left": 10
-                }
+                },
+                "title": "HTML"
             },
             //edgedesign
             "edges": {
