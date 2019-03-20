@@ -1,7 +1,6 @@
 package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,11 +33,7 @@ public class MillaController
     public @ResponseBody
     String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
     {
-        JsonParser parser = new JsonParser();
-        JsonObject updatedProposedLinksJSON = parser.parse(updatedProposedLinks).getAsJsonObject();
-        System.out.println(updatedProposedLinksJSON);
-        String responseFromUH = UHServicesConnections.sendUpdatedProposedLinks(updatedProposedLinks);
-        System.out.println(responseFromUH);
-        return "Stuff sent "+responseFromUH;
+        String blub = updatedProposedLinks.substring(16, updatedProposedLinks.length()-1);
+        return UHServicesConnections.sendUpdatedProposedLinks(blub);
     }
 }

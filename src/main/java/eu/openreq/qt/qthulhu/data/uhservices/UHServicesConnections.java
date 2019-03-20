@@ -81,13 +81,10 @@ public class UHServicesConnections
         RestTemplate template = new RestTemplate();
         String updateProposedDependenciesURL = "http://217.172.12.199:9203/updateProposedDependencies";
         String response;
-        System.out.println("1");
 
         try
         {
-            System.out.println("2");
             response = template.postForObject(updateProposedDependenciesURL, updatedProposedLinks, String.class);
-            System.out.println("3");
         }
         catch (HttpClientErrorException e)
         {
@@ -98,7 +95,6 @@ public class UHServicesConnections
         {
             throw (e);
         }
-        System.out.println("4");
         System.out.println(response);
         return response;
     }
