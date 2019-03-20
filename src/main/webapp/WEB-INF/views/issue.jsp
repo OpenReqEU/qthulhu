@@ -467,365 +467,88 @@
         edges.add(depth2Edges);
     }
 
-    let depth0Nodes = [];
-    let depth0Edges = [];
-    let depth1Nodes = [];
-    let depth1Edges = [];
-    let depth2Nodes = [];
-    let depth2Edges = [];
-    let depth3Nodes = [];
-    let depth3Edges = [];
-    let depth4Nodes = [];
-    let depth4Edges = [];
-    let depth5Nodes = [];
-    let depth5Edges = [];
-
     let issueList = [];
 
-    // 0
-    $.each(nodeEdgeObject['0']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
+    function createDepthLevelNodes(nodeEdgeObject)
+    {
+        let depthLevelNodes = [];
+        $.each(nodeEdgeObject, function (i, v) {
+            let nodedepth = v['depth'];
+            let ID = v['nodeid'];
+            let nodekey = v['id'];
+            let nodetype = v['requirement_type'];
+            let nodename = v['name'];
+            let nodestatus = v['status'];
+            let noderesolution = v['resolution'];
+            let nodegroup = colorPaletteStatus[nodestatus];
+            let nodehidden = v['layer'] > depth;
+            let nodelabel = "";
+            if (!(nodetype == null)) {
+                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
+                if (nodename.toString().length > 20) {
+                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
+                }
+                else {
+                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
+                }
             }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth0Nodes.push({
-            id: ID,
-            font: {multi: true},
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
+            else
+                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+            let nodetitle = "";
+            nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+            depthLevelNodes.push({
+                id: ID,
+                font: {multi: true},
+                label: nodelabel,
+                group: nodegroup,
+                shape: 'box',
+                title: nodetitle,
+                level: nodedepth,
+                hidden: nodehidden
+            });
+            issueList.push({
+                id: nodekey
+            })
         });
-        issueList.push({
-            id: nodekey
-        })
-    });
+        return depthLevelNodes;
+    }
 
-    $.each(nodeEdgeObject['0']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth0Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
+    function createDepthLevelEdges(nodeEdgeObject)
+    {
+        let depthLevelEdges = [];
+        $.each(nodeEdgeObject, function (i, v) {
+            let edgestatus = v['status'];
+            let fromID = v['node_fromid'];
+            let toID = v['node_toid'];
+            let edgelabel = findProposed(v['status'], v['dependency_type']);
+            let edgearrow = arrowPaletteType[edgelabel];
+            let edgedashes = edgeStatusPalette[edgestatus];
+            depth0Edges.push({
+                from: fromID,
+                to: toID,
+                arrows: edgearrow,
+                label: edgelabel,
+                color: {color: '#172B4D', inherit: false},
+                width: 2,
+                dashes: edgedashes
+            });
         });
-    });
+        return depthLevelEdges;
+    }
 
-    // 1
-    $.each(nodeEdgeObject['1']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-            }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth1Nodes.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
-    });
+    let depth0Nodes = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
+    let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
+    let depth1Nodes = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
+    let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
+    let depth2Nodes = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
+    let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
+    let depth3Nodes = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
+    let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
+    let depth4Nodes = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
+    let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
+    let depth5Nodes = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
+    let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
 
-    $.each(nodeEdgeObject['1']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth1Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
-        });
-    });
-
-    //2
-    $.each(nodeEdgeObject['2']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-            }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth2Nodes.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
-    });
-
-    $.each(nodeEdgeObject['2']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth2Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
-        });
-    });
-
-    //3
-    $.each(nodeEdgeObject['3']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-            }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth3Nodes.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
-    });
-
-    $.each(nodeEdgeObject['3']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth3Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
-        });
-    });
-
-    //4
-    $.each(nodeEdgeObject['4']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-            }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth4Nodes.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
-    });
-
-    $.each(nodeEdgeObject['4']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth4Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
-        });
-    });
-
-    //5
-    $.each(nodeEdgeObject['5']['nodes'], function (i, v) {
-        let nodedepth = v['depth'];
-        let ID = v['nodeid'];
-        let nodekey = v['id'];
-        let nodetype = v['requirement_type'];
-        let nodename = v['name'];
-        let nodestatus = v['status'];
-        let noderesolution = v['resolution'];
-        let nodegroup = colorPaletteStatus[nodestatus];
-        let nodehidden = v['layer'] > depth;
-        let nodelabel = "";
-        if (!(nodetype == null)) {
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-
-            if (nodename.toString().length > 20) {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-            }
-            else {
-                nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-            }
-        }
-        else
-            nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-        let nodetitle = "";
-        nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-        depth5Nodes.push({
-            id: ID,
-            label: nodelabel,
-            group: nodegroup,
-            shape: 'box',
-            title: nodetitle,
-            level: nodedepth,
-            hidden: nodehidden
-        });
-        issueList.push({
-            id: nodekey
-        })
-    });
-
-    $.each(nodeEdgeObject['5']['edges'], function (i, v) {
-        let edgestatus = v['status'];
-        let fromID = v['node_fromid'];
-        let toID = v['node_toid'];
-        let edgelabel = findProposed(v['status'], v['dependency_type']);
-        let edgearrow = arrowPaletteType[edgelabel];
-        let edgedashes = edgeStatusPalette[edgestatus];
-        depth5Edges.push({
-            from: fromID,
-            to: toID,
-            arrows: edgearrow,
-            label: edgelabel,
-            color: {color: '#172B4D', inherit: false},
-            width: 2,
-            dashes: edgedashes
-        });
-
-    });
 
     //create an array with nodes
     nodes = new vis.DataSet(nodeElements);
@@ -876,15 +599,6 @@
     }
 
     function sendLinkData() {
-
-        // let linkDetectionResponseJSON = proposedNodesEdges['edges'].map(function (d, i) {
-        //     return {
-        //         dependency_type: d.dependency_type,
-        //         fromid: d.fromid,
-        //         toid: d.toid,
-        //         status: d.status
-        //     };
-        // });
         let updatedProposedLinksJSON =
             {
                 dependencies: []
