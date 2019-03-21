@@ -200,6 +200,7 @@
     let max_depth = '${maxDepth}';
     let nodeEdgeSet = '${nodeEdgeSet}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
+    let helpNodeSet =[];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -239,9 +240,18 @@
 
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
-        for (var i = 0; i < arr.length; i++)
+        for (i = 0; i < arr.length; i++)
             if (arr[i][propName] == propValue)
                 return arr[i];
+    }
+
+    function checkElement(arr, propName, propValue) {
+        for (i = 0; i < arr.length; i++)
+            if (arr[i][propName] == propValue)
+                return true;
+            else{
+                return false;
+            }
     }
 
     //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
@@ -469,10 +479,10 @@
 
     let issueList = [];
 
-    function createDepthLevelNodes(nodeEdgeObject)
-    {
+    function createDepthLevelNodes(nodeEdgeObject) {
         let depthLevelNodes = [];
         $.each(nodeEdgeObject, function (i, v) {
+            helpNodeSet.push(v);
             let nodedepth = v['depth'];
             let ID = v['nodeid'];
             let nodekey = v['id'];
@@ -513,8 +523,7 @@
         return depthLevelNodes;
     }
 
-    function createDepthLevelEdges(nodeEdgeObject)
-    {
+    function createDepthLevelEdges(nodeEdgeObject) {
         let depthLevelEdges = [];
         $.each(nodeEdgeObject, function (i, v) {
             let edgestatus = v['status'];
@@ -548,6 +557,7 @@
     let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
     let depth5Nodes = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
     let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
+    let allNodes = depth0Nodes.concat(depth1Nodes).concat(depth2Nodes).concat(depth3Nodes).concat(depth4Nodes).concat(depth5Nodes);
 
 
     //create an array with nodes
@@ -718,18 +728,20 @@
                                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-                            proposedNodeElements.push({
-                                id: ID,
-                                label: nodelabel,
-                                group: "proposed",
-                                shape: 'box',
-                                title: nodetitle,
-                                level: level,
-                                hidden: nodehidden
-                            });
-                            proposedIssuesList.push({
-                                id: nodekey
-                            })
+                            if (!checkElement(allNodes, 'nodeid', ID)) {
+                                proposedNodeElements.push({
+                                    id: ID,
+                                    label: nodelabel,
+                                    group: "proposed",
+                                    shape: 'box',
+                                    title: nodetitle,
+                                    level: level,
+                                    hidden: nodehidden
+                                });
+                                proposedIssuesList.push({
+                                    id: nodekey
+                                })
+                            }
                         });
 
                         //add edges
@@ -847,8 +859,7 @@
         }
         //display the initial infobox only if the user put exactly one issue in the input
         //get coressponding JSON
-        let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
-
+        let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
         let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
@@ -1113,9 +1124,13 @@
             let node = nodes.get(params.nodes);
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            let issueKey = issueNode.id;
-            currentIssue = issueKey;
-            infoTab()
+
+            currentIssue = issueNode.id;
+            infoTab();
+            if(proposedViewActive)
+            {
+                proposedLinks()
+            }
         });
 
         //doubleclicking searches for the clicked issue
