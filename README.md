@@ -22,24 +22,28 @@ While in JIRA the user can only see the direct links, this tool enables the user
 Essential information of an issue is displayed on the right-hand side.
 - *Navigating* the link network
 The user can drag items and add or remove layers.
+- *Accepting & rejecting* proposed links
+The results of a link detection are also visualized, this view should can be toggled on and off for a specific issue. While the link detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
+- *Consistency Checker*
+Checking if the issues in the link map do not have conflicting link type and priority and displaying the result.
 
 #### Functionalities in development
-- *Accepting & rejecting* proposed links
-The results of a similarity detection are also visualized, this view should be toggled on and off. While the similarity detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
 - *Editing* links
 By right-clicking an edge, the user can change the link type, switch direction or remove the link
 - *Filtering* the issue link map for specified properties
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
 
 #### Functionalities planned
-- *Consistency Checker*
-Checking if the issues in the link map do not have conflicting link type and priority
+- *Editing* links
+By right-clicking an edge, the user can change the link type, switch direction or remove the link
+- *Filtering* the issue link map for specified properties
+To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
 
 ### Accessing the application
 The application is accessible here: http://217.172.12.199:10201 
 and an older version here: http://bugreports-test.qt.io:10201/
 
-Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa.
+Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa. This connection is created by installing the ["jira-redirction" plugin](https://github.com/OpenReqEU/jira-redirection).
 
 ### How to install
 This is a maven project, so use 
@@ -68,15 +72,16 @@ Alternatively, you can access the test instance of Qt's jira https://bugreports-
 Visualising the link network and recommending missing links.
 
 ### What’s next?
-- Accepting and rejecting proposed links
-- Disabling / Enabling the detection view 
+- Filtering the graph
+- Editing links on the fly
+- Transform this from a web-application to a jira plugin
 
 ### Challenges
 Only the public issues are available. If a person has a Qt account, they should be able to see all the issues In the link map that they would be able to see in JIRA.
 
 ### Technical structure
 ![techstructure](https://github.com/OpenReqEU/qthulhu/blob/master/pics/TechnicalStructure.png)
-The service sends a request (JIRA keys, e.g. “QTWB-30”) for data to mulperi and receives a JSON with the issue data. This data is then visualized.
+The service sends a request (JIRA keys, e.g. “QTWB-30”) for data to milla and receives a JSON with the issue data. This data is then visualized.
 
 ## Notes for Developers
 I tried to comment most of the code to make it understandable. 
