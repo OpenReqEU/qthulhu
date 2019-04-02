@@ -3,9 +3,12 @@ package eu.openreq.qt.qthulhu.data.uhservices;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import eu.openreq.qt.qthulhu.GetProperties;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 /**
  * This class manages the requests to UH's services
@@ -25,7 +28,15 @@ public class UHServicesConnections
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
 //        String transitiveClosureURL = "https://localhost:9203/getTransitiveClosureOfARequirement?requirementId=" + issueKey;
-        String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=" + issueKey;
+        GetProperties properties = new GetProperties();
+        String transitiveClosureURL = "";
+        try {
+            transitiveClosureURL = properties.getPropValues("propTransitiveClosureURL") + issueKey;
+            System.out.println(transitiveClosureURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=" + issueKey;
         String requirement;
         try
         {

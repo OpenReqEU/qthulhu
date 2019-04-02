@@ -2,6 +2,7 @@ package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import eu.openreq.qt.qthulhu.GetProperties;
 import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,5 +21,17 @@ class NetworkControllerTest
 
         assertTrue(reqs.size() > 0);
         assertTrue(deps.size() > 0);
+    }
+    @org.junit.jupiter.api.Test
+    void testConfig()
+    {
+        GetProperties properties = new GetProperties();
+        try {
+            System.out.print(properties.getPropValues("testString"));
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
     }
 }
