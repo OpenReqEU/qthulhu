@@ -15,9 +15,9 @@
  * @param {Array} headerProperties Request header properties to be added to the default header.
  */
 function postRequest(url, body, headerProperties) {
-    let xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
-    for (let key in headerProperties) {
+    for (var key in headerProperties) {
         xhr.setRequestHeader(key, headerProperties[key]);
     }
     xhr.onload = function () {

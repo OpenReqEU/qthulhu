@@ -141,7 +141,7 @@ public class NodeEdgeSet
             JsonObject dataJSON = issueData.get(i).getAsJsonObject();
             //get the requirements which are our nodes
             JsonArray reqs = dataJSON.getAsJsonArray("requirements");
-            //go through all requirements and add nodes to the hasmap
+            //go through all requirements and add nodes to the hashmap
             for (int j = 0; j < reqs.size(); j++)
             {
                 JsonObject currentReq = reqs.get(j).getAsJsonObject();
