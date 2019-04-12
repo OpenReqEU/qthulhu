@@ -99,7 +99,7 @@
                     links of issues of depth 2 and so on, up until depth 5.
                     If you do not specify a depth the default value is 1.
                     While viewing the issue link map you can switch between the different depths.
-                <form action="/example" method="post" id="example" style="display:inline-block;">
+                <form action="/openreq-issue-link-map//example" method="post" id="example" style="display:inline-block;">
                     <%--This is needed to implement the add and remove layer functionality--%>
                     <input type="hidden" name="layerDepth" value="1"/>
                     <input type="hidden" name="issues" value="EX-3"/>
