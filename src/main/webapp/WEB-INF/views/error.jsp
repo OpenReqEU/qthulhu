@@ -18,7 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/openreq-issue-link-map/css/style.css">
+    <link rel="stylesheet" href="/openreq-issue-link-map /css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
@@ -35,7 +35,7 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="../images/or_logo.png"
+                                       src="openreq-issue-link-map/images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a href="/">Go Back</a>

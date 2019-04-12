@@ -40,7 +40,7 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="../images/or_logo.png"
+                                       src="openreq-issue-link-map/images/or_logo.png"
                                        width="116px" height="30px"/></a>
 
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>

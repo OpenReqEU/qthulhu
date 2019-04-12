@@ -26,7 +26,7 @@
 <body>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="../images/or_logo.png"
+                                       src="openreq-issue-link-map/images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
 </div>
