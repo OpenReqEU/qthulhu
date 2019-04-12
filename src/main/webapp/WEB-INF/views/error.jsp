@@ -40,14 +40,14 @@
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a href="/openreq-issue-link-map/">Go Back</a>
     <div class="search-container">
-        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
+        <form action="/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
+            <div class="loader" id="loader-search"></div>
             <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key(s)..."
                    style="margin-right: 20px">
             <input type="number" name="layerDepth" id="layerInput" min="1" max="5" placeholder="Layer(s)..."
                    style="margin-right: 20px">
             <input type="hidden" name="layerChange" id="changeInput" value="0"/>
-            <div class="loader" id="loader-search"></div>
         </form>
     </div>
 </div>
