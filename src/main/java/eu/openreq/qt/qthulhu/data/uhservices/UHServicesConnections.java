@@ -28,7 +28,7 @@ public class UHServicesConnections
         //gets transitive Closure (means the whole issue link map of an specified issue)
         //String transitiveClosureURL = "https://localhost:9203/getTransitiveClosureOfARequirement?requirementId=" + issueKey;
         String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
-        //System.out.println(transitiveClosureURL);
+        System.out.println(transitiveClosureURL);
 
         String requirement;
         try
