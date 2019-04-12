@@ -20,7 +20,7 @@ public class NetworkController
 {
 
     /**
-     * This is the main page you see if you go to 217.172.12.199:10201
+     * This is the main page you see if you go to https://api.openreq.eu/openreq-issue-link-map/
      *
      * @return the index view jsp
      */
@@ -150,7 +150,7 @@ public class NetworkController
      *
      * @return view and model that contains example information
      */
-    @RequestMapping(value = "/example", method = RequestMethod.POST)
+    @RequestMapping(value = "/openreq-issue-link-map/example", method = RequestMethod.POST)
     public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
     {
         if (layerDepth > 2)

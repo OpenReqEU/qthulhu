@@ -69,31 +69,31 @@
         <div class="col-8">
             <div class="row">
                 <%--Depth buttons--%>
-                <form action="/example" method="post" id="depth-1" style="display: inline-block">
+                <form action="/openreq-issue-link-map/example" method="post" id="depth-1" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="1"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-1-btn"
                            value="Depth 1">
                 </form>
-                <form action="/example" method="post" id="depth-2" style="display: inline-block">
+                <form action="/openreq-issue-link-map/example" method="post" id="depth-2" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="2"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-2-btn"
                            value="Depth 2">
                 </form>
-                <form action="/example" method="post" id="depth-3" style="display: inline-block">
+                <form action="/openreq-issue-link-map/example" method="post" id="depth-3" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="3"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-3-btn"
                            value="Depth 3">
                 </form>
-                <form action="/example" method="post" id="depth-4" style="display: inline-block">
+                <form action="/openreq-issue-link-map/example" method="post" id="depth-4" style="display: inline-block">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="4"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-4-btn"
                            value="Depth 4">
                 </form>
-                <form action="/example" method="post" id="depth-5">
+                <form action="/openreq-issue-link-map/example" method="post" id="depth-5">
                     <input type="hidden" name="issues" value="${issue}"/>
                     <input type="hidden" name="layerDepth" value="5"/>
                     <input type="submit" class="button layer button-effect-teal" id="depth-5-btn"
