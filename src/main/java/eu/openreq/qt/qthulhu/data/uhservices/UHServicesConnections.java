@@ -3,12 +3,11 @@ package eu.openreq.qt.qthulhu.data.uhservices;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import eu.openreq.qt.qthulhu.GetProperties;
+import eu.openreq.qt.qthulhu.Property;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 
 /**
  * This class manages the requests to UH's services
@@ -28,14 +27,8 @@ public class UHServicesConnections
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
         //String transitiveClosureURL = "https://localhost:9203/getTransitiveClosureOfARequirement?requirementId=" + issueKey;
-        //String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=" + issueKey;
-        GetProperties properties = new GetProperties();
-        String transitiveClosureURL = "";
-        try {
-            transitiveClosureURL = properties.getPropValues("propTransitiveClosureURL") + issueKey;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
+
         String requirement;
         try
         {
@@ -67,15 +60,8 @@ public class UHServicesConnections
     {
         RestTemplate template = new RestTemplate();
         //String topProposedLinksURL = "http://localhost:9203/getTopProposedDependenciesOfRequirement?requirementId=" + issueKey + "&maxResults=" + maxResults;
-        //String topProposedLinksURL = "http://217.172.12.199:9203/getTopProposedDependenciesOfRequirement?requirementId=" + issueKey + "&maxResults=" + maxResults;
+        String topProposedLinksURL = Property.topProposedLinksURL + issueKey + "&maxResults=" + maxResults;
 
-        GetProperties properties = new GetProperties();
-        String topProposedLinksURL = "";
-        try {
-            topProposedLinksURL = properties.getPropValues("propTopProposedLinksURL") + issueKey + "&maxResults=" + maxResults;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         String proposedLinks;
         try
@@ -100,19 +86,12 @@ public class UHServicesConnections
         RestTemplate template = new RestTemplate();
         //String updateProposedDependenciesURL = "http://217.172.12.199:9203/updateProposedDependencies";
 
-        GetProperties properties = new GetProperties();
-        String updateProposedDependenciesURL = "";
-        try {
-            updateProposedDependenciesURL = properties.getPropValues("propUpdateProposedDependenciesURL");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         String response;
 
         try
         {
-            response = template.postForObject(updateProposedDependenciesURL, updatedProposedLinks, String.class);
+            response = template.postForObject(Property.updateProposedDependenciesURL, updatedProposedLinks, String.class);
         }
         catch (HttpClientErrorException e)
         {
@@ -140,15 +119,8 @@ public class UHServicesConnections
         {
             RestTemplate template = new RestTemplate();
             //String consistencyCheckURL = "http://localhost:9203/getConsistencyCheckForRequirement?requirementId=" + issueKey;
-            //String consistencyCheckURL = "http://217.172.12.199:9203/getConsistencyCheckForRequirement?requirementId=" + issueKey;
+            String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
 
-            GetProperties properties = new GetProperties();
-            String consistencyCheckURL = "";
-            try {
-                consistencyCheckURL = properties.getPropValues("propConsistencyCheckURL") + issueKey;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             String consistencyCheck;
             try
