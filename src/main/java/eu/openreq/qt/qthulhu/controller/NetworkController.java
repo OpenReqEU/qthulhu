@@ -150,7 +150,7 @@ public class NetworkController
      *
      * @return view and model that contains example information
      */
-    @RequestMapping(value = "/openreq-issue-link-map/example", method = RequestMethod.POST)
+    @RequestMapping(value = "/example", method = RequestMethod.POST)
     public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
     {
         if (layerDepth > 2)
