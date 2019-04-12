@@ -44,7 +44,7 @@
                                        width="116px" height="30px"/></a>
 
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a href="/">Go Back</a>
+    <a href="/openreq-issue-link-map/">Go Back</a>
 </div>
 
 <%--Title--%>

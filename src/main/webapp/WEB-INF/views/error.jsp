@@ -38,7 +38,7 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a href="/">Go Back</a>
+    <a href="/openreq-issue-link-map/">Go Back</a>
     <div class="search-container">
         <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
@@ -59,7 +59,7 @@
             <h1>Sorry, I could not find the page you were looking for.</h1>
             <h3>Searched issue key (${issue}) does not exist or access to it is limited, please check that you wrote the issue key correctly.</h3>
             <h3>Thank you.</h3>
-            <a href="/" class="button back button-effect-orange">&#171 Go to Main Page</a>
+            <a href="/openreq-issue-link-map/" class="button back button-effect-orange">&#171 Go to Main Page</a>
         </div>
         <div class="col-4">
 <pre>
