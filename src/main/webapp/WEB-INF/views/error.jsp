@@ -40,7 +40,7 @@
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a href="/">Go Back</a>
     <div class="search-container">
-        <form action="/issue" method="post" id="search-id" name="search">
+        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <div class="loader" id="loader-search"></div>
             <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key(s)..."
