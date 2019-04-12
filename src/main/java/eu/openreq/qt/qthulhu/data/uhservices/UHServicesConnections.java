@@ -33,6 +33,7 @@ public class UHServicesConnections
         try
         {
             requirement = template.getForObject(transitiveClosureURL, String.class);
+            System.out.print("");
         }
         catch (HttpClientErrorException e)
         {
