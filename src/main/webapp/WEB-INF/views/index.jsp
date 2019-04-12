@@ -55,7 +55,7 @@
                         <input type="number" name="depth" id="layerDepth" min="1" max="5" width="100px"><br>
                         <i>
                             <small>This number should be between 1 and 5.<br>
-                                For example: 2
+                                For example: 3
                             </small>
                         </i>
                     </div>
