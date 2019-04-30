@@ -47,7 +47,7 @@
                    style="margin-right: 20px">
             <input type="number" name="depth" id="layerInput" min="1" max="5" placeholder="Layer(s)..."
                    style="margin-right: 20px">
-            <input type="hidden" name="layerChange" id="changeInput" value="0"/>
+           <%-- <input type="hidden" name="layerChange" id="changeInput" value="0"/> --%>
         </form>
     </div>
 </div>
