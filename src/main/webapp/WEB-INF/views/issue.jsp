@@ -824,6 +824,7 @@
                         //"<h5>Result</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
+            document.getElementById('ccResult').innerHTML = "<h5>Test</h5>".concat("ohne-if test");
 
             xhr.send(null);
 
