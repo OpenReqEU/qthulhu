@@ -774,7 +774,7 @@
 
                         proposedViewActive = true;
                         //console.log(proposedNodesEdges.dependencies);
-                        console.log("propNodeEdges length: " + proposedNodesEdges.dependencies.length);
+                        //console.log("propNodeEdges length: " + proposedNodesEdges.dependencies.length);
                         if (proposedNodesEdges.dependencies.length === 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
@@ -789,6 +789,7 @@
                             selectionList = '<div class="custom-select">';
                             acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
+                            console.log("propIssueList length " + proposedIssuesList.length);
                             for (i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='duplicate'>Duplicate</option>" +
