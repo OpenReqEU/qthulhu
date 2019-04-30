@@ -813,7 +813,7 @@
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.readyState === 4 /*&& xhr.status === 200*/) {
                     let json = JSON.parse(xhr.responseText);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
