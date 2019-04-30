@@ -813,7 +813,9 @@
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 /*&& xhr.status === 200*/) {
+                console.log("state= " + xhr.readyState);
+                console.log("status= "+ xhr.status);
+                if (xhr.readyState === 4 && xhr.status === 200) {
                     let json = JSON.parse(xhr.responseText);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
@@ -824,7 +826,7 @@
                         //"<h5>Result</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
-            document.getElementById('ccResult').innerHTML = "<h5>Test</h5>".concat("ohne-if test");
+            //document.getElementById('ccResult').innerHTML = "<h5>Test</h5>".concat("ohne-if test");
 
             xhr.send(null);
 
