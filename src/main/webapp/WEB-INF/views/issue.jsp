@@ -816,7 +816,11 @@
                 console.log("state= " + xhr.readyState);
                 console.log("status= "+ xhr.status);
                 if (xhr.readyState === 4 && xhr.status === 302) {
-                    let json = JSON.parse(xhr.responseText);
+                    let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
+                    console.log(jsonPart);
+                    let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
+                    console.log(notJSONResponse);
+                    let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
                     for (i = 0; i < releases.length; i++) {     //zeile drunter: evntl: release_msg stattdessen
