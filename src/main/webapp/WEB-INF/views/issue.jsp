@@ -824,9 +824,9 @@
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
                     for (i = 0; i < releases.length; i++) {     //zeile drunter: evntl: release_msg stattdessen
-                        regsInReleases = regsInReleases + "<b>Release " + releases[i].Release + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
+                        regsInReleases = regsInReleases + "<b>" + releases[i].Release_msg + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
 
