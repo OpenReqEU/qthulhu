@@ -696,7 +696,10 @@
                 let level = issueInfo.depth + 1;
 
                 xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
+
+                    console.log("state= " + xhr.readyState);
+                    console.log("status= "+ xhr.status);
+                    if (xhr.readyState === 4 && xhr.status === 302) {
                         let json = JSON.parse(xhr.responseText);
 
                         //console.log(proposedNodeElements);
@@ -813,17 +816,13 @@
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
-                console.log("state= " + xhr.readyState);
-                console.log("status= "+ xhr.status);
                 if (xhr.readyState === 4 && xhr.status === 302) {
                     let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
-                    console.log(jsonPart);
                     let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
-                    console.log(notJSONResponse);
                     let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
-                    for (i = 0; i < releases.length; i++) {     //zeile drunter: evntl: release_msg stattdessen
+                    for (i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<b>Release " + releases[i].Release + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
