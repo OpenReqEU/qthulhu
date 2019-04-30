@@ -689,7 +689,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
+                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId= " + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
@@ -700,7 +700,7 @@
                     console.log("state= " + xhr.readyState);
                     console.log("status= "+ xhr.status);
                     if (xhr.readyState === 4 && xhr.status === 302) {
-                        let json = JSON.parse(xhr.responseText);
+                        //let json = JSON.parse(xhr.responseText);
 
                         //console.log(proposedNodeElements);
                         nodes.remove(proposedNodeElements);
@@ -717,7 +717,7 @@
                             let noderesolution = v['resolution'];
                             let nodehidden = v['layer'] > depth;
                             let nodelabel = "";
-                            if (!(nodetype == null)) {
+                            if (nodetype !== null) {
                                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
 
                                 if (nodename.toString().length > 20) {
@@ -774,7 +774,7 @@
 
                         proposedViewActive = true;
                         //console.log(proposedNodesEdges.dependencies);
-                        if (proposedNodesEdges.edges.length == 0) {
+                        if (proposedNodesEdges.dependencies.length == 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
