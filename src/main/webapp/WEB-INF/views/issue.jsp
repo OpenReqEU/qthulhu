@@ -774,7 +774,8 @@
 
                         proposedViewActive = true;
                         //console.log(proposedNodesEdges.dependencies);
-                        if (proposedNodesEdges.dependencies.length == 0) {
+                        console.log("propNodeEdges length: " + proposedNodesEdges.dependencies.length);
+                        if (proposedNodesEdges.dependencies.length === 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
