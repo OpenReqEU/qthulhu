@@ -689,7 +689,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/getTopProposedLinksOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
+                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
