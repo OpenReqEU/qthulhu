@@ -43,11 +43,10 @@
         <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <div class="loader" id="loader-search"></div>
-            <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key(s)..."
+            <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
-            <input type="number" name="depth" id="layerInput" min="1" max="5" placeholder="Layer(s)..."
+            <input type="number" name="depth" id="depthInput" min="1" max="5" placeholder="Depth..."
                    style="margin-right: 20px">
-           <%-- <input type="hidden" name="layerChange" id="changeInput" value="0"/> --%>
         </form>
     </div>
 </div>
