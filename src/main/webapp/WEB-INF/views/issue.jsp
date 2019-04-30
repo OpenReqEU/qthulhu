@@ -809,7 +809,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/getConsistencyCheckOfRequirement?requirementId=" + currentIssue;
+            let url = "/milla/getConsistencyCheckOfRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
@@ -822,11 +822,9 @@
                     for (i = 0; i < releases.length; i++) {     //zeile drunter: evntl: release_msg stattdessen
                         regsInReleases = regsInReleases + "<b>Release " + releases[i].Release + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Test</h5>".concat("mehr test");
-                        //"<h5>Result</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
-            //document.getElementById('ccResult').innerHTML = "<h5>Test</h5>".concat("ohne-if test");
 
             xhr.send(null);
 
