@@ -809,7 +809,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/milla/getConsistencyCheckOfRequirement?requirementId=" + currentIssue;
+            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
