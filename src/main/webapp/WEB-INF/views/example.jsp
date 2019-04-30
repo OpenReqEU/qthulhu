@@ -415,10 +415,11 @@
                 id: ID,
                 label: nodelabel,
                 group: nodegroup,
-                shape: 'box',
+                shape: 'box',               //'image'
                 title: nodetitle,
                 level: nodelayer,
-                hidden: nodehidden
+                hidden: nodehidden,
+                //image: "http://localhost:10201/images/Priority/major.svg"
             });
             issueList.push({
                 id: nodekey
