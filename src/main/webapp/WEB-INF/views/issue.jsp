@@ -709,7 +709,7 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
-                        let newProposedNodesEdges = eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
+                        let newProposedNodesEdges = qthulhu.src.main.java.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
 
                         //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + newProposedNodesEdges.hasOwnProperty('nodes'));
