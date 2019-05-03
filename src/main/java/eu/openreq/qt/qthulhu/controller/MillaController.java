@@ -16,6 +16,7 @@ public class MillaController
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") Integer maxResults)
     {
+        System.out.println("Milla controller getTopProposedLinksOfRequirement");
         JsonObject topProposedLinks = fetchTopProposedLinks(requirementId, maxResults);
         topProposedLinks = buildNodeEdgeSet(topProposedLinks, requirementId);
         return topProposedLinks.toString();

@@ -691,6 +691,7 @@
 
                 let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId= " + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
+                console.log("Issue Get");
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
@@ -705,6 +706,7 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
+                        console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.has('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
                             let ID = v['nodeid'];
@@ -788,7 +790,7 @@
                             selectionList = '<div class="custom-select">';
                             acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
-                            console.log("propIssueList length " + proposedIssuesList.length);
+                            console.log("791: propIssueList length " + proposedIssuesList.length);
                             for (i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='duplicate'>Duplicate</option>" +
