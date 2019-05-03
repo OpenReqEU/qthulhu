@@ -10,10 +10,10 @@ import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchC
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
 @Controller
-@RequestMapping("/milla/")
+@RequestMapping("/milla")
 public class MillaController
 {
-    @RequestMapping(value = "getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") Integer maxResults)
     {
@@ -23,7 +23,7 @@ public class MillaController
         return topProposedLinks.toString();
     }
 
-    @RequestMapping(value = "getConsistencyCheckForRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "/getConsistencyCheckForRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getConsistencyCheckOfRequirement(@RequestParam("requirementId") String requirementId)
     {
@@ -31,7 +31,7 @@ public class MillaController
         return consistencyCheckJSON.toString();
     }
 
-    @RequestMapping(value = "sendUpdatedProposedLinks", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendUpdatedProposedLinks", method = RequestMethod.POST)
     public @ResponseBody
     String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
     {

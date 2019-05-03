@@ -709,9 +709,10 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
-                        let newProposedNodesEdges = Packages.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
+                        //let newProposedNodesEdges = Packages.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
 
-                        //add nodes
+                        let newProposedNodesEdges = Packages.qthulhu.src.main.java.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
+                            //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + newProposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(newProposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
