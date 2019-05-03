@@ -104,27 +104,35 @@ public class newNodeEdgeSet
                     JsonObject resolution = new JsonObject();
                     resolution.addProperty("name", "Resolution");
                     resolution.addProperty("text", "unknown");
+                    parts.add(resolution);
                     JsonObject platforms = new JsonObject();
                     platforms.addProperty("name", "Platforms");
                     platforms.addProperty("text", "unknown");
+                    parts.add(platforms);
                     JsonObject versions = new JsonObject();
                     versions.addProperty("name", "Versions");
                     versions.addProperty("text", "unknown");
+                    parts.add(versions);
                     JsonObject labels = new JsonObject();
                     labels.addProperty("name", "Labels");
                     labels.addProperty("text", "unknown");
+                    parts.add(labels);
                     JsonObject environment = new JsonObject();
                     environment.addProperty("name", "Environment");
                     environment.addProperty("text", "unknown");
+                    parts.add(environment);
                     JsonObject status = new JsonObject();
                     status.addProperty("name", "Status");
                     status.addProperty("text", "unknown");
+                    parts.add(status);
                     JsonObject fixVersion = new JsonObject();
                     fixVersion.addProperty("name", "FixVersion");
                     fixVersion.addProperty("text", "unknown");
+                    parts.add(fixVersion);
                     JsonObject components = new JsonObject();
                     components.addProperty("name", "Components");
                     components.addProperty("text", "unknown");
+                    parts.add(components);
                 }
                 for (int k = 0; k < parts.size(); k++)
                 {

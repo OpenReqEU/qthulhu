@@ -702,7 +702,8 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
-                        //console.log(proposedNodeElements);
+                        console.log(proposedNodeElements);
+                        console.log("I'm in it to win it");
                         nodes.remove(proposedNodeElements);
                         edges.remove(proposedEdgeElements);
 
@@ -820,7 +821,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
-                    let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
+                    //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
