@@ -692,7 +692,7 @@
 
                 let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId= " + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
-                console.log("Issue Get");
+                console.log(url);
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
@@ -711,10 +711,10 @@
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
                         //let newProposedNodesEdges = Packages.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
 
-                        let newProposedNodesEdges = Packages.qthulhu.src.main.java.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
+                        //let newProposedNodesEdges = Packages.qthulhu.src.main.java.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
                             //add nodes
-                        console.log("proposedNodesEdges.has('nodes') " + newProposedNodesEdges.hasOwnProperty('nodes'));
-                        $.each(newProposedNodesEdges['nodes'], function (i, v) {
+                        console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
+                        $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
