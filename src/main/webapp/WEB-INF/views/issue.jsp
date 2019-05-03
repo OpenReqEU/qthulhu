@@ -690,7 +690,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId= " + currentIssue + "&maxResults=" + 5;
+                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
                 console.log(url);
 
