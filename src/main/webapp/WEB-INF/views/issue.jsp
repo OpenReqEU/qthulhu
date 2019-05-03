@@ -708,12 +708,7 @@
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
-                        proposedNodesEdges = Packages.eu.openreq.qt.qthulhu.controller.MillaController.getTopProposedLinksOfRequirement(proposedNodesEdges, 5)
-                        //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
-                        //let newProposedNodesEdges = Packages.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
-
-                        //let newProposedNodesEdges = Packages.qthulhu.src.main.java.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
-                            //add nodes
+                        //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
