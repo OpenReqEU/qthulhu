@@ -687,6 +687,7 @@
         if (proposedViewActive == false) {
             try {
 
+
                 let xhr = new XMLHttpRequest();
 
                 let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId= " + currentIssue + "&maxResults=" + 5;
@@ -701,10 +702,13 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
+
+
                         nodes.remove(proposedNodeElements);
                         edges.remove(proposedEdgeElements);
 
-                        proposedNodesEdges = JSON.parse(xhr.responseText);
+                        //proposedNodesEdges = JSON.parse(xhr.responseText);
+                        //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
                         //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
