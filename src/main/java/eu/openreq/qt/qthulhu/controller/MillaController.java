@@ -9,9 +9,8 @@ import static eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchConsistencyCheck;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
-//@Controller
+@Controller
 @RequestMapping("/milla/")
-@RestController
 public class MillaController
 {
     @RequestMapping(value = "getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
