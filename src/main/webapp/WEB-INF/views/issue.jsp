@@ -706,7 +706,7 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
-                        console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.has('nodes'));
+                        console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
                             let ID = v['nodeid'];
