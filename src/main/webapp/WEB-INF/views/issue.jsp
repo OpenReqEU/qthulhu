@@ -702,12 +702,11 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
-                        console.log(proposedNodeElements);
-                        console.log("I'm in it to win it");
                         nodes.remove(proposedNodeElements);
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
+                        console.log(proposedNodesEdges);
                         //add nodes
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
