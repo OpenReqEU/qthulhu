@@ -697,8 +697,6 @@
 
                 xhr.onreadystatechange = function () {
 
-                    console.log("state= " + xhr.readyState);
-                    console.log("status= "+ xhr.status);
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
@@ -706,9 +704,9 @@
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
-                        console.log(proposedNodesEdges);
                         //add nodes
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
+                            console.log("each node: " + i);
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
                             let nodetype = v['requirement_type'];
@@ -749,6 +747,7 @@
 
                         //add edges
                         $.each(proposedNodesEdges['edges'], function (i, v) {
+                            console.log("each edges: " + i);
                             let edgestatus = v['status'];
                             let fromID = v['node_fromid'];
                             let toID = v['node_toid'];
