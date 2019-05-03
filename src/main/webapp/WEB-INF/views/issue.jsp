@@ -708,6 +708,7 @@
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
+                        proposedNodesEdges = Packages.eu.openreq.qt.qthulhu.controller.MillaController.getTopProposedLinksOfRequirement(proposedNodesEdges, 5)
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
                         //let newProposedNodesEdges = Packages.eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet(proposedNodesEdges, currentIssue);
 
