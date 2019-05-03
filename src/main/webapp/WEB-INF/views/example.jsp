@@ -671,7 +671,7 @@
 
     //TODO Remeber last selected issue
     function infoTab() {
-        if (proposedViewActive == true) {
+        if (proposedViewActive) {
             try {
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
@@ -682,7 +682,7 @@
             }
         }
         //display the initial infobox only if the user put exactly one issue in the input
-        if (issueArray.length == 1) {
+        if (issueArray.length === 1) {
             //get coressponding JSON
             let issueInfo = findElement(nodeEdgeObject.nodes, "id", issue);
 

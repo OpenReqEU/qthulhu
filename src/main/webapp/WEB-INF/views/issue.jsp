@@ -699,7 +699,7 @@
 
                     console.log("state= " + xhr.readyState);
                     console.log("status= "+ xhr.status);
-                    if (xhr.readyState === 4 && xhr.status === 302) {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
                         //console.log(proposedNodeElements);
@@ -818,7 +818,7 @@
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 302) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
                     let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(jsonPart);
