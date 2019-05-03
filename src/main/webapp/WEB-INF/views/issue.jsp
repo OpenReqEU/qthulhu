@@ -707,7 +707,7 @@
                         nodes.remove(proposedNodeElements);
                         edges.remove(proposedEdgeElements);
 
-                        //proposedNodesEdges = JSON.parse(xhr.responseText);
+                        proposedNodesEdges = JSON.parse(xhr.responseText);
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
                         //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
