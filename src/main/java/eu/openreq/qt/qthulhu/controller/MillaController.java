@@ -9,10 +9,12 @@ import static eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchConsistencyCheck;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
-@Controller
+//@Controller
+@RequestMapping("/milla/")
+@RestController
 public class MillaController
 {
-    @RequestMapping(value = "/milla/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") Integer maxResults)
     {
@@ -22,16 +24,15 @@ public class MillaController
         return topProposedLinks.toString();
     }
 
-    @RequestMapping(value = "/milla/getConsistencyCheckForRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "getConsistencyCheckForRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getConsistencyCheckOfRequirement(@RequestParam("requirementId") String requirementId)
     {
-        System.out.println("ccheck by milla");
         JsonObject consistencyCheckJSON = fetchConsistencyCheck(requirementId);
         return consistencyCheckJSON.toString();
     }
 
-    @RequestMapping(value = "/sendUpdatedProposedLinks", method = RequestMethod.POST)
+    @RequestMapping(value = "sendUpdatedProposedLinks", method = RequestMethod.POST)
     public @ResponseBody
     String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
     {

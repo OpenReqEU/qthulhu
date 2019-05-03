@@ -709,6 +709,8 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //proposedNodesEdges = getTopProposedLinksOfRequirement(currentIssue, 5);
+                        eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet
+
                         //add nodes
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
