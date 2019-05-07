@@ -15,7 +15,7 @@ public class MillaController
 {
     @GetMapping(value = "/getTopProposedDependenciesOfRequirement")
     public @ResponseBody
-    String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") Integer maxResults)
+    String getTopProposedLinksOfRequirement(@RequestParam(name="requirementId") String requirementId, @RequestParam(name="maxResults") Integer maxResults)
     {
         System.out.println("Milla controller getTopProposedLinksOfRequirement");
         JsonObject topProposedLinks = fetchTopProposedLinks(requirementId, maxResults);
