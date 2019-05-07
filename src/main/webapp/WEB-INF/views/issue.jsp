@@ -709,11 +709,7 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
-                        console.log("proposedNodesEdges.has('requirements') " + proposedNodesEdges.hasOwnProperty('requirements'));
-                        console.log("proposedNodesEdges.has('edges') " + proposedNodesEdges.hasOwnProperty('edges'));
-                        console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
-                            console.log("each node: " + i);
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
                             let nodetype = v['requirement_type'];
@@ -755,7 +751,6 @@
 
                         //add edges
                         $.each(proposedNodesEdges['edges'], function (i, v) {
-                            console.log("each edges: " + i);
                             let edgestatus = v['status'];
                             let fromID = v['node_fromid'];
                             let toID = v['node_toid'];
@@ -794,7 +789,6 @@
                             selectionList = '<div class="custom-select">';
                             acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
-                            console.log("791: propIssueList length " + proposedIssuesList.length);
                             for (i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='duplicate'>Duplicate</option>" +
@@ -819,17 +813,13 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            console.log("cc url:" +url);
+            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
-                console.log("readystate: " + xhr.readyState);
-                console.log("status: " + xhr.status);
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
                     //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
-                    console.log("jsonPart: " + jsonPart);
                     let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
@@ -840,7 +830,6 @@
                 }
             };
 
-            console.log("xhr.send(null) now");
             xhr.send(null);
 
             nodes.remove(proposedNodeElements);
@@ -1157,7 +1146,6 @@
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
             let issueKey = issueNode.id;
-            console.log(depth);
             $('#issueInput').val(issueKey);
             $('#depthInput').val(depth);
             //
