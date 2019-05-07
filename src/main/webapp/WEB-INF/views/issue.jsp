@@ -690,11 +690,9 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
+                let url = '/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=${currentIssue}&${maxResults}=5';
 
-                //let url = "https://api.openreq.eu/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=10";
                 xhr.open("GET", url, true);
-                console.log("issue: get url:\n" + url);
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
@@ -782,8 +780,6 @@
                         edges.add(proposedEdgeElements);
 
                         proposedViewActive = true;
-                        //console.log(proposedNodesEdges.dependencies);
-                        //console.log("propNodeEdges length: " + proposedNodesEdges.dependencies.length);
                         if (proposedNodesEdges.edges.length === 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
@@ -823,7 +819,8 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = '/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=${currentIssue}';
+            console.log('cc url:${url}');
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
@@ -833,13 +830,14 @@
                     let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
-                    for (i = 0; i < releases.length; i++) {
+                    for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<b>Release " + releases[i].Release + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
 
+            console.log("xhr.send(null) now");
             xhr.send(null);
 
             nodes.remove(proposedNodeElements);

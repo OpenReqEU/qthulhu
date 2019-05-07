@@ -22,7 +22,7 @@ public class MillaController
         return topProposedLinks.toString();
     }
 
-    @GetMapping(value = "/getConsistencyCheckForRequirement")
+    @RequestMapping(value = "/getConsistencyCheckForRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getConsistencyCheckOfRequirement(@RequestParam("requirementId") String requirementId)
     {
