@@ -712,7 +712,7 @@
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
                         console.log("proposedNodesEdges.has('requirements') " + proposedNodesEdges.hasOwnProperty('requirements'));
-                        console.log("proposedNodesEdges.has('dependencies') " + proposedNodesEdges.hasOwnProperty('dependencies'));
+                        console.log("proposedNodesEdges.has('edges') " + proposedNodesEdges.hasOwnProperty('edges'));
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
@@ -734,8 +734,9 @@
                                     nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
                                 }
                             }
-                            else
+                            else {
                                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+                            }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkElement(allNodes, 'nodeid', ID)) {
@@ -783,7 +784,7 @@
                         proposedViewActive = true;
                         //console.log(proposedNodesEdges.dependencies);
                         //console.log("propNodeEdges length: " + proposedNodesEdges.dependencies.length);
-                        if (proposedNodesEdges.dependencies.length === 0) {
+                        if (proposedNodesEdges.edges.length === 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {

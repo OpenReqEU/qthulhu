@@ -17,7 +17,6 @@ public class MillaController
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") int maxResults)
     {
-        System.out.println("Milla controller getTopProposedLinksOfRequirement");
         JsonObject topProposedLinks = fetchTopProposedLinks(requirementId, maxResults);
         topProposedLinks = buildNodeEdgeSet(topProposedLinks, requirementId);
         return topProposedLinks.toString();
@@ -27,7 +26,6 @@ public class MillaController
     public @ResponseBody
     String getConsistencyCheckOfRequirement(@RequestParam("requirementId") String requirementId)
     {
-        System.out.println("constcheck");
         JsonObject consistencyCheckJSON = fetchConsistencyCheck(requirementId);
         return consistencyCheckJSON.toString();
     }
