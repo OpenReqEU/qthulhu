@@ -822,7 +822,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
