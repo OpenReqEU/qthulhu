@@ -772,9 +772,9 @@
                         numberOfProposedLinks = proposedEdgeElements.length;
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
-                        console.log("double add")
+                        console.log("proposedNodeElements contains: " + proposedNodeElements.toString())
+                        console.log("nodes contains: " + nodes.get());
                         nodes.add(proposedNodeElements);
-                        console.log("between double")
                         edges.add(proposedEdgeElements);
 
                         proposedViewActive = true;
