@@ -731,6 +731,7 @@
                             }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+                            console.log(ID + ": " + checkElement(allNodes, 'nodeid', ID));
                             if (!checkElement(allNodes, 'nodeid', ID)) {
                                     proposedNodeElements.push({
                                         id: ID,
