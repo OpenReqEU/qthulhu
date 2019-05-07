@@ -694,11 +694,8 @@
 
                 xhr.open("GET", url, true);
 
-                console.log("nodeEdgeObject: " + nodeEdgeObject);
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
-                console.log("issueInfo: " + issueInfo);
                 let level = issueInfo.depth + 1;
-                console.log("level: " + level);
 
                 xhr.onreadystatechange = function () {
 
@@ -712,7 +709,6 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
-                        console.log("proposedNodesEdges: "+ proposedNodesEdges)
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
@@ -738,6 +734,7 @@
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkElement(allNodes, 'nodeid', ID)) {
+                                console.log("push node mit id: " + ID);
                                 proposedNodeElements.push({
                                     id: ID,
                                     label: nodelabel,
@@ -754,7 +751,6 @@
                         });
 
                         //add edges
-                        console.log("adding edges");
                         $.each(proposedNodesEdges['edges'], function (i, v) {
                             let edgestatus = v['status'];
                             let fromID = v['node_fromid'];
@@ -772,13 +768,13 @@
                                 dashes: true
                             });
                         });
-                        console.log("added edges");
 
                         numberOfProposedLinks = proposedEdgeElements.length;
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
                         console.log("double add")
                         nodes.add(proposedNodeElements);
+                        console.log("between double")
                         edges.add(proposedEdgeElements);
 
                         proposedViewActive = true;
