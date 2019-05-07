@@ -702,9 +702,10 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
-
-
+                        console.log("nodes b4 remove: " + nodes.get());
                         nodes.remove(proposedNodeElements);
+
+                        console.log("nodes after remove: " + nodes.get());
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
@@ -734,8 +735,6 @@
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkElement(allNodes, 'nodeid', ID)) {
-                                if (ID !== 1051055604) {
-                                    console.log("push node mit id: " + ID);
                                     proposedNodeElements.push({
                                         id: ID,
                                         label: nodelabel,
@@ -749,7 +748,6 @@
                                         id: nodekey
                                     })
                                 }
-                            }
                         });
 
                         //add edges
@@ -774,8 +772,7 @@
                         numberOfProposedLinks = proposedEdgeElements.length;
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
-                        console.log("proposedNodeElements contains: " + proposedNodeElements.toString())
-                        console.log("nodes contains: " + nodes.get());
+
                         nodes.add(proposedNodeElements);
                         edges.add(proposedEdgeElements);
 
@@ -784,7 +781,6 @@
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
-                            console.log("building html string");
                             stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
                                 "<table style='width: 100%'><tr>\n" +
                                 "<th>Issue Key</th>" +
