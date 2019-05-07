@@ -240,18 +240,18 @@
 
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
-        for (i = 0; i < arr.length; i++)
+        for (i = 0; i < arr.length; i++) {
             if (arr[i][propName] == propValue)
                 return arr[i];
+        }
     }
 
     function checkElement(arr, propName, propValue) {
-        for (i = 0; i < arr.length; i++)
+        for (i = 0; i < arr.length; i++) {
             if (arr[i][propName] == propValue)
                 return true;
-            else{
-                return false;
-            }
+        }
+        return false;
     }
 
     //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
@@ -702,10 +702,7 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
-                        console.log("nodes b4 remove: " + nodes.get());
                         nodes.remove(proposedNodeElements);
-
-                        console.log("nodes after remove: " + nodes.get());
                         edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
