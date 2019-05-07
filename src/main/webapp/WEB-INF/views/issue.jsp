@@ -692,7 +692,7 @@
 
                 let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
                 xhr.open("GET", url, true);
-                console.log(url);
+                console.log("issue: get url:\n" + url);
 
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
@@ -709,6 +709,8 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
+                        console.log("proposedNodesEdges.has('requirements') " + proposedNodesEdges.hasOwnProperty('requirements'));
+                        console.log("proposedNodesEdges.has('dependencies') " + proposedNodesEdges.hasOwnProperty('dependencies'));
                         console.log("proposedNodesEdges.has('nodes') " + proposedNodesEdges.hasOwnProperty('nodes'));
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             console.log("each node: " + i);
