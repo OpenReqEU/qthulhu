@@ -690,7 +690,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = `/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=${currentIssue}&${maxResults}=5`;
+                let url = "/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
 
                 xhr.open("GET", url, true);
 
@@ -819,11 +819,8 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = `/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=${currentIssue}`;
-            let a = 10;
-            let b = 5;
-            console.log(`Fifteen is ${a + b}.`);
-            console.log(`cc url:${url}`);
+            let url = "/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            console.log("cc url:" +url);
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
