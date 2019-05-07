@@ -734,19 +734,21 @@
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkElement(allNodes, 'nodeid', ID)) {
-                                console.log("push node mit id: " + ID);
-                                proposedNodeElements.push({
-                                    id: ID,
-                                    label: nodelabel,
-                                    group: "proposed",
-                                    shape: 'box',
-                                    title: nodetitle,
-                                    level: level,
-                                    hidden: nodehidden
-                                });
-                                proposedIssuesList.push({
-                                    id: nodekey
-                                })
+                                if (ID !== 1051055604) {
+                                    console.log("push node mit id: " + ID);
+                                    proposedNodeElements.push({
+                                        id: ID,
+                                        label: nodelabel,
+                                        group: "proposed",
+                                        shape: 'box',
+                                        title: nodetitle,
+                                        level: level,
+                                        hidden: nodehidden
+                                    });
+                                    proposedIssuesList.push({
+                                        id: nodekey
+                                    })
+                                }
                             }
                         });
 
