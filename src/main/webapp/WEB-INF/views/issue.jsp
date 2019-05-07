@@ -827,6 +827,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
                     //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
+                    console.log("jsonPart: " + jsonPart);
                     let json = JSON.parse(jsonPart);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
