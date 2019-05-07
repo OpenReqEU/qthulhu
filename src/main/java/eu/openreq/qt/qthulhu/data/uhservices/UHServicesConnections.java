@@ -120,7 +120,8 @@ public class UHServicesConnections
         {
             RestTemplate template = new RestTemplate();
             //String consistencyCheckURL = "http://localhost:9203/getConsistencyCheckForRequirement?requirementId=" + issueKey;
-            String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
+            //String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
+            String consistencyCheckURL = "https://api.openreq.eu/milla/getConsistencyCheckForRequirement?requirementId=QTWB-30";
 
 
             String consistencyCheck;

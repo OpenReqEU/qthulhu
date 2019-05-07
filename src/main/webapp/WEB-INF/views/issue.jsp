@@ -819,7 +819,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             console.log("cc url:" +url);
             xhr.open("GET", url, true);
 
