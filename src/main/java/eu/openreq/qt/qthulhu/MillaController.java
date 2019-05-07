@@ -1,4 +1,4 @@
-package eu.openreq.qt.qthulhu.controller;
+package eu.openreq.qt.qthulhu;
 
 import com.google.gson.JsonObject;
 import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
@@ -10,10 +10,10 @@ import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchC
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
 @Controller
-//@RequestMapping("/milla")
+@RequestMapping("/milla")
 public class MillaController
 {
-    @RequestMapping(value = "/milla/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") Integer maxResults)
     {
