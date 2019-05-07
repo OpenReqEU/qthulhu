@@ -820,6 +820,7 @@
             let xhr = new XMLHttpRequest();
 
             let url = `/openreq-issue-link-map/milla/getConsistencyCheckForRequirement?requirementId=${currentIssue}`;
+            console.log(`Fifteen is ${a + b}.`);
             console.log(`cc url:${url}`);
             xhr.open("GET", url, true);
 
