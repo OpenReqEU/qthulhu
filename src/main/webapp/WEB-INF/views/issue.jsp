@@ -252,6 +252,11 @@
                 return true;
         }
         return false;
+
+
+        function checkNodes(id) {
+            return (nodes.get(id) !== null);
+        }
     }
 
     //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
@@ -731,9 +736,10 @@
                             }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-                            console.log(ID + ": " + checkElement(nodes, 'id', ID));
-                            if (!checkElement(nodes.get(), 'id', ID)) {
-                                    proposedNodeElements.push({
+                            console.log(ID + ": " + checkNodes(ID));
+                            //if (!checkElement(allNodes, 'nodeid', ID)) {
+                            if (!checkNodes(ID)) {
+                                proposedNodeElements.push({
                                         id: ID,
                                         label: nodelabel,
                                         group: "proposed",
