@@ -252,11 +252,11 @@
                 return true;
         }
         return false;
+    }
 
 
-        function checkNodes(id) {
-            return (nodes.get(id) !== null);
-        }
+    function checkNodes(id) {
+        return (nodes.get(id) !== null);
     }
 
     //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
