@@ -690,7 +690,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
+                let url = "/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + 5;
 
                 //let url = "https://api.openreq.eu/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=10";
                 xhr.open("GET", url, true);
