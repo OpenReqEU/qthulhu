@@ -694,8 +694,11 @@
 
                 xhr.open("GET", url, true);
 
+                console.log("nodeEdgeObject: " + nodeEdgeObject);
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
+                console.log("issueInfo: " + issueInfo);
                 let level = issueInfo.depth + 1;
+                console.log("level: " + level);
 
                 xhr.onreadystatechange = function () {
 
@@ -709,6 +712,7 @@
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
+                        console.log("proposedNodesEdges: "+ proposedNodesEdges)
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
@@ -750,6 +754,7 @@
                         });
 
                         //add edges
+                        console.log("adding edges");
                         $.each(proposedNodesEdges['edges'], function (i, v) {
                             let edgestatus = v['status'];
                             let fromID = v['node_fromid'];
@@ -767,10 +772,12 @@
                                 dashes: true
                             });
                         });
+                        console.log("added edges");
 
                         numberOfProposedLinks = proposedEdgeElements.length;
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
+                        console.log("double add")
                         nodes.add(proposedNodeElements);
                         edges.add(proposedEdgeElements);
 
@@ -779,6 +786,7 @@
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
+                            console.log("building html string");
                             stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
                                 "<table style='width: 100%'><tr>\n" +
                                 "<th>Issue Key</th>" +
