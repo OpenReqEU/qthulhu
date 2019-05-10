@@ -1161,14 +1161,16 @@
         network.on("doubleClick", function (params) {
             params.event = "[original event]";
             let node = nodes.get(params.nodes);
-            let issueID = node[0].id;
-            let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            if(typeof issueNode !== 'undefined' && issueNode.id !== currentIssue) {
-                let issueKey = issueNode.id;
+            if(typeof node[0] !== "undefined") {
+                let issueID = node[0].id;
+                let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
+                if (typeof issueNode !== 'undefined' && issueNode.id !== issue) {
+                    let issueKey = issueNode.id;
                     $('#issueInput').val(issueKey);
                     $('#depthInput').val(depth);
                     //
                     document.forms["search-id"].submit();
+                }
             }
         });
     });
