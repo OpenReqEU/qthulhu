@@ -1136,7 +1136,7 @@
             infoTab();
             if(proposedViewActive)
             {
-                proposedLinks()
+                //proposedLinks()
             }
         });
 
