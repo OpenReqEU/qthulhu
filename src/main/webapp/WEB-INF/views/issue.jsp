@@ -825,7 +825,6 @@
 
     function checkConsistency() {
         if (proposedViewActive) {
-            console.log("remove in CC")
             nodes.remove(proposedNodeElements);
             edges.remove(proposedEdgeElements);
             proposedViewActive = false;
@@ -855,13 +854,6 @@
             };
 
             xhr.send(null);
-
-            if (proposedViewActive) {
-                console.log("remove in CC")
-                nodes.remove(proposedNodeElements);
-                edges.remove(proposedEdgeElements);
-                proposedViewActive = false;
-            }
         }
         catch
             (err) {
