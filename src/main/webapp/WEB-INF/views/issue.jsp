@@ -848,6 +848,7 @@
             nodes.remove(proposedNodeElements);
             edges.remove(proposedEdgeElements);
             if (proposedViewActive == true) {
+                console.log("CC if true");
                 proposedViewActive = false;
             }
         }
@@ -868,6 +869,7 @@
     function infoTab() {
         if (proposedViewActive == true) {
             try {
+                console.log("infoTab if true")
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
