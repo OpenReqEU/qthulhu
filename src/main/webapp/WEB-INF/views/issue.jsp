@@ -206,6 +206,8 @@
     let proposedViewActive = false;
     //infoTab View active boolean
     let infoTabActive = true;
+    //saves the Issue that links get proposed for
+    let propLinksIssue;
 
     let nodeElements = [];
     let edgeElements = [];
@@ -683,11 +685,10 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
-        if (infoTabActive){
         infoTabActive = false;
-         }
-        if (!proposedViewActive) {
-            console.log("propLinks macht was");
+        if (propLinksIssue !== currentIssue) {
+            propLinksIssue = currentIssue;
+
             try {
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
@@ -1150,21 +1151,19 @@
             params.event = "[original event]";
 
             let node = nodes.get(params.nodes);
-            console.log("node: " + node);
             let issueID = node[0].id;
-            console.log("issueID: " + issueID)
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            console.log("issueNode: " + issueNode);
+            if(typeof issueNode !== 'undefined') {
 
-            currentIssue = issueNode.id;
-            console.log("selectNode")
-            if (infoTabActive){
-                infoTab();
+                currentIssue = issueNode.id;
+                if (infoTabActive) {
+                    infoTab();
+                }
+                if(proposedViewActive)
+                {
+                    proposedLinks()
+                }
             }
-            /* if(proposedViewActive)
-            {
-                proposedLinks()
-            }*/
         });
 
         //doubleclicking searches for the clicked issue
