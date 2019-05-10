@@ -861,6 +861,7 @@
     }
 
     function infoTab() {
+        console.log("info tab")
         if (proposedViewActive) {
             console.log("remove in info");
                 nodes.remove(proposedNodeElements);
@@ -885,6 +886,7 @@
         let infoPlatform = issueInfo.platforms;
         let infoFixVersion = issueInfo.fixversion;
 
+        console.log("info tab html")
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
@@ -1136,11 +1138,12 @@
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
 
             currentIssue = issueNode.id;
+            console.log("selectNode")
             infoTab();
-            if(proposedViewActive)
+            /* if(proposedViewActive)
             {
-                //proposedLinks()
-            }
+                proposedLinks()
+            }*/
         });
 
         //doubleclicking searches for the clicked issue
