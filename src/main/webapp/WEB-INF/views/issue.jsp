@@ -682,6 +682,7 @@
     //Showing and removing proposed issues
     function proposedLinks() {
         if (!proposedViewActive) {
+            console.log("propLinks macht was");
             try {
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
@@ -707,8 +708,8 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         //let json = JSON.parse(xhr.responseText);
 
-                        nodes.remove(proposedNodeElements);
-                        edges.remove(proposedEdgeElements);
+                        //nodes.remove(proposedNodeElements);
+                        //edges.remove(proposedEdgeElements);
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
@@ -839,6 +840,7 @@
             xhr.send(null);
 
             if (proposedViewActive) {
+                console.log("remove in CC")
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
@@ -860,6 +862,7 @@
 
     function infoTab() {
         if (proposedViewActive) {
+            console.log("remove in info");
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
