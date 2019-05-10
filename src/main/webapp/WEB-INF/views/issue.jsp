@@ -681,6 +681,7 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
+        console.log("proposedLinks called");
         nodes.remove(proposedNodeElements);
         edges.remove(proposedEdgeElements);
 
