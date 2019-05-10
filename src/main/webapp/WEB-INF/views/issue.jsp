@@ -259,7 +259,7 @@
     }
 
 
-    function checkNodes(id) {
+    function checkNodesContains(id) {
         return (nodes.get(id) !== null);
     }
 
@@ -743,9 +743,9 @@
                             }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-                            //console.log(ID + ": " + checkNodes(ID));
+                            //console.log(ID + ": " + checkNodesContains(ID));
                             //if (!checkElement(allNodes, 'nodeid', ID)) {
-                            if (!checkNodes(ID)) {
+                            if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
                                         id: ID,
                                         label: nodelabel,
@@ -769,15 +769,17 @@
                             let edgelabel = findProposed(v['status'], v['dependency_type']);
                             let edgearrow = arrowPaletteType[edgelabel];
 
-                            proposedEdgeElements.push({
-                                from: fromID,
-                                to: toID,
-                                arrows: edgearrow,
-                                label: edgelabel,
-                                color: {color: '#172B4D', inherit: false},
-                                width: 2,
-                                dashes: true
-                            });
+                            if(!(checkNodesContains(fromID) && checkNodesContains(toID))){
+                                proposedEdgeElements.push({
+                                    from: fromID,
+                                    to: toID,
+                                    arrows: edgearrow,
+                                    label: edgelabel,
+                                    color: {color: '#172B4D', inherit: false},
+                                    width: 2,
+                                    dashes: true
+                                });
+                            }
                         });
 
                         numberOfProposedLinks = proposedEdgeElements.length;
@@ -878,9 +880,7 @@
     function infoTab() {
         infoTabActive = true;
 
-        console.log("info tab")
         if (proposedViewActive) {
-            console.log("remove in info");
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
@@ -903,7 +903,6 @@
         let infoPlatform = issueInfo.platforms;
         let infoFixVersion = issueInfo.fixversion;
 
-        console.log("info tab html")
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
@@ -1098,7 +1097,7 @@
                 "randomSeed": 9
             },
             "interaction": {
-                "multiselect": true,
+                "multiselect": false,
                 "navigationButtons": false
             },
             "physics": {
