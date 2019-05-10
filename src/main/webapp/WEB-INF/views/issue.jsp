@@ -682,14 +682,15 @@
     //Showing and removing proposed issues
     function proposedLinks() {
         console.log("propLink vor if: " + nodes.get());
-        nodes.remove(proposedNodeElements);
-        edges.remove(proposedEdgeElements);
+        //nodes.remove(proposedNodeElements);
+        //edges.remove(proposedEdgeElements);
 
         console.log("nach remove: " + nodes.get());
         proposedNodeElements = [];
         proposedEdgeElements = [];
         proposedNodesEdges = [];
         proposedIssuesList = [];
+        console.log("proposedViewActive vor if: " + proposedViewActive);
 
         if (proposedViewActive == false) {
             try {
