@@ -818,6 +818,8 @@
     }
 
     function checkConsistency() {
+
+        console.log("nodes in CC: " + nodes.get());
         try {
             let xhr = new XMLHttpRequest();
 
