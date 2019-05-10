@@ -1150,8 +1150,11 @@
             params.event = "[original event]";
 
             let node = nodes.get(params.nodes);
+            console.log("node: " + node);
             let issueID = node[0].id;
+            console.log("issueID: " + issueID)
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
+            console.log("issueNode: " + issueNode);
 
             currentIssue = issueNode.id;
             console.log("selectNode")
