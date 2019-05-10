@@ -1163,11 +1163,13 @@
             let node = nodes.get(params.nodes);
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            let issueKey = issueNode.id;
-            $('#issueInput').val(issueKey);
-            $('#depthInput').val(depth);
-            //
-            document.forms["search-id"].submit();
+            if(typeof issueNode !== 'undefined' && issueNode.id !== currentIssue) {
+                let issueKey = issueNode.id;
+                    $('#issueInput').val(issueKey);
+                    $('#depthInput').val(depth);
+                    //
+                    document.forms["search-id"].submit();
+            }
         });
     });
 
