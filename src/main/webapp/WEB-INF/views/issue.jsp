@@ -681,19 +681,16 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
-        console.log("propLink vor if: " + nodes.get());
-        nodes.remove(proposedNodeElements);
-        edges.remove(proposedEdgeElements);
-
-        console.log("nach remove: " + nodes.get());
-        proposedNodeElements = [];
-        proposedEdgeElements = [];
-        proposedNodesEdges = [];
-        proposedIssuesList = [];
-        console.log("proposedViewActive vor if: " + proposedViewActive);
-
-        if (proposedViewActive == false) {
+        if (!proposedViewActive) {
             try {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+
+                proposedNodeElements = [];
+                proposedEdgeElements = [];
+                proposedNodesEdges = [];
+                proposedIssuesList = [];
+
 
 
                 let xhr = new XMLHttpRequest();
@@ -779,8 +776,6 @@
                         numberOfProposedLinks = proposedEdgeElements.length;
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
-
-                        console.log("nodes b4 add: " + nodes.get());
                         nodes.add(proposedNodeElements);
                         edges.add(proposedEdgeElements);
 
@@ -808,7 +803,6 @@
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('proposedIssuesList').innerHTML = stringList;
                         }
-                        console.log("nodes at end of propLink: " + nodes.get());
                     }
 
                 };
@@ -822,7 +816,6 @@
 
     function checkConsistency() {
 
-        console.log("nodes in CC: " + nodes.get());
         try {
             let xhr = new XMLHttpRequest();
 
@@ -845,10 +838,9 @@
 
             xhr.send(null);
 
-            nodes.remove(proposedNodeElements);
-            edges.remove(proposedEdgeElements);
-            if (proposedViewActive == true) {
-                console.log("CC if true");
+            if (proposedViewActive) {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
             }
         }
@@ -867,16 +859,10 @@
     }
 
     function infoTab() {
-        if (proposedViewActive == true) {
-            try {
-                console.log("infoTab if true")
+        if (proposedViewActive) {
                 nodes.remove(proposedNodeElements);
                 edges.remove(proposedEdgeElements);
                 proposedViewActive = false;
-            }
-            catch (err) {
-                alert(err);
-            }
         }
         //display the initial infobox only if the user put exactly one issue in the input
         //get coressponding JSON
