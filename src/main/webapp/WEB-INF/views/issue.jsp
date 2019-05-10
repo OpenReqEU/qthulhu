@@ -204,6 +204,8 @@
 
     //proposed View active boolean
     let proposedViewActive = false;
+    //infoTab View active boolean
+    let infoTabActive = true;
 
     let nodeElements = [];
     let edgeElements = [];
@@ -681,6 +683,9 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
+        if (infoTabActive){
+        infoTabActive = false;
+         }
         if (!proposedViewActive) {
             console.log("propLinks macht was");
             try {
@@ -816,6 +821,15 @@
     }
 
     function checkConsistency() {
+        if (proposedViewActive) {
+            console.log("remove in CC")
+            nodes.remove(proposedNodeElements);
+            edges.remove(proposedEdgeElements);
+            proposedViewActive = false;
+        }
+        if (infoTabActive){
+            infoTabActive = false;
+        }
 
         try {
             let xhr = new XMLHttpRequest();
@@ -861,6 +875,8 @@
     }
 
     function infoTab() {
+        infoTabActive = true;
+
         console.log("info tab")
         if (proposedViewActive) {
             console.log("remove in info");
@@ -1139,7 +1155,9 @@
 
             currentIssue = issueNode.id;
             console.log("selectNode")
-            infoTab();
+            if (infoTabActive){
+                infoTab();
+            }
             /* if(proposedViewActive)
             {
                 proposedLinks()
