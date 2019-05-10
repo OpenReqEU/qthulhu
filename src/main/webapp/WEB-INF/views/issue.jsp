@@ -686,7 +686,7 @@
     //Showing and removing proposed issues
     function proposedLinks() {
         infoTabActive = false;
-        if (propLinksIssue !== currentIssue) {
+        if (propLinksIssue !== currentIssue || !proposedViewActive) {
             propLinksIssue = currentIssue;
 
             try {
@@ -787,7 +787,7 @@
                         edges.add(proposedEdgeElements);
 
                         proposedViewActive = true;
-                        if (proposedNodesEdges.edges.length === 0) {
+                        if (proposedIssuesList.length === 0) {
                             document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
