@@ -681,7 +681,6 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
-        console.log("proposedLinks called");
         nodes.remove(proposedNodeElements);
         edges.remove(proposedEdgeElements);
 
@@ -778,6 +777,7 @@
                         linkDetectionResponse = Array(numberOfProposedLinks);
 
 
+                        console.log("nodes b4 add: " + nodes.get());
                         nodes.add(proposedNodeElements);
                         edges.add(proposedEdgeElements);
 
@@ -805,6 +805,7 @@
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('proposedIssuesList').innerHTML = stringList;
                         }
+                        console.log("nodes at end of propLink: " + nodes.get());
                     }
 
                 };
