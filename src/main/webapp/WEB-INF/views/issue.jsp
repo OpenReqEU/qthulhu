@@ -227,7 +227,7 @@
             add3layer();
             add4layer();
         }
-        else if (depth == 5) {
+        else if (depth === 5) {
             add2layer();
             add3layer();
             add4layer();
@@ -681,9 +681,11 @@
     //Similarity detection functionality
     //Showing and removing proposed issues
     function proposedLinks() {
+        console.log("propLink vor if: " + nodes.get());
         nodes.remove(proposedNodeElements);
         edges.remove(proposedEdgeElements);
 
+        console.log("nach remove: " + nodes.get());
         proposedNodeElements = [];
         proposedEdgeElements = [];
         proposedNodesEdges = [];
