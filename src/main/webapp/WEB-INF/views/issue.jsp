@@ -921,6 +921,7 @@
     }
 
     function filterNodes() {
+        document.getElementById('filterOptions').innerHTML = "<p> Swiggety swooty... </p>"
 
     }
 
