@@ -931,15 +931,18 @@
         }
 
         let filterStatus = "Closed";
-        if (infoTabActive){
-            filterStatus = 'any';
-        }
+        //if (infoTabActive){
+        //    filterStatus = 'any';
+        //}
 
         if(filterStatus !== 'any'){
 
             $.each(nodeEdgeObject, function (i, v) {
+                console.log("in each, vor if")
                 if (v['status'] !== filterStatus) {
+                    console.log("in if, vor update")
                     nodes.update({id: v['id'], hidden: true});
+                    console.log("nach update")
                     filterHiddenNodes.push(v);
                 }
             });
