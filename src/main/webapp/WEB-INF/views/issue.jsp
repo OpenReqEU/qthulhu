@@ -934,6 +934,7 @@
             console.log("filterednodes: " + filteredNodes)
             $.each(filteredNodes, function (i, v){
                 nodes.update({id:v['id'], hidden:true});
+                console.log("id: " + v['id'] + "status: " + v['status'] + "\n");
             })
         }
     }
