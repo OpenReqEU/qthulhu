@@ -211,6 +211,7 @@
     let nodeEdgeSet = '${nodeEdgeSet}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
+    let filterHiddenNodes = [];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -923,19 +924,34 @@
     function filterNodes() {
         document.getElementById('filterOptions').innerHTML = "<p> Swiggety swooty... </p>"
 
+        if (proposedViewActive) {
+            nodes.remove(proposedNodeElements);
+            edges.remove(proposedEdgeElements);
+            proposedViewActive = false;
+        }
+
         let filterStatus = "Closed";
+        if (infoTabActive){
+            filterStatus = 'any';
+        }
 
         if(filterStatus !== 'any'){
-            let filteredNodes = nodes.get({
-                filter: function (item) {
-                    return (item.status !== filterStatus);
+
+            $.each(nodeEdgeObject, function (i, v) {
+                if (v['status'] !== filterStatus) {
+                    nodes.update({id: v['id'], hidden: true});
+                    filterHiddenNodes.push(v);
                 }
             });
-            console.log("filterednodes: " + filteredNodes)
-            $.each(filteredNodes, function (i, v){
-                nodes.update({id:v['id'], hidden:true});
-                console.log("id: " + v['id'] + "status: " + v['status'] + "\n");
+        }
+        else{
+            $.each(filterHiddenNodes, function (i, v){
+                nodes.update({id: v['id'], hidden: false});
             })
+        }
+
+        if (infoTabActive){
+            infoTabActive = false;
         }
     }
 
