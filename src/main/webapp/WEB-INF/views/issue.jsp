@@ -965,7 +965,8 @@
         // provide the data in the vis format
         let data = {
             nodes: nodes,
-            edges: edges
+            edges: edges,
+            hidden:true
         };
 
         //specify options such as physics
