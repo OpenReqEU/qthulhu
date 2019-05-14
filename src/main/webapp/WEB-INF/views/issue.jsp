@@ -938,6 +938,7 @@
             $.each(nodeEdgeObject.nodes, function (i, v) {
                 if (v.status !== filterStatus) {
                     console.log("v: "+v+"\n status: " + v.status + "\n id: " + v.id);
+                    console.log("checkNodesContains(v.id): " + checkNodesContains(v.id));
                     //nodes.remove(v['id']);
                     //filterHiddenNodes.push(v);
                 }
