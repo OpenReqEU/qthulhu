@@ -938,18 +938,17 @@
         if(filterStatus !== 'any'){
 
             $.each(nodeEdgeObject, function (i, v) {
-                console.log("in each, vor if")
                 if (v['status'] !== filterStatus) {
-                    console.log("in if, vor update")
+                    console.log("id: " + v['id'] + " status: " + v['status']);
                     nodes.remove(v['id']);
-                    console.log("nach update")
                     filterHiddenNodes.push(v);
                 }
             });
         }
         else{
             $.each(filterHiddenNodes, function (i, v){
-                nodes.add(v);
+                //nodes.add(v);
+                console.log("else")
             })
         }
 
