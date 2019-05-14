@@ -935,18 +935,18 @@
 
         if(filterStatus !== 'any'){
 
-            $.each(helpNodeSet, function (i, v) {
+            $.each(nodeEdgeObject.nodes, function (i, v) {
                 if (v.status !== filterStatus) {
-                    console.log("v: "+v+"\n status: " + v.status);
+                    console.log("v: "+v+"\n status: " + v.status + "\n id: " + v.id);
                     //nodes.remove(v['id']);
-                    filterHiddenNodes.push(v);
+                    //filterHiddenNodes.push(v);
                 }
             });
         }
         else{
+            console.log("else")
             $.each(filterHiddenNodes, function (i, v){
                 //nodes.add(v);
-                console.log("else")
             })
         }
 
