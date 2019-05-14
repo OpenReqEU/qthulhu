@@ -152,6 +152,12 @@
                         Checker
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
+                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodes();">Node
+                        Filter
+                    </a>
+                </li>
             </ul>
             <%--Information box--%>
             <div class="tab-content" id="tabs-tabContent">
@@ -182,6 +188,10 @@
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                     <p>Checks if the release plan of this issue link map is consistent.</p>
                     <p id="ccResult"></p>
+                </div>
+                <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
+                    <p>Allows you to filter the nodes by their status.</p>
+                    <p id="filterOptions"></p>
                 </div>
             </div>
         </div>
@@ -908,6 +918,10 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<b>Version: </b>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<b>Fix Version: </b>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(infoPlatform);
+    }
+
+    function filterNodes() {
+
     }
 
     // Create the network after the page is loaded and the network containing div is rendered
