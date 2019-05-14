@@ -966,7 +966,7 @@
         let data = {
             nodes: nodes,
             edges: edges,
-            hidden:true
+            hidden:false
         };
 
         //specify options such as physics
