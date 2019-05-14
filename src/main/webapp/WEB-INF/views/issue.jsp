@@ -931,9 +931,9 @@
         }
 
         let filterStatus = "Closed";
-        //if (infoTabActive){
-        //    filterStatus = 'any';
-        //}
+        if (infoTabActive){
+            filterStatus = 'any';
+        }
 
         if(filterStatus !== 'any'){
 
@@ -941,7 +941,7 @@
                 console.log("in each, vor if")
                 if (v['status'] !== filterStatus) {
                     console.log("in if, vor update")
-                    nodes.update({id: v['id'], hidden: true});
+                    nodes.remove(v['id']);
                     console.log("nach update")
                     filterHiddenNodes.push(v);
                 }
@@ -949,7 +949,7 @@
         }
         else{
             $.each(filterHiddenNodes, function (i, v){
-                nodes.update({id: v['id'], hidden: false});
+                nodes.add(v);
             })
         }
 
@@ -965,8 +965,7 @@
         // provide the data in the vis format
         let data = {
             nodes: nodes,
-            edges: edges,
-            hidden:false
+            edges: edges
         };
 
         //specify options such as physics
