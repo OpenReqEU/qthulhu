@@ -152,12 +152,12 @@
                         Checker
                     </a>
                 </li>
-                <li class="nav-item">
+              <%--  <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
                        aria-controls="filter-tab" aria-selected="false" onclick="filterNodes();">Node
                         Filter
                     </a>
-                </li>
+                </li> --%>
             </ul>
             <%--Information box--%>
             <div class="tab-content" id="tabs-tabContent">
@@ -189,10 +189,10 @@
                     <p>Checks if the release plan of this issue link map is consistent.</p>
                     <p id="ccResult"></p>
                 </div>
-                <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
+              <%--  <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Allows you to filter the nodes by their status.</p>
                     <p id="filterOptions"></p>
-                </div>
+                </div> --%>
             </div>
         </div>
     </div>
@@ -254,14 +254,14 @@
 
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
-        for (i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) {
             if (arr[i][propName] == propValue)
                 return arr[i];
         }
     }
 
     function checkElement(arr, propName, propValue) {
-        for (i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) {
             if (arr[i][propName] == propValue)
                 return true;
         }
@@ -922,6 +922,20 @@
 
     function filterNodes() {
         document.getElementById('filterOptions').innerHTML = "<p> Swiggety swooty... </p>"
+
+        let filterStatus;
+
+        if(filterStatus !== 'any'){
+            $.each(helpNodeSet, function (i, v) {
+                if(v['status'] !== filterStatus){
+                    nodes.update({})
+                }
+
+            });
+        }
+        let issueInfo = findElement(helpNodeSet, "id", currentIssue);
+
+        let infoStatus = issueInfo.status;
 
     }
 
