@@ -754,8 +754,6 @@
                             }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-                            //console.log(ID + ": " + checkNodesContains(ID));
-                            //if (!checkElement(allNodes, 'nodeid', ID)) {
                             if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
                                         id: ID,
@@ -937,10 +935,10 @@
 
         if(filterStatus !== 'any'){
 
-            $.each(nodeEdgeObject, function (i, v) {
-                if (v['status'] !== filterStatus) {
-                    console.log("v: "+v+"\n nodeid: "+ v['nodeid'] + "\n id: " + v['id'] + "\n status: " + v['status']);
-                    nodes.remove(v['id']);
+            $.each(helpNodeSet, function (i, v) {
+                if (v.status !== filterStatus) {
+                    console.log("v: "+v+"\n status: " + v.status);
+                    //nodes.remove(v['id']);
                     filterHiddenNodes.push(v);
                 }
             });
