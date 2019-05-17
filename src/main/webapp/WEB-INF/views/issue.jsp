@@ -313,6 +313,7 @@
         let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), filterStati = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
             filterStati.push(el.value);
+            console.log("filterStati nach push: " + filterStati);
         });
     }
 
