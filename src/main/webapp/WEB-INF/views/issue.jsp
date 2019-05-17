@@ -755,6 +755,7 @@
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkNodesContains(ID)) {
+                                console.log("ID: " + ID);
                                 proposedNodeElements.push({
                                         id: ID,
                                         label: nodelabel,
@@ -920,7 +921,7 @@
     }
 
     function filterNodes() {
-        document.getElementById('filterOptions').innerHTML = "<p> Swiggety swooty... </p>"
+        document.getElementById('filterOptions').innerHTML = "<p> Work in progress... </p>"
 
         if (proposedViewActive) {
             nodes.remove(proposedNodeElements);
