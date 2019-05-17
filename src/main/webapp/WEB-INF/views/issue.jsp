@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="eu.openreq.qt.qthulhu.data.HelperFunctions"%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -197,6 +198,10 @@
         </div>
     </div>
 </div>
+
+<%
+    HelperFunctions helperFunk = new HelperFunctions();
+%>
 
 <script>
     $('#search-id').submit(function () {
@@ -934,23 +939,25 @@
             filterStatus = 'any';
         }
 
-        if(filterStatus !== 'any'){
+        //if(filterStatus !== 'any'){
 
             $.each(nodeEdgeObject.nodes, function (i, v) {
                 if (v.status !== filterStatus) {
                     console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
                     console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
+
+                    console.log("checkNodesContains(v.id): " + checkNodesContains(v.id));
                     //nodes.remove(v['id']);
                     //filterHiddenNodes.push(v);
                 }
             });
-        }
+        /*}
         else{
             console.log("else")
             $.each(filterHiddenNodes, function (i, v){
                 //nodes.add(v);
             })
-        }
+        }*/
 
         if (infoTabActive){
             infoTabActive = false;
