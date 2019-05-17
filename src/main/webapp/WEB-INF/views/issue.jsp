@@ -7,7 +7,6 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="eu.openreq.qt.qthulhu.data.HelperFunctions"%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -199,9 +198,7 @@
     </div>
 </div>
 
-<%
-    HelperFunctions helperFunk = new HelperFunctions();
-%>
+
 
 <script>
     $('#search-id').submit(function () {
@@ -216,7 +213,7 @@
     let nodeEdgeSet = '${nodeEdgeSet}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
-    let filterHiddenNodes = [];
+    let filteredNodes;
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -592,6 +589,10 @@
 
     let linkDetectionResponse;
 
+    let testFilter;
+    function selectFilterTest(filter) {
+        testFilter = filter;
+    }
     function registerClick(elem) {
         if (elem.id.charAt(1) == 'r') {
             let btnid = "#" + elem.id;
@@ -938,27 +939,27 @@
         if (infoTabActive){
             filterStatus = 'any';
         }
+        console.log("filterStatus: " + filterStatus);
 
-        //if(filterStatus !== 'any'){
-
+        if(filterStatus !== 'any'){
+            filteredNodes = [];
             $.each(nodeEdgeObject.nodes, function (i, v) {
                 if (v.status !== filterStatus) {
-                    console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
-                    console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
-                    console.log("checkNodesContains(v.id): " + checkNodesContains(v.id));
+                    //console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
+                    //console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
                     if(checkNodesContains(v.nodeid)){
                         nodes.update({id: v.nodeid, hidden:true});
-                        filterHiddenNodes.push(v);
+                        filteredNodes.push(v);
                     }
                 }
             });
-        /*}
-        else{
-            console.log("else")
-            $.each(filterHiddenNodes, function (i, v){
-                //nodes.add(v);
-            })
-        }*/
+        }
+        else {
+            $.each(filteredNodes, function (i,v) {
+                nodes.update({id: v.nodeid, hidden:false})
+            });
+            filteredNodes = [];
+        }
 
         if (infoTabActive){
             infoTabActive = false;
