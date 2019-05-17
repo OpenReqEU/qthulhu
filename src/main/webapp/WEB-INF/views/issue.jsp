@@ -946,7 +946,7 @@
                     console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
                     console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
                     console.log("checkNodesContains(v.id): " + checkNodesContains(v.id));
-                    if(checkNodes(v.nodeid)){
+                    if(checkNodesContains(v.nodeid)){
                         nodes.update({id: v.nodeid, hidden:true});
                         filterHiddenNodes.push(v);
                     }
