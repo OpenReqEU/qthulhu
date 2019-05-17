@@ -191,6 +191,29 @@
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Allows you to filter the nodes by their status.</p>
+                    <div class="filterOptions">
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" value="Closed"/>
+                                Closed
+                            </label>
+                        </span>
+
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" value="In Progress"/>
+                                In Progress
+                            </label>
+                        </span>
+
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" value="Open"/>
+                                Open
+                            </label>
+                        </span>
+                        <input type="button" onclick="alert(getCheckedCheckboxesFor('status'));" value="Apply filter" />
+                    </div>
                     <p id="filterOptions"></p>
                 </div>
             </div>
@@ -214,6 +237,7 @@
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
     let filteredNodes;
+    let filterStati = [];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -284,6 +308,15 @@
             return type;
         }
     }
+
+    function getCheckedCheckboxesFor(checkboxName) {
+        let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+        Array.prototype.forEach.call(checkboxes, function(el) {
+            filterStati.push(el.value);
+        });
+    }
+
+
 
     //Palettes
 
