@@ -311,6 +311,7 @@
 
     function getCheckedCheckboxesFor(checkboxName) {
         let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
+        console.log("gets cleared")
         filterStati = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
             filterStati.push(el.value);
