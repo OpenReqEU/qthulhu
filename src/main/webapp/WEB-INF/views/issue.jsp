@@ -212,7 +212,7 @@
                                 Open
                             </label>
                         </span>
-                        <input type="button" onclick="alert(getCheckedCheckboxesFor('status'));" value="Apply filter" />
+                        <input type="button" onclick="getCheckedCheckboxesFor('status');" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
                 </div>
@@ -316,6 +316,9 @@
         });
     }
 
+    function applyFilter(status) {
+        return filterStati.includes(status);
+    }
 
 
     //Palettes
@@ -967,17 +970,14 @@
             edges.remove(proposedEdgeElements);
             proposedViewActive = false;
         }
+        infoTabActive = false;
 
-        let filterStatus = "Closed";
-        if (infoTabActive){
-            filterStatus = 'any';
-        }
-        console.log("filterStatus: " + filterStatus);
+        console.log("filterStati: " + filterStati);
 
-        if(filterStatus !== 'any'){
+        if(filterStati.length !== 0){
             filteredNodes = [];
             $.each(nodeEdgeObject.nodes, function (i, v) {
-                if (v.status !== filterStatus) {
+                if (applyFilter(v.status)) {
                     //console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
                     //console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
                     if(checkNodesContains(v.nodeid)){
@@ -992,10 +992,6 @@
                 nodes.update({id: v.nodeid, hidden:false})
             });
             filteredNodes = [];
-        }
-
-        if (infoTabActive){
-            infoTabActive = false;
         }
     }
 
