@@ -945,10 +945,11 @@
                 if (v.status !== filterStatus) {
                     console.log("v: "+v+"\n status: " + v.status + "\n nodeid: " + v.nodeid);
                     console.log("checkNodesContains(v.nodeid): " + checkNodesContains(v.nodeid));
-
                     console.log("checkNodesContains(v.id): " + checkNodesContains(v.id));
-                    //nodes.remove(v['id']);
-                    //filterHiddenNodes.push(v);
+                    if(checkNodes(v.nodeid)){
+                        nodes.update({id: v.nodeid, hidden:true});
+                        filterHiddenNodes.push(v);
+                    }
                 }
             });
         /*}
