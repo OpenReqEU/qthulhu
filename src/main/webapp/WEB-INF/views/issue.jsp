@@ -317,6 +317,8 @@
             filterStati.push(el.value);
             console.log("filterStati nach push: " + filterStati);
         });
+
+        console.log("filterStati nach foreach: " + filterStati);
     }
 
     function applyFilter(status) {
