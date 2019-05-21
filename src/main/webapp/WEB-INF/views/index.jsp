@@ -36,7 +36,7 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/openreq-issue-link-map/issue" method="get" id="search-id" style="display:inline-block;">
+        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
@@ -50,7 +50,7 @@
                         </i>
                     </div>
                     <%--Layer Input--%>
-                    <%--<div class="col-4">
+                    <div class="col-4">
                         <h4>Depth:</h4>
                         <input type="number" name="depth" id="layerDepth" min="1" max="5" width="100px"><br>
                         <i>
@@ -58,7 +58,7 @@
                                 For example: 2
                             </small>
                         </i>
-                    </div>--%>
+                    </div>
                     <%--Search Button--%>
                     <div class="col-2">
                         <br>
