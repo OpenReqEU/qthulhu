@@ -154,7 +154,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
-                       aria-controls="filter-tab" aria-selected="false" <%--onclick="filterNodes();"--%>>Node
+                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodes();">Node
                         Filter
                     </a>
                 </li>
@@ -237,7 +237,7 @@
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
     let filteredNodes;
-    let filterStatuses = [/*"Open", "In Progress", "Closed"*/];
+    let filterStatuses = ["Open", "In Progress", "Closed"];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -881,9 +881,7 @@
             edges.remove(proposedEdgeElements);
             proposedViewActive = false;
         }
-        if (infoTabActive){
             infoTabActive = false;
-        }
 
         try {
             let xhr = new XMLHttpRequest();
@@ -963,8 +961,6 @@
     }
 
     function filterNodes() {
-        document.getElementById('filterOptions').innerHTML = "<p> Work in progress... </p>"
-
         if (proposedViewActive) {
             nodes.remove(proposedNodeElements);
             edges.remove(proposedEdgeElements);
