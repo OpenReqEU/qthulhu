@@ -214,9 +214,8 @@
                         </span>
                         <span>
                             <label>
-                                <br/>
                                 <input type="checkbox" onClick="toggle(this)" />
-                                Toggle All
+                                <br/>Toggle All
                             </label>
                         </span>
                         <input type="button" onclick="filterStatuses = getCheckedCheckboxesFor('status');filterNodes()" value="Apply filter" />
