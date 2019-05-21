@@ -190,7 +190,7 @@
                     <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
-                    <p>Allows you to filter the nodes by their status.</p>
+                    <p>Allows you to filter the nodes by their status. Only Nodes with one of the selected statuses will be displayed.</p>
                     <div class="filterOptions">
                         <span>
                             <label>
@@ -302,7 +302,7 @@
 
     //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
     function findProposed(status, type) {
-        if (status == "proposed")
+        if (status === "proposed")
             return "proposed";
         else {
             return type;
@@ -318,7 +318,7 @@
     }
 
     function applyFilter(status) {
-        return filterStati.includes(status);
+        return !filterStati.includes(status);
     }
 
 
