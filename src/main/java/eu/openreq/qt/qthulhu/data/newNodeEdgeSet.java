@@ -26,7 +26,7 @@ public class newNodeEdgeSet
         JsonObject layers = issueData.getAsJsonObject("layers");
         for (int i = 0; i < 6; i++)
         {
-            if (!(layers.get(Integer.toString(i)) == null))
+            if ((layers.get(Integer.toString(i)) != null))
             {
                 JsonArray currentLayer = layers.get(Integer.toString(i)).getAsJsonArray();
                 //System.out.println(currentLayer);
