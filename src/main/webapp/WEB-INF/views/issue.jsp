@@ -194,7 +194,7 @@
                     <div class="filterOptions">
                         <span>
                             <label>
-                                <input name="status" type="checkbox" value="Closed"/>
+                                <input name="status" type="checkbox" checked="true" value="Closed"/>
                                 Closed
                             </label>
                         </span>
