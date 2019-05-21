@@ -91,14 +91,13 @@ public class NetworkController
      * Then adds all information to the model which is then redirected to the corresponding jsp
      *
      * @param issue issuekey
-     * @param depth amount of layers
      * @return view and model that contains the necessary information
      */
     @RequestMapping(value = "/issue", method = RequestMethod.GET)
-    public ModelAndView issue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
+    public ModelAndView issue(@RequestParam("issue") String issue/*, @RequestParam("depth") Integer depth*/)
     {
         //Check if layerDepth had an input, if not use default value of 1
-        depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
+        //depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
 
         //split the string
         issue = issue.toUpperCase();
@@ -130,7 +129,7 @@ public class NetworkController
             //add objects to model
             ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
             model.addObject("issue", issue);
-            model.addObject("depth", depth);
+            //model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
             model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
             return model;
