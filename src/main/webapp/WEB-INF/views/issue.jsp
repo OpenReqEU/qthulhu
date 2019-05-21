@@ -212,6 +212,12 @@
                                 Open
                             </label>
                         </span>
+                        <span>
+                            <label>
+                                <input type="checkbox" onClick="toggle(this)" />
+                                Toggle All
+                            </label>
+                        </span>
                         <input type="button" onclick="filterStatuses = getCheckedCheckboxesFor('status');filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
@@ -310,11 +316,17 @@
     }
 
     function getCheckedCheckboxesFor(checkboxName) {
-        var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+        let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
             values.push(el.value);
         });
         return values;
+    }
+    function toggle(source) {
+        let checkboxes = document.getElementsByName('status');
+        for(let i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+        }
     }
 
     function applyFilter(status) {
