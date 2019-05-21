@@ -214,6 +214,7 @@
                         </span>
                         <span>
                             <label>
+                                <br/>
                                 <input type="checkbox" onClick="toggle(this)" />
                                 Toggle All
                             </label>
