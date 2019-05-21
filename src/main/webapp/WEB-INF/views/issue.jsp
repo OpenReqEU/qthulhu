@@ -212,7 +212,7 @@
                                 Open
                             </label>
                         </span>
-                        <input type="button" onclick="filterStati = getCheckedCheckboxesFor('status');filterNodes()" value="Apply filter" />
+                        <input type="button" onclick="filterStatuses = getCheckedCheckboxesFor('status');filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
                 </div>
@@ -237,7 +237,7 @@
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
     let filteredNodes;
-    let filterStati = [];
+    let filterStatuses = ["Open", "In Progress", "Closed"];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -318,7 +318,7 @@
     }
 
     function applyFilter(status) {
-        return !filterStati.includes(status);
+        return !filterStatuses.includes(status);
     }
 
 
@@ -972,7 +972,7 @@
         }
         infoTabActive = false;
 
-        console.log("filterStati: " + filterStati);
+        console.log("filterStatuses: " + filterStatuses);
 
         $.each(filteredNodes, function (i,v) {
             nodes.update({id: v.nodeid, hidden:false})
