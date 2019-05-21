@@ -883,8 +883,12 @@
         try {
             let xhr = new XMLHttpRequest();
 
+
+            console.log("xhr.withCredentials: " + xhr.withCredentials)
             let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            console.log('"withCredentials" in xhr' + ("withCredentials" in xhr));
+            console.log('"withCredentials" in xhr ' + ("withCredentials" in xhr));
+            xhr.withCredentials = true;
+            console.log("xhr.withCredentials: " + xhr.withCredentials)
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
