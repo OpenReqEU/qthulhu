@@ -190,7 +190,7 @@
                     <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
-                    <p>Allows you to filter the nodes by their status. Only Nodes with one of the selected statuses will be displayed.</p>
+                    <p>Only Nodes with one of the selected statuses will be displayed.</p>
                     <div class="filterOptions">
                         <span>
                             <label>
