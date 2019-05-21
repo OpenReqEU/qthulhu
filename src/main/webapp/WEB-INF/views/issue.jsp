@@ -212,7 +212,7 @@
                                 Open
                             </label>
                         </span>
-                        <input type="button" onclick="getCheckedCheckboxesFor('status');" value="Apply filter" />
+                        <input type="button" onclick="filterStati = getCheckedCheckboxesFor('status');" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
                 </div>
@@ -310,15 +310,11 @@
     }
 
     function getCheckedCheckboxesFor(checkboxName) {
-        let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
-        console.log("gets cleared")
-        filterStati = [];
+        var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
-            filterStati.push(el.value);
-            console.log("filterStati nach push: " + filterStati);
+            values.push(el.value);
         });
-
-        console.log("filterStati nach foreach: " + filterStati);
+        return values;
     }
 
     function applyFilter(status) {
