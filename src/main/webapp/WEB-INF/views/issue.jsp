@@ -883,13 +883,8 @@
         try {
             let xhr = new XMLHttpRequest();
 
-
-            console.log("xhr.withCredentials: " + xhr.withCredentials)
-            //let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            console.log('"withCredentials" in xhr ' + ("withCredentials" in xhr));
-            xhr.withCredentials = true;
-            console.log("xhr.withCredentials: " + xhr.withCredentials)
+            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
