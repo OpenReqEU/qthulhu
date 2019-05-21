@@ -883,7 +883,8 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            //let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
