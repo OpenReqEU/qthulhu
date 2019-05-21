@@ -94,7 +94,7 @@ public class NetworkController
      * @param depth amount of layers
      * @return view and model that contains the necessary information
      */
-    @RequestMapping(value = "/issue", method = RequestMethod.POST)
+    @RequestMapping(value = "/issue", method = RequestMethod.GET)
     public ModelAndView issue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
     {
         //Check if layerDepth had an input, if not use default value of 1

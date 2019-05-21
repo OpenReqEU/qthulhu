@@ -36,7 +36,7 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" style="display:inline-block;">
+        <form action="/openreq-issue-link-map/issue" method="get" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
