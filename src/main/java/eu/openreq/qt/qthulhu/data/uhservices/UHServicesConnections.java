@@ -27,8 +27,7 @@ public class UHServicesConnections
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
         //String transitiveClosureURL = "https://localhost:9203/getTransitiveClosureOfARequirement?requirementId=" + issueKey;
-        //String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
-        String transitiveClosureURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTransitiveClosureOfRequirement?requirementId=QTWB-30";
+        String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
 
         String requirement;
         try
