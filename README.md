@@ -40,7 +40,7 @@ By right-clicking an edge, the user can change the link type, switch direction o
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
 
 ### Accessing the application
-The application is accessible here: http://217.172.12.199:10201 
+The application is accessible here: https://api.openreq.eu/openreq-issue-link-map/
 and an older version here: http://bugreports-test.qt.io:10201/
 
 Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa. This connection is created by installing the ["jira-redirction" plugin](https://github.com/OpenReqEU/jira-redirection).
