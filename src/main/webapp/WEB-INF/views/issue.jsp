@@ -46,9 +46,9 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a class="button-effect-orange" href="/openreq-issue-link-map/">Go Back</a>
+    <a class="button-effect-orange" href="./">Go Back</a>
     <div class="search-container">
-        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
+        <form action="./issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
@@ -768,7 +768,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "/openreq-issue-link-map/milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
+                let url = "./milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
 
                 xhr.open("GET", url, true);
 
