@@ -895,11 +895,13 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "./milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    //let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
+                    //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(xhr.responseText);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
