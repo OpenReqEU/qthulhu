@@ -198,14 +198,12 @@
                                 Closed
                             </label>
                         </span>
-
                         <span>
                             <label>
                                 <input name="status" type="checkbox" checked="true" value="In Progress"/>
                                 In Progress
                             </label>
                         </span>
-
                         <span>
                             <label>
                                 <input name="status" type="checkbox" checked="true" value="Open"/>
@@ -214,11 +212,78 @@
                         </span>
                         <span>
                             <label>
+                                <input name="status" type="checkbox" checked="true" value="Reported"/>
+                                Reported
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="To Do"/>
+                                To Do
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Done"/>
+                                Done
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Accepted"/>
+                                Accepted
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Rejected"/>
+                                Rejected
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Resolved"/>
+                                Resolved
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Reopened"/>
+                                Reopened
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Blocked"/>
+                                Blocked
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Withdrawn"/>
+                                Withdrawn
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Need More Info"/>
+                                Need More Info
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="status" type="checkbox" checked="true" value="Waiting 3rd party"/>
+                                Waiting 3rd party
+                            </label>
+                        </span>
+                        <br>
+                        <span>
+                            <label>
                                 <input type="checkbox" checked="true" onClick="toggle(this)" />
                                 Toggle All
                             </label>
                         </span>
-                        <input type="button" onclick="filterStatuses = getCheckedCheckboxesFor('status');filterNodes()" value="Apply filter" />
+                        <input type="button" class="button search button-effect-teal" onclick="filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
                 </div>
@@ -243,7 +308,7 @@
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let helpNodeSet =[];
     let filteredNodes;
-    let filterStatuses = ["Open", "In Progress", "Closed"];
+    let filterStatuses = [];
 
     //proposed View active boolean
     let proposedViewActive = false;
@@ -977,7 +1042,7 @@
         }
         infoTabActive = false;
 
-        console.log("filterStatuses: " + filterStatuses);
+        filterStatuses = getCheckedCheckboxesFor('status');
 
         $.each(filteredNodes, function (i,v) {
             nodes.update({id: v.nodeid, hidden:false})
