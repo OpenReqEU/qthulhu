@@ -75,7 +75,7 @@ public class newNodeEdgeSet
             JsonObject currentReq = reqs.get(i).getAsJsonObject();
             String reqKey = currentReq.get("id").getAsString();
             int reqLayer = _layer.get(reqKey);
-            if (!reqKey.contains("mock"))
+            if (currentReq.has("name") && !reqKey.contains("mock"))
             {
                 long nodeId = calculateUniqueID(reqKey);
 

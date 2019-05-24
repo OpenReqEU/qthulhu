@@ -26,7 +26,6 @@ public class UHServicesConnections
     {
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
-        //String transitiveClosureURL = "https://localhost:9203/getTransitiveClosureOfARequirement?requirementId=" + issueKey;
         String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
 
         String requirement;
@@ -122,10 +121,12 @@ public class UHServicesConnections
             String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
 
 
+            String rawResponse;
             String consistencyCheck;
             try
             {
-                consistencyCheck = template.getForObject(consistencyCheckURL, String.class);
+                rawResponse = template.getForObject(consistencyCheckURL, String.class);
+                consistencyCheck = rawResponse.substring(rawResponse.indexOf("{"));
             }
             catch (HttpClientErrorException e)
             {

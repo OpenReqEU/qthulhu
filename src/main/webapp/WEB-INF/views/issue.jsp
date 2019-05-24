@@ -201,20 +201,20 @@
 
                         <span>
                             <label>
-                                <input name="status" type="checkbox" value="In Progress"/>
+                                <input name="status" type="checkbox" checked="true" value="In Progress"/>
                                 In Progress
                             </label>
                         </span>
 
                         <span>
                             <label>
-                                <input name="status" type="checkbox" value="Open"/>
+                                <input name="status" type="checkbox" checked="true" value="Open"/>
                                 Open
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input type="checkbox" onClick="toggle(this)" />
+                                <input type="checkbox" checked="true" onClick="toggle(this)" />
                                 Toggle All
                             </label>
                         </span>
@@ -896,14 +896,11 @@
             let xhr = new XMLHttpRequest();
 
             let url = "/milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
-                    //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
-                    let json = JSON.parse(jsonPart);
+                    let json = JSON.parse(xhr.responseText);
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
                     for (let i = 0; i < releases.length; i++) {
