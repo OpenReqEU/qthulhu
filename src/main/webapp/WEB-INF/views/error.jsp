@@ -18,7 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/openreq-issue-link-map/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
@@ -38,9 +38,9 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a href="/openreq-issue-link-map/">Go Back</a>
+    <a href="./">Go Back</a>
     <%-- <div class="search-container">
-        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" name="search">
+        <form action="./issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <div class="loader" id="loader-search"></div>
             <input type="text" name="issues" id="issueInput" required="required" placeholder="Issue Key..."
@@ -58,7 +58,7 @@
             <h1>Sorry, I could not find the page you were looking for.</h1>
             <h3>Searched issue key (${issue}) does not exist or access to it is limited, please check that you wrote the issue key correctly.</h3>
             <h3>Thank you.</h3>
-            <a href="/openreq-issue-link-map/" class="button back button-effect-orange">&#171 Go to Main Page</a>
+            <a href="./" class="button back button-effect-orange">&#171 Go to Main Page</a>
         </div>
         <div class="col-4">
 <pre>

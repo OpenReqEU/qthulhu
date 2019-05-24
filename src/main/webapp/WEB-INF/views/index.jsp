@@ -20,7 +20,7 @@
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
-    <link rel="stylesheet" href="/openreq-issue-link-map/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <%--This is the navigation bar located at the top, it contains a link to the project website--%>
 <body>
@@ -36,7 +36,7 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
     <div class="row">
-        <form action="/openreq-issue-link-map/issue" method="post" id="search-id" style="display:inline-block;">
+        <form action="./issue" method="post" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
                     <%--Issue Key Input--%>
@@ -99,7 +99,7 @@
                     links of issues of depth 2 and so on, up until depth 5.
                     If you do not specify a depth the default value is 1.
                     While viewing the issue link map you can switch between the different depths.
-                <form action="/openreq-issue-link-map/example" method="post" id="example" style="display:inline-block;">
+                <form action="./example" method="post" id="example" style="display:inline-block;">
                     <%--This is needed to implement the add and remove layer functionality--%>
                     <input type="hidden" name="layerDepth" value="1"/>
                     <input type="hidden" name="issues" value="EX-3"/>

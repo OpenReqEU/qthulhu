@@ -725,7 +725,7 @@
 
             let xhr = new XMLHttpRequest();
 
-            let url = "/sendUpdatedProposedLinks";
+            let url = "./sendUpdatedProposedLinks";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "plain/text");
             xhr.onreadystatechange = function () {
