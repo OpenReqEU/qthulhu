@@ -323,31 +323,27 @@
 
     $(document).ready(function () {
         infoTab();
+        calculatePositions();
         nodes.add(depth0Nodes);
         nodes.add(depth1Nodes);
         edges.add(depth0Edges);
         edges.add(depth1Edges);
         updateDepthButtons();
-        if (depth == 2) {
+        if (depth >= 2) {
             add2layer()
         }
-        else if (depth == 3) {
-            add2layer();
+        if (depth >= 3) {
             add3layer();
         }
-        else if (depth == 4) {
-            add2layer();
-            add3layer();
+        if (depth >= 4) {
             add4layer();
         }
-        else if (depth === 5) {
-            add2layer();
-            add3layer();
-            add4layer();
+        if (depth === 5) {
             add5layer();
         }
+        //TODO test if correct calculation
+        console.log(getAngleByRelativePosition({x:0, y:0}, {x:240, y:120}));
     });
-
 
     //Help Functions
 
@@ -397,6 +393,66 @@
 
     function applyFilter(status) {
         return !filterStatuses.includes(status);
+    }
+
+    /**
+     * arrange nodes in circles, with the currentIssue in the center
+     */
+    function calculatePositions() {
+        // the one element with depth 0 is in the center
+        depth0Nodes[0].x = 0;
+        depth0Nodes[0].y = 0;
+        depth0Nodes[0].fixed = true;
+        // depth1Nodes is layer one and surrounds the center
+        for(let i = 0; i < depth1Nodes.length; i++){
+            let position = positionsDepthOne(depth1Nodes.length, i);
+            depth1Nodes[i].x = position.x;
+            depth1Nodes[i].y = position.y;
+        }
+    }
+
+    function positionsDepthOne(maxElements, currentElement) {
+        let point = {};
+        let angle = 360/maxElements;
+        let direction;
+        // Ein Element wird unter dem currentIssue angezeigt
+        if (maxElements === 1) {
+            direction = getDirectionByAngle(180);
+        }
+        // Zwei Elemente werden nebeneinander unter dem currentIssue angezeigt
+        else if(maxElements === 2){
+                 direction = getDirectionByAngle(135 + 90 * currentElement);
+        }
+        // bei einer ungeraden Anzahl ist das erste Element direkt über dem currentIssue
+        else if(maxElements % 2) {
+            direction = getDirectionByAngle(angle * currentElement);
+        }
+        // gerade Anzahl:
+        else {
+            direction = getDirectionByAngle(45 + (angle * currentElement));
+        }
+        // 240 = radius : Erfahrungswert
+
+        point.x = 240 * direction.x;
+        point.y = 240 * direction.y;
+        return point;
+    }
+
+    function positionsDepthTwo(maxElements, currentElement) {
+
+    }
+
+    function getDirectionByAngle(angle) {
+        let direction = {};
+        direction.x = -Math.sin(angle * (Math.PI/180));
+        direction.y = -Math.cos(angle * (Math.PI/180));
+        return direction;
+    }
+
+    function getAngleByRelativePosition (fromPoint, point) {
+        let dx = point.x - fromPoint.x;
+        let dy = point.y - fromPoint.y;
+        return Math.atan2(dy, dx) * 180/Math.PI;
     }
 
 
@@ -1200,6 +1256,11 @@
                     font: {color: 'black', multi: 'html'}
                 }
             },
+            configure: {
+                enabled: false,
+                filter: "edges",
+                showButton: true
+            },
             //node design
             "nodes": {
                 "font": {
@@ -1229,7 +1290,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
@@ -1242,7 +1303,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": true,
+                "enabled": false,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,
