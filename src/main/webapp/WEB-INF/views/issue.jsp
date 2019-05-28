@@ -191,6 +191,7 @@
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Only Nodes with one of the selected statuses will be displayed.</p>
+                    <p><b>Work in progress... <br>proceed at your own risk</b></p>
                     <div class="filterOptions">
                         <span>
                             <label>
@@ -1199,7 +1200,7 @@
                     font: {color: 'black', multi: 'html'}
                 }
             },
-            //nodedesign
+            //node design
             "nodes": {
                 "font": {
                     "face": 'Lato'
@@ -1212,7 +1213,7 @@
                 },
                 "title": "HTML"
             },
-            //edgedesign
+            //edge design
             "edges": {
                 "font": {
                     "face": 'Lato',

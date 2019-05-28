@@ -891,7 +891,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
