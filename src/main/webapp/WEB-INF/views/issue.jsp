@@ -341,7 +341,6 @@
         if (depth === 5) {
             add5layer();
         }
-        //TODO test if correct calculation
         //console.log(getAngleByRelativePosition({x:0, y:0}, {x:240, y:120}));
     });
 
