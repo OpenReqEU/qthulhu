@@ -323,7 +323,7 @@
 
     $(document).ready(function () {
         infoTab();
-        calculatePositions();
+        //calculatePositions();
         nodes.add(depth0Nodes);
         nodes.add(depth1Nodes);
         edges.add(depth0Edges);
@@ -342,7 +342,7 @@
             add5layer();
         }
         //TODO test if correct calculation
-        console.log(getAngleByRelativePosition({x:0, y:0}, {x:240, y:120}));
+        //console.log(getAngleByRelativePosition({x:0, y:0}, {x:240, y:120}));
     });
 
     //Help Functions
@@ -1290,7 +1290,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": false,
+                        "enabled": true,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
@@ -1303,7 +1303,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": false,
+                "enabled": true,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,

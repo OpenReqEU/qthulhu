@@ -75,6 +75,12 @@
                 </div>
             </fieldset>
         </form>
+        <div>
+            <input type="button" class="button search button-effect-teal" onclick="getAndOpenAuthorizeAddress()" value="Authorize" />
+            <input type="text" name="token" id="token-input" required="required" width="200px">
+            <input type="button" class="button search button-effect-teal" onclick="verifyAuthorization()" value="Verify" />
+        </div>
+
     </div>
     <br>
     <%--Information about this web application--%>
@@ -121,6 +127,55 @@
     $('#search-id').submit(function () {
         $('#loader').show();
     });
+
+
+    function getAndOpenAuthorizeAddress() {
+        try {
+            let xhr = new XMLHttpRequest();
+
+            let url = "./authorize/getAddress"
+            //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getJiraAuthorizationAddress"
+            xhr.open("GET", url, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let win = window.open(xhr.responseText, '_blank');
+                    win.focus();
+                }
+            };
+            xhr.send(null);
+        }
+        catch
+            (err) {
+            alert(err);
+        }
+    }
+
+    function verifyAuthorization() {
+        try {
+            let token = document.getElementById('token-input').value;
+            let xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            let url = "./authorize/verifyAuth"
+            //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization"
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("cache-control", "no-cache");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                }
+            };
+
+            xhr.send(token);
+        }
+        catch
+            (err) {
+            alert(err);
+        }
+    }
 </script>
 </body>
 </html>

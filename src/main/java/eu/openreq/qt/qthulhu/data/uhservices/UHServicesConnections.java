@@ -140,4 +140,50 @@ public class UHServicesConnections
             Gson gson = new Gson();
             return gson.fromJson(consistencyCheck, JsonElement.class).getAsJsonObject();
         }
+
+        public static String fetchJiraAuthAddress() throws
+                HttpClientErrorException, HttpServerErrorException
+        {
+            RestTemplate template = new RestTemplate();
+            String URL = Property.jiraAuthorizationAddress;
+
+            String response;
+            try
+            {
+                response = template.getForObject(URL, String.class);
+            }
+            catch (HttpClientErrorException e)
+            {
+                System.out.println("Error " + e);
+                throw (e);
+            }
+            catch (HttpServerErrorException e)
+            {
+                throw (e);
+            }
+            return response;
+        }
+
+        public static String doVerifyJiraAuthorization(String token)  throws
+                HttpClientErrorException, HttpServerErrorException
+        {
+            RestTemplate template = new RestTemplate();
+            String URL = Property.verifyAuthAddress;
+
+            String response;
+            try
+            {
+                response = template.postForObject(URL, token, String.class);
+            }
+            catch (HttpClientErrorException e)
+            {
+                System.out.println("Error " + e);
+                throw (e);
+            }
+            catch (HttpServerErrorException e)
+            {
+                throw (e);
+            }
+            return response;
+        }
     }
