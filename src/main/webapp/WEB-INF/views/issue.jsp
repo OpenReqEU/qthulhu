@@ -431,8 +431,7 @@
         else {
             direction = getDirectionByAngle(45 + (angle * currentElement));
         }
-        // 240 = radius : Erfahrungswert
-
+        // 240 = radius : tested value
         point.x = 240 * direction.x;
         point.y = 240 * direction.y;
         return point;
