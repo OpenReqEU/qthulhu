@@ -128,7 +128,6 @@
         $('#loader').show();
     });
 
-
     function getAndOpenAuthorizeAddress() {
         try {
             let xhr = new XMLHttpRequest();
