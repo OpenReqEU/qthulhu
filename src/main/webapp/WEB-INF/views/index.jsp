@@ -157,8 +157,8 @@
             let xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
-            let url = "./authorize/verifyAuth"
-            //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization"
+            //let url = "./authorize/verifyAuth"
+            let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization"
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("cache-control", "no-cache");

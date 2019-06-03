@@ -66,11 +66,10 @@ public class NetworkController
 
             //to getNodeEdgeSet method only accepts arrays
             JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
-            //System.out.println(nodeEdgeSet);
 
 
             //add objects to model
-            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
+            ModelAndView model = new ModelAndView("issueID", HttpStatus.OK);
             model.addObject("issue", issue);
             model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);

@@ -20,7 +20,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #issueLinkMap {
@@ -43,12 +43,12 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="images/or_logo.png"
+                                       src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a class="button-effect-orange" href="./">Go Back</a>
+    <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
-        <form action="./issue" method="post" id="search-id" name="search">
+        <form action="../issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
@@ -850,7 +850,7 @@
 
             let xhr = new XMLHttpRequest();
 
-            let url = "./sendUpdatedProposedLinks";
+            let url = "../sendUpdatedProposedLinks";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "plain/text");
             xhr.onreadystatechange = function () {
@@ -893,7 +893,7 @@
 
                 let xhr = new XMLHttpRequest();
 
-                let url = "./milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
+                let url = "../milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
 
                 xhr.open("GET", url, true);
 
@@ -1020,7 +1020,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "./milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
