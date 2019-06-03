@@ -168,7 +168,6 @@
                     alert(xhr.responseText);
                 }
             };
-
             xhr.send(token);
         }
         catch
