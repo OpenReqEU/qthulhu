@@ -346,6 +346,7 @@
 
     //Help Functions
 
+
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
         for (let i = 0; i < arr.length; i++) {
