@@ -69,7 +69,7 @@ public class NetworkController
 
 
             //add objects to model
-            ModelAndView model = new ModelAndView("issueID", HttpStatus.OK);
+            ModelAndView model = new ModelAndView("issueid", HttpStatus.OK);
             model.addObject("issue", issue);
             model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
