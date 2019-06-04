@@ -20,7 +20,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #issueLinkMap {
@@ -43,7 +43,7 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="../images/or_logo.png"
+                                       src="./images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a class="button-effect-orange" href="./">Go Back</a>
@@ -329,8 +329,8 @@
     $(document).ready(function () {
         infoTab();
         calculatePositions();
-        nodes.add(depth0Nodes);
-        nodes.add(depth1Nodes);
+        nodes.add(allNodesArray[0]);
+        nodes.add(allNodesArray[1]);
         edges.add(depth0Edges);
         edges.add(depth1Edges);
         updateDepthButtons();
@@ -404,18 +404,18 @@
      */
     function calculatePositions() {
         // the one element with depth 0 is in the center
-        depth0Nodes[0].x = 0;
-        depth0Nodes[0].y = 0;
-        depth0Nodes[0].fixed = true;
-        // depth1Nodes is layer one and surrounds the center
-        for(let i = 0; i < depth1Nodes.length; i++){
-            let position = positionsDepthOne(depth1Nodes.length, i);
-            depth1Nodes[i].x = position.x;
-            depth1Nodes[i].y = position.y;
+        allNodesArray[0][0].x = 0;
+        allNodesArray[0][0].y = 0;
+        allNodesArray[0][0].fixed = true;
+        // allNodesArray[1] is layer one and surrounds the center
+        for(let i = 0; i < allNodesArray[1].length; i++){
+            let position = positionsDepthOne(allNodesArray[1].length, i);
+            allNodesArray[1][i].x = position.x;
+            allNodesArray[1][i].y = position.y;
         }
-        //for(let i = 2; i < max_depth; i++) {
+        for(let i = 2; i < max_depth; i++) {
             positionsOuterRings(2);
-        //}
+        }
     }
 
     function positionsDepthOne(maxElements, currentElement) {
@@ -459,8 +459,8 @@
             }
             let angle = getAngleByRelativePosition({x:0,y:0}, fromPoint);
             let direction = getDirectionByAngle(angle);
-            depth2Nodes[i].x = distance * depth * direction.x;
-            depth2Nodes[i].y = distance * depth * direction.y;
+            allNodesArray[depth][i].x = distance * depth * direction.x;
+            allNodesArray[depth][i].y = distance * depth * direction.y;
         }
     }
 
@@ -590,10 +590,10 @@
         let oldDepth = depth;
         depth = 1;
         if (oldDepth > depth) {
-            nodes.remove(depth2Nodes);
-            nodes.remove(depth3Nodes);
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[2]);
+            nodes.remove(allNodesArray[3]);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth3Edges);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
@@ -606,9 +606,9 @@
         let oldDepth = depth;
         depth = 2;
         if (oldDepth > depth) {
-            nodes.remove(depth3Nodes);
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[3]);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth3Edges);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
@@ -623,8 +623,8 @@
         let oldDepth = depth;
         depth = 3;
         if (oldDepth > depth) {
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
         }
@@ -642,7 +642,7 @@
         let oldDepth = depth;
         depth = 4;
         if (oldDepth > depth) {
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth5Edges);
         }
         if (oldDepth == 1) {
@@ -685,22 +685,22 @@
     }
 
     function add5layer() {
-        nodes.add(depth5Nodes);
+        nodes.add(allNodesArray[5]);
         edges.add(depth5Edges)
     }
 
     function add4layer() {
-        nodes.add(depth4Nodes);
+        nodes.add(allNodesArray[4]);
         edges.add(depth4Edges);
     }
 
     function add3layer() {
-        nodes.add(depth3Nodes);
+        nodes.add(allNodesArray[3]);
         edges.add(depth3Edges);
     }
 
     function add2layer() {
-        nodes.add(depth2Nodes);
+        nodes.add(allNodesArray[2]);
         edges.add(depth2Edges);
     }
 
@@ -772,26 +772,21 @@
         return depthLevelEdges;
     }
 
-    let depth0Nodes = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
-    let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
-    let depth1Nodes = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
-    let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
-    let depth2Nodes = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
-    let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
-    let depth3Nodes = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
-    let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
-    let depth4Nodes = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
-    let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
-    let depth5Nodes = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
-    let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
-    let allNodes = depth0Nodes.concat(depth1Nodes).concat(depth2Nodes).concat(depth3Nodes).concat(depth4Nodes).concat(depth5Nodes);
     let allNodesArray = [];
-    allNodesArray[0] = depth0Nodes;
-    allNodesArray[1] = depth1Nodes;
-    allNodesArray[2] = depth2Nodes;
-    allNodesArray[3] = depth3Nodes;
-    allNodesArray[4] = depth4Nodes;
-    allNodesArray[5] = depth5Nodes;
+    allNodesArray[0] = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
+    let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
+    allNodesArray[1] = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
+    let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
+    allNodesArray[2] = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
+    let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
+    allNodesArray[3] = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
+    let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
+    allNodesArray[4] = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
+    let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
+    allNodesArray[5] = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
+    let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
+    //let allNodes = allNodesArray[0].concat(allNodesArray[1]).concat(allNodesArray[2]).concat(allNodesArray[3]).concat(allNodesArray[4]).concat(allNodesArray[5]);
+
     let allEdges = [depth0Edges, depth1Edges, depth2Edges, depth3Edges, depth4Edges, depth5Edges];
 
 

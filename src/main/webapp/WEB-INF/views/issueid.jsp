@@ -302,15 +302,20 @@
 
     //getting the data for the network and depth btn disabling
     let issue = '${issue}';
-    let currentIssue = '${issue}';
     let depth = '${depth}';
     let max_depth = '${maxDepth}';
     let nodeEdgeSet = '${nodeEdgeSet}';
+    let issueJSON = '${issueJSON}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
+    let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
+    // console.log(currentIssue);
     let helpNodeSet =[];
     let filteredNodes;
     let filterStatuses = [];
+    let distance = 240;
 
+    // console.log(nodeEdgeSet);
+    // console.log(issueJSON);
     //proposed View active boolean
     let proposedViewActive = false;
     //infoTab View active boolean
@@ -323,9 +328,9 @@
 
     $(document).ready(function () {
         infoTab();
-        //calculatePositions();
-        nodes.add(depth0Nodes);
-        nodes.add(depth1Nodes);
+        calculatePositions();
+        nodes.add(allNodesArray[0]);
+        nodes.add(allNodesArray[1]);
         edges.add(depth0Edges);
         edges.add(depth1Edges);
         updateDepthButtons();
@@ -346,18 +351,17 @@
 
     //Help Functions
 
-
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] == propValue)
+            if (arr[i][propName] === propValue)
                 return arr[i];
         }
     }
 
     function checkElement(arr, propName, propValue) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] == propValue)
+            if (arr[i][propName] === propValue)
                 return true;
         }
         return false;
@@ -400,17 +404,17 @@
      */
     function calculatePositions() {
         // the one element with depth 0 is in the center
-        depth0Nodes[0].x = 0;
-        depth0Nodes[0].y = 0;
-        depth0Nodes[0].fixed = true;
-        // depth1Nodes is layer one and surrounds the center
-        for(let i = 0; i < depth1Nodes.length; i++){
-            let position = positionsDepthOne(depth1Nodes.length, i);
-            depth1Nodes[i].x = position.x;
-            depth1Nodes[i].y = position.y;
+        allNodesArray[0][0].x = 0;
+        allNodesArray[0][0].y = 0;
+        allNodesArray[0][0].fixed = true;
+        // allNodesArray[1] is layer one and surrounds the center
+        for(let i = 0; i < allNodesArray[1].length; i++){
+            let position = positionsDepthOne(allNodesArray[1].length, i);
+            allNodesArray[1][i].x = position.x;
+            allNodesArray[1][i].y = position.y;
         }
-        for(let i = 0; i < depth2Nodes.length; i++) {
-            positionsOuterRings(2, depth2Nodes.length, 0);
+        for(let i = 2; i < max_depth; i++) {
+            positionsOuterRings(2);
         }
     }
 
@@ -420,45 +424,71 @@
         let direction;
         // if depth 1 has only one element it will be displayed below the center
         if (maxElements === 1) {
-            direction = getDirectionByAngle(180);
+            direction = getDirectionByAngle(0);
         }
         // if there are two elements they will be displayed next to each other below the center
         else if(maxElements === 2){
-                 direction = getDirectionByAngle(135 + 90 * currentElement);
+            direction = getDirectionByAngle(-45 + 90 * currentElement);
         }
         // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
         else if(maxElements % 2) {
-            direction = getDirectionByAngle(angle * currentElement);
+            direction = getDirectionByAngle(180 + (angle * currentElement));
         }
         // even amount: first element on the top right, rest circle around center
         else {
             direction = getDirectionByAngle(45 + (angle * currentElement));
         }
-        // 240 = radius : Erfahrungswert
 
-        point.x = 240 * direction.x;
-        point.y = 240 * direction.y;
+        point.x = distance * direction.x;
+        point.y = distance * direction.y;
         return point;
     }
 
-    function positionsOuterRings(depth, maxElements, currentElement) {
-        let distanceFromPrevious = Math.max(240, (maxElements*120/(2*Math.PI)-240));
-        console.log(distanceFromPrevious);
+    function positionsOuterRings(depth) {
+        //let distanceFromPrevious = Math.ceil(Math.max(240, (maxElements*120/(2*Math.PI))));
+        let connections = [];
+        for (let i = 0; i < allNodesArray[depth].length; i++) {
+            connections = findConnectedNodes(allNodesArray[depth][i].id);
+            let fromPoint;
+            // one of the connected nodes from the layer below will be treated as the source
+            for (let j = 0; j < connections.length; j++) {
+                let elem = findElement(allNodesArray[depth-1], "id", connections[j]);
+                if (!(typeof elem === "undefined") && elem.level === depth-1) {
+                    fromPoint = elem;
+                }
+            }
+            let angle = getAngleByRelativePosition({x:0,y:0}, fromPoint);
+            let direction = getDirectionByAngle(angle);
+            allNodesArray[depth][i].x = distance * depth * direction.x;
+            allNodesArray[depth][i].y = distance * depth * direction.y;
+        }
     }
 
     function getDirectionByAngle(angle) {
         let direction = {};
-        direction.x = -Math.sin(angle * (Math.PI/180));
-        direction.y = -Math.cos(angle * (Math.PI/180));
+        direction.x = Math.sin(angle * (Math.PI/180));
+        direction.y = Math.cos(angle * (Math.PI/180));
         return direction;
     }
 
     function getAngleByRelativePosition (fromPoint, point) {
         let dx = point.x - fromPoint.x;
         let dy = point.y - fromPoint.y;
-        return Math.atan2(dy, dx) * 180/Math.PI;
+        return Math.atan2(dx, dy) * 180/Math.PI;
     }
 
+    function findConnectedNodes(id) {
+        let result = [];
+        for (let i = 0; i < allEdges[0].length; i++) {
+            if(id === allEdges[0][i].from){
+                result.push(allEdges[0][i].to);
+            }
+            if(id === allEdges[0][i].to) {
+                result.push(allEdges[0][i].from);
+            }
+        }
+        return result;
+    }
 
     //Palettes
 
@@ -560,10 +590,10 @@
         let oldDepth = depth;
         depth = 1;
         if (oldDepth > depth) {
-            nodes.remove(depth2Nodes);
-            nodes.remove(depth3Nodes);
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[2]);
+            nodes.remove(allNodesArray[3]);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth3Edges);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
@@ -576,9 +606,9 @@
         let oldDepth = depth;
         depth = 2;
         if (oldDepth > depth) {
-            nodes.remove(depth3Nodes);
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[3]);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth3Edges);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
@@ -593,8 +623,8 @@
         let oldDepth = depth;
         depth = 3;
         if (oldDepth > depth) {
-            nodes.remove(depth4Nodes);
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[4]);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth4Edges);
             edges.remove(depth5Edges);
         }
@@ -612,7 +642,7 @@
         let oldDepth = depth;
         depth = 4;
         if (oldDepth > depth) {
-            nodes.remove(depth5Nodes);
+            nodes.remove(allNodesArray[5]);
             edges.remove(depth5Edges);
         }
         if (oldDepth == 1) {
@@ -655,22 +685,22 @@
     }
 
     function add5layer() {
-        nodes.add(depth5Nodes);
+        nodes.add(allNodesArray[5]);
         edges.add(depth5Edges)
     }
 
     function add4layer() {
-        nodes.add(depth4Nodes);
+        nodes.add(allNodesArray[4]);
         edges.add(depth4Edges);
     }
 
     function add3layer() {
-        nodes.add(depth3Nodes);
+        nodes.add(allNodesArray[3]);
         edges.add(depth3Edges);
     }
 
     function add2layer() {
-        nodes.add(depth2Nodes);
+        nodes.add(allNodesArray[2]);
         edges.add(depth2Edges);
     }
 
@@ -742,19 +772,22 @@
         return depthLevelEdges;
     }
 
-    let depth0Nodes = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
+    let allNodesArray = [];
+    allNodesArray[0] = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
     let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
-    let depth1Nodes = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
+    allNodesArray[1] = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
     let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
-    let depth2Nodes = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
+    allNodesArray[2] = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
     let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
-    let depth3Nodes = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
+    allNodesArray[3] = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
     let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
-    let depth4Nodes = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
+    allNodesArray[4] = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
     let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
-    let depth5Nodes = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
+    allNodesArray[5] = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
     let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
-    let allNodes = depth0Nodes.concat(depth1Nodes).concat(depth2Nodes).concat(depth3Nodes).concat(depth4Nodes).concat(depth5Nodes);
+    //let allNodes = allNodesArray[0].concat(allNodesArray[1]).concat(allNodesArray[2]).concat(allNodesArray[3]).concat(allNodesArray[4]).concat(allNodesArray[5]);
+
+    let allEdges = [depth0Edges, depth1Edges, depth2Edges, depth3Edges, depth4Edges, depth5Edges];
 
 
     //create an array with nodes
@@ -906,7 +939,6 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
-                        console.log(proposedNodesEdges);
                         //add nodes
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
@@ -934,18 +966,18 @@
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
                             if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
-                                        id: ID,
-                                        label: nodelabel,
-                                        group: "proposed",
-                                        shape: 'box',
-                                        title: nodetitle,
-                                        level: level,
-                                        hidden: nodehidden
-                                    });
-                                    proposedIssuesList.push({
-                                        id: nodekey
-                                    })
-                                }
+                                    id: ID,
+                                    label: nodelabel,
+                                    group: "proposed",
+                                    shape: 'box',
+                                    title: nodetitle,
+                                    level: level,
+                                    hidden: nodehidden
+                                });
+                                proposedIssuesList.push({
+                                    id: nodekey
+                                })
+                            }
                         });
 
                         //add edges
@@ -1016,7 +1048,7 @@
             edges.remove(proposedEdgeElements);
             proposedViewActive = false;
         }
-            infoTabActive = false;
+        infoTabActive = false;
 
         try {
             let xhr = new XMLHttpRequest();
@@ -1058,14 +1090,16 @@
         infoTabActive = true;
 
         if (proposedViewActive) {
-                nodes.remove(proposedNodeElements);
-                edges.remove(proposedEdgeElements);
-                proposedViewActive = false;
+            nodes.remove(proposedNodeElements);
+            edges.remove(proposedEdgeElements);
+            proposedViewActive = false;
         }
         //display the initial infobox only if the user put exactly one issue in the input
         //get coressponding JSON
+        // console.log(currentIssue)
         let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
+        // console.log(issueInfo)
         let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
         let infoTitle = issueInfo.name;
@@ -1294,7 +1328,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
@@ -1307,7 +1341,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": true,
+                "enabled": false,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,
