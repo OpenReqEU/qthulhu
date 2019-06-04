@@ -305,7 +305,6 @@
     let depth = '${depth}';
     let max_depth = '${maxDepth}';
     let nodeEdgeSet = '${nodeEdgeSet}';
-    let issueJSON = '${issueJSON}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
     // console.log(currentIssue);
@@ -314,7 +313,7 @@
     let filterStatuses = [];
     let distance = 240;
 
-    // console.log(nodeEdgeSet);
+    console.log(nodeEdgeSet);
     // console.log(issueJSON);
     //proposed View active boolean
     let proposedViewActive = false;
@@ -1326,19 +1325,19 @@
             },
             //physics, interaction
             "layout": {
-                "hierarchical":
-                    {
-                        "enabled": false,
-                        "nodeSpacing": 150,
-                        "blockShifting": false,
-                        "edgeMinimization": false,
-                        "sortMethod": "directed"
-                    },
+            //     "hierarchical":
+            //         {
+            //             "enabled": false,
+            //             "nodeSpacing": 150,
+            //             "blockShifting": false,
+            //             "edgeMinimization": false,
+            //             "sortMethod": "directed"
+            //         },
                 "randomSeed": 9
             },
             "interaction": {
                 "multiselect": false,
-                "navigationButtons": false
+                "navigationButtons": true
             },
             "physics": {
                 "enabled": false,
@@ -1380,9 +1379,9 @@
             network.setOptions({physics: false});
         });
 
-        network.on("afterDrawing", function () {
-            network.fit();
-        });
+        // network.on("afterDrawing", function () {
+        //     network.fit();
+        // });
 
         //interact with network
         //if a node is selected display information in infobox
