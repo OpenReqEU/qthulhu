@@ -457,7 +457,6 @@
                     fromPoint = elem;
                 }
             }
-
             let angle = getAngleByRelativePosition({x:0,y:0}, fromPoint);
             let direction = getDirectionByAngle(angle);
             depth2Nodes[i].x = distance * depth * direction.x;
