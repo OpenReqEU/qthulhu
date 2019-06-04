@@ -20,7 +20,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #issueLinkMap {
@@ -43,7 +43,7 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="images/or_logo.png"
+                                       src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a class="button-effect-orange" href="./">Go Back</a>
@@ -302,15 +302,19 @@
 
     //getting the data for the network and depth btn disabling
     let issue = '${issue}';
-    let currentIssue = '${issue}';
     let depth = '${depth}';
     let max_depth = '${maxDepth}';
     let nodeEdgeSet = '${nodeEdgeSet}';
+    let issueJSON = '${issueJSON}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
+    let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
+    // console.log(currentIssue);
     let helpNodeSet =[];
     let filteredNodes;
     let filterStatuses = [];
 
+    // console.log(nodeEdgeSet);
+    // console.log(issueJSON);
     //proposed View active boolean
     let proposedViewActive = false;
     //infoTab View active boolean
@@ -323,7 +327,7 @@
 
     $(document).ready(function () {
         infoTab();
-        //calculatePositions();
+        calculatePositions();
         nodes.add(depth0Nodes);
         nodes.add(depth1Nodes);
         edges.add(depth0Edges);
@@ -1063,8 +1067,10 @@
         }
         //display the initial infobox only if the user put exactly one issue in the input
         //get coressponding JSON
+        // console.log(currentIssue)
         let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
+        // console.log(issueInfo)
         let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
         let infoTitle = issueInfo.name;
@@ -1293,7 +1299,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,

@@ -132,6 +132,7 @@ public class NetworkController
             model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
             model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
+            model.addObject("issueJSON", issueJSON);
             return model;
         }
         catch (HttpClientErrorException e)
