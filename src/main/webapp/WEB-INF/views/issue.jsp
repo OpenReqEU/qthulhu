@@ -328,7 +328,7 @@
 
     $(document).ready(function () {
         infoTab();
-        //calculatePositions();
+        calculatePositions();
         nodes.add(depth0Nodes);
         nodes.add(depth1Nodes);
         edges.add(depth0Edges);
@@ -354,14 +354,14 @@
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] == propValue)
+            if (arr[i][propName] === propValue)
                 return arr[i];
         }
     }
 
     function checkElement(arr, propName, propValue) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] == propValue)
+            if (arr[i][propName] === propValue)
                 return true;
         }
         return false;
@@ -413,9 +413,9 @@
             depth1Nodes[i].x = position.x;
             depth1Nodes[i].y = position.y;
         }
-        for(let i = 0; i < max_depth; i++) {
-            positionsOuterRings(i);
-        }
+        //for(let i = 2; i < max_depth; i++) {
+            positionsOuterRings(2);
+        //}
     }
 
     function positionsDepthOne(maxElements, currentElement) {
@@ -424,15 +424,15 @@
         let direction;
         // if depth 1 has only one element it will be displayed below the center
         if (maxElements === 1) {
-            direction = getDirectionByAngle(180);
+            direction = getDirectionByAngle(0);
         }
         // if there are two elements they will be displayed next to each other below the center
         else if(maxElements === 2){
-                 direction = getDirectionByAngle(135 + 90 * currentElement);
+                 direction = getDirectionByAngle(-45 + 90 * currentElement);
         }
         // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
         else if(maxElements % 2) {
-            direction = getDirectionByAngle(angle * currentElement);
+            direction = getDirectionByAngle(180 + (angle * currentElement));
         }
         // even amount: first element on the top right, rest circle around center
         else {
@@ -448,33 +448,34 @@
         //let distanceFromPrevious = Math.ceil(Math.max(240, (maxElements*120/(2*Math.PI))));
         let connections = [];
         for (let i = 0; i < allNodesArray[depth].length; i++) {
-            let curPoint = allNodesArray[depth][i];
-            connections = findConnectedNodes(curPoint.id);
+            connections = findConnectedNodes(allNodesArray[depth][i].id);
             let fromPoint;
             // one of the connected nodes from the layer below will be treated as the source
-            for (let i = 0; i < connections; i++) {
-                if (connections[i].level === depth-1) {
-                    fromPoint = connections[i];
+            for (let j = 0; j < connections.length; j++) {
+                let elem = findElement(allNodesArray[depth-1], "id", connections[j]);
+                if (!(typeof elem === "undefined") && elem.level === depth-1) {
+                    fromPoint = elem;
                 }
             }
-            let angle = getAngleByRelativePosition({x:0,y:0}, {x:0,y:0});
+
+            let angle = getAngleByRelativePosition({x:0,y:0}, fromPoint);
             let direction = getDirectionByAngle(angle);
-            curPoint.x = distance * direction.x;
-            curPoint.y = distance * direction.y;
+            depth2Nodes[i].x = distance * depth * direction.x;
+            depth2Nodes[i].y = distance * depth * direction.y;
         }
     }
 
     function getDirectionByAngle(angle) {
         let direction = {};
-        direction.x = -Math.sin(angle * (Math.PI/180));
-        direction.y = -Math.cos(angle * (Math.PI/180));
+        direction.x = Math.sin(angle * (Math.PI/180));
+        direction.y = Math.cos(angle * (Math.PI/180));
         return direction;
     }
 
     function getAngleByRelativePosition (fromPoint, point) {
         let dx = point.x - fromPoint.x;
         let dy = point.y - fromPoint.y;
-        return Math.atan2(dy, dx) * 180/Math.PI;
+        return Math.atan2(dx, dy) * 180/Math.PI;
     }
 
     function findConnectedNodes(id) {
@@ -944,7 +945,6 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
-                        console.log(proposedNodesEdges);
                         //add nodes
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
@@ -1334,7 +1334,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": true,
+                        "enabled": false,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
@@ -1347,7 +1347,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": true,
+                "enabled": false,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,
