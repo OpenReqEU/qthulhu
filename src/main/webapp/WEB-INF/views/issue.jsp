@@ -312,6 +312,7 @@
     let helpNodeSet =[];
     let filteredNodes;
     let filterStatuses = [];
+    let distance = 240;
 
     // console.log(nodeEdgeSet);
     // console.log(issueJSON);
@@ -412,8 +413,8 @@
             depth1Nodes[i].x = position.x;
             depth1Nodes[i].y = position.y;
         }
-        for(let i = 0; i < depth2Nodes.length; i++) {
-            positionsOuterRings(2, depth2Nodes.length, 0);
+        for(let i = 0; i < max_depth; i++) {
+            positionsOuterRings(i);
         }
     }
 
@@ -437,16 +438,30 @@
         else {
             direction = getDirectionByAngle(45 + (angle * currentElement));
         }
-        // 240 = radius : Erfahrungswert
 
-        point.x = 240 * direction.x;
-        point.y = 240 * direction.y;
+        point.x = distance * direction.x;
+        point.y = distance * direction.y;
         return point;
     }
 
-    function positionsOuterRings(depth, maxElements, currentElement) {
-        let distanceFromPrevious = Math.max(240, (maxElements*120/(2*Math.PI)-240));
-        console.log(distanceFromPrevious);
+    function positionsOuterRings(depth) {
+        //let distanceFromPrevious = Math.ceil(Math.max(240, (maxElements*120/(2*Math.PI))));
+        let connections = [];
+        for (let i = 0; i < allNodesArray[depth].length; i++) {
+            let curPoint = allNodesArray[depth][i];
+            connections = findConnectedNodes(curPoint.id);
+            let fromPoint;
+            // one of the connected nodes from the layer below will be treated as the source
+            for (let i = 0; i < connections; i++) {
+                if (connections[i].level === depth-1) {
+                    fromPoint = connections[i];
+                }
+            }
+            let angle = getAngleByRelativePosition(fromPoint, curPoint);
+            let direction = getDirectionByAngle(angle);
+            curPoint.x = distance * direction.x;
+            curPoint.y = distance * direction.y;
+        }
     }
 
     function getDirectionByAngle(angle) {
@@ -462,6 +477,18 @@
         return Math.atan2(dy, dx) * 180/Math.PI;
     }
 
+    function findConnectedNodes(id) {
+        let result = [];
+        for (let i = 0; i < allEdges[0].length; i++) {
+            if(id === allEdges[0][i].from){
+                result.push(allEdges[0][i].to);
+            }
+            if(id === allEdges[0][i].to) {
+                result.push(allEdges[0][i].from);
+            }
+        }
+        return result;
+    }
 
     //Palettes
 
@@ -758,6 +785,14 @@
     let depth5Nodes = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
     let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
     let allNodes = depth0Nodes.concat(depth1Nodes).concat(depth2Nodes).concat(depth3Nodes).concat(depth4Nodes).concat(depth5Nodes);
+    let allNodesArray = [];
+    allNodesArray[0] = depth0Nodes;
+    allNodesArray[1] = depth1Nodes;
+    allNodesArray[2] = depth2Nodes;
+    allNodesArray[3] = depth3Nodes;
+    allNodesArray[4] = depth4Nodes;
+    allNodesArray[5] = depth5Nodes;
+    let allEdges = [depth0Edges, depth1Edges, depth2Edges, depth3Edges, depth4Edges, depth5Edges];
 
 
     //create an array with nodes
@@ -1312,7 +1347,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": true,
+                "enabled": false,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,
