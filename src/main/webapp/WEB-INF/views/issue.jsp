@@ -328,7 +328,7 @@
 
     $(document).ready(function () {
         infoTab();
-        calculatePositions();
+        //calculatePositions();
         nodes.add(depth0Nodes);
         nodes.add(depth1Nodes);
         edges.add(depth0Edges);
@@ -457,7 +457,7 @@
                     fromPoint = connections[i];
                 }
             }
-            let angle = getAngleByRelativePosition(fromPoint, curPoint);
+            let angle = getAngleByRelativePosition({x:0,y:0}, {x:0,y:0});
             let direction = getDirectionByAngle(angle);
             curPoint.x = distance * direction.x;
             curPoint.y = distance * direction.y;
@@ -1334,7 +1334,7 @@
             "layout": {
                 "hierarchical":
                     {
-                        "enabled": false,
+                        "enabled": true,
                         "nodeSpacing": 150,
                         "blockShifting": false,
                         "edgeMinimization": false,
@@ -1347,7 +1347,7 @@
                 "navigationButtons": false
             },
             "physics": {
-                "enabled": false,
+                "enabled": true,
                 'forceAtlas2Based': {
                     'gravitationalConstant': 26,
                     'centralGravity': 0.005,
