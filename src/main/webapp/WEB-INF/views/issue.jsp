@@ -413,8 +413,8 @@
             allNodesArray[1][i].x = position.x;
             allNodesArray[1][i].y = position.y;
         }
-        for(let i = 2; i < max_depth; i++) {
-            positionsOuterRings(2);
+        for(let i = 2; i <= max_depth; i++) {
+            positionsOuterRings(i);
         }
     }
 
