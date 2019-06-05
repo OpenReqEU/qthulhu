@@ -583,6 +583,7 @@
         } else {
             $("#depth-5-btn").attr('class', "button layer button-effect-teal");
         }
+        console.log(depth)
     }
 
     function depth1() {
@@ -598,6 +599,7 @@
             edges.remove(depth5Edges);
             edges.remove(depth2Edges);
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -615,6 +617,7 @@
         if (oldDepth < depth) {
             add2layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -634,6 +637,7 @@
         if (oldDepth == 2) {
             add3layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -656,6 +660,7 @@
         if (oldDepth == 3) {
             add4layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -680,6 +685,7 @@
         if (oldDepth == 4) {
             add5layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
