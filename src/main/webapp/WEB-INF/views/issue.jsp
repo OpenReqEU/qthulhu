@@ -193,94 +193,124 @@
                     <p>Only Nodes with one of the selected statuses will be displayed.</p>
                     <p><b>Work in progress... <br>proceed at your own risk</b></p>
                     <div class="filterOptions">
-                        <span>
+                        <span style="color: #6D8DB5">
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Closed"/>
-                                Closed
+                                <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
+                                <b>To-Do:</b>
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="In Progress"/>
-                                In Progress
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Open"/>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Open"/>
                                 Open
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Reported"/>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Reported"/>
                                 Reported
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="To Do"/>
-                                To Do
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Done"/>
-                                Done
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Accepted"/>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Accepted"/>
                                 Accepted
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Rejected"/>
-                                Rejected
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Resolved"/>
-                                Resolved
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Reopened"/>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Reopened"/>
                                 Reopened
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Blocked"/>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="To Do"/>
+                                To Do
+                            </label>
+                        </span>
+                        <br>
+
+                        <span style="color: #fecc3f">
+                            <label>
+                                <input name="ProgStatus" type="checkbox" checked="checked" value="In Progress">
+                                <b>In Progress</b>
+                            </label>
+                        </span>
+                        <br>
+
+                        <span style="color: #FF5E36">
+                            <label>
+                                <input name="StuckStatus" type="checkbox" checked="checked" onClick="toggle(this)">
+                                <b>Stuck:</b>
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="StuckStatus" type="checkbox" checked="checked" value="Blocked"/>
                                 Blocked
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Withdrawn"/>
-                                Withdrawn
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="status" type="checkbox" checked="true" value="Need More Info"/>
+                                <input name="StuckStatus" type="checkbox" checked="checked" value="Need More Info"/>
                                 Need More Info
                             </label>
                         </span>
                         <span>
                             <label>
-                                <input name="status" type="checkbox" checked="true" value="Waiting 3rd party"/>
+                                <input name="StuckStatus" type="checkbox" checked="checked" value="Waiting 3rd party"/>
                                 Waiting 3rd party
+                            </label>
+                        </span>
+                        <br>
+
+                        <span style="color: #24C533">
+                            <label>
+                                <input name="DoneStatus" type="checkbox" onClick="toggle(this)">
+                                <b>Done:</b>
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="DoneStatus" type="checkbox" value="Closed"/>
+                                Closed
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="DoneStatus" type="checkbox" value="Done"/>
+                                Done
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="DoneStatus" type="checkbox" value="Rejected"/>
+                                Rejected
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="DoneStatus" type="checkbox" value="Resolved"/>
+                                Resolved
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="DoneStatus" type="checkbox" value="Withdrawn"/>
+                                Withdrawn
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Status" type="checkbox" checked="checked" value="confidential"/>
+                                confidential
                             </label>
                         </span>
                         <br>
                         <span>
                             <label>
-                                <input type="checkbox" checked="true" onClick="toggle(this)" />
+                                <input  onClick="toggleAll(this);" type="checkbox" checked="checked" />
                                 Toggle All
                             </label>
                         </span>
@@ -309,7 +339,7 @@
     let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
 
     let helpNodeSet =[];
-    let filteredNodes;
+    let filteredNodes = [];
     let filterStatuses = [];
     let distance = 240;
 
@@ -384,7 +414,6 @@
         return false;
     }
 
-
     function checkNodesContains(id) {
         return (nodes.get(id) !== null);
     }
@@ -398,17 +427,25 @@
         }
     }
 
-    function getCheckedCheckboxesFor(checkboxName) {
-        let checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
+    function getCheckedCheckboxesFor() {
+        //let checkboxes = document.querySelectorAll('input[name="' + checkboxName + 'Status"]:checked'), values = [];
+        let checkboxes = document.querySelectorAll(':checked'), values = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
             values.push(el.value);
         });
         return values;
     }
+
     function toggle(source) {
-        let checkboxes = document.getElementsByName('status');
-        for(let i=0, n=checkboxes.length;i<n;i++) {
+        let checkboxes = document.getElementsByName(source.name);
+        for(let i=0; i < checkboxes.length;i++) {
             checkboxes[i].checked = source.checked;
+        }
+    }
+    function toggleAll(source) {
+        let types = ["ToDoStatus", "ProgStatus", "StuckStatus", "DoneStatus", "Status"];
+        for (let i = 0; i < types.length; i++) {
+            toggle({name: types[i], checked: source.checked});
         }
     }
 
@@ -420,20 +457,22 @@
      * arrange nodes in circles, with the currentIssue in the center
      */
     function calculatePositions() {
-        if(allNodesArray[1].length > 12) {
-            distance *= allNodesArray[1].length/12;
-        }
-        // the one element with depth 0 is in the center
-        allNodesArray[0][0].x = 0;
-        allNodesArray[0][0].y = 0;
-        allNodesArray[0][0].angle = 0;
-        allNodesArray[0][0].fixed = true;
-        // allNodesArray[1] is layer one and surrounds the center
-        for(let i = 0; i < allNodesArray[1].length; i++){
-            positionsDepthOne(allNodesArray[1].length, i);
-        }
-        for(let i = 2; i <= max_depth; i++) {
-            newPositionsOuterRings(i);
+        if(typeof allNodesArray[0][0] !== "undefined") {
+            if (allNodesArray[1].length > 12) {
+                distance *= allNodesArray[1].length / 12;
+            }
+            // the one element with depth 0 is in the center
+            allNodesArray[0][0].x = 0;
+            allNodesArray[0][0].y = 0;
+            allNodesArray[0][0].angle = 0;
+            allNodesArray[0][0].fixed = true;
+            // allNodesArray[1] is layer one and surrounds the center
+            for (let i = 0; i < allNodesArray[1].length; i++) {
+                positionsDepthOne(allNodesArray[1].length, i);
+            }
+            for (let i = 2; i <= max_depth; i++) {
+                newPositionsOuterRings(i);
+            }
         }
     }
 
@@ -495,12 +534,9 @@
         for (let i = 0; i < allNodesArray[depth-1].length; i++) {
             connectionsOut = findConnectedNodesOuter(allNodesArray[depth-1][i]);
             allNodesArray[depth-1][i].connections = connectionsOut;
-            allNodesArray[depth-1][i].fan = 360 * connectionsOut.length/allNodesArray[depth].length;
-        }
-        for (let i = 0; i < allNodesArray[depth-1].length; i++) {
-            for (let j = 0; j < allNodesArray[depth-1][i].connections.length; j++) {
-                index = getIndexInAll(allNodesArray[depth-1][i].connections[j]);
-                angleDiff = Math.min(15, allNodesArray[depth-1][i].fan/allNodesArray[depth-1][i].connections.length);
+            for (let j = 0; j < connectionsOut.length; j++) {
+                index = getIndexInAll(connectionsOut[j]);
+                angleDiff = Math.min(15, 360/allNodesArray[depth].length);
                 angleDiff *= Math.ceil(j/2);
 
                 if(j%2) { // j == odd
@@ -534,7 +570,7 @@
         let elem;
         for (let i = 0; i < connections.length; i++) {
             elem = findInAllNodes(connections[i]);
-            if(paraElem.level === elem.level -1) {
+            if((typeof elem !== "undefined") && (paraElem.level === elem.level -1)) {
                 result.push(elem.id)
             }
         }
@@ -570,13 +606,13 @@
         'Waiting 3rd party': 'red',
         'In Progress': 'yellow',
         'Implemented': 'yellow',
+        'undefined': 'yellow',
         'Resolved': 'green',
         'Closed': 'green',
         'Withdrawn': 'green',
         'Rejected': 'green',
         'Done': 'green',
-        'Verified': 'green',
-        'undefined': 'yellow'
+        'Verified': 'green'
     };
     //map to create the correct type of error, links like duplicates do not have a direction
     let arrowPaletteType = {
@@ -773,7 +809,6 @@
         edges.add(depth2Edges);
     }
 
-    let issueList = [];
 
     function createDepthLevelNodes(nodeEdgeObject) {
         let depthLevelNodes = [];
@@ -802,19 +837,35 @@
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
             let nodetitle = "";
             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-            depthLevelNodes.push({
-                id: ID,
-                font: {multi: true},
-                label: nodelabel,
-                group: nodegroup,
-                shape: 'box',
-                title: nodetitle,
-                level: nodedepth,
-                hidden: nodehidden
-            });
-            issueList.push({
-                id: nodekey
-            })
+            // to not filter out the searched issue
+            if(nodestatus !== "Closed" || nodedepth === 0) {
+                depthLevelNodes.push({
+                    id: ID,
+                    font: {multi: true},
+                    label: nodelabel,
+                    group: nodegroup,
+                    shape: 'box',
+                    title: nodetitle,
+                    level: nodedepth,
+                    status: nodestatus,
+                    resolution: noderesolution,
+                    hidden: nodehidden
+                });
+            }
+            else {
+                filteredNodes.push({
+                    id: ID,
+                    font: {multi: true},
+                    label: nodelabel,
+                    group: nodegroup,
+                    shape: 'box',
+                    title: nodetitle,
+                    level: nodedepth,
+                    status: nodestatus,
+                    resolution: noderesolution,
+                    hidden: nodehidden
+                });
+            }
         });
         return depthLevelNodes;
     }
@@ -1147,13 +1198,6 @@
         }
     }
 
-    function listTab() {
-        stringList = "";
-        for (i = 0; i < issueList.length; i++) {
-            stringList = stringList + issueList[i].id + '<br>';
-        }
-        document.getElementById('IssuesList').innerHTML = stringList;
-    }
 
     function infoTab() {
         infoTabActive = true;
@@ -1209,17 +1253,19 @@
         filterStatuses = getCheckedCheckboxesFor('status');
 
         $.each(filteredNodes, function (i,v) {
-            nodes.update({id: v.nodeid, hidden:false})
+            allNodesArray[v.level].push(v);
         });
         filteredNodes = [];
-        $.each(nodeEdgeObject.nodes, function (i, v) {
-            if (applyFilter(v.status)) {
-                if(checkNodesContains(v.nodeid)){
-                    nodes.update({id: v.nodeid, hidden:true});
-                    filteredNodes.push(v);
+        for (let j = 0; j < 6; j++) {
+            for (let i = 0; i < allNodesArray[j].length; i++) {
+                if (applyFilter(allNodesArray[j][i].status)) {
+                    filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
+                    i--;
                 }
             }
-        });
+
+        }
+        calculatePositions();
     }
 
     // Create the network after the page is loaded and the network containing div is rendered
