@@ -305,17 +305,15 @@
     let depth = '${depth}';
     let max_depth = '${maxDepth}';
     let nodeEdgeSet = '${nodeEdgeSet}';
-    let issueJSON = '${issueJSON}';
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
-    // console.log(currentIssue);
+
     let helpNodeSet =[];
     let filteredNodes;
     let filterStatuses = [];
     let distance = 240;
 
-    // console.log(nodeEdgeSet);
-    // console.log(issueJSON);
+
     //proposed View active boolean
     let proposedViewActive = false;
     //infoTab View active boolean
@@ -346,7 +344,6 @@
         if (depth === 5) {
             add5layer();
         }
-        //console.log(getAngleByRelativePosition({x:0, y:0}, {x:240, y:120}));
     });
 
     //Help Functions
@@ -356,6 +353,26 @@
         for (let i = 0; i < arr.length; i++) {
             if (arr[i][propName] === propValue)
                 return arr[i];
+        }
+    }
+
+    function findInAllNodes(id) {
+        let elem;
+        for (let i = 0; i < allNodesArray.length; i++) {
+            elem = findElement(allNodesArray[i], "id", id);
+            if(typeof elem !== "undefined") {
+                return elem;
+            }
+        }
+    }
+
+    function getIndexInAll(id) {
+        for (let i = 0; i <= 5; i++) {
+            for(let j = 0; j < allNodesArray[i].length; j++) {
+                if(allNodesArray[i][j].id === id) {
+                    return [i,j];
+                }
+            }
         }
     }
 
@@ -403,45 +420,51 @@
      * arrange nodes in circles, with the currentIssue in the center
      */
     function calculatePositions() {
+        if(allNodesArray[1].length > 12) {
+            distance *= allNodesArray[1].length/12;
+        }
         // the one element with depth 0 is in the center
         allNodesArray[0][0].x = 0;
         allNodesArray[0][0].y = 0;
+        allNodesArray[0][0].angle = 0;
         allNodesArray[0][0].fixed = true;
         // allNodesArray[1] is layer one and surrounds the center
         for(let i = 0; i < allNodesArray[1].length; i++){
-            let position = positionsDepthOne(allNodesArray[1].length, i);
-            allNodesArray[1][i].x = position.x;
-            allNodesArray[1][i].y = position.y;
+            positionsDepthOne(allNodesArray[1].length, i);
         }
         for(let i = 2; i <= max_depth; i++) {
-            positionsOuterRings(i);
+            newPositionsOuterRings(i);
         }
     }
 
     function positionsDepthOne(maxElements, currentElement) {
-        let point = {};
         let angle = 360/maxElements;
         let direction;
+        let resultingAngle;
+
         // if depth 1 has only one element it will be displayed below the center
         if (maxElements === 1) {
             direction = getDirectionByAngle(0);
+            resultingAngle = 0;
         }
         // if there are two elements they will be displayed next to each other below the center
         else if(maxElements === 2){
             direction = getDirectionByAngle(-45 + 90 * currentElement);
+            resultingAngle = -45 + 90 * currentElement;
         }
         // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
         else if(maxElements % 2) {
             direction = getDirectionByAngle(180 + (angle * currentElement));
+            resultingAngle = 180 + angle * currentElement;
         }
         // even amount: first element on the top right, rest circle around center
         else {
             direction = getDirectionByAngle(45 + (angle * currentElement));
+            resultingAngle = 45 + angle * currentElement;
         }
-
-        point.x = distance * direction.x;
-        point.y = distance * direction.y;
-        return point;
+        allNodesArray[1][currentElement].x =  distance * direction.x;
+        allNodesArray[1][currentElement].y = distance * direction.y;
+        allNodesArray[1][currentElement].angle = resultingAngle;
     }
 
     function positionsOuterRings(depth) {
@@ -464,6 +487,34 @@
         }
     }
 
+    function newPositionsOuterRings(depth) {
+        let connectionsOut = [];
+        let index;
+        let direction;
+        let angleDiff;
+        for (let i = 0; i < allNodesArray[depth-1].length; i++) {
+            connectionsOut = findConnectedNodesOuter(allNodesArray[depth-1][i]);
+            allNodesArray[depth-1][i].connections = connectionsOut;
+            allNodesArray[depth-1][i].fan = 360 * connectionsOut.length/allNodesArray[depth].length;
+        }
+        for (let i = 0; i < allNodesArray[depth-1].length; i++) {
+            for (let j = 0; j < allNodesArray[depth-1][i].connections.length; j++) {
+                index = getIndexInAll(allNodesArray[depth-1][i].connections[j]);
+                angleDiff = Math.min(15, allNodesArray[depth-1][i].fan/allNodesArray[depth-1][i].connections.length);
+                angleDiff *= Math.ceil(j/2);
+
+                if(j%2) { // j == odd
+                    angleDiff *= -1;
+                }
+                direction = getDirectionByAngle(allNodesArray[depth-1][i].angle + angleDiff);
+
+                allNodesArray[index[0]][index[1]].x = distance * depth * direction.x;
+                allNodesArray[index[0]][index[1]].y = distance * depth * direction.y;
+                allNodesArray[index[0]][index[1]].angle = allNodesArray[depth-1][i].angle + angleDiff;
+            }
+        }
+    }
+
     function getDirectionByAngle(angle) {
         let direction = {};
         direction.x = Math.sin(angle * (Math.PI/180));
@@ -477,13 +528,26 @@
         return Math.atan2(dx, dy) * 180/Math.PI;
     }
 
+    function findConnectedNodesOuter(paraElem) {
+        let connections = findConnectedNodes(paraElem.id);
+        let result = [];
+        let elem;
+        for (let i = 0; i < connections.length; i++) {
+            elem = findInAllNodes(connections[i]);
+            if(paraElem.level === elem.level -1) {
+                result.push(elem.id)
+            }
+        }
+        return result;
+    }
+
     function findConnectedNodes(id) {
         let result = [];
         for (let i = 0; i < allEdges[0].length; i++) {
-            if(id === allEdges[0][i].from){
+            if((id === allEdges[0][i].from) && !result.includes(allEdges[0][i].to)){
                 result.push(allEdges[0][i].to);
             }
-            if(id === allEdges[0][i].to) {
+            if((id === allEdges[0][i].to) && !result.includes(allEdges[0][i].from)) {
                 result.push(allEdges[0][i].from);
             }
         }
@@ -599,6 +663,7 @@
             edges.remove(depth5Edges);
             edges.remove(depth2Edges);
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -616,6 +681,7 @@
         if (oldDepth < depth) {
             add2layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -635,6 +701,7 @@
         if (oldDepth == 2) {
             add3layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -657,6 +724,7 @@
         if (oldDepth == 3) {
             add4layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -681,6 +749,7 @@
         if (oldDepth == 4) {
             add5layer();
         }
+        // network.fit();
         updateDepthButtons();
     }
 
@@ -1326,19 +1395,19 @@
             },
             //physics, interaction
             "layout": {
-                "hierarchical":
-                    {
-                        "enabled": false,
-                        "nodeSpacing": 150,
-                        "blockShifting": false,
-                        "edgeMinimization": false,
-                        "sortMethod": "directed"
-                    },
+                //     "hierarchical":
+                //         {
+                //             "enabled": false,
+                //             "nodeSpacing": 150,
+                //             "blockShifting": false,
+                //             "edgeMinimization": false,
+                //             "sortMethod": "directed"
+                //         },
                 "randomSeed": 9
             },
             "interaction": {
                 "multiselect": false,
-                "navigationButtons": false
+                "navigationButtons": true
             },
             "physics": {
                 "enabled": false,
@@ -1380,9 +1449,9 @@
             network.setOptions({physics: false});
         });
 
-        network.on("afterDrawing", function () {
-            network.fit();
-        });
+        // network.on("afterDrawing", function () {
+        //     network.fit();
+        // });
 
         //interact with network
         //if a node is selected display information in infobox

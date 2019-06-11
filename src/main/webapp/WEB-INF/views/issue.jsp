@@ -487,10 +487,6 @@
         }
     }
 
-    /**
-     * TODO fix! elem doesnt change allNodesArray...
-     * @param depth
-     */
     function newPositionsOuterRings(depth) {
         let connectionsOut = [];
         let index;
