@@ -876,7 +876,7 @@
             let edgestatus = v['status'];
             let fromID = v['node_fromid'];
             let toID = v['node_toid'];
-            let edgelabel = findProposed(v['status'], v['dependency_type']);
+            let edgelabel = findProposed(v['status'], v['description']['0']);
             let edgearrow = arrowPaletteType[edgelabel];
             let edgedashes = edgeStatusPalette[edgestatus];
             depth0Edges.push({
