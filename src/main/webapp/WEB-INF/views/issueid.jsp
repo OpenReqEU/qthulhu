@@ -154,7 +154,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
-                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodes();">Node
+                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodesTab();">Node
                         Filter
                     </a>
                 </li>
@@ -301,6 +301,7 @@
                                 Withdrawn
                             </label>
                         </span>
+                        <br>
                         <span>
                             <label>
                                 <input name="Status" type="checkbox" checked="checked" value="confidential"/>
@@ -374,6 +375,7 @@
         if (depth === 5) {
             add5layer();
         }
+        filterNodes();
     });
 
     //Help Functions
@@ -837,35 +839,18 @@
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
             let nodetitle = "";
             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-            // to not filter out the searched issue
-            if(nodestatus !== "Closed" || nodedepth === 0) {
-                depthLevelNodes.push({
-                    id: ID,
-                    font: {multi: true},
-                    label: nodelabel,
-                    group: nodegroup,
-                    shape: 'box',
-                    title: nodetitle,
-                    level: nodedepth,
-                    status: nodestatus,
-                    resolution: noderesolution,
-                    hidden: nodehidden
-                });
-            }
-            else {
-                filteredNodes.push({
-                    id: ID,
-                    font: {multi: true},
-                    label: nodelabel,
-                    group: nodegroup,
-                    shape: 'box',
-                    title: nodetitle,
-                    level: nodedepth,
-                    status: nodestatus,
-                    resolution: noderesolution,
-                    hidden: nodehidden
-                });
-            }
+            depthLevelNodes.push({
+                id: ID,
+                font: {multi: true},
+                label: nodelabel,
+                group: nodegroup,
+                shape: 'box',
+                title: nodetitle,
+                level: nodedepth,
+                status: nodestatus,
+                resolution: noderesolution,
+                hidden: nodehidden
+            });
         });
         return depthLevelNodes;
     }
@@ -876,7 +861,12 @@
             let edgestatus = v['status'];
             let fromID = v['node_fromid'];
             let toID = v['node_toid'];
-            let edgelabel = findProposed(v['status'], v['dependency_type']);
+            let edgelabel = "";
+            if (typeof v['description'] === "undefined") {
+                edgelabel = findProposed(v['status'], v['dependency_type']);
+            }else {
+                edgelabel = findProposed(v['status'], v['description']['0']);
+            }
             let edgearrow = arrowPaletteType[edgelabel];
             let edgedashes = edgeStatusPalette[edgestatus];
             depth0Edges.push({
@@ -1242,7 +1232,7 @@
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(infoPlatform);
     }
 
-    function filterNodes() {
+    function filterNodesTab() {
         if (proposedViewActive) {
             nodes.remove(proposedNodeElements);
             edges.remove(proposedEdgeElements);
@@ -1250,6 +1240,9 @@
         }
         infoTabActive = false;
 
+        filterNodes();
+    }
+    function filterNodes() {
         filterStatuses = getCheckedCheckboxesFor('status');
 
         $.each(filteredNodes, function (i,v) {
@@ -1258,14 +1251,22 @@
         filteredNodes = [];
         for (let j = 0; j < 6; j++) {
             for (let i = 0; i < allNodesArray[j].length; i++) {
+                // if the current node has a status that should not be shown it will be
+                // spliced out of allNodesArray and pushed into filteredNodes
                 if (applyFilter(allNodesArray[j][i].status)) {
                     filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
                     i--;
                 }
             }
-
         }
+        // after splicing all filtered nodes out of allNodesArray calculate position will create a circle out of the remaining nodes
         calculatePositions();
+        // nodes is cleared
+        nodes.clear();
+        // and refilled with the correct nodes
+        for (let i = 0; i <= depth; i++) {
+            nodes.add(allNodesArray[i]);
+        }
     }
 
     // Create the network after the page is loaded and the network containing div is rendered
