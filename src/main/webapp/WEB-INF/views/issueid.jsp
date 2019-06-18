@@ -190,9 +190,10 @@
                     <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
-                    <p>Only Nodes with one of the selected statuses will be displayed.</p>
-                    <p><b>Work in progress... <br>proceed at your own risk</b></p>
+                    <p>Only Nodes with one of the selected statuses and types will be displayed.</p>
                     <div class="filterOptions">
+                        <h2>Statuses:</h2>
+                        <br>
                         <span style="color: #6D8DB5">
                             <label>
                                 <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
@@ -229,38 +230,30 @@
                                 To Do
                             </label>
                         </span>
+                        <span>
+                            <label>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Blocked"/>
+                                Blocked
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Need More Info"/>
+                                Need More Info
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="ToDoStatus" type="checkbox" checked="checked" value="Waiting 3rd party"/>
+                                Waiting 3rd party
+                            </label>
+                        </span>
                         <br>
 
                         <span style="color: #fecc3f">
                             <label>
                                 <input name="ProgStatus" type="checkbox" checked="checked" value="In Progress">
                                 <b>In Progress</b>
-                            </label>
-                        </span>
-                        <br>
-
-                        <span style="color: #FF5E36">
-                            <label>
-                                <input name="StuckStatus" type="checkbox" checked="checked" onClick="toggle(this)">
-                                <b>Stuck:</b>
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="StuckStatus" type="checkbox" checked="checked" value="Blocked"/>
-                                Blocked
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="StuckStatus" type="checkbox" checked="checked" value="Need More Info"/>
-                                Need More Info
-                            </label>
-                        </span>
-                        <span>
-                            <label>
-                                <input name="StuckStatus" type="checkbox" checked="checked" value="Waiting 3rd party"/>
-                                Waiting 3rd party
                             </label>
                         </span>
                         <br>
@@ -305,16 +298,68 @@
                         <span>
                             <label>
                                 <input name="Status" type="checkbox" checked="checked" value="confidential"/>
-                                confidential
+                                Confidential
                             </label>
                         </span>
                         <br>
                         <span>
                             <label>
                                 <input  onClick="toggleAll(this);" type="checkbox" checked="checked" />
-                                Toggle All
+                                <b> Toggle All Statuses </b>
                             </label>
                         </span>
+                        <h2>Types:</h2>
+                        <br>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="task"/>
+                                Task
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="bug"/>
+                                Bug
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="issue"/>
+                                Issue
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="epic"/>
+                                Epic
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="user_story"/>
+                                User Story
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="suggestion"/>
+                                Suggestion
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Type" type="checkbox" checked="checked" value="not specified"/>
+                                not specified
+                            </label>
+                        </span>
+                        <br>
+                        <span>
+                            <label>
+                                <input  name="Type" onClick="toggle(this);" type="checkbox" checked="checked" />
+                                <b> Toggle All Types </b>
+                            </label>
+                        </span>
+                        <br>
                         <input type="button" class="button search button-effect-teal" onclick="filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
@@ -341,7 +386,7 @@
 
     let helpNodeSet =[];
     let filteredNodes = [];
-    let filterStatuses = [];
+    let filterArray = [];
     let distance = 240;
 
 
@@ -357,6 +402,9 @@
 
     $(document).ready(function () {
         infoTab();
+        if (allNodesArray[1].length > 12) {
+            distance *= Math.sqrt(allNodesArray[1].length / 12);
+        }
         calculatePositions();
         nodes.add(allNodesArray[0]);
         nodes.add(allNodesArray[1]);
@@ -429,7 +477,7 @@
         }
     }
 
-    function getCheckedCheckboxesFor() {
+    function getCheckedCheckboxes() {
         //let checkboxes = document.querySelectorAll('input[name="' + checkboxName + 'Status"]:checked'), values = [];
         let checkboxes = document.querySelectorAll(':checked'), values = [];
         Array.prototype.forEach.call(checkboxes, function(el) {
@@ -451,8 +499,8 @@
         }
     }
 
-    function applyFilter(status) {
-        return !filterStatuses.includes(status);
+    function isFiltered(status, type) {
+        return !(filterArray.includes(status)&& filterArray.includes(type));
     }
 
     /**
@@ -460,9 +508,6 @@
      */
     function calculatePositions() {
         if(typeof allNodesArray[0][0] !== "undefined") {
-            if (allNodesArray[1].length > 12) {
-                distance *= allNodesArray[1].length / 12;
-            }
             // the one element with depth 0 is in the center
             allNodesArray[0][0].x = 0;
             allNodesArray[0][0].y = 0;
@@ -826,6 +871,9 @@
             let nodegroup = colorPaletteStatus[nodestatus];
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
+            if(typeof nodetype === "undefined") {
+                nodetype = "not specified"
+            }
             if (!(nodetype == null)) {
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
                 if (nodename.toString().length > 20) {
@@ -849,7 +897,8 @@
                 level: nodedepth,
                 status: nodestatus,
                 resolution: noderesolution,
-                hidden: nodehidden
+                hidden: nodehidden,
+                type: nodetype
             });
         });
         return depthLevelNodes;
@@ -1243,7 +1292,7 @@
         filterNodes();
     }
     function filterNodes() {
-        filterStatuses = getCheckedCheckboxesFor('status');
+        filterArray = getCheckedCheckboxes();
 
         $.each(filteredNodes, function (i,v) {
             allNodesArray[v.level].push(v);
@@ -1253,7 +1302,7 @@
             for (let i = 0; i < allNodesArray[j].length; i++) {
                 // if the current node has a status that should not be shown it will be
                 // spliced out of allNodesArray and pushed into filteredNodes
-                if (applyFilter(allNodesArray[j][i].status)) {
+                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type) && allNodesArray[j][i].level !== 0) {
                     filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
                     i--;
                 }
