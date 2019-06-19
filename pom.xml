@@ -5,6 +5,7 @@
     <version>1.0</version>
     <properties>
         <java.version>1.8</java.version>
+        <jacoco.outputdirectory>/coverage-reports</jacoco.outputdirectory>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -165,6 +166,12 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <!--<dataFile>./jacoco.exec</dataFile>-->
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>${jacoco.outputdirectory}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

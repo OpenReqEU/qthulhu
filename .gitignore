@@ -23,6 +23,12 @@
 
 .idea
 
+target/classes
+target/generated-sources
+target/generated-test-sources
+target/maven-status
+target/surefire-reports
+target/test-classes
 !./target/jacoco.exec
 
 # CMake
@@ -55,7 +61,6 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-target/
 !.mvn/wrapper/maven-wrapper.jar
 
 
