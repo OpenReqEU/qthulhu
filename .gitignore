@@ -21,6 +21,10 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 
+.idea
+
+!./target/jacoco.exec
+
 # CMake
 cmake-build-*/
 
@@ -53,6 +57,8 @@ fabric.properties
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
+
+
 
 # Environments
 venv
