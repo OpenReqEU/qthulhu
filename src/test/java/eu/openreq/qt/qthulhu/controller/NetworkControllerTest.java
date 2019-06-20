@@ -30,8 +30,16 @@ public class NetworkControllerTest
     }
 
     @Test
-    public void basicTest() throws Exception {
+    public void indexURLTest() throws Exception {
         mockMvc.perform(get("/")).andExpect(status().isOk());
+//                .andDo(print());
+
+//                .andExpect(view().name("index"));
+    }
+
+    @Test
+    public void issueURLTest() throws Exception {
+        mockMvc.perform(get("/issue")).andExpect(status().is4xxClientError());
 //                .andDo(print());
 
 //                .andExpect(view().name("index"));
