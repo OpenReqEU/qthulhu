@@ -101,38 +101,7 @@ public class newNodeEdgeSet
 
                 if (parts.size() == 0)
                 {
-                    JsonObject resolution = new JsonObject();
-                    resolution.addProperty("name", "Resolution");
-                    resolution.addProperty("text", "unknown");
-                    parts.add(resolution);
-                    JsonObject platforms = new JsonObject();
-                    platforms.addProperty("name", "Platforms");
-                    platforms.addProperty("text", "unknown");
-                    parts.add(platforms);
-                    JsonObject versions = new JsonObject();
-                    versions.addProperty("name", "Versions");
-                    versions.addProperty("text", "unknown");
-                    parts.add(versions);
-                    JsonObject labels = new JsonObject();
-                    labels.addProperty("name", "Labels");
-                    labels.addProperty("text", "unknown");
-                    parts.add(labels);
-                    JsonObject environment = new JsonObject();
-                    environment.addProperty("name", "Environment");
-                    environment.addProperty("text", "unknown");
-                    parts.add(environment);
-                    JsonObject status = new JsonObject();
-                    status.addProperty("name", "Status");
-                    status.addProperty("text", "unknown");
-                    parts.add(status);
-                    JsonObject fixVersion = new JsonObject();
-                    fixVersion.addProperty("name", "FixVersion");
-                    fixVersion.addProperty("text", "unknown");
-                    parts.add(fixVersion);
-                    JsonObject components = new JsonObject();
-                    components.addProperty("name", "Components");
-                    components.addProperty("text", "unknown");
-                    parts.add(components);
+                    parts = fillParts(parts, "unknown");
                 }
                 for (int k = 0; k < parts.size(); k++)
                 {
@@ -170,38 +139,7 @@ public class newNodeEdgeSet
                 //get additional information like status, etc
                 JsonArray parts = currentReq.getAsJsonArray("requirementParts");
 
-                JsonObject resolution = new JsonObject();
-                resolution.addProperty("name", "Resolution");
-                resolution.addProperty("text", "confidential");
-                parts.add(resolution);
-                JsonObject platforms = new JsonObject();
-                platforms.addProperty("name", "Platforms");
-                platforms.addProperty("text", "confidential");
-                parts.add(platforms);
-                JsonObject versions = new JsonObject();
-                versions.addProperty("name", "Versions");
-                versions.addProperty("text", "confidential");
-                parts.add(versions);
-                JsonObject labels = new JsonObject();
-                labels.addProperty("name", "Labels");
-                labels.addProperty("text", "confidential");
-                parts.add(labels);
-                JsonObject environment = new JsonObject();
-                environment.addProperty("name", "Environment");
-                environment.addProperty("text", "confidential");
-                parts.add(environment);
-                JsonObject status = new JsonObject();
-                status.addProperty("name", "Status");
-                status.addProperty("text", "confidential");
-                parts.add(status);
-                JsonObject fixVersion = new JsonObject();
-                fixVersion.addProperty("name", "FixVersion");
-                fixVersion.addProperty("text", "confidential");
-                parts.add(fixVersion);
-                JsonObject components = new JsonObject();
-                components.addProperty("name", "Components");
-                components.addProperty("text", "confidential");
-                parts.add(components);
+                parts = fillParts(parts, "confidential");
 
                 for (int k = 0; k < parts.size(); k++)
                 {
@@ -239,38 +177,7 @@ public class newNodeEdgeSet
                 //get additional information like status, etc
                 JsonArray parts = currentReq.getAsJsonArray("requirementParts");
 
-                JsonObject resolution = new JsonObject();
-                resolution.addProperty("name", "Resolution");
-                resolution.addProperty("text", "not in DB");
-                parts.add(resolution);
-                JsonObject platforms = new JsonObject();
-                platforms.addProperty("name", "Platforms");
-                platforms.addProperty("text", "not in DB");
-                parts.add(platforms);
-                JsonObject versions = new JsonObject();
-                versions.addProperty("name", "Versions");
-                versions.addProperty("text", "not in DB");
-                parts.add(versions);
-                JsonObject labels = new JsonObject();
-                labels.addProperty("name", "Labels");
-                labels.addProperty("text", "not in DB");
-                parts.add(labels);
-                JsonObject environment = new JsonObject();
-                environment.addProperty("name", "Environment");
-                environment.addProperty("text", "not in DB");
-                parts.add(environment);
-                JsonObject status = new JsonObject();
-                status.addProperty("name", "Status");
-                status.addProperty("text", "not in DB");
-                parts.add(status);
-                JsonObject fixVersion = new JsonObject();
-                fixVersion.addProperty("name", "FixVersion");
-                fixVersion.addProperty("text", "not in DB");
-                parts.add(fixVersion);
-                JsonObject components = new JsonObject();
-                components.addProperty("name", "Components");
-                components.addProperty("text", "not in DB");
-                parts.add(components);
+                parts = fillParts(parts, "not in DB");
 
                 for (int k = 0; k < parts.size(); k++)
                 {
@@ -323,4 +230,43 @@ public class newNodeEdgeSet
         }
         return depthNodeEdgeSet;
     }
+
+    private static JsonArray fillParts(JsonArray parts, String fillPlaceholder)
+    {
+        JsonObject resolution = new JsonObject();
+        resolution.addProperty("name", "Resolution");
+        resolution.addProperty("text", fillPlaceholder);
+        parts.add(resolution);
+        JsonObject platforms = new JsonObject();
+        platforms.addProperty("name", "Platforms");
+        platforms.addProperty("text", fillPlaceholder);
+        parts.add(platforms);
+        JsonObject versions = new JsonObject();
+        versions.addProperty("name", "Versions");
+        versions.addProperty("text", fillPlaceholder);
+        parts.add(versions);
+        JsonObject labels = new JsonObject();
+        labels.addProperty("name", "Labels");
+        labels.addProperty("text", fillPlaceholder);
+        parts.add(labels);
+        JsonObject environment = new JsonObject();
+        environment.addProperty("name", "Environment");
+        environment.addProperty("text", fillPlaceholder);
+        parts.add(environment);
+        JsonObject status = new JsonObject();
+        status.addProperty("name", "Status");
+        status.addProperty("text", fillPlaceholder);
+        parts.add(status);
+        JsonObject fixVersion = new JsonObject();
+        fixVersion.addProperty("name", "FixVersion");
+        fixVersion.addProperty("text", fillPlaceholder);
+        parts.add(fixVersion);
+        JsonObject components = new JsonObject();
+        components.addProperty("name", "Components");
+        components.addProperty("text", fillPlaceholder);
+        parts.add(components);
+
+        return parts
+    }
+
 }
