@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -49,7 +50,7 @@
     <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
         <form action="../issue" method="post" id="search-id" name="search">
-            <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
+            <button type="submit"><em class="fa fa-search" style="color: #ffffff;"></em></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
             <input type="number" name="depth" id="depthInput" min="1" max="5" placeholder="Depth..."
@@ -197,7 +198,7 @@
                         <span style="color: #6D8DB5">
                             <label>
                                 <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
-                                <b>To-Do:</b>
+                                <strong>To-Do:</strong>
                             </label>
                         </span>
                         <span>
@@ -253,7 +254,7 @@
                         <span style="color: #fecc3f">
                             <label>
                                 <input name="ProgStatus" type="checkbox" checked="checked" value="In Progress">
-                                <b>In Progress</b>
+                                <strong>In Progress</strong>
                             </label>
                         </span>
                         <br>
@@ -261,7 +262,7 @@
                         <span style="color: #24C533">
                             <label>
                                 <input name="DoneStatus" type="checkbox" onClick="toggle(this)">
-                                <b>Done:</b>
+                                <strong>Done:</strong>
                             </label>
                         </span>
                         <span>
@@ -305,7 +306,7 @@
                         <span>
                             <label>
                                 <input  onClick="toggleAll(this);" type="checkbox" checked="checked" />
-                                <b> Toggle All Statuses </b>
+                                <strong> Toggle All Statuses </strong>
                             </label>
                         </span>
                         <h2>Types:</h2>
@@ -356,7 +357,7 @@
                         <span>
                             <label>
                                 <input  name="Type" onClick="toggle(this);" type="checkbox" checked="checked" />
-                                <b> Toggle All Types </b>
+                                <strong> Toggle All Types </strong>
                             </label>
                         </span>
                         <br>
@@ -1223,7 +1224,7 @@
                     let releases = json.response[0].Releases;
                     let regsInReleases = "";
                     for (let i = 0; i < releases.length; i++) {
-                        regsInReleases = regsInReleases + "<b>Release " + releases[i].Release + "</b><br>" + releases[i].RequirementsAssigned_msg + "<br>"
+                        regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
@@ -1270,15 +1271,15 @@
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
         document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
-        document.getElementById('infoBoxIssueStatus').innerHTML = "<b>Status: </b>".concat(infoStatus);
-        document.getElementById('infoBoxIssueSummary').innerHTML = "<b>Summary: </b>".concat(infoTitle);
-        document.getElementById('infoBoxIssueResolution').innerHTML = "<b>Resolution: </b>".concat(infoResolution);
-        document.getElementById('infoBoxIssueEnv').innerHTML = "<b>Environment: </b>".concat(infoEnvironment);
-        document.getElementById('infoBoxIssueComponent').innerHTML = "<b>Component: </b>".concat(infoComponent);
-        document.getElementById('infoBoxIssueLabel').innerHTML = "<b>Label: </b>".concat(infoLabel);
-        document.getElementById('infoBoxIssueVersion').innerHTML = "<b>Version: </b>".concat(infoVersion);
-        document.getElementById('infoBoxIssueFix').innerHTML = "<b>Fix Version: </b>".concat(infoFixVersion);
-        document.getElementById('infoBoxIssuePlatform').innerHTML = "<b>Platform(s): </b>".concat(infoPlatform);
+        document.getElementById('infoBoxIssueStatus').innerHTML = "<strong>Status: </strong>".concat(infoStatus);
+        document.getElementById('infoBoxIssueSummary').innerHTML = "<strong>Summary: </strong>".concat(infoTitle);
+        document.getElementById('infoBoxIssueResolution').innerHTML = "<strong>Resolution: </strong>".concat(infoResolution);
+        document.getElementById('infoBoxIssueEnv').innerHTML = "<strong>Environment: </strong>".concat(infoEnvironment);
+        document.getElementById('infoBoxIssueComponent').innerHTML = "<strong>Component: </strong>".concat(infoComponent);
+        document.getElementById('infoBoxIssueLabel').innerHTML = "<strong>Label: </strong>".concat(infoLabel);
+        document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
+        document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
+        document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
     }
 
     function filterNodesTab() {

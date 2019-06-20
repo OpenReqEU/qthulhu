@@ -266,7 +266,7 @@ public class newNodeEdgeSet
         components.addProperty("text", fillPlaceholder);
         parts.add(components);
 
-        return parts
+        return parts;
     }
 
 }
