@@ -121,15 +121,12 @@ public class UHServicesConnections
             String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
 
 
-            System.out.println("URL: "+ consistencyCheckURL);
             String rawResponse;
             String consistencyCheck;
             try
             {
                 rawResponse = template.getForObject(consistencyCheckURL, String.class);
                 consistencyCheck = rawResponse.substring(rawResponse.indexOf("{"));
-                System.out.println("raw: "+ rawResponse);
-                System.out.println("cut: " + consistencyCheck);
             }
             catch (HttpClientErrorException e)
             {
@@ -141,7 +138,10 @@ public class UHServicesConnections
                 throw (e);
             }
             Gson gson = new Gson();
-            return gson.fromJson(consistencyCheck, JsonElement.class).getAsJsonObject();
+            String testAnswer = "fetchConsistencyResponse";
+            //return gson.fromJson(consistencyCheck, JsonElement.class).getAsJsonObject();
+            return gson.fromJson(testAnswer, JsonElement.class).getAsJsonObject();
+
         }
 
         public static String fetchJiraAuthAddress() throws
