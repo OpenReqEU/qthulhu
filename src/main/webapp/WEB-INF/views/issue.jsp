@@ -1217,6 +1217,8 @@
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
+                console.log(xhr.readyState);
+                console.log(xhr.status);
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     //let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
                     //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
