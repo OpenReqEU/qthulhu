@@ -121,12 +121,15 @@ public class UHServicesConnections
             String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
 
 
+            System.out.println("URL: "+ consistencyCheckURL);
             String rawResponse;
             String consistencyCheck;
             try
             {
                 rawResponse = template.getForObject(consistencyCheckURL, String.class);
                 consistencyCheck = rawResponse.substring(rawResponse.indexOf("{"));
+                System.out.println("raw: "+ rawResponse);
+                System.out.println("cut: " + consistencyCheck);
             }
             catch (HttpClientErrorException e)
             {

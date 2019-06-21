@@ -26,6 +26,7 @@ public class MillaController
     public @ResponseBody
     String getConsistencyCheckOfRequirement(@RequestParam("requirementId") String requirementId)
     {
+        System.out.println("fetching for " + requirementId);
         JsonObject consistencyCheckJSON = fetchConsistencyCheck(requirementId);
         return consistencyCheckJSON.toString();
     }
