@@ -1224,7 +1224,7 @@
                     //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(xhr.responseText);
 
-                    let releases = json.response[0].Releases;
+                    let releases = json[0].response[0].Releases;
                     let regsInReleases = "";
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
