@@ -1248,7 +1248,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "./milla/getTestString";
+            let url = "./getTestString";
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
