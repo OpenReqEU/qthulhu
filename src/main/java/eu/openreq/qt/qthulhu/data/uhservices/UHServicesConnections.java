@@ -58,7 +58,6 @@ public class UHServicesConnections
     public static JsonObject fetchTopProposedLinks(String issueKey, int maxResults) throws HttpClientErrorException, HttpServerErrorException
     {
         RestTemplate template = new RestTemplate();
-        //String topProposedLinksURL = "http://localhost:9203/getTopProposedDependenciesOfRequirement?requirementId=" + issueKey + "&maxResults=" + maxResults;
         String topProposedLinksURL = Property.topProposedLinksURL + issueKey + "&maxResults=" + maxResults;
 
 
@@ -83,8 +82,6 @@ public class UHServicesConnections
     public static String sendUpdatedProposedLinks(String updatedProposedLinks) throws HttpClientErrorException, HttpServerErrorException
     {
         RestTemplate template = new RestTemplate();
-        //String updateProposedDependenciesURL = "http://217.172.12.199:9203/updateProposedDependencies";
-
 
         String response;
 

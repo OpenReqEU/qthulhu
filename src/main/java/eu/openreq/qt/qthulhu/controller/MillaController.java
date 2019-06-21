@@ -10,10 +10,9 @@ import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchC
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
 @Controller
-//@RequestMapping("/milla")
 public class MillaController
 {
-    @RequestMapping(value = "/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
+    @RequestMapping(value = "milla/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
     public @ResponseBody
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") int maxResults)
     {
