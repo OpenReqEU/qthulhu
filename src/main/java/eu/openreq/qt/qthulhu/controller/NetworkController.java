@@ -19,11 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class NetworkController
 {
 
-    @RequestMapping(value = "/getTestString", method = RequestMethod.GET)
-    String getTestString()
-    {
-        return "NetworkControllerCalled";
-    }
 
     /**
      * This is the main page you see if you go to https://api.openreq.eu/openreq-issue-link-map/

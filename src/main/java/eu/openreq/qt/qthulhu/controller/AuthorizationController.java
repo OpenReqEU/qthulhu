@@ -3,9 +3,7 @@ package eu.openreq.qt.qthulhu.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
-import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchJiraAuthAddress;
-import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.doVerifyJiraAuthorization;
+import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.*;
 
 @Controller
 @RequestMapping("/authorize")

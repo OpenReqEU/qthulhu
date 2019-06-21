@@ -1020,9 +1020,9 @@
         });
 
 
-        for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
-            if (linkDetectionResponse[i] != undefined) {
-                if (linkDetectionResponse[i] != "reject") {
+        for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
+            if (linkDetectionResponse[i] !== undefined) {
+                if (linkDetectionResponse[i] !== "reject") {
                     updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i];
                     updatedProposedLinksJSON.dependencies[i].status = "accepted"
                 }
@@ -1213,13 +1213,11 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "./milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    //let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
-                    //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(xhr.responseText);
 
                     let releases = json[0].response[0].Releases;
@@ -1228,9 +1226,6 @@
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json[0].response[0].Consistent_msg).concat("<br>") + regsInReleases;
-                    /*
-                    console.log(xhr.responseText);
-                    document.getElementById('ccResult').innerText = xhr.responseText;*/
                 }
             };
 
@@ -1245,27 +1240,6 @@
 
     function infoTab() {
 
-        try {
-            let xhr = new XMLHttpRequest();
-
-            let url = "./getTestString";
-            xhr.open("GET", url, true);
-
-            xhr.onreadystatechange = function () {
-                console.log(xhr.readyState);
-                console.log(xhr.status);
-                if (xhr.readyState === 4 && xhr.status === 200) {
-
-                    console.log(xhr.responseText);
-                }
-            };
-
-            xhr.send(null);
-        }
-        catch
-            (err) {
-            alert(err);
-        }
         infoTabActive = true;
 
         if (proposedViewActive) {

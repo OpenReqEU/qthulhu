@@ -9,6 +9,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 
+
 /**
  * This class manages the requests to UH's services
  */
@@ -114,7 +115,6 @@ public class UHServicesConnections
         HttpClientErrorException, HttpServerErrorException
         {
             RestTemplate template = new RestTemplate();
-            //String consistencyCheckURL = "http://localhost:9203/getConsistencyCheckForRequirement?requirementId=" + issueKey;
             String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
 
 
@@ -135,10 +135,7 @@ public class UHServicesConnections
                 throw (e);
             }
             Gson gson = new Gson();
-            String testAnswer = "fetchConsistencyResponse";
-            //return gson.fromJson(consistencyCheck, JsonElement.class).getAsJsonObject();
-            return gson.fromJson(testAnswer, JsonElement.class).getAsJsonObject();
-
+            return gson.fromJson(consistencyCheck, JsonElement.class).getAsJsonObject();
         }
 
         public static String fetchJiraAuthAddress() throws
