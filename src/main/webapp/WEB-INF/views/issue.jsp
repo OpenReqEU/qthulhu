@@ -1219,7 +1219,7 @@
             xhr.onreadystatechange = function () {
                 console.log(xhr.readyState);
                 console.log(xhr.status);
-                if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.readyState === 4 /*&& xhr.status === 200*/) {
                     //let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
                     //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(xhr.responseText);
@@ -1231,6 +1231,7 @@
                     }
                     document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                     */
+                    console.log(xhr.responseText);
                     document.getElementById('ccResult').innerText = xhr.responseText;
                 }
             };
