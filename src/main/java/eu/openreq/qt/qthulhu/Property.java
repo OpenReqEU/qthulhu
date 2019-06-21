@@ -14,7 +14,7 @@ public class Property {
     public static final String topProposedLinksURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTopProposedDependenciesOfRequirement?requirementId=";
     public static final String updateProposedDependenciesURL = "https://bugreports-test.qt.io/rest/fisutankki/1/updateProposedDependencies";
     public static final String consistencyCheckURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=";
-  */
+*/
 
     public static final String jiraAuthorizationAddress = "https://bugreports-test.qt.io/rest/fisutankki/1/getJiraAuthorizationAddress";
     public static final String verifyAuthAddress = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization";
