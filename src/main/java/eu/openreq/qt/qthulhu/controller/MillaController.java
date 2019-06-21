@@ -37,4 +37,9 @@ public class MillaController
         String blub = updatedProposedLinks.substring(16, updatedProposedLinks.length()-1);
         return UHServicesConnections.sendUpdatedProposedLinks(blub);
     }
+    @GetMapping("/milla/getTestString")
+    String getTestString()
+    {
+        return "MillaControllerCalled";
+    }
 }
