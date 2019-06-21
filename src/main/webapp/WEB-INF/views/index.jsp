@@ -107,14 +107,14 @@
                     links of issues of depth 2 and so on, up until depth 5.
                     If you do not specify a depth the default value is 1.
                     While viewing the issue link map you can switch between the different depths.
-                <form action="./example" method="post" id="example" style="display:inline-block;">
-                    <%--This is needed to implement the add and remove layer functionality--%>
-                    <input type="hidden" name="layerDepth" value="1"/>
-                    <input type="hidden" name="issues" value="EX-3"/>
-                    <input type="submit"
-                           class="button search button-effect-teal"
-                           value="See Example">
-                </form>
+                <%--<form action="./example" method="post" id="example" style="display:inline-block;">--%>
+                    <%--&lt;%&ndash;This is needed to implement the add and remove layer functionality&ndash;%&gt;--%>
+                    <%--<input type="hidden" name="layerDepth" value="1"/>--%>
+                    <%--<input type="hidden" name="issues" value="EX-3"/>--%>
+                    <%--<input type="submit"--%>
+                           <%--class="button search button-effect-teal"--%>
+                           <%--value="See Example">--%>
+                <%--</form>--%>
                 </p>
                 <h5 class="card-title">Dependency Detection & Consistency Checker</h5>
                 <p class="card-text">The microservices for Dependency Detection and Consistency Checker are currently
@@ -134,7 +134,7 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = "./authorize/getAddress"
+            let url = "./authorize/getAddress";
             //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/getJiraAuthorizationAddress"
             xhr.open("GET", url, true);
 
@@ -159,7 +159,7 @@
             xhr.withCredentials = true;
 
             //let url = "./authorize/verifyAuth"
-            let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization"
+            let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization";
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("cache-control", "no-cache");
