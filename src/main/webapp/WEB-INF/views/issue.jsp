@@ -1229,7 +1229,7 @@
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json[0].response[0].Consistent_msg).concat("<br>") + regsInReleases;
                     /*
                     console.log(xhr.responseText);
                     document.getElementById('ccResult').innerText = xhr.responseText;*/
