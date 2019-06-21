@@ -10,7 +10,7 @@ import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchC
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
 @Controller
-@RequestMapping("/milla")
+//@RequestMapping("/milla")
 public class MillaController
 {
     @RequestMapping(value = "/getTopProposedDependenciesOfRequirement", method = RequestMethod.GET)
@@ -37,7 +37,7 @@ public class MillaController
         String blub = updatedProposedLinks.substring(16, updatedProposedLinks.length()-1);
         return UHServicesConnections.sendUpdatedProposedLinks(blub);
     }
-    @RequestMapping(value = "/getTestString", method = RequestMethod.GET)
+    @RequestMapping(value = "/milla/getTestString", method = RequestMethod.GET)
     String getTestString()
     {
         return "MillaControllerCalled";
