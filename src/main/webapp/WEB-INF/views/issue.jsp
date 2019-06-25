@@ -167,6 +167,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
+                    <p id ="infoBoxIssuePrio"></p>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -389,6 +390,7 @@
     let filteredNodes = [];
     let filterArray = [];
     let distance = 240;
+    let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
 
 
     //proposed View active boolean
@@ -872,6 +874,7 @@
             let nodegroup = colorPaletteStatus[nodestatus];
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
+            let nodeprio = v['priority'];
             if(typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
@@ -899,7 +902,8 @@
                     status: nodestatus,
                     resolution: noderesolution,
                     hidden: nodehidden,
-                    type: nodetype
+                    type: nodetype,
+                    priority: nodeprio
                 });
         });
         return depthLevelNodes;
@@ -1266,6 +1270,7 @@
         let infoVersion = issueInfo.versions;
         let infoPlatform = issueInfo.platforms;
         let infoFixVersion = issueInfo.fixversion;
+        let infoPriority = priorityArray[issueInfo.priority];
 
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
@@ -1280,6 +1285,7 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
+        document.getElementById('infoBoxIssuePrio').innerHTML = "<strong>Priority: </strong>".concat(infoPriority);
     }
 
     function filterNodesTab() {

@@ -76,8 +76,9 @@
             </fieldset>
         </form>
         <div>
-        <%--
+
             <input type="button" class="button search button-effect-teal" onclick="testForCORS()" value="TEST" />
+            <%--
             <input type="button" class="button search button-effect-teal" onclick="getAndOpenAuthorizeAddress()" value="Authorize" />
             <input type="text" name="token" id="token-input" required="required" width="200px">
             <input type="button" class="button search button-effect-teal" onclick="verifyAuthorization()" value="Verify" />
