@@ -167,6 +167,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
+                    <div id ="infoBoxIssuePrio"></div>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -361,6 +362,58 @@
                             </label>
                         </span>
                         <br>
+                        <h2>Priority:</h2>
+                        <br>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="0"/>
+                                <img src="../images/prio/0.png" width="20" height="20" align="middle"/>P0: Blocker
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="1"/>
+                                <img src="../images/prio/1.png" width="20" height="20" align="middle"/>P1: Critical
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="2"/>
+                                <img src="../images/prio/2.png" width="20" height="20" align="middle"/>P2: Important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="3"/>
+                                <img src="../images/prio/3.png" width="20" height="20" align="middle"/>P3: Somewhat important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="4"/>
+                                <img src="../images/prio/4.png" width="20" height="20" align="middle"/>P4: Low
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="5"/>
+                                <img src="../images/prio/5.png" width="20" height="20" align="middle"/>P5: Not important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="7"/>
+                                <img src="../images/prio/7.png" width="20" height="20" align="middle"/>Not Evaluated
+                            </label>
+                        </span>
+                        <br>
+                        <span>
+                            <label>
+                                <input  name="Priority" onClick="toggle(this);" type="checkbox" checked="checked" />
+                                <strong> Toggle All Priorities </strong>
+                            </label>
+                        </span>
+                        <br>
                         <input type="button" class="button search button-effect-teal" onclick="filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
@@ -389,6 +442,7 @@
     let filteredNodes = [];
     let filterArray = [];
     let distance = 240;
+    let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
 
 
     //proposed View active boolean
@@ -500,8 +554,8 @@
         }
     }
 
-    function isFiltered(status, type) {
-        return !(filterArray.includes(status)&& filterArray.includes(type));
+    function isFiltered(status, type, priority) {
+        return !(filterArray.includes(status) && filterArray.includes(type) && filterArray.includes(priority));
     }
 
     /**
@@ -872,6 +926,7 @@
             let nodegroup = colorPaletteStatus[nodestatus];
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
+            let nodeprio = v['priority'].toString();
             if(typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
@@ -899,7 +954,8 @@
                 status: nodestatus,
                 resolution: noderesolution,
                 hidden: nodehidden,
-                type: nodetype
+                type: nodetype,
+                priority: nodeprio
             });
         });
         return depthLevelNodes;
@@ -1020,9 +1076,9 @@
         });
 
 
-        for (i = linkDetectionResponse.length - 1; i >= 0; i--) {
-            if (linkDetectionResponse[i] != undefined) {
-                if (linkDetectionResponse[i] != "reject") {
+        for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
+            if (linkDetectionResponse[i] !== undefined) {
+                if (linkDetectionResponse[i] !== "reject") {
                     updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i];
                     updatedProposedLinksJSON.dependencies[i].status = "accepted"
                 }
@@ -1218,15 +1274,14 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    //let jsonPart = xhr.responseText.substring(xhr.responseText.indexOf("{"));
-                    //let notJSONResponse = xhr.responseText.substring(0,xhr.responseText.indexOf("Caas response:")-2);
                     let json = JSON.parse(xhr.responseText);
-                    let releases = json.response[0].Releases;
+
+                    let releases = json[0].response[0].Releases;
                     let regsInReleases = "";
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json[0].response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
 
@@ -1240,6 +1295,7 @@
 
 
     function infoTab() {
+
         infoTabActive = true;
 
         if (proposedViewActive) {
@@ -1266,6 +1322,7 @@
         let infoVersion = issueInfo.versions;
         let infoPlatform = issueInfo.platforms;
         let infoFixVersion = issueInfo.fixversion;
+        let infoPriority = priorityArray[issueInfo.priority];
 
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
@@ -1280,6 +1337,7 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
+        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(infoPriority);
     }
 
     function filterNodesTab() {
@@ -1303,7 +1361,7 @@
             for (let i = 0; i < allNodesArray[j].length; i++) {
                 // if the current node has a status that should not be shown it will be
                 // spliced out of allNodesArray and pushed into filteredNodes
-                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type) && allNodesArray[j][i].level !== 0) {
+                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type, allNodesArray[j][i].priority) && allNodesArray[j][i].level !== 0) {
                     filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
                     i--;
                 }

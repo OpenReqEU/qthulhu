@@ -362,6 +362,58 @@
                             </label>
                         </span>
                         <br>
+                        <h2>Priority:</h2>
+                        <br>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="0"/>
+                                <img src="./images/prio/0.png" width="20" height="20" align="middle"/>P0: Blocker
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="1"/>
+                                <img src="./images/prio/1.png" width="20" height="20" align="middle"/>P1: Critical
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="2"/>
+                                <img src="./images/prio/2.png" width="20" height="20" align="middle"/>P2: Important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="3"/>
+                                <img src="./images/prio/3.png" width="20" height="20" align="middle"/>P3: Somewhat important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="4"/>
+                                <img src="./images/prio/4.png" width="20" height="20" align="middle"/>P4: Low
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="5"/>
+                                <img src="./images/prio/5.png" width="20" height="20" align="middle"/>P5: Not important
+                            </label>
+                        </span>
+                        <span>
+                            <label>
+                                <input name="Priority" type="checkbox" checked="checked" value="7"/>
+                                <img src="./images/prio/7.png" width="20" height="20" align="middle"/>Not Evaluated
+                            </label>
+                        </span>
+                        <br>
+                        <span>
+                            <label>
+                                <input  name="Priority" onClick="toggle(this);" type="checkbox" checked="checked" />
+                                <strong> Toggle All Priorities </strong>
+                            </label>
+                        </span>
+                        <br>
                         <input type="button" class="button search button-effect-teal" onclick="filterNodes()" value="Apply filter" />
                     </div>
                     <p id="filterOptions"></p>
@@ -502,8 +554,8 @@
         }
     }
 
-    function isFiltered(status, type) {
-        return !(filterArray.includes(status)&& filterArray.includes(type));
+    function isFiltered(status, type, priority) {
+        return !(filterArray.includes(status) && filterArray.includes(type) && filterArray.includes(priority));
     }
 
     /**
@@ -874,7 +926,7 @@
             let nodegroup = colorPaletteStatus[nodestatus];
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
-            let nodeprio = v['priority'];
+            let nodeprio = v['priority'].toString();
             if(typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
@@ -1285,9 +1337,7 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
-        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="images/prio/' + issueInfo.priority + '.png" align="middle"/>'.concat(infoPriority);
-            //'<strong>Priority: </strong><img src=\"...\resources\static\images\prio\' + issueInfo.priority + '.png\"';
-            // width="42" height="42" align="middle">'.concat(infoPriority)
+        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="./images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(infoPriority);
     }
 
     function filterNodesTab() {
@@ -1311,7 +1361,7 @@
             for (let i = 0; i < allNodesArray[j].length; i++) {
                 // if the current node has a status that should not be shown it will be
                 // spliced out of allNodesArray and pushed into filteredNodes
-                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type) && allNodesArray[j][i].level !== 0) {
+                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type, allNodesArray[j][i].priority) && allNodesArray[j][i].level !== 0) {
                     filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
                     i--;
                 }
