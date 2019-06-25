@@ -927,6 +927,9 @@
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             let nodeprio = v['priority'].toString();
+            if(v['priority'] === 6) {
+                nodeprio = "5";
+            }
             if(typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
@@ -1269,27 +1272,28 @@
         try {
             let xhr = new XMLHttpRequest();
 
-            let url = ".../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+            let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
+            document.getElementById('ccResult').innerHTML = "pending...";
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let json = JSON.parse(xhr.responseText);
 
-                    let releases = json[0].response[0].Releases;
+                    let releases = json.response[0].Releases;
                     let regsInReleases = "";
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json[0].response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
                 }
             };
 
             xhr.send(null);
         }
-        catch
-            (err) {
+        catch (err) {
             alert(err);
+            document.getElementById('ccResult').innerHTML = "there was an error...";
         }
     }
 

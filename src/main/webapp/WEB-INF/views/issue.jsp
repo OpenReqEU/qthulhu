@@ -927,6 +927,9 @@
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             let nodeprio = v['priority'].toString();
+            if(v['priority'] === 6) {
+                nodeprio = "5";
+            }
             if(typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
@@ -1272,6 +1275,7 @@
             let url = "./milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
             xhr.open("GET", url, true);
 
+            document.getElementById('ccResult').innerHTML = "pending...";
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let json = JSON.parse(xhr.responseText);
@@ -1287,9 +1291,9 @@
 
             xhr.send(null);
         }
-        catch
-            (err) {
+        catch (err) {
             alert(err);
+            document.getElementById('ccResult').innerHTML = "there was an error...";
         }
     }
 
