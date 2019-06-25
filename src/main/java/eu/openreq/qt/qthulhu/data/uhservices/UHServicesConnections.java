@@ -122,8 +122,7 @@ public class UHServicesConnections
             String consistencyCheck;
             try
             {
-                rawResponse = template.getForObject(consistencyCheckURL, String.class);
-                consistencyCheck = rawResponse.substring(rawResponse.indexOf("{"));
+                consistencyCheck = template.getForObject(consistencyCheckURL, String.class);
             }
             catch (HttpClientErrorException e)
             {
