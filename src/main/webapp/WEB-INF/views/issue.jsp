@@ -167,7 +167,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
-                    <p id ="infoBoxIssuePrio"></p>
+                    <div id ="infoBoxIssuePrio"></div>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -1285,7 +1285,9 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
-        document.getElementById('infoBoxIssuePrio').innerHTML = "<strong>Priority: </strong>".concat(infoPriority);
+        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="...\\resources\\static\\images\\prio\\' + issueInfo.priority + '.png" align="middle"/>'.concat(infoPriority);
+            //'<strong>Priority: </strong><img src=\"...\resources\static\images\prio\' + issueInfo.priority + '.png\"';
+            // width="42" height="42" align="middle">'.concat(infoPriority)
     }
 
     function filterNodesTab() {
