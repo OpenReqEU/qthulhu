@@ -22,30 +22,42 @@ While in JIRA the user can only see the direct links, this tool enables the user
 Essential information of an issue is displayed on the right-hand side.
 - *Navigating* the link network
 The user can drag items and add or remove layers.
-- *Accepting & rejecting* proposed links
-The results of a link detection are also visualized, this view should can be toggled on and off for a specific issue. While the link detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
 - *Consistency Checker*
 Checking if the issues in the link map do not have conflicting link type and priority and displaying the result.
-
-#### Functionalities in development
-- *Editing* links
-By right-clicking an edge, the user can change the link type, switch direction or remove the link
 - *Filtering* the issue link map for specified properties
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
+
+#### Functionalities in development
+- *Accepting & rejecting* proposed links
+The results of a link detection are also visualized, this view should can be toggled on and off for a specific issue. While the link detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
 
 #### Functionalities planned
 - *Editing* links
 By right-clicking an edge, the user can change the link type, switch direction or remove the link
-- *Filtering* the issue link map for specified properties
-To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
+- *Full Integration* into Jira as a *Jira plug-in*
 
 ### Accessing the application
 The application is accessible here: https://api.openreq.eu/openreq-issue-link-map/
-and an older version here: http://bugreports-test.qt.io:10201/
 
-Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa. This connection is created by installing the ["jira-redirction" plugin](https://github.com/OpenReqEU/jira-redirection).
+!This is currently broken! Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa. This connection is created by installing the ["jira-redirction" plugin](https://github.com/OpenReqEU/jira-redirection).
 
-### How to install
+## How to install
+You first need to deploy the following OpenReq microservices:
+[mallikas](https://github.com/OpenReqEU/mallikas)
+[mulperi](https://github.com/OpenReqEU/mulperi)
+[keljucaas](https://github.com/OpenReqEU/keljucaas)
+[palmu](https://github.com/OpenReqEU/palmu)
+[milla](https://github.com/OpenReqEU/milla)
+[nikke](https://github.com/OpenReqEU/nikke)
+Mallikas is a database that Qthulhu accesses over milla, so it should contain the issues you want to visualize.
+
+### Change properties of Qthulhu
+In src/main/java/eu.openreq.qt.qthulhu change the URLs in the class Property to the corresponding endpoints of your deployment of milla.
+
+### Adapt Qthulhu
+You might need to adapt the colorPaletteStatus and arrowPaletteType in Qthulhus issue.jsp and issueid.jsp to the words used in your Jira.
+
+### Create .war
 This is a maven project, so use 
 ```
 mvn clean package
@@ -69,10 +81,9 @@ Alternatively, you can access the test instance of Qt's jira https://bugreports-
 ![Search3](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Search3.png)
 
 #### What does this application do?
-Visualising the link network and recommending missing links.
+Visualising the link network, recommending missing links and checking the consistency of your releaseplans.
 
 ### What’s next?
-- Filtering the graph
 - Editing links on the fly
 - Transform this from a web-application to a jira plugin
 
