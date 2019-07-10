@@ -68,7 +68,7 @@ java -jar qthulhu-webapp-1.0.war
 ```
 
 ### How to use
-You can directly search for an issue here http://217.172.12.199:10201 or here http://bugreports-test.qt.io:10201/
+You can directly search for an issue here https://api.openreq.eu/openreq-issue-link-map/.
 ![Search1](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Search1.png)
 
 for example Issue: QTWB-30 and layer 2.
