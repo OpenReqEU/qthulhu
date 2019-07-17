@@ -24,10 +24,10 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /*#issueLinkMap {*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-        /*}*/
+        #issueLinkMap {
+            width: 100%;
+            height: 100%;
+        }
 
         input[type=number] {
             width: 100px;
