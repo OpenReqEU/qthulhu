@@ -39,8 +39,9 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">We appreciate your feedback:</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">Google Questionnaire</a>
+    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">We appreciate your feedback:</a>
+    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">Google Questionnaire</a>
+    <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
     <a href="./">Go Back</a>
     <%-- <div class="search-container">
         <form action="./issue" method="post" id="search-id" name="search">
