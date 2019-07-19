@@ -572,6 +572,7 @@
             allNodesArray[0][0].angle = 0;
             allNodesArray[0][0].fixed = true;
             allNodesArray[0][0].heightConstraint = 40;
+            allNodesArray[0][0].heightConstraint.minimum = 400;
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
