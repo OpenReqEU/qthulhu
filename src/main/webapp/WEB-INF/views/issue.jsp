@@ -571,6 +571,7 @@
             allNodesArray[0][0].y = 0;
             allNodesArray[0][0].angle = 0;
             allNodesArray[0][0].fixed = true;
+            allNodesArray[0][0].heightConstraint = 40;
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -1560,7 +1561,8 @@
                     "bottom": 10,
                     "left": 10
                 },
-                "title": "HTML"
+                "title": "HTML",
+                "heightConstraint": true
             },
             //edge design
             "edges": {
