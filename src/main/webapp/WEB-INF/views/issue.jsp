@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<!DOCTYPE html><!DOCTYPE html>--%>
+<%--<!DOCTYPE html>--%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -170,7 +170,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
-                    <div id ="infoBoxIssuePrio"></div>
+                    <p id ="infoBoxIssuePrio"></p>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -1288,7 +1288,17 @@
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    let ccMessage = "";
+                    if (json.response[0].Consistent_msg == "Release plan contains errors")
+                    {
+                        ccMessage = ccMessage.concat("Release plan is inconsistent")
+                    }
+                    else
+                    {
+                        ccMessage = ccMessage.concat("Release plan is consistent.")
+                    }
+                    let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + regsInReleases ;
                 }
             };
 
