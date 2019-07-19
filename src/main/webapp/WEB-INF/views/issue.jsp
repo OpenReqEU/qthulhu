@@ -571,9 +571,9 @@
             allNodesArray[0][0].y = 0;
             allNodesArray[0][0].angle = 0;
             allNodesArray[0][0].fixed = true;
-            allNodesArray[0][0].value = 40;
-            // allNodesArray[0][0].heightConstraint = 60;
-            // allNodesArray[0][0].widthConstraint = 135;
+            allNodesArray[0][0].heightConstraint = 60;
+            allNodesArray[0][0].widthConstraint = 135;
+            allNodesArray[0][0].font = {multi: true, size: 20}
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -972,9 +972,8 @@
                     hidden: nodehidden,
                     type: nodetype,
                     priority: nodeprio,
-                    value: 25
-                    // heigthConstraint: 25,
-                    // widthConstraint: 60,
+                    heigthConstraint: 25,
+                    widthConstraint: 60,
                     //size: nodesize
                 });
         });
@@ -1419,11 +1418,6 @@
             edges: edges
         };
 
-        let scalingObj = {
-            "min": 25,
-            "max": 100,
-            "label": true
-        }
         //specify options such as physics
         let options = {
             //specify the different groups
@@ -1572,10 +1566,8 @@
                     "left": 10
                 },
                 "title": "HTML",
-                "scaling": scalingObj
-                // "heightConstraint": 25,
-                // "widthConstraint": 50
-
+                "heightConstraint": 25,
+                "widthConstraint": 50
             },
             //edge design
             "edges": {
