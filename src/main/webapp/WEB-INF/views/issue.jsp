@@ -954,6 +954,7 @@
             else {
                 nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
             }
+            //blub
 
                 depthLevelNodes.push({
                     id: ID,
