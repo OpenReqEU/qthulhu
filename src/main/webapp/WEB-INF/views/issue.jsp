@@ -924,6 +924,11 @@
             let nodestatus = v['status'];
             let noderesolution = v['resolution'];
             let nodegroup = colorPaletteStatus[nodestatus];
+            let nodesize = 25;
+            if (nodedepth == 0)
+            {
+                nodesize = 40;
+            }
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             let nodeprio = v['priority'].toString();
@@ -934,18 +939,19 @@
                 nodetype = "not specified"
             }
             if (!(nodetype == null)) {
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-                if (nodename.toString().length > 20) {
-                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-                }
-                else {
-                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-                }
+                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+                nodelabel = nodelabel.concat(nodestatus).concat("\n, ").concat(noderesolution);
             }
             else
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
             let nodetitle = "";
-            nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+            if (nodename.toString().length > 20) {
+                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("...\n");
+            }
+            else {
+                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
+            }
+
                 depthLevelNodes.push({
                     id: ID,
                     font: {multi: true},
@@ -958,7 +964,8 @@
                     resolution: noderesolution,
                     hidden: nodehidden,
                     type: nodetype,
-                    priority: nodeprio
+                    priority: nodeprio,
+                    size: nodesize
                 });
         });
         return depthLevelNodes;
@@ -1150,6 +1157,7 @@
 
                 xhr.open("GET", url, true);
 
+                document.getElementById('ddResult').innerHTML = "pending...";
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
 
@@ -1407,24 +1415,24 @@
             //TODO: There must be an easier way to create these groups
             "groups": {
                 "yellow": {
-                    color: {background: '#FECC3F', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "green": {
-                    color: {background: '#36DA46', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "blue": {
-                    color: {background: '#87A1C2', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "red": {
-                    color: {background: '#FF5E36', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
+                        color: {background: '#FECC3F', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "green": {
+                        color: {background: '#36DA46', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "blue": {
+                        color: {background: '#87A1C2', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "red": {
+                        color: {background: '#FF5E36', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
                     // },
                     // "yellow_layer_1": {
                     //     color: {background: '#FED153', border: '#172B4D'},
