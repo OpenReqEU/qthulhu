@@ -1419,6 +1419,11 @@
             edges: edges
         };
 
+        let scalingObj = {
+            "min": 25,
+            "max": 100,
+            "label": true
+        }
         //specify options such as physics
         let options = {
             //specify the different groups
@@ -1567,6 +1572,7 @@
                     "left": 10
                 },
                 "title": "HTML",
+                "scaling": scalingObj
                 // "heightConstraint": 25,
                 // "widthConstraint": 50
 
