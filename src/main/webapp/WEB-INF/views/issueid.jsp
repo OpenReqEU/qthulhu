@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<!DOCTYPE html><!DOCTYPE html>--%>
+<%--<!DOCTYPE html>--%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -170,7 +170,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
-                    <div id ="infoBoxIssuePrio"></div>
+                    <p id ="infoBoxIssuePrio"></p>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -571,6 +571,9 @@
             allNodesArray[0][0].y = 0;
             allNodesArray[0][0].angle = 0;
             allNodesArray[0][0].fixed = true;
+            allNodesArray[0][0].heightConstraint = 60;
+            allNodesArray[0][0].widthConstraint = 135;
+            allNodesArray[0][0].font = {multi: true, size: 24}
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -927,6 +930,11 @@
             let nodestatus = v['status'];
             let noderesolution = v['resolution'];
             let nodegroup = colorPaletteStatus[nodestatus];
+            let nodesize = 25;
+            if (nodedepth == 0)
+            {
+                nodesize = 40;
+            }
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             let nodeprio = v['priority'].toString();
@@ -937,18 +945,20 @@
                 nodetype = "not specified"
             }
             if (!(nodetype == null)) {
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-                if (nodename.toString().length > 20) {
-                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-                }
-                else {
-                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-                }
+                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+                nodelabel = nodelabel.concat(nodestatus).concat("\n, ").concat(noderesolution);
             }
             else
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
             let nodetitle = "";
-            nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+            if (nodename.toString().length > 20) {
+                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("...\n");
+            }
+            else {
+                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
+            }
+            //blub
+
             depthLevelNodes.push({
                 id: ID,
                 font: {multi: true},
@@ -961,7 +971,8 @@
                 resolution: noderesolution,
                 hidden: nodehidden,
                 type: nodetype,
-                priority: nodeprio
+                priority: nodeprio,
+                size: nodesize
             });
         });
         return depthLevelNodes;
@@ -1153,6 +1164,7 @@
 
                 xhr.open("GET", url, true);
 
+                document.getElementById('ddResult').innerHTML = "pending...";
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
 
@@ -1288,7 +1300,17 @@
                     for (let i = 0; i < releases.length; i++) {
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(json.response[0].Consistent_msg).concat("<br>") + regsInReleases;
+                    let ccMessage = "";
+                    if (json.response[0].Consistent_msg == "Release plan contains errors")
+                    {
+                        ccMessage = ccMessage.concat("Release plan is inconsistent")
+                    }
+                    else
+                    {
+                        ccMessage = ccMessage.concat("Release plan is consistent.")
+                    }
+                    let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + regsInReleases ;
                 }
             };
 

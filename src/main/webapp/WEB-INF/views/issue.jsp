@@ -972,8 +972,6 @@
                     hidden: nodehidden,
                     type: nodetype,
                     priority: nodeprio,
-                    // heigthConstraint: 25,
-                    // widthConstraint: 60,
                     size: nodesize
                 });
         });
@@ -1565,9 +1563,7 @@
                     "bottom": 10,
                     "left": 10
                 },
-                "title": "HTML",
-                //"heightConstraint": 25,
-                //"widthConstraint": 50
+                "title": "HTML"
             },
             //edge design
             "edges": {
