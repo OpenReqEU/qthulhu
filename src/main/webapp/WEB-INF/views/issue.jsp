@@ -571,8 +571,8 @@
             allNodesArray[0][0].y = 0;
             allNodesArray[0][0].angle = 0;
             allNodesArray[0][0].fixed = true;
-            allNodesArray[0][0].heightConstraint = 40;
-            allNodesArray[0][0].widthConstraint = 90;
+            allNodesArray[0][0].heightConstraint = 60;
+            allNodesArray[0][0].widthConstraint = 135;
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -972,7 +972,7 @@
                     type: nodetype,
                     priority: nodeprio,
                     heigthConstraint: 25,
-                    widthConstraint: 40,
+                    widthConstraint: 60,
                     //size: nodesize
                 });
         });
