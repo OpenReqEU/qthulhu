@@ -974,7 +974,7 @@
                     priority: nodeprio,
                     // heigthConstraint: 25,
                     // widthConstraint: 60,
-                    //size: nodesize
+                    size: nodesize
                 });
         });
         return depthLevelNodes;
@@ -1566,8 +1566,8 @@
                     "left": 10
                 },
                 "title": "HTML",
-                "heightConstraint": 25,
-                "widthConstraint": 50
+                //"heightConstraint": 25,
+                //"widthConstraint": 50
             },
             //edge design
             "edges": {
