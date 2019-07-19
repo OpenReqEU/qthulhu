@@ -971,6 +971,8 @@
                     hidden: nodehidden,
                     type: nodetype,
                     priority: nodeprio,
+                    heigthConstraint: 25,
+                    widthConstraint: 40,
                     //size: nodesize
                 });
         });
