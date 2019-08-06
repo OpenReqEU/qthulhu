@@ -16,6 +16,8 @@ public class NewNodeEdgeSet
     //contains all the pairs of issue key and unique int id
     private static HashMap<String, Long> idMap;
 
+    private static String placeholder;
+
     // Constructor due to Sonarqube complains
     private NewNodeEdgeSet() {
 
@@ -33,7 +35,6 @@ public class NewNodeEdgeSet
             if ((layers.get(Integer.toString(i)) != null))
             {
                 JsonArray currentLayer = layers.get(Integer.toString(i)).getAsJsonArray();
-                //System.out.println(currentLayer);
                 for (int j = 0; j < currentLayer.size(); j++)
                 {
                     String key = currentLayer.get(j).getAsString();
@@ -79,129 +80,61 @@ public class NewNodeEdgeSet
             JsonObject currentReq = reqs.get(i).getAsJsonObject();
             String reqKey = currentReq.get("id").getAsString();
             int reqLayer = layerMap.get(reqKey);
+
+            long nodeId = calculateUniqueID(reqKey);
+            currentReq.addProperty("nodeid", nodeId);
+
+            String nameCleaned;
             if (currentReq.has("name") && !reqKey.contains("mock"))
             {
-                long nodeId = calculateUniqueID(reqKey);
-
-                currentReq.addProperty("nodeid", nodeId);
-
                 //get title of issue if it has one
-                String nameCleaned = "no name";
-                if (currentReq.has("name"))
-                {
-                    JsonElement name = currentReq.get("name");
-
-                    nameCleaned = cleanText(name);
-
-                    currentReq.remove("name");
-                }
-                currentReq.addProperty("name", nameCleaned);
-
-                //add layer information to issue data
-                currentReq.addProperty("depth", reqLayer);
-
-                //get additional information like status, etc
-                JsonArray parts = currentReq.getAsJsonArray("requirementParts");
-
-                if (parts.size() == 0)
-                {
-                    parts = fillParts(parts, "unknown");
-                }
-                for (int k = 0; k < parts.size(); k++)
-                {
-                    JsonObject part = parts.get(k).getAsJsonObject();
-                    JsonElement name = part.get("name");
-                    String nameAsString = name.getAsString().toLowerCase();
-                    JsonElement text = part.get("text");
-                    String textCleaned = cleanText(text);
-                    currentReq.addProperty(nameAsString, textCleaned);
-                }
-                currentReq.remove("requirementParts");
-
-                JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
-                JsonArray depthNodes = depth.getAsJsonArray("nodes");
-                depthNodes.add(currentReq);
-
-                JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
-                nodes.add(currentReq);
+                JsonElement name = currentReq.get("name");
+                nameCleaned = cleanText(name);
+                currentReq.remove("name");
+                placeholder = "unknown";
             }
-            else if (!currentReq.has("name"))
+            else
             {
-                long nodeId = calculateUniqueID(reqKey);
-
-                currentReq.addProperty("nodeid", nodeId);
-
-                //get title of issue if it has one
-                String nameCleaned = "confidential";
-                currentReq.addProperty("name", nameCleaned);
-
-                //add layer information to issue data
-                currentReq.addProperty("depth", reqLayer);
-
                 currentReq.add("requirementParts", new JsonArray());
-
-                //get additional information like status, etc
-                JsonArray parts = currentReq.getAsJsonArray("requirementParts");
-
-                parts = fillParts(parts, "confidential");
-
-                for (int k = 0; k < parts.size(); k++)
+                if (reqKey.contains("mock")) //mocks are placeholder and not real issues
                 {
-                    JsonObject part = parts.get(k).getAsJsonObject();
-                    JsonElement name = part.get("name");
-                    String nameAsString = name.getAsString().toLowerCase();
-                    JsonElement text = part.get("text");
-                    String textCleaned = cleanText(text);
-                    currentReq.addProperty(nameAsString, textCleaned);
+                    placeholder = nameCleaned = "not in DB";
                 }
-                currentReq.remove("requirementParts");
-
-                JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
-                JsonArray depthNodes = depth.getAsJsonArray("nodes");
-                depthNodes.add(currentReq);
-
-                JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
-                nodes.add(currentReq);
+                else // no name - means it's a private issue
+                {
+                    placeholder = nameCleaned = "confidential";
+                }
             }
-            else if (reqKey.contains("mock"))
+            // add the correct name to the requirement
+            currentReq.addProperty("name", nameCleaned);
+
+            //add layer information to issue data
+            currentReq.addProperty("depth", reqLayer);
+
+            //get additional information like status, etc
+            JsonArray parts = currentReq.getAsJsonArray("requirementParts");
+
+            if (parts.size() == 0)
             {
-                long nodeId = calculateUniqueID(reqKey);
-
-                currentReq.addProperty("nodeid", nodeId);
-
-                //get title of issue if it has one
-                String nameCleaned = "not in DB";
-                currentReq.addProperty("name", nameCleaned);
-
-                //add layer information to issue data
-                currentReq.addProperty("depth", reqLayer);
-
-                currentReq.add("requirementParts", new JsonArray());
-
-                //get additional information like status, etc
-                JsonArray parts = currentReq.getAsJsonArray("requirementParts");
-
-                parts = fillParts(parts, "not in DB");
-
-                for (int k = 0; k < parts.size(); k++)
-                {
-                    JsonObject part = parts.get(k).getAsJsonObject();
-                    JsonElement name = part.get("name");
-                    String nameAsString = name.getAsString().toLowerCase();
-                    JsonElement text = part.get("text");
-                    String textCleaned = cleanText(text);
-                    currentReq.addProperty(nameAsString, textCleaned);
-                }
-                currentReq.remove("requirementParts");
-
-                JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
-                JsonArray depthNodes = depth.getAsJsonArray("nodes");
-                depthNodes.add(currentReq);
-
-                JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
-                nodes.add(currentReq);
-
+                parts = fillParts(parts, placeholder);
             }
+            for (int k = 0; k < parts.size(); k++)
+            {
+                JsonObject part = parts.get(k).getAsJsonObject();
+                JsonElement name = part.get("name");
+                String nameAsString = name.getAsString().toLowerCase();
+                JsonElement text = part.get("text");
+                String textCleaned = cleanText(text);
+                currentReq.addProperty(nameAsString, textCleaned);
+            }
+            currentReq.remove("requirementParts");
+
+            JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
+            JsonArray depthNodes = depth.getAsJsonArray("nodes");
+            depthNodes.add(currentReq);
+
+            JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
+            nodes.add(currentReq);
         }
         return depthNodeEdgeSet;
     }
@@ -223,13 +156,12 @@ public class NewNodeEdgeSet
                 JsonObject depth = depthNodeEdgeSet.get(Integer.toString(depLayer)).getAsJsonObject();
                 JsonArray depthEdges = depth.getAsJsonArray("edges");
 
-//                if (!fromKey.contains("mock") && !toKey.contains("mock"))
-//                {
+
                     currentDep.addProperty("node_fromid", idMap.get(fromKey));
                     currentDep.addProperty("node_toid", idMap.get(toKey));
                     currentDep.addProperty("depth", depLayer);
                     depthEdges.add(currentDep);
-//                }
+
             }
         }
         return depthNodeEdgeSet;
