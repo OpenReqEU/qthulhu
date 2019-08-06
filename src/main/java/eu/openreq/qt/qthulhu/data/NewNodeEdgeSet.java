@@ -15,8 +15,8 @@ public class NewNodeEdgeSet
     private static HashMap<String, Integer> layerMap;
     //contains all the pairs of issue key and unique int id
     private static HashMap<String, Long> idMap;
-
-    private static String placeholder;
+    //Sonarqube complain...
+    private static String nodesAsString = "nodes";
 
     // Constructor due to Sonarqube complains
     private NewNodeEdgeSet() {
@@ -61,12 +61,12 @@ public class NewNodeEdgeSet
         for (int i = 0; i < 6; i++)
         {
             JsonObject depth = new JsonObject();
-            depth.add("nodes", new JsonArray());
+            depth.add(nodesAsString, new JsonArray());
             depth.add("edges", new JsonArray());
             String idName = Integer.toString(i);
             depthNodeEdgeSet.add(idName, depth);
         }
-        depthNodeEdgeSet.add("nodes", new JsonArray());
+        depthNodeEdgeSet.add(nodesAsString, new JsonArray());
         depthNodeEdgeSet = buildNodes(reqs, depthNodeEdgeSet);
         depthNodeEdgeSet = buildEdges(deps, depthNodeEdgeSet);
 
@@ -75,6 +75,9 @@ public class NewNodeEdgeSet
 
     private static JsonObject buildNodes(JsonArray reqs, JsonObject depthNodeEdgeSet)
     {
+        String placeholder;
+        //for Sonarqube...
+        String reqString = "requirementParts";
         for (int i = 0; i < reqs.size(); i++)
         {
             JsonObject currentReq = reqs.get(i).getAsJsonObject();
@@ -95,7 +98,7 @@ public class NewNodeEdgeSet
             }
             else
             {
-                currentReq.add("requirementParts", new JsonArray());
+                currentReq.add(reqString, new JsonArray());
                 if (reqKey.contains("mock")) //mocks are placeholder and not real issues
                 {
                     placeholder = nameCleaned = "not in DB";
@@ -112,7 +115,7 @@ public class NewNodeEdgeSet
             currentReq.addProperty("depth", reqLayer);
 
             //get additional information like status, etc
-            JsonArray parts = currentReq.getAsJsonArray("requirementParts");
+            JsonArray parts = currentReq.getAsJsonArray(reqString);
 
             if (parts.size() == 0)
             {
@@ -127,13 +130,13 @@ public class NewNodeEdgeSet
                 String textCleaned = cleanText(text);
                 currentReq.addProperty(nameAsString, textCleaned);
             }
-            currentReq.remove("requirementParts");
+            currentReq.remove(reqString);
 
             JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
-            JsonArray depthNodes = depth.getAsJsonArray("nodes");
+            JsonArray depthNodes = depth.getAsJsonArray(nodesAsString);
             depthNodes.add(currentReq);
 
-            JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
+            JsonArray nodes = depthNodeEdgeSet.getAsJsonArray(nodesAsString);
             nodes.add(currentReq);
         }
         return depthNodeEdgeSet;
