@@ -9,11 +9,15 @@ import java.util.HashMap;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.calculateUniqueID;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.cleanText;
 
-public class proposedNodeEdgeSet
+public class ProposedNodeEdgeSet
 {
     //contains all the pairs of issue key and unique int id
     private static HashMap<String, Long> _idSet;
 
+    //Constructor due to Sonarqube complains
+    private ProposedNodeEdgeSet() {
+
+    }
     //builds and returns the node and edge set of one or multiple issues
     public static JsonObject buildNodeEdgeSet(JsonObject issueData, String issue)
     {
@@ -31,7 +35,7 @@ public class proposedNodeEdgeSet
 
         JsonArray deps = issueData.getAsJsonArray("dependencies");
         JsonObject proposedNodeEdgeSet = buildProposedNodeEdgeSet(reqs, deps);
-        //System.out.println(proposedNodeEdgeSet);
+        //System.out.println(ProposedNodeEdgeSet);
         JsonArray proposedReqs = proposedNodeEdgeSet.getAsJsonArray("nodes");
         for (int i = 0; i < proposedReqs.size(); i++)
         {

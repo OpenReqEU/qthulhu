@@ -5,7 +5,7 @@ import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static eu.openreq.qt.qthulhu.data.proposedNodeEdgeSet.buildNodeEdgeSet;
+import static eu.openreq.qt.qthulhu.data.ProposedNodeEdgeSet.buildNodeEdgeSet;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchConsistencyCheck;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 

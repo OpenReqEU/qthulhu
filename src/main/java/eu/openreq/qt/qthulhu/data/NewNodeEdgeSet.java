@@ -9,18 +9,22 @@ import java.util.HashMap;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.calculateUniqueID;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.cleanText;
 
-public class newNodeEdgeSet
+public class NewNodeEdgeSet
 {
     //there is no layer 0 in the JSON which would be the issues that were searched for
-    private static HashMap<String, Integer> _layer;
+    private static HashMap<String, Integer> layerMap;
     //contains all the pairs of issue key and unique int id
-    private static HashMap<String, Long> _idSet;
+    private static HashMap<String, Long> idMap;
 
+    // Constructor due to Sonarqube complains
+    private NewNodeEdgeSet() {
+
+    }
     //builds and returns the node and edge set of one or multiple issues
     public static JsonObject buildNodeEdgeSet(JsonObject issueData)
     {
-        _layer = new HashMap<String, Integer>();
-        _idSet = new HashMap<String, Long>();
+        layerMap = new HashMap<>();
+        idMap = new HashMap<>();
         int maxLayer = 0;
 
         JsonObject layers = issueData.getAsJsonObject("layers");
@@ -35,8 +39,8 @@ public class newNodeEdgeSet
                     String key = currentLayer.get(j).getAsString();
                     long nodeId = calculateUniqueID(key);
 
-                    _idSet.put(key, nodeId);
-                    _layer.put(key, i);
+                    idMap.put(key, nodeId);
+                    layerMap.put(key, i);
                 }
                 maxLayer = i;
             }
@@ -74,7 +78,7 @@ public class newNodeEdgeSet
         {
             JsonObject currentReq = reqs.get(i).getAsJsonObject();
             String reqKey = currentReq.get("id").getAsString();
-            int reqLayer = _layer.get(reqKey);
+            int reqLayer = layerMap.get(reqKey);
             if (currentReq.has("name") && !reqKey.contains("mock"))
             {
                 long nodeId = calculateUniqueID(reqKey);
@@ -210,10 +214,10 @@ public class newNodeEdgeSet
             String fromKey = currentDep.get("fromid").getAsString();
             String toKey = currentDep.get("toid").getAsString();
 
-            if (_layer.containsKey(fromKey) && _layer.containsKey(toKey))
+            if (layerMap.containsKey(fromKey) && layerMap.containsKey(toKey))
             {
-                int fromLayer = _layer.get(fromKey);
-                int toLayer = _layer.get(toKey);
+                int fromLayer = layerMap.get(fromKey);
+                int toLayer = layerMap.get(toKey);
                 int depLayer = Math.max(fromLayer, toLayer);
 
                 JsonObject depth = depthNodeEdgeSet.get(Integer.toString(depLayer)).getAsJsonObject();
@@ -221,8 +225,8 @@ public class newNodeEdgeSet
 
 //                if (!fromKey.contains("mock") && !toKey.contains("mock"))
 //                {
-                    currentDep.addProperty("node_fromid", _idSet.get(fromKey));
-                    currentDep.addProperty("node_toid", _idSet.get(toKey));
+                    currentDep.addProperty("node_fromid", idMap.get(fromKey));
+                    currentDep.addProperty("node_toid", idMap.get(toKey));
                     currentDep.addProperty("depth", depLayer);
                     depthEdges.add(currentDep);
 //                }

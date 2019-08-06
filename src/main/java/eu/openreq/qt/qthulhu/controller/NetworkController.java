@@ -2,7 +2,7 @@ package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import eu.openreq.qt.qthulhu.data.newNodeEdgeSet;
+import eu.openreq.qt.qthulhu.data.NewNodeEdgeSet;
 import eu.openreq.qt.qthulhu.data.uhservices.LayerDepthChecker;
 import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class NetworkController {
             }
 
             //to getNodeEdgeSet method only accepts arrays
-            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
+            JsonObject nodeEdgeSet = NewNodeEdgeSet.buildNodeEdgeSet(issueData);
 
 
             //add objects to model
@@ -119,7 +119,7 @@ public class NetworkController {
 //
 //            //System.out.println(issueData);
 //
-//            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
+//            JsonObject nodeEdgeSet = NewNodeEdgeSet.buildNodeEdgeSet(issueData);
 //
 //            //add objects to model
 //            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
