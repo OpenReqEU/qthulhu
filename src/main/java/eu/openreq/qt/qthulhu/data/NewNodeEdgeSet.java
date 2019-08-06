@@ -132,6 +132,7 @@ public class NewNodeEdgeSet
             }
             currentReq.remove(reqString);
 
+            // TODO: these three lines appear to be useless
             JsonObject depth = depthNodeEdgeSet.get(Integer.toString(reqLayer)).getAsJsonObject();
             JsonArray depthNodes = depth.getAsJsonArray(nodesAsString);
             depthNodes.add(currentReq);

@@ -30,6 +30,11 @@ public class ProjectIDs
      * QTWEBKIT 10531
      * QTSYSADM 10940
      */
+    //constructor for Sonarqube
+    private ProjectIDs ()
+    {
+
+    }
     public static int getProjectID(String project)
     {
         int id;

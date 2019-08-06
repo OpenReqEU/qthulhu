@@ -12,8 +12,10 @@ import static eu.openreq.qt.qthulhu.data.HelperFunctions.cleanText;
 public class ProposedNodeEdgeSet
 {
     //contains all the pairs of issue key and unique int id
-    private static HashMap<String, Long> _idSet;
+    private static HashMap<String, Long> idSet;
 
+    //Sonarqube...
+    private final static String nodesAsString = "nodes";
     //Constructor due to Sonarqube complains
     private ProposedNodeEdgeSet() {
 
@@ -21,7 +23,7 @@ public class ProposedNodeEdgeSet
     //builds and returns the node and edge set of one or multiple issues
     public static JsonObject buildNodeEdgeSet(JsonObject issueData, String issue)
     {
-        _idSet = new HashMap<String, Long>();
+        idSet = new HashMap<>();
 
         JsonArray reqs = issueData.getAsJsonArray("requirements");
         for (int i = 0; i < reqs.size(); i++)
@@ -30,13 +32,12 @@ public class ProposedNodeEdgeSet
             String key = currentReq.get("id").getAsString();
             long nodeId = calculateUniqueID(key);
 
-            _idSet.put(key, nodeId);
+            idSet.put(key, nodeId);
         }
 
         JsonArray deps = issueData.getAsJsonArray("dependencies");
         JsonObject proposedNodeEdgeSet = buildProposedNodeEdgeSet(reqs, deps);
-        //System.out.println(ProposedNodeEdgeSet);
-        JsonArray proposedReqs = proposedNodeEdgeSet.getAsJsonArray("nodes");
+        JsonArray proposedReqs = proposedNodeEdgeSet.getAsJsonArray(nodesAsString);
         for (int i = 0; i < proposedReqs.size(); i++)
         {
             JsonObject currentNode = proposedReqs.get(i).getAsJsonObject();
@@ -52,7 +53,7 @@ public class ProposedNodeEdgeSet
     private static JsonObject buildProposedNodeEdgeSet(JsonArray reqs, JsonArray deps)
     {
         JsonObject proposedNodeEdgeSet = new JsonObject();
-        proposedNodeEdgeSet.add("nodes", new JsonArray());
+        proposedNodeEdgeSet.add(nodesAsString, new JsonArray());
         proposedNodeEdgeSet.add("edges", new JsonArray());
         proposedNodeEdgeSet = buildNodes(reqs, proposedNodeEdgeSet);
         proposedNodeEdgeSet = buildEdges(deps, proposedNodeEdgeSet);
@@ -60,6 +61,7 @@ public class ProposedNodeEdgeSet
         return proposedNodeEdgeSet;
     }
 
+    //TODO: use method from NewNodeEdgeSet
     private static JsonObject buildNodes(JsonArray reqs, JsonObject proposedNodeEdgeSet)
     {
         for (int i = 0; i < reqs.size(); i++)
@@ -133,7 +135,7 @@ public class ProposedNodeEdgeSet
                 }
                 currentReq.remove("requirementParts");
 
-                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray("nodes");
+                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray(nodesAsString);
                 nodes.add(currentReq);
             }
             else if (!currentReq.has("name"))
@@ -195,7 +197,7 @@ public class ProposedNodeEdgeSet
                 }
                 currentReq.remove("requirementParts");
 
-                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray("nodes");
+                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray(nodesAsString);
                 nodes.add(currentReq);
             }
             else if (reqKey.contains("mock"))
@@ -257,13 +259,14 @@ public class ProposedNodeEdgeSet
                 }
                 currentReq.remove("requirementParts");
 
-                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray("nodes");
+                JsonArray nodes = proposedNodeEdgeSet.getAsJsonArray(nodesAsString);
                 nodes.add(currentReq);
             }
         }
         return proposedNodeEdgeSet;
     }
 
+    //TODO: use method from NewNodeEdgeSet
     private static JsonObject buildEdges(JsonArray deps, JsonObject proposedNodeEdgeSet)
     {
         for (int i = 0; i < deps.size(); i++)
@@ -276,8 +279,8 @@ public class ProposedNodeEdgeSet
 
             if (!fromKey.contains("mock") && !toKey.contains("mock"))
             {
-                currentDep.addProperty("node_fromid", _idSet.get(fromKey));
-                currentDep.addProperty("node_toid", _idSet.get(toKey));
+                currentDep.addProperty("node_fromid", idSet.get(fromKey));
+                currentDep.addProperty("node_toid", idSet.get(toKey));
                 edges.add(currentDep);
             }
         }
