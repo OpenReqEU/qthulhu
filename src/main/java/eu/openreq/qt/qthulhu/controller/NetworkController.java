@@ -10,14 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.websocket.server.PathParam;
 // TODO: all code requires un_CLARA_fication
 
 /**
  * This class controlls the behaviour of the web application
  */
 @Controller
-public class NetworkController
-{
+public class NetworkController {
 
 
     /**
@@ -26,8 +27,7 @@ public class NetworkController
      * @return the index view jsp
      */
     @RequestMapping("/")
-    public ModelAndView index()
-    {
+    public ModelAndView index() {
         return new ModelAndView("index", HttpStatus.OK);
     }
 
@@ -36,15 +36,12 @@ public class NetworkController
      * Collects the issue link network data
      *
      * @param issue the issue key from the JIRA view page
+     * @param depth the depth that will be displayed
      * @return view and model that contains the necessary information
      */
     @GetMapping("/issue/{issue}")
     public @ResponseBody
-    ModelAndView issueByIssueKey(@PathVariable String issue)
-    {
-        //here the default value is 1, since currently the user in JIRA cannot set a layerdepth in JIRA
-        int depth = 1;
-
+    ModelAndView issueByIssueKey(@PathVariable String issue, @PathParam("depth") Integer depth) {
         //checks if the layer specified by the user is between 1 and max_layer of the corresponding
         //issue link network
         depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
@@ -52,14 +49,12 @@ public class NetworkController
         //issues are saved in uppercase in the database, lowercase does not return anything
         issue = issue.toUpperCase();
 
-        try
-        {
+        try {
             //fetch issue data from mallikas (Database of UH)
             JsonObject issueData = UHServicesConnections.fetchTransitiveClosure(issue);
 
             //in case the issue is not contained in mallikas
-            if (issueData.equals(new JsonArray()))
-            {
+            if (issueData.equals(new JsonArray())) {
                 ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
                 model.addObject("issue", issue);
                 return model;
@@ -76,97 +71,96 @@ public class NetworkController
             model.addObject("nodeEdgeSet", nodeEdgeSet);
             model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
             return model;
-        }
-        catch (HttpClientErrorException e)
-        {
+        } catch (HttpClientErrorException e) {
             //in case something goes wrong
             ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
             model.addObject("issue", issue);
             return model;
         }
-    }
-
-    /**
-     * Creates a new issue network depending on the inputs.
-     * Then adds all information to the model which is then redirected to the corresponding jsp
-     *
-     * @param issue issuekey
-     * @param depth amount of layers
-     * @return view and model that contains the necessary information
-     */
-    @RequestMapping(value = "/issue", method = RequestMethod.POST)
-    public ModelAndView issue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
-    {
-        //Check if layerDepth had an input, if not use default value of 1
-        depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
-
-        //split the string
-        issue = issue.toUpperCase();
-
-        try
-        {
-            //put all the fetched information into on Array
-            JsonObject issueData = new JsonObject();
-
-            JsonObject issueJSON = UHServicesConnections.fetchTransitiveClosure(issue);
-            //work around since the endpoint accepts all strings
-            if (issueJSON.getAsJsonArray("requirements").size() != 0)
-            {
-                issueData = issueJSON;
-            }
-
-            // this is a workaround since the qtcontroller accepts all strings.
-            if (issueData.equals(new JsonObject()))
-            {
-                ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-                model.addObject("issue", issue);
-                return model;
-            }
-
-            //System.out.println(issueData);
-
-            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
-
-            //add objects to model
-            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
-            model.addObject("issue", issue);
-            model.addObject("depth", depth);
-            model.addObject("nodeEdgeSet", nodeEdgeSet);
-            model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
-            model.addObject("issueJSON", issueJSON);
-            return model;
-        }
-        catch (HttpClientErrorException e)
-        {
-            //in case something goes wrong
-            ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-            model.addObject("issue", issue);
-            return model;
-        }
-    }
-
-
-    /**
-     * Example page
-     *
-     * @return view and model that contains example information
-     */
-    @RequestMapping(value = "/example", method = RequestMethod.POST)
-    public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
-    {
-        if (layerDepth > 2)
-        {
-            layerDepth = 2;
-        }
-
-        ModelAndView model = new ModelAndView("example", HttpStatus.OK);
-        model.addObject("issue", issues);
-        model.addObject("layerDepth", layerDepth);
-        model.addObject("maxLayer", 2);
-        return model;
     }
 }
-
+//
+//    /**
+//     * Creates a new issue network depending on the inputs.
+//     * Then adds all information to the model which is then redirected to the corresponding jsp
+//     *
+//     * @param issue issuekey
+//     * @param depth amount of layers
+//     * @return view and model that contains the necessary information
+//     */
+//    @RequestMapping(value = "/issue", method = RequestMethod.POST)
+//    public ModelAndView issue(@RequestParam("issue") String issue, @RequestParam("depth") Integer depth)
+//    {
+//        //Check if layerDepth had an input, if not use default value of 1
+//        depth = LayerDepthChecker.checkForValidLayerDepth(depth, 0);
+//
+//        //split the string
+//        issue = issue.toUpperCase();
+//
+//        try
+//        {
+//            //put all the fetched information into on Array
+//            JsonObject issueData = new JsonObject();
+//
+//            JsonObject issueJSON = UHServicesConnections.fetchTransitiveClosure(issue);
+//            //work around since the endpoint accepts all strings
+//            if (issueJSON.getAsJsonArray("requirements").size() != 0)
+//            {
+//                issueData = issueJSON;
+//            }
+//
+//            // this is a workaround since the qtcontroller accepts all strings.
+//            if (issueData.equals(new JsonObject()))
+//            {
+//                ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+//                model.addObject("issue", issue);
+//                return model;
+//            }
+//
+//            //System.out.println(issueData);
+//
+//            JsonObject nodeEdgeSet = newNodeEdgeSet.buildNodeEdgeSet(issueData);
+//
+//            //add objects to model
+//            ModelAndView model = new ModelAndView("issue", HttpStatus.OK);
+//            model.addObject("issue", issue);
+//            model.addObject("depth", depth);
+//            model.addObject("nodeEdgeSet", nodeEdgeSet);
+//            model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
+//            model.addObject("issueJSON", issueJSON);
+//            return model;
+//        }
+//        catch (HttpClientErrorException e)
+//        {
+//            //in case something goes wrong
+//            ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
+//            model.addObject("issue", issue);
+//            return model;
+//        }
+//    }
+//
+//
+//    /**
+//     * Example page
+//     *
+//     * @return view and model that contains example information
+//     */
+//    @RequestMapping(value = "/example", method = RequestMethod.POST)
+//    public ModelAndView example(@RequestParam("issues") String issues, @RequestParam("layerDepth") Integer layerDepth)
+//    {
+//        if (layerDepth > 2)
+//        {
+//            layerDepth = 2;
+//        }
+//
+//        ModelAndView model = new ModelAndView("example", HttpStatus.OK);
+//        model.addObject("issue", issues);
+//        model.addObject("layerDepth", layerDepth);
+//        model.addObject("maxLayer", 2);
+//        return model;
+//    }
+//}
+//
 //
 //
 // #### GRAVEYARD ####

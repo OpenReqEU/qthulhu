@@ -38,20 +38,32 @@
     <div class="row">
         <h1>WP7 - Qt Trial</h1>
     </div>
+
+<%--    <form id = "your_form" onsubmit="yourFunction()">--%>
+<%--        <input type="text" name="keywords">--%>
+<%--        <input type="submit" value="Search">--%>
+<%--    </form>--%>
+
+<%--    function yourFunction(){--%>
+<%--    var action_src = "http://localhost/test/" + document.getElementsByName("keywords")[0].value;--%>
+<%--    var your_form = document.getElementById('your_form');--%>
+<%--    your_form.action = action_src ;--%>
+<%--    }--%>
+
+    <%--Issue Key Input--%>
     <div class="row">
-        <form action="./issue" method="post" id="search-id" style="display:inline-block;">
+        <div class="col-4">
+            <h4>Issue Key(s):</h4>
+            <input type="text" name="issue" id="issue" required="required" width="200px"><br>
+            <i>
+                <small>You can search for single issue keys.<br>
+                    For example: QTWB-30
+                </small>
+            </i>
+        </div>
+        <form <%--action="./issue"--%> onsubmit="buildURL()" method="get" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
-                    <%--Issue Key Input--%>
-                    <div class="col-4">
-                        <h4>Issue Key(s):</h4>
-                        <input type="text" name="issue" id="issue" required="required" width="200px"><br>
-                        <i>
-                            <small>You can search for single issue keys.<br>
-                                For example: QTWB-30
-                            </small>
-                        </i>
-                    </div>
                     <%--Layer Input--%>
                     <div class="col-4">
                         <h4>Depth:</h4>
@@ -62,6 +74,7 @@
                             </small>
                         </i>
                     </div>
+
                     <%--Search Button--%>
                     <div class="col-2">
                         <br>
@@ -135,6 +148,14 @@
     $('#search-id').submit(function () {
         $('#loader').show();
     });
+
+    function buildURL(){
+        if(document.getElementById("issue").value !==""){
+            let url = "./issue/" + document.getElementById("issue").value;
+            let search_form = document.getElementById("search-id");
+            search_form.action = url ;
+        }
+    }
 
     function getAndOpenAuthorizeAddress() {
         try {
