@@ -46,10 +46,10 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
-    <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">We appreciate your feedback:</a>
-    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">Google Questionnaire</a>
+    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">Give Feedback</a>
+    <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
         <form action="../issue" method="post" id="search-id" name="search">
@@ -180,7 +180,7 @@
                     <p id="infoBoxIssueEnv"></p>
                     <div id="infoBoxIssueLink"></div>
                     <br>
-                    <div id="infoBoxIssueLinkTestJIRA"></div>
+                    <%--<div id="infoBoxIssueLinkTestJIRA"></div>--%>
                 </div>
                 <%--<div class="tab-pane fade show" id="list-box" role="tabpanel"--%>
                 <%--aria-labelledby="list-tab">--%>
@@ -195,9 +195,9 @@
                     <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
-                    <p>Only Nodes with one of the selected statuses and types will be displayed.</p>
+                    <p>Only issues with one of the selected statuses and types will be displayed.</p>
                     <div class="filterOptions">
-                        <h2>Statuses:</h2>
+                        <h5>Statuses:</h5>
                         <span style="color: #6D8DB5">
                             <label>
                                 <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
@@ -312,7 +312,7 @@
                                 <strong> Toggle All Statuses </strong>
                             </label>
                         </span>
-                        <h2>Types:</h2>
+                        <h5>Types:</h5>
                         <span>
                             <label>
                                 <input name="Type" type="checkbox" checked="checked" value="task"/>
@@ -363,7 +363,7 @@
                             </label>
                         </span>
                         <br>
-                        <h2>Priority:</h2>
+                        <h5>Priority:</h5>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
@@ -943,7 +943,7 @@
             }
             if (!(nodetype == null)) {
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
-                nodelabel = nodelabel.concat(nodestatus).concat("\n, ").concat(noderesolution);
+                nodelabel = nodelabel.concat("\n").concat(nodestatus).concat(", ").concat(noderesolution);
             }
             else
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
@@ -1353,7 +1353,7 @@
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
-        document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
+        // document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
         document.getElementById('infoBoxIssueStatus').innerHTML = "<strong>Status: </strong>".concat(infoStatus);
         document.getElementById('infoBoxIssueSummary').innerHTML = "<strong>Summary: </strong>".concat(infoTitle);
         document.getElementById('infoBoxIssueResolution').innerHTML = "<strong>Resolution: </strong>".concat(infoResolution);
@@ -1363,7 +1363,7 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
-        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(infoPriority);
+        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority:  </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(" ").concat(infoPriority);
     }
 
     function filterNodesTab() {
@@ -1437,106 +1437,6 @@
                     color: {background: '#FF5E36', border: '#172B4D'},
                     borderWidth: 2,
                     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_1": {
-                    //     color: {background: '#FED153', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_1": {
-                    //     color: {background: '#27D638', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_1": {
-                    //     color: {background: '#7A97BB', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_1": {
-                    //     color: {background: '#FF5E36', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_2": {
-                    //     color: {background: '#FED666', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_2": {
-                    //     color: {background: '#36DA46', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_2": {
-                    //     color: {background: '#87A1C2', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_2": {
-                    //     color: {background: '#FF6D49', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_3": {
-                    //     color: {background: '#FEDC7A', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_3": {
-                    //     color: {background: '#47DD55', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_3": {
-                    //     color: {background: '#94ABC9', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_3": {
-                    //     color: {background: '#FF7D5D', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_4": {
-                    //     color: {background: '#FEE18D', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_4": {
-                    //     color: {background: '#58E064', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_4": {
-                    //     color: {background: '#A1B6CF', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_4": {
-                    //     color: {background: '#FF8D71', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_5": {
-                    //     color: {background: '#FFE6A1', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_5": {
-                    //     color: {background: '#68E374', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_5": {
-                    //     color: {background: '#AEC0D6', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_5": {
-                    //     color: {background: '#FF9D84', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
                 },
                 "proposed": {
                     color: {background: '#17b2ad', border: '#172B4D'},
