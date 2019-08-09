@@ -1081,11 +1081,21 @@
             let dep_type = v['dependency_type'];
             let fromid = v['fromid'];
             let toid = v['toid'];
+            let id = v['id'];
+            let created_at = v['created_at'];
+            let dep_score = v['dependency_score'];
+            let description = v['description'];
+
 
             updatedProposedLinksJSON.dependencies.push({
+                created_at: created_at,
+                dependency_score: dep_score,
                 dependency_type: dep_type,
+                description: [],
                 fromid: fromid,
-                toid: toid
+                id: id,
+                status: "",
+                toid: toid,
             })
         });
 
@@ -1093,11 +1103,14 @@
         for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
             if (linkDetectionResponse[i] !== undefined) {
                 if (linkDetectionResponse[i] !== "reject") {
-                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i];
-                    updatedProposedLinksJSON.dependencies[i].status = "accepted"
+                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i].toUpperCase();
+                    updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
+                    updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[i];
+
                 }
                 else {
-                    updatedProposedLinksJSON.dependencies[i].status = "rejected"
+                    updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
+                    updatedProposedLinksJSON.dependencies[i].description = description;
                 }
                 console.log(updatedProposedLinksJSON)
             }
@@ -1255,9 +1268,12 @@
                             rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                             for (i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
-                                    "<option value='duplicate'>Duplicate</option>" +
-                                    "<option value='similar'>Similar</option>" +
-                                    "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                                    "<option value='requires'>dependency</option>" +
+                                    "<option value='duplicates'>duplicate</option>" +
+                                    "<option value='contributes'>relates</option>" +
+                                    "<option value='decomposition'>subtask</option>" +
+                                    "<option value='decomposition'>epic</option>" +
+                                    "<option value='replaces'>replacement</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
