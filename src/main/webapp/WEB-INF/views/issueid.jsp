@@ -188,7 +188,7 @@
                 <%--<p id="IssuesList"></p>--%>
                 <%--</div>--%>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
-                    <p id="proposedIssuesList"></p>
+                    <p id="ddResult"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                     <p>Checks if the release plan of this issue link map is consistent.</p>
@@ -198,7 +198,6 @@
                     <p>Only Nodes with one of the selected statuses and types will be displayed.</p>
                     <div class="filterOptions">
                         <h2>Statuses:</h2>
-                        <br>
                         <span style="color: #6D8DB5">
                             <label>
                                 <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
@@ -314,7 +313,6 @@
                             </label>
                         </span>
                         <h2>Types:</h2>
-                        <br>
                         <span>
                             <label>
                                 <input name="Type" type="checkbox" checked="checked" value="task"/>
@@ -366,7 +364,6 @@
                         </span>
                         <br>
                         <h2>Priority:</h2>
-                        <br>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
@@ -573,7 +570,7 @@
             allNodesArray[0][0].fixed = true;
             allNodesArray[0][0].heightConstraint = 60;
             allNodesArray[0][0].widthConstraint = 135;
-            allNodesArray[0][0].font = {multi: true, size: 24}
+            allNodesArray[0][0].font = {multi: true, size: 24};
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -1243,7 +1240,7 @@
 
                         proposedViewActive = true;
                         if (proposedIssuesList.length === 0) {
-                            document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
+                            document.getElementById('ddResult').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
                             stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
@@ -1263,7 +1260,7 @@
                                     "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
-                            document.getElementById('proposedIssuesList').innerHTML = stringList;
+                            document.getElementById('ddResult').innerHTML = stringList;
                         }
                     }
 
