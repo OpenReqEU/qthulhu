@@ -30,7 +30,7 @@
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
-    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">Feedback</a>
+    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
 </div>
 <%--This is the main body of the site, it contains some explanation about the service and a search box--%>
