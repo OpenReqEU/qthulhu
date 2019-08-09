@@ -52,7 +52,7 @@
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
-        <form action="../issue" method="post" id="search-id" name="search">
+        <form onsubmit="buildURL()" method="get" id="search-id" name="search">
             <button type="submit"><em class="fa fa-search" style="color: #ffffff;"></em></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
