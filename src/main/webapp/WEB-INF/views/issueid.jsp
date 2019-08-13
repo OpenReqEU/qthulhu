@@ -1164,18 +1164,13 @@
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
 
-
-                console.log("iId: " + issueInfo.depth);
-                console.log("iIi: " + issueInfo.id);
-                console.log("iIn: " + issueInfo.nodeid);
-                console.log("aNAi: " + allNodesArray[0][0].id)
-
                 xhr.onreadystatechange = function () {
 
                     if (xhr.readyState === 4 && xhr.status === 200) {
 
                         proposedNodesEdges = JSON.parse(xhr.responseText);
                         //add nodes
+                        let j = 0;
                         $.each(proposedNodesEdges['nodes'], function (i, v) {
                             let ID = v['nodeid'];
                             let nodekey = v['id'];
@@ -1201,29 +1196,19 @@
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
 
-                            //  function positionsOuterRings(depth) {
-                            //     let connectionsOut = [];
-                            //     let index;
-                            //     let direction;
-                            //     let angleDiff;
-                            //     for (let i = 0; i < allNodesArray[depth-1].length; i++) {
-                            //         connectionsOut = findConnectedNodesOuter(allNodesArray[depth-1][i]);
-                            //         allNodesArray[depth-1][i].connections = connectionsOut;
-                            //         for (let j = 0; j < connectionsOut.length; j++) {
-                            //             index = getIndexInAll(connectionsOut[j]);
-                            //             angleDiff = Math.min(15, 360/allNodesArray[depth].length);
-                            //             angleDiff *= Math.ceil(j/2);
-                            //
-                            //             if(j%2) { // j == odd
-                            //                 angleDiff *= -1;
-                            //             }
-                            //             direction = getDirectionByAngle(allNodesArray[depth-1][i].angle + angleDiff);
-                            //
-                            //             coord_x = distance * (issueInfo.depth - 0.5) * direction.x;
-                            //             coord_y = distance * (issueInfo.depth - 0.5) * direction.y;
-                            //         }
-                            //     }
-                            // }
+                            //calculate positions for the proposed issue
+                            let index = getIndexInAll(issueInfo.nodeid);
+                            let angleDiff = Math.min(15, 360/proposedNodesEdges['nodes'].length);
+                            angleDiff *= Math.ceil(j/2);
+                            if(j%2) { // j == odd
+                                angleDiff *= -1;
+                            }
+                            j++;
+                            let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
+
+                            let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
+                            let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
+
 
                             if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
@@ -1233,7 +1218,9 @@
                                     shape: 'box',
                                     title: nodetitle,
                                     level: level,
-                                    hidden: nodehidden
+                                    hidden: nodehidden,
+                                    x: coord_x,
+                                    y: coord_y
                                 });
                                 proposedIssuesList.push({
                                     id: nodekey
