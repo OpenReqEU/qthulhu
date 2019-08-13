@@ -245,6 +245,44 @@
     border: none;
 }
 
+.nav-item .tooltiptext {
+    visibility: hidden;
+    width: 80%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 104%;
+    left: 10%;
+    /*margin-left: -50%;*/
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.nav-item .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.nav-item:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.nav-tabs a:hover {
+    background-color: #138f8b;
+    border: none;
+}
+
 /*Spinning circle to indicate that the site is loading*/
 
 .loader {
@@ -390,4 +428,3 @@ select {
 th, td {
     border-bottom: 1px solid #ddd;
 }
-

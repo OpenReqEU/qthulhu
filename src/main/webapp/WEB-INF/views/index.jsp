@@ -50,20 +50,20 @@
 <%--    your_form.action = action_src ;--%>
 <%--    }--%>
 
-    <%--Issue Key Input--%>
     <div class="row">
-        <div class="col-4">
-            <h4>Issue Key(s):</h4>
-            <input type="text" name="issue" id="issue" required="required" width="200px"><br>
-            <i>
-                <small>You can search for single issue keys.<br>
-                    For example: QTWB-30
-                </small>
-            </i>
-        </div>
         <form <%--action="./issue"--%> onsubmit="buildURL()" method="get" id="search-id" style="display:inline-block;">
             <fieldset>
                 <div class="row">
+                    <%--Issue Key Input--%>
+                    <div class="col-4">
+                        <h4>Issue Key(s):</h4>
+                        <input type="text" name="issue" id="issue" required="required" width="200px"><br>
+                        <i>
+                            <small>You can search for single issue keys.<br>
+                                For example: QTWB-30
+                            </small>
+                        </i>
+                    </div>
                     <%--Layer Input--%>
                     <div class="col-4">
                         <h4>Depth:</h4>
@@ -143,6 +143,7 @@
         </div>
     </div>
 </div>
+
 <script>
     <%--If the search button is pressed a loading circle appears--%>
     $('#search-id').submit(function () {

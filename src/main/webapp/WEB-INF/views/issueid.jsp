@@ -52,7 +52,7 @@
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
     <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
-        <form action="../issue" method="post" id="search-id" name="search">
+        <form <%--action="../issue"--%> onsubmit="buildURL()" method="get" id="search-id" name="search">
             <button type="submit"><em class="fa fa-search" style="color: #ffffff;"></em></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
@@ -146,15 +146,15 @@
                 <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
-                       aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link
-                        Detection
+                       aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
+                    <span class="tooltiptext">The Link Detection detects links</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
-                       aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency
-                        Checker
+                       aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency Checker
                     </a>
+                    <span class="tooltiptext">The Consistency Checker checks the consistency</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
@@ -485,6 +485,12 @@
     });
 
     //Help Functions
+    //builds URL for search form
+    function buildURL(){
+            let url = "../issue/" + document.getElementById("issueInput").value;
+            let search_form = document.getElementById("search-id");
+            search_form.action = url ;
+    }
 
     //function to help find a specific item depending on its identifier
     function findElement(arr, propName, propValue) {
