@@ -147,13 +147,14 @@
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
-                    <span class="tooltiptext">The Link Detection detects links</span>
+                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency Checker
                     </a>
-                    <span class="tooltiptext">The Consistency Checker checks the consistency</span>
+                    <span class="tooltiptext">The consistency checker service checks all issues in the visualization
+                        for inconsistencies regarding their fix version</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
