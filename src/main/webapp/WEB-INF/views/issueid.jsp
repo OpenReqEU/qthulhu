@@ -1167,6 +1167,8 @@
 
                 console.log("iId: " + issueInfo.depth);
                 console.log("iIi: " + issueInfo.id);
+                console.log("iIn: " + issueInfo.nodeid);
+                console.log("aNAi: " + allNodesArray[0][0].id)
 
                 xhr.onreadystatechange = function () {
 
