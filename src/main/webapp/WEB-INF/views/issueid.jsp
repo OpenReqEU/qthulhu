@@ -1164,9 +1164,9 @@
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
 
-                console.log("pLI: " + propLinksIssue);
-                console.log("curr: " + currentIssue);
-                console.log("iI: " + issueInfo);
+
+                console.log("iId: " + issueInfo.depth);
+                console.log("iIa: " + issueInfo.angle);
 
                 xhr.onreadystatechange = function () {
 
