@@ -643,6 +643,48 @@
         }
     }
 
+    //calculates positions for proposed issues if the selected issue is in layer 0
+    function calculateProposedDepthOnePositions(issueInfo, j, maxElements) {
+        let angle = 360/maxElements;
+        let direction;
+
+        // if depth 1 has only one element it will be displayed below the center
+        if (maxElements === 1) {
+            direction = getDirectionByAngle(0);
+        }
+        // if there are two elements they will be displayed next to each other below the center
+        else if(maxElements === 2){
+            direction = getDirectionByAngle(-45 + 90 * j);
+        }
+        // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
+        else if(maxElements % 2) {
+            direction = getDirectionByAngle(180 + (angle * j));
+        }
+        // even amount: first element on the top right, rest circle around center
+        else {
+            direction = getDirectionByAngle(45 + (angle * j));
+        }
+        let coord_x =  0.6 * distance * direction.x;
+        let coord_y = 0.6 * distance * direction.y;
+        return {x: coord_x, y: coord_y};
+    }
+
+    //calculates positions for proposed issues if the selected issue is not layer 0
+    function calculateProposedOuterPositions(issueInfo, j) {
+        let index = getIndexInAll(issueInfo.nodeid);
+        let angleDiff = Math.min(15, 360/proposedNodesEdges['nodes'].length);
+        angleDiff *= Math.ceil(j/2);
+        if(j%2) { // j == odd
+            angleDiff *= -1;
+        }
+        j++;
+        let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
+
+        let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
+        let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
+        return {x: coord_x, y: coord_y};
+    }
+
     function getDirectionByAngle(angle) {
         let direction = {};
         direction.x = Math.sin(angle * (Math.PI/180));
@@ -1197,19 +1239,13 @@
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
 
                             //calculate positions for the proposed issue
-                            let index = getIndexInAll(issueInfo.nodeid);
-                            let angleDiff = Math.min(15, 360/proposedNodesEdges['nodes'].length);
-                            angleDiff *= Math.ceil(j/2);
-                            if(j%2) { // j == odd
-                                angleDiff *= -1;
+                            let positions;
+                            if (issue === propLinksIssue) {
+                                positions = calculateProposedDepthOnePositions(issueInfo, j, proposedNodesEdges['nodes'].length);
+                            } else {
+                                positions = calculateProposedOuterPositions(issueInfo, j);
                             }
                             j++;
-                            let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
-
-                            let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
-                            let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
-
-
                             if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
                                     id: ID,
@@ -1219,8 +1255,8 @@
                                     title: nodetitle,
                                     level: level,
                                     hidden: nodehidden,
-                                    x: coord_x,
-                                    y: coord_y
+                                    x: positions.x,
+                                    y: positions.y
                                 });
                                 proposedIssuesList.push({
                                     id: nodekey
@@ -1351,7 +1387,6 @@
         }
         //display the initial infobox only if the user put exactly one issue in the input
         //get coressponding JSON
-        // console.log(currentIssue)
         let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
         // console.log(issueInfo)
