@@ -644,7 +644,7 @@
     }
 
     //calculates positions for proposed issues if the selected issue is in layer 0
-    function calculateProposedDepthOnePositions(issueInfo, j, maxElements) {
+    function calculateProposedDepthOnePositions(j, maxElements) {
         let angle = 360/maxElements;
         let direction;
 
@@ -1241,7 +1241,7 @@
                             //calculate positions for the proposed issue
                             let positions;
                             if (issue === propLinksIssue) {
-                                positions = calculateProposedDepthOnePositions(issueInfo, j, proposedNodesEdges['nodes'].length);
+                                positions = calculateProposedDepthOnePositions(j, proposedNodesEdges['nodes'].length);
                             } else {
                                 positions = calculateProposedOuterPositions(issueInfo, j);
                             }
