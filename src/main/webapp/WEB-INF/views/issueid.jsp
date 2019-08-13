@@ -1149,7 +1149,7 @@
             }
             console.log(updatedProposedLinksJSON)
         }
-        let updatedPropsedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
+        let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
         try {
 
@@ -1164,7 +1164,7 @@
                     console.log(string);
                 }
             };
-            xhr.send(updatedPropsedLinksResponse);
+            xhr.send(updatedProposedLinksResponse);
         }
         catch
             (err) {
