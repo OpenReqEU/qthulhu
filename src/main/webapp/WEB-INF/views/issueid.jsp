@@ -1166,7 +1166,7 @@
 
 
                 console.log("iId: " + issueInfo.depth);
-                console.log("iIa: " + issueInfo.angle);
+                console.log("iIi: " + issueInfo.id);
 
                 xhr.onreadystatechange = function () {
 
