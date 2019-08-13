@@ -583,7 +583,7 @@
                 positionsDepthOne(allNodesArray[1].length, i);
             }
             for (let i = 2; i <= max_depth; i++) {
-                newPositionsOuterRings(i);
+                positionsOuterRings(i);
             }
         }
     }
@@ -619,26 +619,6 @@
     }
 
     function positionsOuterRings(depth) {
-        //let distanceFromPrevious = Math.ceil(Math.max(240, (maxElements*120/(2*Math.PI))));
-        let connections = [];
-        for (let i = 0; i < allNodesArray[depth].length; i++) {
-            connections = findConnectedNodes(allNodesArray[depth][i].id);
-            let fromPoint;
-            // one of the connected nodes from the layer below will be treated as the source
-            for (let j = 0; j < connections.length; j++) {
-                let elem = findElement(allNodesArray[depth-1], "id", connections[j]);
-                if (!(typeof elem === "undefined") && elem.level === depth-1) {
-                    fromPoint = elem;
-                }
-            }
-            let angle = getAngleByRelativePosition({x:0,y:0}, fromPoint);
-            let direction = getDirectionByAngle(angle);
-            allNodesArray[depth][i].x = distance * depth * direction.x;
-            allNodesArray[depth][i].y = distance * depth * direction.y;
-        }
-    }
-
-    function newPositionsOuterRings(depth) {
         let connectionsOut = [];
         let index;
         let direction;
@@ -1184,6 +1164,10 @@
                 let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
                 let level = issueInfo.depth + 1;
 
+                console.log("pLI: " + propLinksIssue);
+                console.log("curr: " + currentIssue);
+                console.log("iI: " + issueInfo);
+
                 xhr.onreadystatechange = function () {
 
                     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -1214,6 +1198,31 @@
                             }
                             let nodetitle = "";
                             nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+
+                            //  function positionsOuterRings(depth) {
+                            //     let connectionsOut = [];
+                            //     let index;
+                            //     let direction;
+                            //     let angleDiff;
+                            //     for (let i = 0; i < allNodesArray[depth-1].length; i++) {
+                            //         connectionsOut = findConnectedNodesOuter(allNodesArray[depth-1][i]);
+                            //         allNodesArray[depth-1][i].connections = connectionsOut;
+                            //         for (let j = 0; j < connectionsOut.length; j++) {
+                            //             index = getIndexInAll(connectionsOut[j]);
+                            //             angleDiff = Math.min(15, 360/allNodesArray[depth].length);
+                            //             angleDiff *= Math.ceil(j/2);
+                            //
+                            //             if(j%2) { // j == odd
+                            //                 angleDiff *= -1;
+                            //             }
+                            //             direction = getDirectionByAngle(allNodesArray[depth-1][i].angle + angleDiff);
+                            //
+                            //             coord_x = distance * (issueInfo.depth - 0.5) * direction.x;
+                            //             coord_y = distance * (issueInfo.depth - 0.5) * direction.y;
+                            //         }
+                            //     }
+                            // }
+
                             if (!checkNodesContains(ID)) {
                                 proposedNodeElements.push({
                                     id: ID,
@@ -1272,7 +1281,7 @@
                             let selectionList = '<div class="custom-select">';
                             let acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
                             let rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
-                            for (i = 0; i < proposedIssuesList.length; i++) {
+                            for (let i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='requires'>dependency</option>" +
                                     "<option value='duplicates'>duplicate</option>" +
