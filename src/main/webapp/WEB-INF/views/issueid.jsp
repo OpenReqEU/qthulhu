@@ -46,12 +46,13 @@
     <a href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
-    <a class="button-effect-orange" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
+    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
+    <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a class="button-effect-orange" href="../">Go Back</a>
     <div class="search-container">
-        <form <%--action="../issue"--%> onsubmit="buildURL()" method="get" id="search-id" name="search">
+        <form onsubmit="buildURL()" method="get" id="search-id" name="search">
             <button type="submit"><em class="fa fa-search" style="color: #ffffff;"></em></button>
             <input type="text" name="issue" id="issueInput" required="required" placeholder="Issue Key..."
                    style="margin-right: 20px">
@@ -147,16 +148,14 @@
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
-                    <span class="tooltiptext">Du bist die Beste, Clara :)</span>
-<%--                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields</span>--%>
+                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency Checker
                     </a>
-                    <span class="tooltiptext">Du machst das super \(^.^)/</span>
-<%--                    <span class="tooltiptext">The consistency checker service checks all issues in the visualization--%>
-<%--                        for inconsistencies regarding their fix version</span>--%>
+                    <span class="tooltiptext">The consistency checker service checks all issues in the visualization
+                        for inconsistencies regarding their fix version</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
@@ -182,7 +181,7 @@
                     <p id="infoBoxIssueEnv"></p>
                     <div id="infoBoxIssueLink"></div>
                     <br>
-                    <div id="infoBoxIssueLinkTestJIRA"></div>
+                    <%--<div id="infoBoxIssueLinkTestJIRA"></div>--%>
                 </div>
                 <%--<div class="tab-pane fade show" id="list-box" role="tabpanel"--%>
                 <%--aria-labelledby="list-tab">--%>
@@ -190,17 +189,16 @@
                 <%--<p id="IssuesList"></p>--%>
                 <%--</div>--%>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
-                    <p id="proposedIssuesList"></p>
+                    <p id="ddResult"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                     <p>Checks if the release plan of this issue link map is consistent.</p>
                     <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
-                    <p>Only Nodes with one of the selected statuses and types will be displayed.</p>
+                    <p>Only issues with one of the selected statuses and types will be displayed.</p>
                     <div class="filterOptions">
-                        <h2>Statuses:</h2>
-                        <br>
+                        <h5>Statuses:</h5>
                         <span style="color: #6D8DB5">
                             <label>
                                 <input name="ToDoStatus" type="checkbox" checked="checked" onClick="toggle(this)">
@@ -315,8 +313,7 @@
                                 <strong> Toggle All Statuses </strong>
                             </label>
                         </span>
-                        <h2>Types:</h2>
-                        <br>
+                        <h5>Types:</h5>
                         <span>
                             <label>
                                 <input name="Type" type="checkbox" checked="checked" value="task"/>
@@ -367,8 +364,7 @@
                             </label>
                         </span>
                         <br>
-                        <h2>Priority:</h2>
-                        <br>
+                        <h5>Priority:</h5>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
@@ -581,7 +577,7 @@
             allNodesArray[0][0].fixed = true;
             allNodesArray[0][0].heightConstraint = 60;
             allNodesArray[0][0].widthConstraint = 135;
-            allNodesArray[0][0].font = {multi: true, size: 24}
+            allNodesArray[0][0].font = {multi: true, size: 24};
             // allNodesArray[1] is layer one and surrounds the center
             for (let i = 0; i < allNodesArray[1].length; i++) {
                 positionsDepthOne(allNodesArray[1].length, i);
@@ -954,7 +950,7 @@
             }
             if (!(nodetype == null)) {
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
-                nodelabel = nodelabel.concat(nodestatus).concat("\n, ").concat(noderesolution);
+                nodelabel = nodelabel.concat("\n").concat(nodestatus).concat(", ").concat(noderesolution);
             }
             else
                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
@@ -1092,11 +1088,21 @@
             let dep_type = v['dependency_type'];
             let fromid = v['fromid'];
             let toid = v['toid'];
+            let id = v['id'];
+            let created_at = v['created_at'];
+            let dep_score = v['dependency_score'];
+            let description = v['description'];
+
 
             updatedProposedLinksJSON.dependencies.push({
+                created_at: created_at,
+                dependency_score: dep_score,
                 dependency_type: dep_type,
+                description: [],
                 fromid: fromid,
-                toid: toid
+                id: id,
+                status: "",
+                toid: toid,
             })
         });
 
@@ -1104,11 +1110,13 @@
         for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
             if (linkDetectionResponse[i] !== undefined) {
                 if (linkDetectionResponse[i] !== "reject") {
-                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i];
-                    updatedProposedLinksJSON.dependencies[i].status = "accepted"
+                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i].toUpperCase();
+                    updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
+                    updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[i];
                 }
                 else {
-                    updatedProposedLinksJSON.dependencies[i].status = "rejected"
+                    updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
+                    updatedProposedLinksJSON.dependencies[i].description = description;
                 }
                 console.log(updatedProposedLinksJSON)
             }
@@ -1251,27 +1259,30 @@
 
                         proposedViewActive = true;
                         if (proposedIssuesList.length === 0) {
-                            document.getElementById('proposedIssuesList').innerHTML = "No proposed links for issue " + currentIssue + ".";
+                            document.getElementById('ddResult').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
                         else {
-                            stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
+                            let stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
                                 "<table style='width: 100%'><tr>\n" +
                                 "<th>Issue Key</th>" +
                                 "<th>Link type</th>" +
                                 "<th>Accept</th>" +
                                 "<th>Reject</th>" +
                                 "</tr>";
-                            selectionList = '<div class="custom-select">';
-                            acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
-                            rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
+                            let selectionList = '<div class="custom-select">';
+                            let acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
+                            let rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                             for (i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
-                                    "<option value='duplicate'>Duplicate</option>" +
-                                    "<option value='similar'>Similar</option>" +
-                                    "<option value='depends'>Dependency</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                                    "<option value='requires'>dependency</option>" +
+                                    "<option value='duplicates'>duplicate</option>" +
+                                    "<option value='contributes'>relates</option>" +
+                                    "<option value='decomposition'>subtask</option>" +
+                                    "<option value='decomposition'>epic</option>" +
+                                    "<option value='replaces'>replacement</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
-                            document.getElementById('proposedIssuesList').innerHTML = stringList;
+                            document.getElementById('ddResult').innerHTML = stringList;
                         }
                     }
 
@@ -1364,7 +1375,7 @@
         //put the issues in the corressponding part of the website
         document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
         document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
-        document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
+        //document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
         document.getElementById('infoBoxIssueStatus').innerHTML = "<strong>Status: </strong>".concat(infoStatus);
         document.getElementById('infoBoxIssueSummary').innerHTML = "<strong>Summary: </strong>".concat(infoTitle);
         document.getElementById('infoBoxIssueResolution').innerHTML = "<strong>Resolution: </strong>".concat(infoResolution);
@@ -1374,7 +1385,7 @@
         document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
         document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
         document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
-        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority: </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(infoPriority);
+        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority:  </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(" ").concat(infoPriority);
     }
 
     function filterNodesTab() {
@@ -1448,106 +1459,6 @@
                     color: {background: '#FF5E36', border: '#172B4D'},
                     borderWidth: 2,
                     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_1": {
-                    //     color: {background: '#FED153', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_1": {
-                    //     color: {background: '#27D638', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_1": {
-                    //     color: {background: '#7A97BB', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_1": {
-                    //     color: {background: '#FF5E36', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_2": {
-                    //     color: {background: '#FED666', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_2": {
-                    //     color: {background: '#36DA46', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_2": {
-                    //     color: {background: '#87A1C2', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_2": {
-                    //     color: {background: '#FF6D49', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_3": {
-                    //     color: {background: '#FEDC7A', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_3": {
-                    //     color: {background: '#47DD55', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_3": {
-                    //     color: {background: '#94ABC9', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_3": {
-                    //     color: {background: '#FF7D5D', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_4": {
-                    //     color: {background: '#FEE18D', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_4": {
-                    //     color: {background: '#58E064', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_4": {
-                    //     color: {background: '#A1B6CF', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_4": {
-                    //     color: {background: '#FF8D71', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "yellow_layer_5": {
-                    //     color: {background: '#FFE6A1', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "green_layer_5": {
-                    //     color: {background: '#68E374', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "blue_layer_5": {
-                    //     color: {background: '#AEC0D6', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
-                    // },
-                    // "red_layer_5": {
-                    //     color: {background: '#FF9D84', border: '#172B4D'},
-                    //     borderWidth: 2,
-                    //     font: {color: 'black', multi: 'html'}
                 },
                 "proposed": {
                     color: {background: '#17b2ad', border: '#172B4D'},

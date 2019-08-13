@@ -29,8 +29,9 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
+    <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
 </div>
 <%--This is the main body of the site, it contains some explanation about the service and a search box--%>
 <div class="container" style="padding-top: 30px">
@@ -58,7 +59,7 @@
                         <h4>Issue Key(s):</h4>
                         <input type="text" name="issue" id="issue" required="required" width="200px"><br>
                         <i>
-                            <small>You can search for single issue keys.<br>
+                            <small>Search for an issue keys.<br>
                                 For example: QTWB-30
                             </small>
                         </i>
@@ -68,7 +69,7 @@
                         <h4>Depth:</h4>
                         <input type="number" name="depth" id="layerDepth" min="1" max="5" width="100px"><br>
                         <i>
-                            <small>This number should be between 1 and 5.<br>
+                            <small>Enter a number between 1 and 5.<br>
                                 For example: 2
                             </small>
                         </i>
@@ -108,14 +109,14 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Info</h3>
-                <p class="card-text">This tool visualizes the link map of issues.<br>
+                <p class="card-text">This tool visualizes the link between issues in Qt's public Jira.<br>
                     Typing in an issue key from <a
                             href="https://bugreports.qt.io/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=software">Qt's
                         public JIRA</a> can show you its direct and indirect links to other issues.
-                    If you select an issue in the visualisation, you will see key information on the right
+                    If you select an issue in the visualisation, you will see some issue information on the right
                     side of the graph as well as a button which will redirect you to the JIRA page of that issue.
                 </p>
-                <h5 class="card-title">Issue Key(s)</h5>
+                <h5 class="card-title">Issue Key</h5>
                 <p class="card-text">You can type in a single issue (f.e. <i>QTWB-30</i>).
                     The service will then look up the corresponding issue in University of Helsinki's service milla and
                     get the information about links and issues.</p>
@@ -125,18 +126,19 @@
                     links of issues of depth 2 and so on, up until depth 5.
                     If you do not specify a depth the default value is 1.
                     While viewing the issue link map you can switch between the different depths.
-                <%--<form action="./example" method="post" id="example" style="display:inline-block;">--%>
-                    <%--&lt;%&ndash;This is needed to implement the add and remove layer functionality&ndash;%&gt;--%>
-                    <%--<input type="hidden" name="layerDepth" value="1"/>--%>
-                    <%--<input type="hidden" name="issues" value="EX-3"/>--%>
-                    <%--<input type="submit"--%>
-                           <%--class="button search button-effect-teal"--%>
-                           <%--value="See Example">--%>
-                <%--</form>--%>
                 </p>
-                <h5 class="card-title">Dependency Detection & Consistency Checker</h5>
-                <p class="card-text">The microservices for Dependency Detection and Consistency Checker are currently
-                    being implemented.</p>
+                <h5 class="card-title">Link Detection</h5>
+                <p class="card-text">Use the link detection to find issues which might be related to the currently selected issue.</p>
+                <h5 class="card-title">Consistency Checker</h5>
+                <p class="card-text">Use the consistency checker to find inconsistencies in the release planning of linked issues.</p>
+                <h4 class="card-title">We appreciate your feedback!</h4>
+                <p class="card-text">Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>
+                    if you would like give feedback to the services or visualizatiion:
+                    <br>
+                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would like to report a bug.
+                    <br>
+                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to contribute:
+                </p>
                 </p>
             </div>
         </div>
@@ -186,7 +188,7 @@
             let xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
-            let url = "./authorize/verifyAuth"
+            let url = "./authorize/verifyAuth";
             //let url = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization";
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
