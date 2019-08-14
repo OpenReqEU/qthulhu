@@ -40,7 +40,7 @@
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
-    <a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>
+    <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a href="./">Go Back</a>
     <%-- <div class="search-container">
