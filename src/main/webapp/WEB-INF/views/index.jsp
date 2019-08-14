@@ -59,7 +59,7 @@
                         <h4>Issue Key(s):</h4>
                         <input type="text" name="issue" id="issue" required="required" width="200px"><br>
                         <i>
-                            <small>Search for an issue keys.<br>
+                            <small>Search for an issue key.<br>
                                 For example: QTWB-30
                             </small>
                         </i>
@@ -70,7 +70,6 @@
                         <input type="number" name="depth" id="layerDepth" min="1" max="5" width="100px"><br>
                         <i>
                             <small>Enter a number between 1 and 5.<br>
-                                For example: 2
                             </small>
                         </i>
                     </div>

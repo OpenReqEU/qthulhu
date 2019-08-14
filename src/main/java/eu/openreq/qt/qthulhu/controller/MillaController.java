@@ -34,7 +34,7 @@ public class MillaController
     public @ResponseBody
     String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
     {
-        String blub = updatedProposedLinks.substring(16, updatedProposedLinks.length()-1);
-        return UHServicesConnections.sendUpdatedProposedLinks(blub);
+
+        return UHServicesConnections.sendUpdatedProposedLinks(updatedProposedLinks);
     }
 }
