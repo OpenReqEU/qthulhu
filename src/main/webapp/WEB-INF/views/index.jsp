@@ -131,12 +131,12 @@
                 <h5 class="card-title">Consistency Checker</h5>
                 <p class="card-text">Use the consistency checker to find inconsistencies in the release planning of linked issues.</p>
                 <h4 class="card-title">We appreciate your feedback!</h4>
-                <p class="card-text">Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>
-                    if you would like give feedback to the services or visualizatiion:
-                    <br>
+                <p class="card-text">
+                    <%--Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>--%>
+                    <%--if you would like give feedback to the services or visualizatiion:--%>
                     Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would like to report a bug.
                     <br>
-                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to contribute:
+                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to contribute.
                 </p>
                 </p>
             </div>
