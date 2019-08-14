@@ -39,16 +39,16 @@
         <h1>WP7 - Qt Trial</h1>
     </div>
 
-<%--    <form id = "your_form" onsubmit="yourFunction()">--%>
-<%--        <input type="text" name="keywords">--%>
-<%--        <input type="submit" value="Search">--%>
-<%--    </form>--%>
+    <%--    <form id = "your_form" onsubmit="yourFunction()">--%>
+    <%--        <input type="text" name="keywords">--%>
+    <%--        <input type="submit" value="Search">--%>
+    <%--    </form>--%>
 
-<%--    function yourFunction(){--%>
-<%--    var action_src = "http://localhost/test/" + document.getElementsByName("keywords")[0].value;--%>
-<%--    var your_form = document.getElementById('your_form');--%>
-<%--    your_form.action = action_src ;--%>
-<%--    }--%>
+    <%--    function yourFunction(){--%>
+    <%--    var action_src = "http://localhost/test/" + document.getElementsByName("keywords")[0].value;--%>
+    <%--    var your_form = document.getElementById('your_form');--%>
+    <%--    your_form.action = action_src ;--%>
+    <%--    }--%>
 
     <div class="row">
         <form <%--action="./issue"--%> onsubmit="buildURL()" method="get" id="search-id" style="display:inline-block;">
@@ -108,7 +108,9 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Info</h3>
-                <p class="card-text">This tool visualizes the link between issues in Qt's public Jira.<br>
+                <p class="card-text">This tool visualizes the link between issues in Qt's public Jira, it also offers
+                    one feature to find missing links in the Jira issues and one feature to check the consistency of a
+                    fix version.<br>
                     Typing in an issue key from <a
                             href="https://bugreports.qt.io/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=software">Qt's
                         public JIRA</a> can show you its direct and indirect links to other issues.
@@ -127,16 +129,21 @@
                     While viewing the issue link map you can switch between the different depths.
                 </p>
                 <h5 class="card-title">Link Detection</h5>
-                <p class="card-text">Use the link detection to find issues which might be related to the currently selected issue.</p>
+                <p class="card-text">Use the link detection to find issues which might be related to the currently
+                    selected issue.</p>
                 <h5 class="card-title">Consistency Checker</h5>
-                <p class="card-text">Use the consistency checker to find inconsistencies in the release planning of linked issues.</p>
+                <p class="card-text">The Consistency Checker verifies the viability of the release plan regarding the issue
+                    link map. For example if a feature is required by another one, it is not assigned to later
+                    release.</p>
                 <h4 class="card-title">We appreciate your feedback!</h4>
                 <p class="card-text">
                     <%--Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>--%>
                     <%--if you would like give feedback to the services or visualizatiion:--%>
-                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would like to report a bug.
+                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would
+                    like to report a bug.
                     <br>
-                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to contribute.
+                    Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to
+                    contribute.
                 </p>
                 </p>
             </div>
@@ -150,11 +157,11 @@
         $('#loader').show();
     });
 
-    function buildURL(){
-        if(document.getElementById("issue").value !==""){
+    function buildURL() {
+        if (document.getElementById("issue").value !== "") {
             let url = "./issue/" + document.getElementById("issue").value;
             let search_form = document.getElementById("search-id");
-            search_form.action = url ;
+            search_form.action = url;
         }
     }
 
@@ -206,7 +213,7 @@
         }
     }
 
-    function testForCORS(){
+    function testForCORS() {
         try {
             let xhr = new XMLHttpRequest();
 

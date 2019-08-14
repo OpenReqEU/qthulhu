@@ -148,14 +148,13 @@
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
-                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields</span>
+                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields.</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency Checker
                     </a>
-                    <span class="tooltiptext">The consistency checker service checks all issues in the visualization
-                        for inconsistencies regarding their fix version</span>
+                    <span class="tooltiptext">The Consistency Checker verifies the viability of the release plan regarding the issue link map. For example if a feature is required by another one, it is not assigned to later release.</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
@@ -171,7 +170,7 @@
                     <h5 id="infoBoxHeading"></h5>
                     <p id="infoBoxIssueSummary"></p>
                     <p id="infoBoxIssueStatus"></p>
-                    <p id ="infoBoxIssuePrio"></p>
+                    <p id="infoBoxIssuePrio"></p>
                     <p id="infoBoxIssueResolution"></p>
                     <p id="infoBoxIssueComponent"></p>
                     <p id="infoBoxIssueLabel"></p>
@@ -309,7 +308,7 @@
                         <br>
                         <span>
                             <label>
-                                <input  onClick="toggleAll(this);" type="checkbox" checked="checked" />
+                                <input onClick="toggleAll(this);" type="checkbox" checked="checked"/>
                                 <strong> Toggle All Statuses </strong>
                             </label>
                         </span>
@@ -359,7 +358,7 @@
                         <br>
                         <span>
                             <label>
-                                <input  name="Type" onClick="toggle(this);" type="checkbox" checked="checked" />
+                                <input name="Type" onClick="toggle(this);" type="checkbox" checked="checked"/>
                                 <strong> Toggle All Types </strong>
                             </label>
                         </span>
@@ -410,12 +409,13 @@
                         <br>
                         <span>
                             <label>
-                                <input  name="Priority" onClick="toggle(this);" type="checkbox" checked="checked" />
+                                <input name="Priority" onClick="toggle(this);" type="checkbox" checked="checked"/>
                                 <strong> Toggle All Priorities </strong>
                             </label>
                         </span>
                         <br>
-                        <input type="button" class="button search button-effect-teal" onclick="filterNodes()" value="Apply filter" />
+                        <input type="button" class="button search button-effect-teal" onclick="filterNodes()"
+                               value="Apply filter"/>
                     </div>
                     <p id="filterOptions"></p>
                 </div>
@@ -423,7 +423,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>
@@ -439,7 +438,7 @@
     let nodeEdgeObject = JSON.parse(nodeEdgeSet);
     let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
 
-    let helpNodeSet =[];
+    let helpNodeSet = [];
     let filteredNodes = [];
     let filterArray = [];
     let distance = 240;
@@ -484,10 +483,10 @@
 
     //Help Functions
     //builds URL for search form
-    function buildURL(){
-            let url = "../issue/" + document.getElementById("issueInput").value;
-            let search_form = document.getElementById("search-id");
-            search_form.action = url ;
+    function buildURL() {
+        let url = "../issue/" + document.getElementById("issueInput").value;
+        let search_form = document.getElementById("search-id");
+        search_form.action = url;
     }
 
     //function to help find a specific item depending on its identifier
@@ -502,7 +501,7 @@
         let elem;
         for (let i = 0; i < allNodesArray.length; i++) {
             elem = findElement(allNodesArray[i], "id", id);
-            if(typeof elem !== "undefined") {
+            if (typeof elem !== "undefined") {
                 return elem;
             }
         }
@@ -510,9 +509,9 @@
 
     function getIndexInAll(id) {
         for (let i = 0; i <= 5; i++) {
-            for(let j = 0; j < allNodesArray[i].length; j++) {
-                if(allNodesArray[i][j].id === id) {
-                    return [i,j];
+            for (let j = 0; j < allNodesArray[i].length; j++) {
+                if (allNodesArray[i][j].id === id) {
+                    return [i, j];
                 }
             }
         }
@@ -542,7 +541,7 @@
     function getCheckedCheckboxes() {
         //let checkboxes = document.querySelectorAll('input[name="' + checkboxName + 'Status"]:checked'), values = [];
         let checkboxes = document.querySelectorAll(':checked'), values = [];
-        Array.prototype.forEach.call(checkboxes, function(el) {
+        Array.prototype.forEach.call(checkboxes, function (el) {
             values.push(el.value);
         });
         return values;
@@ -550,10 +549,11 @@
 
     function toggle(source) {
         let checkboxes = document.getElementsByName(source.name);
-        for(let i=0; i < checkboxes.length;i++) {
+        for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = source.checked;
         }
     }
+
     function toggleAll(source) {
         let types = ["ToDoStatus", "ProgStatus", "StuckStatus", "DoneStatus", "Status"];
         for (let i = 0; i < types.length; i++) {
@@ -569,7 +569,7 @@
      * arrange nodes in circles, with the currentIssue in the center
      */
     function calculatePositions() {
-        if(typeof allNodesArray[0][0] !== "undefined") {
+        if (typeof allNodesArray[0][0] !== "undefined") {
             // the one element with depth 0 is in the center
             allNodesArray[0][0].x = 0;
             allNodesArray[0][0].y = 0;
@@ -589,7 +589,7 @@
     }
 
     function positionsDepthOne(maxElements, currentElement) {
-        let angle = 360/maxElements;
+        let angle = 360 / maxElements;
         let direction;
         let resultingAngle;
 
@@ -599,12 +599,12 @@
             resultingAngle = 0;
         }
         // if there are two elements they will be displayed next to each other below the center
-        else if(maxElements === 2){
+        else if (maxElements === 2) {
             direction = getDirectionByAngle(-45 + 90 * currentElement);
             resultingAngle = -45 + 90 * currentElement;
         }
         // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
-        else if(maxElements % 2) {
+        else if (maxElements % 2) {
             direction = getDirectionByAngle(180 + (angle * currentElement));
             resultingAngle = 180 + angle * currentElement;
         }
@@ -613,7 +613,7 @@
             direction = getDirectionByAngle(45 + (angle * currentElement));
             resultingAngle = 45 + angle * currentElement;
         }
-        allNodesArray[1][currentElement].x =  distance * direction.x;
+        allNodesArray[1][currentElement].x = distance * direction.x;
         allNodesArray[1][currentElement].y = distance * direction.y;
         allNodesArray[1][currentElement].angle = resultingAngle;
     }
@@ -623,29 +623,29 @@
         let index;
         let direction;
         let angleDiff;
-        for (let i = 0; i < allNodesArray[depth-1].length; i++) {
-            connectionsOut = findConnectedNodesOuter(allNodesArray[depth-1][i]);
-            allNodesArray[depth-1][i].connections = connectionsOut;
+        for (let i = 0; i < allNodesArray[depth - 1].length; i++) {
+            connectionsOut = findConnectedNodesOuter(allNodesArray[depth - 1][i]);
+            allNodesArray[depth - 1][i].connections = connectionsOut;
             for (let j = 0; j < connectionsOut.length; j++) {
                 index = getIndexInAll(connectionsOut[j]);
-                angleDiff = Math.min(15, 360/allNodesArray[depth].length);
-                angleDiff *= Math.ceil(j/2);
+                angleDiff = Math.min(15, 360 / allNodesArray[depth].length);
+                angleDiff *= Math.ceil(j / 2);
 
-                if(j%2) { // j == odd
+                if (j % 2) { // j == odd
                     angleDiff *= -1;
                 }
-                direction = getDirectionByAngle(allNodesArray[depth-1][i].angle + angleDiff);
+                direction = getDirectionByAngle(allNodesArray[depth - 1][i].angle + angleDiff);
 
                 allNodesArray[index[0]][index[1]].x = distance * depth * direction.x;
                 allNodesArray[index[0]][index[1]].y = distance * depth * direction.y;
-                allNodesArray[index[0]][index[1]].angle = allNodesArray[depth-1][i].angle + angleDiff;
+                allNodesArray[index[0]][index[1]].angle = allNodesArray[depth - 1][i].angle + angleDiff;
             }
         }
     }
 
     //calculates positions for proposed issues if the selected issue is in layer 0
     function calculateProposedDepthOnePositions(j, maxElements) {
-        let angle = 360/maxElements;
+        let angle = 360 / maxElements;
         let direction;
 
         // if depth 1 has only one element it will be displayed below the center
@@ -653,18 +653,18 @@
             direction = getDirectionByAngle(0);
         }
         // if there are two elements they will be displayed next to each other below the center
-        else if(maxElements === 2){
+        else if (maxElements === 2) {
             direction = getDirectionByAngle(-45 + 90 * j);
         }
         // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
-        else if(maxElements % 2) {
+        else if (maxElements % 2) {
             direction = getDirectionByAngle(180 + (angle * j));
         }
         // even amount: first element on the top right, rest circle around center
         else {
             direction = getDirectionByAngle(45 + (angle * j));
         }
-        let coord_x =  0.6 * distance * direction.x;
+        let coord_x = 0.6 * distance * direction.x;
         let coord_y = 0.6 * distance * direction.y;
         return {x: coord_x, y: coord_y};
     }
@@ -672,9 +672,9 @@
     //calculates positions for proposed issues if the selected issue is not layer 0
     function calculateProposedOuterPositions(issueInfo, j) {
         let index = getIndexInAll(issueInfo.nodeid);
-        let angleDiff = Math.min(15, 360/proposedNodesEdges['nodes'].length);
-        angleDiff *= Math.ceil(j/2);
-        if(j%2) { // j == odd
+        let angleDiff = Math.min(15, 360 / proposedNodesEdges['nodes'].length);
+        angleDiff *= Math.ceil(j / 2);
+        if (j % 2) { // j == odd
             angleDiff *= -1;
         }
         j++;
@@ -687,15 +687,15 @@
 
     function getDirectionByAngle(angle) {
         let direction = {};
-        direction.x = Math.sin(angle * (Math.PI/180));
-        direction.y = Math.cos(angle * (Math.PI/180));
+        direction.x = Math.sin(angle * (Math.PI / 180));
+        direction.y = Math.cos(angle * (Math.PI / 180));
         return direction;
     }
 
-    function getAngleByRelativePosition (fromPoint, point) {
+    function getAngleByRelativePosition(fromPoint, point) {
         let dx = point.x - fromPoint.x;
         let dy = point.y - fromPoint.y;
-        return Math.atan2(dx, dy) * 180/Math.PI;
+        return Math.atan2(dx, dy) * 180 / Math.PI;
     }
 
     function findConnectedNodesOuter(paraElem) {
@@ -704,7 +704,7 @@
         let elem;
         for (let i = 0; i < connections.length; i++) {
             elem = findInAllNodes(connections[i]);
-            if((typeof elem !== "undefined") && (paraElem.level === elem.level -1)) {
+            if ((typeof elem !== "undefined") && (paraElem.level === elem.level - 1)) {
                 result.push(elem.id)
             }
         }
@@ -714,10 +714,10 @@
     function findConnectedNodes(id) {
         let result = [];
         for (let i = 0; i < allEdges[0].length; i++) {
-            if((id === allEdges[0][i].from) && !result.includes(allEdges[0][i].to)){
+            if ((id === allEdges[0][i].from) && !result.includes(allEdges[0][i].to)) {
                 result.push(allEdges[0][i].to);
             }
-            if((id === allEdges[0][i].to) && !result.includes(allEdges[0][i].from)) {
+            if ((id === allEdges[0][i].to) && !result.includes(allEdges[0][i].from)) {
                 result.push(allEdges[0][i].from);
             }
         }
@@ -957,17 +957,16 @@
             let noderesolution = v['resolution'];
             let nodegroup = colorPaletteStatus[nodestatus];
             let nodesize = 25;
-            if (nodedepth == 0)
-            {
+            if (nodedepth == 0) {
                 nodesize = 40;
             }
             let nodehidden = v['layer'] > depth;
             let nodelabel = "";
             let nodeprio = v['priority'].toString();
-            if(v['priority'] === 6) {
+            if (v['priority'] === 6) {
                 nodeprio = "5";
             }
-            if(typeof nodetype === "undefined") {
+            if (typeof nodetype === "undefined") {
                 nodetype = "not specified"
             }
             if (!(nodetype == null)) {
@@ -1013,7 +1012,7 @@
             let edgelabel = "";
             if (typeof v['description'] === "undefined") {
                 edgelabel = findProposed(v['status'], v['dependency_type']);
-            }else {
+            } else {
                 edgelabel = findProposed(v['status'], v['description']['0']);
             }
             let edgearrow = arrowPaletteType[edgelabel];
@@ -1057,9 +1056,11 @@
     let linkDetectionResponse;
 
     let testFilter;
+
     function selectFilterTest(filter) {
         testFilter = filter;
     }
+
     function registerClick(elem) {
         if (elem.id.charAt(1) == 'r') {
             let btnid = "#" + elem.id;
@@ -1195,7 +1196,6 @@
                 proposedIssuesList = [];
 
 
-
                 let xhr = new XMLHttpRequest();
 
                 let url = "../milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
@@ -1272,7 +1272,7 @@
                             let edgelabel = findProposed(v['status'], v['dependency_type']);
                             let edgearrow = arrowPaletteType[edgelabel];
 
-                            if(!(checkNodesContains(fromID) && checkNodesContains(toID))){
+                            if (!(checkNodesContains(fromID) && checkNodesContains(toID))) {
                                 proposedEdgeElements.push({
                                     from: fromID,
                                     to: toID,
@@ -1354,16 +1354,14 @@
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     let ccMessage = "";
-                    if (json.response[0].Consistent_msg == "Release plan contains errors")
-                    {
+                    if (json.response[0].Consistent_msg == "Release plan contains errors") {
                         ccMessage = ccMessage.concat("Release plan is inconsistent")
                     }
-                    else
-                    {
+                    else {
                         ccMessage = ccMessage.concat("Release plan is consistent.")
                     }
                     let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + regsInReleases ;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + regsInReleases;
                 }
             };
 
@@ -1431,10 +1429,11 @@
 
         filterNodes();
     }
+
     function filterNodes() {
         filterArray = getCheckedCheckboxes();
 
-        $.each(filteredNodes, function (i,v) {
+        $.each(filteredNodes, function (i, v) {
             allNodesArray[v.level].push(v);
         });
         filteredNodes = [];
@@ -1443,7 +1442,7 @@
                 // if the current node has a status that should not be shown it will be
                 // spliced out of allNodesArray and pushed into filteredNodes
                 if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type, allNodesArray[j][i].priority) && allNodesArray[j][i].level !== 0) {
-                    filteredNodes.push(allNodesArray[j].splice(i,1)[0]);
+                    filteredNodes.push(allNodesArray[j].splice(i, 1)[0]);
                     i--;
                 }
             }
@@ -1597,14 +1596,13 @@
             let node = nodes.get(params.nodes);
             let issueID = node[0].id;
             let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            if(typeof issueNode !== 'undefined') {
+            if (typeof issueNode !== 'undefined') {
 
                 currentIssue = issueNode.id;
                 if (infoTabActive) {
                     infoTab();
                 }
-                if(proposedViewActive)
-                {
+                if (proposedViewActive) {
                     proposedLinks()
                 }
             }
@@ -1614,7 +1612,7 @@
         network.on("doubleClick", function (params) {
             params.event = "[original event]";
             let node = nodes.get(params.nodes);
-            if(typeof node[0] !== "undefined") {
+            if (typeof node[0] !== "undefined") {
                 let issueID = node[0].id;
                 let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
                 if (typeof issueNode !== 'undefined' && issueNode.id !== issue) {
