@@ -117,6 +117,9 @@
                     If you select an issue in the visualisation, you will see some issue information on the right
                     side of the graph as well as a button which will redirect you to the JIRA page of that issue.
                 </p>
+                <h5 class="card-title">Filtering</h5>
+                <p class="card-text">The visualized issues can be filtered depending on their status, type and priority. Currently, the default filter does not show issues which are already closed. Thus, some nodes might be orphaned with not appareant connection to the searched issue key.
+                </p>
                 <h5 class="card-title">Issue Key</h5>
                 <p class="card-text">You can type in a single issue (f.e. <i>QTWB-30</i>).
                     The service will then look up the corresponding issue in University of Helsinki's service milla and
