@@ -1161,8 +1161,8 @@
             xhr.setRequestHeader("Content-Type", "plain/text");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let string = xhr.responseText;
-                    console.log(string);
+                    let response = xhr.responseText;
+                    console.log(response);
                 }
             };
             xhr.send(updatedProposedLinksResponse);

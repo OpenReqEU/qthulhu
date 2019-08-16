@@ -29,6 +29,7 @@ public class UHServicesConnections
         //gets transitive Closure (means the whole issue link map of an specified issue)
         String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
 
+
         String requirement;
         try
         {
