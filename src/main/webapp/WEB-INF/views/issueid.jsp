@@ -1109,6 +1109,7 @@
             };
         $.each(proposedNodesEdges['edges'], function (i, v) {
             let dep_type = v['dependency_type'];
+            dep_type = dep_type.toUpperCase();
             let fromid = v['fromid'];
             let toid = v['toid'];
             let id = v['id'];
