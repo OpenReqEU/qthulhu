@@ -1157,6 +1157,7 @@
             let url = "../milla/updateProposedDependencies";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Accept", "text/plain");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response = xhr.responseText;
