@@ -1308,9 +1308,9 @@
                                 "<th>Accept</th>" +
                                 "<th>Reject</th>" +
                                 "</tr>";
-                            let selectionList = '<div class="custom-select">';
-                            let acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
-                            let rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
+                            let selectionList = '<div class="custom-select" role="radiogroup">';
+                            let acceptBtn = "<button class='button accept button-effect-teal-light' role='radio' onclick=\"registerClick(this)\" id=";
+                            let rejectBtn = "<button class='button reject button-effect-orange-light' role='radio' onclick=\"registerClick(this)\" id=";
                             for (let i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='REQUIRES'>dependency</option>" +
