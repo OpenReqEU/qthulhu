@@ -1320,8 +1320,8 @@
                                     "<option value='REFINES'>work breakdown</option>" +
                                     "<option value='DECOMPOSITION'>subtask</option>" +
                                     "<option value='DECOMPOSITION'>epic</option></select></div></td><td>"
-                                    + acceptBtn + i + "a" + proposedIssuesList[i].id + " name=\"buttons" + i + "\">&#x2713</button></td><td>"
-                                    + rejectBtn + i + "r" + proposedIssuesList[i].id + " name=\"buttons" + i + "\">&#x2717</button></td></tr>";
+                                    + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
+                                    + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
