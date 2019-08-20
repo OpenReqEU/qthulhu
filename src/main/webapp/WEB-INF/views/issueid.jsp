@@ -1166,7 +1166,7 @@
                     console.log(response);
                 }
             };
-            updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
+            updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
             xhr.send(updatedProposedLinksResponse);
         }
         catch
