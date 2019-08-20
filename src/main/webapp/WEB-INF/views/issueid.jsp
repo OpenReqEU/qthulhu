@@ -1166,6 +1166,8 @@
                     console.log(response);
                 }
             };
+            updatedProposedLinksResponse.splice(0, 16);
+            updatedProposedLinksResponse.splice(-1,1);
             xhr.send(updatedProposedLinksResponse);
         }
         catch
