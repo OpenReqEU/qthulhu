@@ -1061,6 +1061,7 @@
         testFilter = filter;
     }
 
+    let proposedIssueOrderLDR = [];
     function registerClick(elem) {
         if (elem.id.charAt(1) === 'r') {
             let btnid = "#" + elem.id;
@@ -1073,6 +1074,7 @@
                 $(btnid).removeClass('reject');
                 $(btnid).addClass('rejected');
                 linkDetectionResponse[elem.id.charAt(0)] = "reject";
+                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
             }
             else {
                 $(btnid).removeClass('rejected');
@@ -1093,6 +1095,7 @@
                 $(btnid).removeClass('accept');
                 $(btnid).addClass('accepted');
                 linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
             }
             else {
                 $(btnid).removeClass('accepted');
@@ -1129,36 +1132,35 @@
             })
         });
 
-
         for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
-            if (linkDetectionResponse[i] !== undefined) {
-                if (linkDetectionResponse[i] !== "reject") {
-                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i].toUpperCase();
-                    updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
-                    updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[i];
+            let index = Math.max(proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].fromid), proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].toid));
+            if (index !== -1){
+                if (linkDetectionResponse[index] !== undefined) {
+                    if (linkDetectionResponse[index] !== "reject") {
+                        updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[index].toUpperCase();
+                        updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
+                        updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[index];
+                    }
+                    else {
+                        updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
+                        //updatedProposedLinksJSON.dependencies[i].description = description;
+                    }
                 }
                 else {
-                    updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
-                    //updatedProposedLinksJSON.dependencies[i].description = description;
+                    updatedProposedLinksJSON.dependencies.splice(i, 1);
                 }
+                console.log(updatedProposedLinksJSON)
             }
-            else {
-                updatedProposedLinksJSON.dependencies.splice(i, 1);
-
-            }
-            console.log(updatedProposedLinksJSON)
         }
         let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
         try {
 
             let xhr = new XMLHttpRequest();
-
             // let url = "../milla/updateProposedDependencies";
             let url = "https://api.openreq.eu/milla/updateProposedDependencies";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "application/json");
-            //xhr.setRequestHeader("Accept", "text/plain");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response = xhr.responseText;
@@ -1317,7 +1319,7 @@
                                     "<option value='REPLACES'>replacement</option>" +
                                     "<option value='REFINES'>work breakdown</option>" +
                                     "<option value='DECOMPOSITION'>subtask</option>" +
-                                    "<option value='DECOMPOSITION'>epic</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                                    "<option value='DECOMPOSITION'>epic</option></select></div></td><td>" + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
