@@ -1166,8 +1166,7 @@
                     console.log(response);
                 }
             };
-            updatedProposedLinksResponse.splice(0, 16);
-            updatedProposedLinksResponse.splice(-1,1);
+            updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
             xhr.send(updatedProposedLinksResponse);
         }
         catch
