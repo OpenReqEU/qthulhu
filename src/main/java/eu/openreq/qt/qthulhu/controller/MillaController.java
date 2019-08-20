@@ -34,7 +34,6 @@ public class MillaController
     public @ResponseBody
     String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
     {
-
         return UHServicesConnections.sendUpdatedProposedLinks(updatedProposedLinks);
     }
 }

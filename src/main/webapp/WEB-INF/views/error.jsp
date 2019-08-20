@@ -19,7 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
             integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
@@ -36,13 +36,13 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a href="https://openreq.eu/"><img alt="or_logo"
-                                       src="images/or_logo.png"
+                                       src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
-    <a href="./">Go Back</a>
+    <a href="../">Go Back</a>
     <%-- <div class="search-container">
         <form action="./issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
@@ -62,7 +62,7 @@
             <h1>Sorry, I could not find the page you were looking for.</h1>
             <h3>Searched issue key (${issue}) does not exist or access to it is limited, please check that you wrote the issue key correctly.</h3>
             <h3>Thank you.</h3>
-            <a href="./" class="button back button-effect-orange">&#171 Go to Main Page</a>
+            <a href="../" class="button back button-effect-orange">&#171 Go to Main Page</a>
         </div>
         <div class="col-4">
 <pre>

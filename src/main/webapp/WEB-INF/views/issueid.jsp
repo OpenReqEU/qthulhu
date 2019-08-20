@@ -1121,7 +1121,7 @@
                 created_at: created_at,
                 dependency_score: dep_score,
                 dependency_type: dep_type,
-                description: [],
+                description: description,
                 fromid: fromid,
                 id: id,
                 status: "",
@@ -1139,13 +1139,11 @@
                 }
                 else {
                     updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
-                    updatedProposedLinksJSON.dependencies[i].description = description;
+                    //updatedProposedLinksJSON.dependencies[i].description = description;
                 }
-                console.log(updatedProposedLinksJSON)
             }
             else {
                 updatedProposedLinksJSON.dependencies.splice(i, 1);
-                console.log(updatedProposedLinksJSON)
 
             }
             console.log(updatedProposedLinksJSON)
@@ -1156,9 +1154,9 @@
 
             let xhr = new XMLHttpRequest();
 
-            let url = "../sendUpdatedProposedLinks";
+            let url = "../milla/sendUpdatedProposedLinks";
             xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "plain/text");
+            xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response = xhr.responseText;
@@ -1324,6 +1322,7 @@
                 xhr.send(null);
 
             } catch (err) {
+                document.getElementById('ddResult').innerHTML = "there was an error getting the proposed dependencies...";
                 alert(err);
             }
         }
