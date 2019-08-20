@@ -1154,7 +1154,8 @@
 
             let xhr = new XMLHttpRequest();
 
-            let url = ".../milla/updateProposedDependencies";
+            // let url = "../milla/updateProposedDependencies";
+            let url = "https://api.openreq.eu/milla/updateProposedDependencies";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Accept", "text/plain");
