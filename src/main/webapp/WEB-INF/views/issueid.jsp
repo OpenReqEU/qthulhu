@@ -1108,7 +1108,7 @@
                 dependencies: []
             };
         $.each(proposedNodesEdges['edges'], function (i, v) {
-            let dep_type = v['dependency_type'];
+            let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
             let fromid = v['fromid'];
             let toid = v['toid'];
             let id = v['id'];
