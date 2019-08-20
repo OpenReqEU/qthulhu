@@ -1154,7 +1154,7 @@
 
             let xhr = new XMLHttpRequest();
 
-            let url = "../milla/sendUpdatedProposedLinks";
+            let url = "../milla/updateProposedDependencies";
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
