@@ -30,10 +30,10 @@ public class MillaController
         return consistencyCheckJSON.toString();
     }
 
-    @RequestMapping(value = "/updateProposedDependencies", method = RequestMethod.POST)
-    public @ResponseBody
-    String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
-    {
-        return UHServicesConnections.sendUpdatedProposedLinks(updatedProposedLinks);
-    }
+//    @RequestMapping(value = "/updateProposedDependencies", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String sendUpdatedProposedLinks(@RequestBody String updatedProposedLinks)
+//    {
+//        return UHServicesConnections.sendUpdatedProposedLinks(updatedProposedLinks);
+//    }
 }
