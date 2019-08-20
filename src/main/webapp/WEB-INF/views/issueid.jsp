@@ -1062,7 +1062,7 @@
     }
 
     function registerClick(elem) {
-        if (elem.id.charAt(1) == 'r') {
+        if (elem.id.charAt(1) === 'r') {
             let btnid = "#" + elem.id;
             if ($(btnid).hasClass('reject')) {
                 let otherbtnid = "#" + elem.id.charAt(0) + "a";
@@ -1109,8 +1109,6 @@
             };
         $.each(proposedNodesEdges['edges'], function (i, v) {
             let dep_type = v['dependency_type'];
-            dep_type = dep_type.toUpperCase();
-            dep_type = "CONTRIBUTES";
             let fromid = v['fromid'];
             let toid = v['toid'];
             let id = v['id'];
@@ -1126,7 +1124,7 @@
                 description: description,
                 fromid: fromid,
                 id: id,
-                status: "",
+                status: "PROPOSED",
                 toid: toid,
             })
         });
@@ -1167,6 +1165,8 @@
                     console.log(response);
                 }
             };
+            // takes only the array out of the JSON
+            //{ dependencies : [...] }  => [...]
             updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
             xhr.send(updatedProposedLinksResponse);
         }
@@ -1311,12 +1311,13 @@
                             let rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
                             for (let i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
-                                    "<option value='requires'>dependency</option>" +
-                                    "<option value='duplicates'>duplicate</option>" +
-                                    "<option value='contributes'>relates</option>" +
-                                    "<option value='decomposition'>subtask</option>" +
-                                    "<option value='decomposition'>epic</option>" +
-                                    "<option value='replaces'>replacement</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                                    "<option value='REQUIRES'>dependency</option>" +
+                                    "<option value='CONTRIBUTES'>relates</option>" +
+                                    "<option value='DUPLICATES'>duplicate</option>" +
+                                    "<option value='REPLACES'>replacement</option>" +
+                                    "<option value='REFINES'>work breakdown</option>" +
+                                    "<option value='DECOMPOSITION'>subtask</option>" +
+                                    "<option value='DECOMPOSITION'>epic</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
