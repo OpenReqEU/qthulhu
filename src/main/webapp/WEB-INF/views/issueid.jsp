@@ -1066,7 +1066,7 @@
         if (elem.id.charAt(1) === 'r') {
             let btnid = "#" + elem.id;
             if ($(btnid).hasClass('reject')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "a";
+                let otherbtnid = "#" + elem.id.charAt(0) + "a" + elem.id.substring(2);
                 if ($(otherbtnid).hasClass('accepted')) {
                     $(otherbtnid).removeClass('accepted');
                     $(otherbtnid).addClass('accept');
@@ -1080,6 +1080,7 @@
                 $(btnid).removeClass('rejected');
                 $(btnid).addClass('reject');
                 delete linkDetectionResponse[elem.id.charAt(0)];
+                delete proposedIssueOrderLDR[elem.id.charAt(0)];
             }
         }
         else {
@@ -1087,7 +1088,7 @@
             let selectedItem = document.getElementById(selectid).value;
             let btnid = "#" + elem.id;
             if ($(btnid).hasClass('accept')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "r";
+                let otherbtnid = "#" + elem.id.charAt(0) + "r" + elem.id.substring(2);
                 if ($(otherbtnid).hasClass('rejected')) {
                     $(otherbtnid).removeClass('rejected');
                     $(otherbtnid).addClass('reject');
@@ -1101,6 +1102,7 @@
                 $(btnid).removeClass('accepted');
                 $(btnid).addClass('accept');
                 delete linkDetectionResponse[elem.id.charAt(0)];
+                delete proposedIssueOrderLDR[elem.id.charAt(0)];
             }
         }
     }
