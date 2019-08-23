@@ -1398,7 +1398,6 @@
         //get coressponding JSON
         let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
-        // console.log(issueInfo)
         let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
         let infoTitle = issueInfo.name;

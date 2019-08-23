@@ -5,7 +5,7 @@ import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static eu.openreq.qt.qthulhu.data.ProposedNodeEdgeSet.buildNodeEdgeSet;
+import static eu.openreq.qt.qthulhu.data.NewNodeEdgeSet.buildNodeEdgeSet;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchConsistencyCheck;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 
@@ -18,7 +18,7 @@ public class MillaController
     String getTopProposedLinksOfRequirement(@RequestParam("requirementId") String requirementId, @RequestParam("maxResults") int maxResults)
     {
         JsonObject topProposedLinks = fetchTopProposedLinks(requirementId, maxResults);
-        topProposedLinks = buildNodeEdgeSet(topProposedLinks, requirementId);
+        topProposedLinks = buildNodeEdgeSet(topProposedLinks, requirementId, true);
         return topProposedLinks.toString();
     }
 
