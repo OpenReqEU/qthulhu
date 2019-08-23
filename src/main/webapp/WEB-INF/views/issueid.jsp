@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<!DOCTYPE html>--%>
+<%--<!DOCTYPE html> TODO network size--%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -367,43 +367,43 @@
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
-                                <img src="../images/prio/0.png" width="20" height="20" align="middle"/>P0: Blocker
+                                <img src="../images/prio/0.png" width="20" height="20" align="middle" alt="P0: Blocker"/>P0: Blocker
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="1"/>
-                                <img src="../images/prio/1.png" width="20" height="20" align="middle"/>P1: Critical
+                                <img src="../images/prio/1.png" width="20" height="20" align="middle" alt="P1: Critical"/>P1: Critical
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="2"/>
-                                <img src="../images/prio/2.png" width="20" height="20" align="middle"/>P2: Important
+                                <img src="../images/prio/2.png" width="20" height="20" align="middle" alt="P2: Important"/>P2: Important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="3"/>
-                                <img src="../images/prio/3.png" width="20" height="20" align="middle"/>P3: Somewhat important
+                                <img src="../images/prio/3.png" width="20" height="20" align="middle" alt="P3: Somewhat important"/>P3: Somewhat important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="4"/>
-                                <img src="../images/prio/4.png" width="20" height="20" align="middle"/>P4: Low
+                                <img src="../images/prio/4.png" width="20" height="20" align="middle" alt="P4: Low"/>P4: Low
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="5"/>
-                                <img src="../images/prio/5.png" width="20" height="20" align="middle"/>P5: Not important
+                                <img src="../images/prio/5.png" width="20" height="20" align="middle" alt="P5: Not important"/>P5: Not important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="7"/>
-                                <img src="../images/prio/7.png" width="20" height="20" align="middle"/>Not Evaluated
+                                <img src="../images/prio/7.png" width="20" height="20" align="middle" alt="Not evaluated"/>Not evaluated
                             </label>
                         </span>
                         <br>
@@ -1479,6 +1479,10 @@
 
         //specify options such as physics
         let options = {
+            //size of the network
+            // autoResize: true,
+            // height: '1000px',
+            // width: '80%',
             //specify the different groups
             //TODO: There must be an easier way to create these groups
             "groups": {
@@ -1508,11 +1512,6 @@
                     font: {color: 'black', multi: 'html'}
                 }
             },
-            configure: {
-                enabled: false,
-                filter: "edges",
-                showButton: true
-            },
             //node design
             "nodes": {
                 "font": {
@@ -1537,18 +1536,6 @@
                     "forceDirection": "none",
                     "roundness": 0   // This is max roundness
                 }
-            },
-            //physics, interaction
-            "layout": {
-                //     "hierarchical":
-                //         {
-                //             "enabled": false,
-                //             "nodeSpacing": 150,
-                //             "blockShifting": false,
-                //             "edgeMinimization": false,
-                //             "sortMethod": "directed"
-                //         },
-                "randomSeed": 9
             },
             "interaction": {
                 "multiselect": false,
