@@ -87,9 +87,9 @@ function getRequestJQ(url) {
         'data': "",
         'success': function (data) {
             //You can use any jQuery/JavaScript here!!!
-            if (data == "success") {
-                alert('request sent!');
-            }
+            // if (data == "success") {
+            //     alert('request sent!');
+            // }
         }
     });
 }
