@@ -6,6 +6,11 @@ import com.google.gson.JsonNull;
 public class HelperFunctions
 {
 
+    private HelperFunctions ()
+    {
+
+    }
+
     /**
      * Builds a unique id based on the issue key.
      * These can have up to 10 digits and are probably going into 11 digits soon, therefore we are using long instead of int
@@ -14,7 +19,7 @@ public class HelperFunctions
      */
     public static long calculateUniqueID(String key)
     {
-        int n = key.indexOf("-");
+        int n = key.indexOf('-');
 
         String project = key.substring(0, n);
         int projectId = ProjectIDs.getProjectID(project);

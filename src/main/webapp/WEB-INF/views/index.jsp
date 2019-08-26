@@ -161,7 +161,7 @@
                     <%--Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>--%>
                     <%--if you would like give feedback to the services or visualizatiion:--%>
                     You can either leave a comment in the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or give feedback anonynoumsly in this
-                    <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">form</a>.
+                    <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">form</a>.<br>
                     Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would
                     like to report a bug.
                     <br>

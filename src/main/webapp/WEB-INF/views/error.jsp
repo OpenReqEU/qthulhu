@@ -52,7 +52,7 @@
     <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
-    <a href="../">Go Back</a>
+    <a href="../">Return to Homepage</a>
     <%-- <div class="search-container">
         <form action="./issue" method="post" id="search-id" name="search">
             <button type="submit"><i class="fa fa-search" style="color: #ffffff;"></i></button>
@@ -65,7 +65,9 @@
     </div> --%>
 </div>
 
+<div class="row">
 This is a prototype of the  <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">anonynoums feedback form</a>.
+</div>
 
 <%--This is the main body of the error page, it is fairly simple--%>
 <div class="container" style="padding-left: 50px; padding-top: 50px">
