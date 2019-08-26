@@ -65,8 +65,10 @@
     </div> --%>
 </div>
 
-<div class="row">
-This is a prototype of the  <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">anonynoums feedback form</a>.
+<div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
+    <div class="row">
+        This is a prototype of the <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum </a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
+    </div>
 </div>
 
 <%--This is the main body of the error page, it is fairly simple--%>
