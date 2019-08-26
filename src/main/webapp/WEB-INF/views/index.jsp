@@ -14,7 +14,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146396443-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-146396443-1');
@@ -39,10 +43,11 @@
                                        src="images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
 </div>
+
 <%--This is the main body of the site, it contains some explanation about the service and a search box--%>
 <div class="container" style="padding-top: 30px">
     <div class="row">
@@ -118,7 +123,8 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Info</h3>
-                <p class="card-text">This tool visualizes the link between issues in Qt's public Jira, it also offers
+                <p class="card-text">This prototype visualizes the link between issues in Qt's public Jira, it also
+                    offers
                     one feature to find missing links in the Jira issues and one feature to check the consistency of a
                     fix version.<br>
                     Typing in an issue key from <a
@@ -146,18 +152,23 @@
                 <p class="card-text">Use the link detection to find issues which might be related to the currently
                     selected issue.</p>
                 <h5 class="card-title">Consistency Checker</h5>
-                <p class="card-text">The Consistency Checker verifies the viability of the release plan regarding the issue
+                <p class="card-text">The Consistency Checker verifies the viability of the release plan regarding the
+                    issue
                     link map. For example if a feature is required by another one, it is not assigned to later
                     release.</p>
                 <h4 class="card-title">We appreciate your feedback!</h4>
                 <p class="card-text">
                     <%--Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>--%>
                     <%--if you would like give feedback to the services or visualizatiion:--%>
+                    You can either leave a comment in the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or give feedback anonynoumsly in this
+                    <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">form</a>.
                     Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would
                     like to report a bug.
                     <br>
                     Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu">here</a> if you would like to
                     contribute.
+
+
                 </p>
                 </p>
             </div>

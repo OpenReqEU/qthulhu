@@ -57,7 +57,7 @@
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a class="button-effect-orange" href="../">Go Back</a>
@@ -86,6 +86,8 @@
 
     </div>
 </div>
+
+This is a prototype of the  <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">anonynoums feedback form</a>.
 
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <%--Network--%>
@@ -158,13 +160,13 @@
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
-                    <span class="tooltiptext">The link detection service finds similar or related items based on the textual fields.</span>
+                    <span class="tooltiptext">The Link Detection service finds similar or related items based on the textual fields.</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
                        aria-controls="cc-tab" aria-selected="false" onclick="checkConsistency();">Consistency Checker
                     </a>
-                    <span class="tooltiptext">The Consistency Checker verifies the viability of the release plan regarding the issue link map. For example if a feature is required by another one, it is not assigned to later release.</span>
+                    <span class="tooltiptext">The Consistency Checker verifies the viability of the release plan regarding the issue link map. <br>For example if a feature is required by another one, it is not assigned to later release.</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
@@ -201,8 +203,7 @@
                     <p id="ddResult"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
-                    <p>Checks if the release plan of this issue link map is consistent.</p>
-                    <p id="ccResult"></p>
+                                        <p id="ccResult"></p>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Only issues with one of the selected statuses and types will be displayed.</p>
@@ -1376,13 +1377,13 @@
                     }
                     let ccMessage = "";
                     if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                        ccMessage = ccMessage.concat("Release plan is inconsistent")
+                        ccMessage = ccMessage.concat("<strong><font color=\"#17b2ad\">Release plan is inconsistent.</font></strong>")
                     }
                     else {
-                        ccMessage = ccMessage.concat("Release plan is consistent.")
+                        ccMessage = ccMessage.concat("<strong><font color=\"#FB4A08\">Release plan is consistent.</font></strong>")
                     }
                     let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + regsInReleases;
+                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + "<button class=\"collapsible\">Releases</button><div class=\"content\"><p>" + regsInReleases + "</p> </div>"
                 }
             };
 

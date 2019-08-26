@@ -49,7 +49,7 @@
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
     <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
-    <a target="_blank" href="https://forum.qt.io/">Qt Forum</a>
+    <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
     <a href="../">Go Back</a>
@@ -64,6 +64,8 @@
         </form>
     </div> --%>
 </div>
+
+This is a prototype of the  <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">anonynoums feedback form</a>.
 
 <%--This is the main body of the error page, it is fairly simple--%>
 <div class="container" style="padding-left: 50px; padding-top: 50px">
