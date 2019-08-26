@@ -9,6 +9,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146396443-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-146396443-1');
+    </script>
+
     <meta charset="UTF-8">
     <title>WP7 - Qt trial</title>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
