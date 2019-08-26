@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<!DOCTYPE html>--%>
+<%--<!DOCTYPE html> TODO network size--%>
 <html>
 <head>
     <title>WP7 - Qt Trial</title>
@@ -367,43 +367,43 @@
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
-                                <img src="../images/prio/0.png" width="20" height="20" align="middle"/>P0: Blocker
+                                <img src="../images/prio/0.png" width="20" height="20" align="middle" alt="P0: Blocker"/>P0: Blocker
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="1"/>
-                                <img src="../images/prio/1.png" width="20" height="20" align="middle"/>P1: Critical
+                                <img src="../images/prio/1.png" width="20" height="20" align="middle" alt="P1: Critical"/>P1: Critical
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="2"/>
-                                <img src="../images/prio/2.png" width="20" height="20" align="middle"/>P2: Important
+                                <img src="../images/prio/2.png" width="20" height="20" align="middle" alt="P2: Important"/>P2: Important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="3"/>
-                                <img src="../images/prio/3.png" width="20" height="20" align="middle"/>P3: Somewhat important
+                                <img src="../images/prio/3.png" width="20" height="20" align="middle" alt="P3: Somewhat important"/>P3: Somewhat important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="4"/>
-                                <img src="../images/prio/4.png" width="20" height="20" align="middle"/>P4: Low
+                                <img src="../images/prio/4.png" width="20" height="20" align="middle" alt="P4: Low"/>P4: Low
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="5"/>
-                                <img src="../images/prio/5.png" width="20" height="20" align="middle"/>P5: Not important
+                                <img src="../images/prio/5.png" width="20" height="20" align="middle" alt="P5: Not important"/>P5: Not important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="7"/>
-                                <img src="../images/prio/7.png" width="20" height="20" align="middle"/>Not Evaluated
+                                <img src="../images/prio/7.png" width="20" height="20" align="middle" alt="Not evaluated"/>Not evaluated
                             </label>
                         </span>
                         <br>
@@ -1061,11 +1061,12 @@
         testFilter = filter;
     }
 
+    let proposedIssueOrderLDR = [];
     function registerClick(elem) {
-        if (elem.id.charAt(1) == 'r') {
+        if (elem.id.charAt(1) === 'r') {
             let btnid = "#" + elem.id;
             if ($(btnid).hasClass('reject')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "a";
+                let otherbtnid = "#" + elem.id.charAt(0) + "a" + elem.id.substring(2);
                 if ($(otherbtnid).hasClass('accepted')) {
                     $(otherbtnid).removeClass('accepted');
                     $(otherbtnid).addClass('accept');
@@ -1073,11 +1074,13 @@
                 $(btnid).removeClass('reject');
                 $(btnid).addClass('rejected');
                 linkDetectionResponse[elem.id.charAt(0)] = "reject";
+                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
             }
             else {
                 $(btnid).removeClass('rejected');
                 $(btnid).addClass('reject');
                 delete linkDetectionResponse[elem.id.charAt(0)];
+                delete proposedIssueOrderLDR[elem.id.charAt(0)];
             }
         }
         else {
@@ -1085,7 +1088,7 @@
             let selectedItem = document.getElementById(selectid).value;
             let btnid = "#" + elem.id;
             if ($(btnid).hasClass('accept')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "r";
+                let otherbtnid = "#" + elem.id.charAt(0) + "r" + elem.id.substring(2);
                 if ($(otherbtnid).hasClass('rejected')) {
                     $(otherbtnid).removeClass('rejected');
                     $(otherbtnid).addClass('reject');
@@ -1093,11 +1096,13 @@
                 $(btnid).removeClass('accept');
                 $(btnid).addClass('accepted');
                 linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
             }
             else {
                 $(btnid).removeClass('accepted');
                 $(btnid).addClass('accept');
                 delete linkDetectionResponse[elem.id.charAt(0)];
+                delete proposedIssueOrderLDR[elem.id.charAt(0)];
             }
         }
     }
@@ -1108,7 +1113,7 @@
                 dependencies: []
             };
         $.each(proposedNodesEdges['edges'], function (i, v) {
-            let dep_type = v['dependency_type'];
+            let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
             let fromid = v['fromid'];
             let toid = v['toid'];
             let id = v['id'];
@@ -1121,50 +1126,52 @@
                 created_at: created_at,
                 dependency_score: dep_score,
                 dependency_type: dep_type,
-                description: [],
+                description: description,
                 fromid: fromid,
                 id: id,
-                status: "",
+                status: "PROPOSED",
                 toid: toid,
             })
         });
 
-
         for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
-            if (linkDetectionResponse[i] !== undefined) {
-                if (linkDetectionResponse[i] !== "reject") {
-                    updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[i].toUpperCase();
-                    updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
-                    updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[i];
+            let index = Math.max(proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].fromid), proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].toid));
+            if (index !== -1){
+                if (linkDetectionResponse[index] !== undefined) {
+                    if (linkDetectionResponse[index] !== "reject") {
+                        updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[index].toUpperCase();
+                        updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
+                        updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[index];
+                    }
+                    else {
+                        updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
+                        //updatedProposedLinksJSON.dependencies[i].description = description;
+                    }
                 }
                 else {
-                    updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
-                    updatedProposedLinksJSON.dependencies[i].description = description;
+                    updatedProposedLinksJSON.dependencies.splice(i, 1);
                 }
                 console.log(updatedProposedLinksJSON)
             }
-            else {
-                updatedProposedLinksJSON.dependencies.splice(i, 1);
-                console.log(updatedProposedLinksJSON)
-
-            }
-            console.log(updatedProposedLinksJSON)
         }
         let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
         try {
 
             let xhr = new XMLHttpRequest();
-
-            let url = "../sendUpdatedProposedLinks";
+            // let url = "../milla/updateProposedDependencies";
+            let url = "https://api.openreq.eu/milla/updateProposedDependencies";
             xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "plain/text");
+            xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let string = xhr.responseText;
-                    console.log(string);
+                    let response = xhr.responseText;
+                    console.log(response);
                 }
             };
+            // takes only the array out of the JSON
+            //{ dependencies : [...] }  => [...]
+            updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
             xhr.send(updatedProposedLinksResponse);
         }
         catch
@@ -1304,16 +1311,19 @@
                                 "<th>Reject</th>" +
                                 "</tr>";
                             let selectionList = '<div class="custom-select">';
-                            let acceptBtn = "<button class='button accept button-effect-teal-light' onclick=\"registerClick(this)\" id=";
-                            let rejectBtn = "<button class='button reject button-effect-orange-light' onclick=\"registerClick(this)\" id=";
+                            let acceptBtn = "<button class='button accept button-effect-teal-light' role='radio' onclick=\"registerClick(this)\" id=";
+                            let rejectBtn = "<button class='button reject button-effect-orange-light' role='radio' onclick=\"registerClick(this)\" id=";
                             for (let i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
-                                    "<option value='requires'>dependency</option>" +
-                                    "<option value='duplicates'>duplicate</option>" +
-                                    "<option value='contributes'>relates</option>" +
-                                    "<option value='decomposition'>subtask</option>" +
-                                    "<option value='decomposition'>epic</option>" +
-                                    "<option value='replaces'>replacement</option></select></div></td><td>" + acceptBtn + i + "a>&#x2713</button></td><td>" + rejectBtn + +i + "r>&#x2717</button></td></tr>";
+                                    "<option value='REQUIRES'>dependency</option>" +
+                                    "<option value='CONTRIBUTES'>relates</option>" +
+                                    "<option value='DUPLICATES'>duplicate</option>" +
+                                    "<option value='REPLACES'>replacement</option>" +
+                                    "<option value='REFINES'>work breakdown</option>" +
+                                    "<option value='DECOMPOSITION'>subtask</option>" +
+                                    "<option value='DECOMPOSITION'>epic</option></select></div></td><td>"
+                                    + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
+                                    + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
@@ -1324,6 +1334,7 @@
                 xhr.send(null);
 
             } catch (err) {
+                document.getElementById('ddResult').innerHTML = "there was an error getting the proposed dependencies...";
                 alert(err);
             }
         }
@@ -1387,7 +1398,6 @@
         //get coressponding JSON
         let issueInfo = findElement(helpNodeSet, "id", currentIssue);
         //get information that should be displayed
-        // console.log(issueInfo)
         let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
         let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
         let infoTitle = issueInfo.name;
@@ -1469,6 +1479,10 @@
 
         //specify options such as physics
         let options = {
+            //size of the network
+            // autoResize: true,
+            // height: '1000px',
+            // width: '80%',
             //specify the different groups
             //TODO: There must be an easier way to create these groups
             "groups": {
@@ -1498,11 +1512,6 @@
                     font: {color: 'black', multi: 'html'}
                 }
             },
-            configure: {
-                enabled: false,
-                filter: "edges",
-                showButton: true
-            },
             //node design
             "nodes": {
                 "font": {
@@ -1527,18 +1536,6 @@
                     "forceDirection": "none",
                     "roundness": 0   // This is max roundness
                 }
-            },
-            //physics, interaction
-            "layout": {
-                //     "hierarchical":
-                //         {
-                //             "enabled": false,
-                //             "nodeSpacing": 150,
-                //             "blockShifting": false,
-                //             "edgeMinimization": false,
-                //             "sortMethod": "directed"
-                //         },
-                "randomSeed": 9
             },
             "interaction": {
                 "multiselect": false,

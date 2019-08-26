@@ -54,15 +54,14 @@ public class NetworkController {
             JsonObject issueData = UHServicesConnections.fetchTransitiveClosure(issue);
 
             //in case the issue is not contained in mallikas
-            if (issueData.equals(new JsonArray())) {
+            if (issueData.getAsJsonArray("requirements").size() == 0) {
                 ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
                 model.addObject("issue", issue);
                 return model;
             }
 
-            //to getNodeEdgeSet method only accepts arrays
-            JsonObject nodeEdgeSet = NewNodeEdgeSet.buildNodeEdgeSet(issueData);
-
+            //to getNodeEdgeSet method only accepts arrays; false = not proposed
+            JsonObject nodeEdgeSet = NewNodeEdgeSet.buildNodeEdgeSet(issueData, issue, false);
 
             //add objects to model
             ModelAndView model = new ModelAndView("issueid", HttpStatus.OK);
