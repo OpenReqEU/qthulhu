@@ -57,13 +57,13 @@ public class NetworkControllerTest
     @Test
     public void issueURLwithIDTest() throws Exception
     {
-        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().isOk());
+        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().is4xxClientError());
     }
 
     @Test
     public void issueURLwithIDandDepthTest() throws Exception
     {
-        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().isOk());
+        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -82,13 +82,13 @@ public class NetworkControllerTest
     @Test
     public void depDetectionTest() throws Exception
     {
-        mockMillaMvc.perform(get("/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
+        mockMillaMvc.perform(get("/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().is4xxClientError());
     }
 
     @Test
     public void consistCheckerTest() throws Exception
     {
-        mockMillaMvc.perform(get("/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
+        mockMillaMvc.perform(get("/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().is4xxClientError());
     }
 
 
