@@ -79,17 +79,17 @@ public class NetworkControllerTest
 //        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
 //    }
 
-//    @Test
-//    public void depDetectionTest() throws Exception
-//    {
-//        mockMillaMvc.perform(get("/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
-//    }
+    @Test
+    public void depDetectionTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
+    }
 
-//    @Test
-//    public void consistCheckerTest() throws Exception
-//    {
-//        mockMillaMvc.perform(get("/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
-//    }
+    @Test
+    public void consistCheckerTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
+    }
 
 
 
