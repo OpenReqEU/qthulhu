@@ -1,11 +1,13 @@
 package eu.openreq.qt.qthulhu.controller;
 
 import com.google.gson.JsonObject;
-import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import static eu.openreq.qt.qthulhu.data.NewNodeEdgeSet.buildNodeEdgeSet;
+import static eu.openreq.qt.qthulhu.data.NodeEdgeSetBuilder.buildNodeEdgeSet;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchConsistencyCheck;
 import static eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections.fetchTopProposedLinks;
 

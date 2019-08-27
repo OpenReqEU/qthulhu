@@ -4,22 +4,22 @@ package eu.openreq.qt.qthulhu;
 public class Property {
 
     //You can change these to match your URLs
-    public static final String transitiveClosureURL = "https://api.openreq.eu/milla/getTransitiveClosureOfRequirement?requirementId=";
-    public static final String topProposedLinksURL = "https://api.openreq.eu/milla/getTopProposedDependenciesOfRequirement?requirementId=";
-    public static final String updateProposedDependenciesURL = "https://api.openreq.eu/milla/updateProposedDependencies";
-    public static final String consistencyCheckURL = "https://api.openreq.eu/milla/getConsistencyCheckForRequirement?requirementId=";
+    public static final String TRANSITIVE_CLOSURE_URL = "https://api.openreq.eu/milla/getTransitiveClosureOfRequirement?requirementId=";
+    public static final String TOP_PROPOSED_LINKS_URL = "https://api.openreq.eu/milla/getTopProposedDependenciesOfRequirement?requirementId=";
+    public static final String UPDATE_PROPOSED_DEPENDENCIES_URL = "https://api.openreq.eu/milla/updateProposedDependencies";
+    public static final String CONSISTENCY_CHECK_URL = "https://api.openreq.eu/milla/getConsistencyCheckForRequirement?requirementId=";
 //
 //
-//    public static final String transitiveClosureURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTransitiveClosureOfRequirement?requirementId=";
-//    public static final String topProposedLinksURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTopProposedDependenciesOfRequirement?requirementId=";
-//    public static final String updateProposedDependenciesURL = "https://bugreports-test.qt.io/rest/fisutankki/1/updateProposedDependencies";
-//    public static final String consistencyCheckURL = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=";
+//    public static final String TRANSITIVE_CLOSURE_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTransitiveClosureOfRequirement?requirementId=";
+//    public static final String TOP_PROPOSED_LINKS_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTopProposedDependenciesOfRequirement?requirementId=";
+//    public static final String UPDATE_PROPOSED_DEPENDENCIES_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/updateProposedDependencies";
+//    public static final String CONSISTENCY_CHECK_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/getConsistencyCheckForRequirement?requirementId=";
 
-//    public static final String transitiveClosureURL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=";
-//    public static final String topProposedLinksURL = "http://217.172.12.199:9203/getTopProposedDependenciesOfRequirement?requirementId=";
-//    public static final String updateProposedDependenciesURL = "http://217.172.12.199:9203/updateProposedDependencies";
-//    public static final String consistencyCheckURL = "http://217.172.12.199:9203/getConsistencyCheckForRequirement?requirementId=";
+//    public static final String TRANSITIVE_CLOSURE_URL = "http://217.172.12.199:9203/getTransitiveClosureOfRequirement?requirementId=";
+//    public static final String TOP_PROPOSED_LINKS_URL = "http://217.172.12.199:9203/getTopProposedDependenciesOfRequirement?requirementId=";
+//    public static final String UPDATE_PROPOSED_DEPENDENCIES_URL = "http://217.172.12.199:9203/updateProposedDependencies";
+//    public static final String CONSISTENCY_CHECK_URL = "http://217.172.12.199:9203/getConsistencyCheckForRequirement?requirementId=";
 
-    public static final String jiraAuthorizationAddress = "https://bugreports-test.qt.io/rest/fisutankki/1/getJiraAuthorizationAddress";
-    public static final String verifyAuthAddress = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization";
+    public static final String JIRA_AUTHORIZATION_ADDRESS = "https://bugreports-test.qt.io/rest/fisutankki/1/getJiraAuthorizationAddress";
+    public static final String VERIFY_AUTH_ADDRESS = "https://bugreports-test.qt.io/rest/fisutankki/1/verifyJiraAuthorization";
 }

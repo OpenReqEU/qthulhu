@@ -9,7 +9,7 @@ import java.util.HashMap;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.calculateUniqueID;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.cleanText;
 
-public class NewNodeEdgeSet
+public class NodeEdgeSetBuilder
 {
     //there is no layer 0 in the JSON which would be the issues that were searched for
     private static HashMap<String, Integer> layerMap;
@@ -17,7 +17,7 @@ public class NewNodeEdgeSet
     private static HashMap<String, Long> idMap;
 
     // Constructor due to Sonarqube complains
-    private NewNodeEdgeSet() {
+    private NodeEdgeSetBuilder() {
 
     }
     //builds and returns the node and edge set of one or multiple issues

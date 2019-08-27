@@ -25,9 +25,9 @@ public class HelperFunctions
         int projectId = ProjectIDs.getProjectID(project);
 
         //we are using regex here because UH's services sometimes mock issues and then the key is funny
-        String StringNodeId = key.substring(n + 1).replaceAll("[^0-9]", "");
-        StringNodeId = projectId + StringNodeId;
-        return Long.parseLong(StringNodeId);
+        String stringNodeId = key.substring(n + 1).replaceAll("[^0-9]", "");
+        stringNodeId = projectId + stringNodeId;
+        return Long.parseLong(stringNodeId);
     }
 
     /**

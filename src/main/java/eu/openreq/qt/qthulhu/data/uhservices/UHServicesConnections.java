@@ -15,6 +15,10 @@ import org.springframework.web.client.RestTemplate;
  */
 public class UHServicesConnections
 {
+    private UHServicesConnections()
+    {
+
+    }
     /**
      * This fetches the data contained in a JSON that follows the OpenReq JSON format standard
      *
@@ -27,7 +31,7 @@ public class UHServicesConnections
     {
         RestTemplate template = new RestTemplate();
         //gets transitive Closure (means the whole issue link map of an specified issue)
-        String transitiveClosureURL = Property.transitiveClosureURL + issueKey;
+        String transitiveClosureURL = Property.TRANSITIVE_CLOSURE_URL + issueKey;
 
 
         String requirement;
@@ -37,7 +41,7 @@ public class UHServicesConnections
         }
         catch (HttpClientErrorException e)
         {
-            System.out.println("Error " + e);
+//            System.out.println("Error " + e);
             throw (e);
         }
         catch (HttpServerErrorException e)
@@ -60,7 +64,7 @@ public class UHServicesConnections
     public static JsonObject fetchTopProposedLinks(String issueKey, int maxResults) throws HttpClientErrorException, HttpServerErrorException
     {
         RestTemplate template = new RestTemplate();
-        String topProposedLinksURL = Property.topProposedLinksURL + issueKey + "&maxResults=" + maxResults;
+        String topProposedLinksURL = Property.TOP_PROPOSED_LINKS_URL + issueKey + "&maxResults=" + maxResults;
 
 
         String proposedLinks;
@@ -70,7 +74,7 @@ public class UHServicesConnections
         }
         catch (HttpClientErrorException e)
         {
-            System.out.println("Error " + e);
+//            System.out.println("Error " + e);
             throw (e);
         }
         catch (HttpServerErrorException e)
@@ -89,11 +93,11 @@ public class UHServicesConnections
 
         try
         {
-            response = template.postForObject(Property.updateProposedDependenciesURL, updatedProposedLinks, String.class);
+            response = template.postForObject(Property.UPDATE_PROPOSED_DEPENDENCIES_URL, updatedProposedLinks, String.class);
         }
         catch (HttpClientErrorException e)
         {
-            System.out.println("Error " + e);
+//            System.out.println("Error " + e);
             throw (e);
         }
         catch (HttpServerErrorException e)
@@ -116,7 +120,7 @@ public class UHServicesConnections
         HttpClientErrorException, HttpServerErrorException
         {
             RestTemplate template = new RestTemplate();
-            String consistencyCheckURL = Property.consistencyCheckURL + issueKey;
+            String consistencyCheckURL = Property.CONSISTENCY_CHECK_URL + issueKey;
 
 
             String rawResponse;
@@ -127,7 +131,7 @@ public class UHServicesConnections
             }
             catch (HttpClientErrorException e)
             {
-                System.out.println("Error " + e);
+//                System.out.println("Error " + e);
                 throw (e);
             }
             catch (HttpServerErrorException e)
@@ -142,7 +146,7 @@ public class UHServicesConnections
                 HttpClientErrorException, HttpServerErrorException
         {
             RestTemplate template = new RestTemplate();
-            String URL = Property.jiraAuthorizationAddress;
+            String URL = Property.JIRA_AUTHORIZATION_ADDRESS;
 
             String response;
             try
@@ -151,7 +155,7 @@ public class UHServicesConnections
             }
             catch (HttpClientErrorException e)
             {
-                System.out.println("Error " + e);
+//                System.out.println("Error " + e);
                 throw (e);
             }
             catch (HttpServerErrorException e)
@@ -165,7 +169,7 @@ public class UHServicesConnections
                 HttpClientErrorException, HttpServerErrorException
         {
             RestTemplate template = new RestTemplate();
-            String URL = Property.verifyAuthAddress;
+            String URL = Property.VERIFY_AUTH_ADDRESS;
 
             String response;
             try
@@ -174,7 +178,7 @@ public class UHServicesConnections
             }
             catch (HttpClientErrorException e)
             {
-                System.out.println("Error " + e);
+//                System.out.println("Error " + e);
                 throw (e);
             }
             catch (HttpServerErrorException e)

@@ -3,6 +3,8 @@ package eu.openreq.qt.qthulhu.controller;
 import com.google.gson.JsonObject;
 import eu.openreq.qt.qthulhu.MainApp;
 import eu.openreq.qt.qthulhu.data.HelperFunctions;
+import eu.openreq.qt.qthulhu.data.uhservices.LayerDepthChecker;
+import eu.openreq.qt.qthulhu.data.uhservices.UHServicesConnections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +25,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NetworkControllerTest
 {
     private MockMvc mockMvc;
+    private MockMvc mockMillaMvc;
 
     @Autowired
     NetworkController target;
 
+    @Autowired
+    MillaController targetMilla;
+
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(target).build();
+        mockMillaMvc = MockMvcBuilders.standaloneSetup(targetMilla).build();
     }
 
     @Test
@@ -67,11 +74,49 @@ public class NetworkControllerTest
     }
 
     @Test
-    public void checkDetectionService() throws Exception
+    public void checkDetectionService()
     {
-        mockMvc.perform(get("/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
+        UHServicesConnections.fetchTopProposedLinks("QTWB-30", 5);
+        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
     }
 
+    @Test
+    public void depDetectionTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void consistCheckerTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
+    }
+
+
+
+    @Test
+    public void checkTooLowLayerTest()
+    {
+        assertTrue("should be 1", LayerDepthChecker.checkForValidLayerDepth(-1,1) == 1);
+    }
+
+    @Test
+    public void checkTooHighLayerTest()
+    {
+        assertTrue("should be 5", LayerDepthChecker.checkForValidLayerDepth(56,1) == 5);
+    }
+
+    @Test
+    public void checknullLayerTest()
+    {
+        assertTrue("should be 1", LayerDepthChecker.checkForValidLayerDepth(null,3) == 1);
+    }
+
+    @Test
+    public void checkCorrectLayerTest()
+    {
+        assertTrue("should be 3", LayerDepthChecker.checkForValidLayerDepth(4,-1) == 3);
+    }
 
     @Test
     public void calcUniqueIdQTWBTest()

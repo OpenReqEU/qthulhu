@@ -7,6 +7,11 @@ package eu.openreq.qt.qthulhu.data.uhservices;
  */
 public class LayerDepthChecker
 {
+
+    private LayerDepthChecker()
+    {
+
+    }
     /**
      * returns a valid layer depth if the change would violate the layer rules
      *
@@ -18,7 +23,7 @@ public class LayerDepthChecker
     {
         if (layerDepth == null)
         {
-            layerDepth = 1;
+            return 1;
         }
         if ((layerDepth + layerChange) > 4)
         {
