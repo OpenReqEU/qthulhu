@@ -54,17 +54,17 @@ public class NetworkControllerTest
 //                .andExpect(view().name("index"));
     }
 
-//    @Test
-//    public void issueURLwithIDTest() throws Exception
-//    {
-//        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void issueURLwithIDandDepthTest() throws Exception
-//    {
-//        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().isOk());
-//    }
+    @Test
+    public void issueURLwithIDTest() throws Exception
+    {
+        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void issueURLwithIDandDepthTest() throws Exception
+    {
+        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().isOk());
+    }
 
     @Test
     public void issueWrongKeyTest() throws Exception
