@@ -1,5 +1,6 @@
 package eu.openreq.qt.qthulhu.controller;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import eu.openreq.qt.qthulhu.MainApp;
 import eu.openreq.qt.qthulhu.data.HelperFunctions;
@@ -181,6 +182,14 @@ public class NetworkControllerTest
         String cleanText = HelperFunctions.cleanText(testJsonText.get("description"));
         System.out.println(cleanText);
         assertTrue("Wrong Text", cleanText.equals("none") );
+    }
+
+    @Test
+    public void checkFillPartsTest()
+    {
+        JsonArray parts = new JsonArray();
+        HelperFunctions.fillParts(parts, "placeholder");
+        assertTrue("Still empty", !parts.equals(null));
     }
 
 

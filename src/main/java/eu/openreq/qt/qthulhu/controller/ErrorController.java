@@ -28,36 +28,36 @@ public class ErrorController implements org.springframework.boot.autoconfigure.w
 //        TODO: Create error view.jsp for all common errors of milla
         switch (httpErrorCode)
         {
-            case 400:
-            {
-//                TODO: Change viewName to corresponding template.
-                errorPage = new ModelAndView(error);
-                break;
-            }
-            case 401:
-            {
-//                TODO: Change viewName to corresponding template.
-                errorPage = new ModelAndView(error);
-                break;
-            }
-            case 404:
-            {
-//                TODO: Change viewName to corresponding template.
-                errorPage = new ModelAndView(error);
-                break;
-            }
-            case 405:
-            {
-//                TODO: Change viewName to corresponding template.
-                errorPage = new ModelAndView(error);
-                break;
-            }
-            case 500:
-            {
-//                TODO: Change viewName to corresponding template.
-                errorPage = new ModelAndView(error);
-                break;
-            }
+//            case 400:
+//            {
+////                TODO: Change viewName to corresponding template.
+//                errorPage = new ModelAndView(error);
+//                break;
+//            }
+//            case 401:
+//            {
+////                TODO: Change viewName to corresponding template.
+//                errorPage = new ModelAndView(error);
+//                break;
+//            }
+//            case 404:
+//            {
+////                TODO: Change viewName to corresponding template.
+//                errorPage = new ModelAndView(error);
+//                break;
+//            }
+//            case 405:
+//            {
+////                TODO: Change viewName to corresponding template.
+//                errorPage = new ModelAndView(error);
+//                break;
+//            }
+//            case 500:
+//            {
+////                TODO: Change viewName to corresponding template.
+//                errorPage = new ModelAndView(error);
+//                break;
+//            }
             default:
             {
                 errorPage = new ModelAndView(error);
