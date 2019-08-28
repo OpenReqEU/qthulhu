@@ -26,6 +26,7 @@ public class NetworkControllerTest
 {
     private MockMvc mockMvc;
     private MockMvc mockMillaMvc;
+    private MockMvc mockErrorMvc;
 
     @Autowired
     NetworkController target;
@@ -33,10 +34,14 @@ public class NetworkControllerTest
     @Autowired
     MillaController targetMilla;
 
+    @Autowired
+    MillaController targetError;
+
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(target).build();
         mockMillaMvc = MockMvcBuilders.standaloneSetup(targetMilla).build();
+        mockErrorMvc = MockMvcBuilders.standaloneSetup(targetError).build();
     }
 
     @Test
@@ -73,6 +78,12 @@ public class NetworkControllerTest
         mockMvc.perform(get("/issue/NOTAVALIDKEY-999")).andExpect(status().is4xxClientError());
     }
 
+    @Test
+    public void issueErrorPageTest() throws Exception
+    {
+        mockErrorMvc.perform(get("/error")).andExpect(status().is4xxClientError());
+    }
+
 //    @Test
 //    public void checkDetectionService()
 //    {
@@ -91,8 +102,6 @@ public class NetworkControllerTest
     {
         mockMillaMvc.perform(get("/milla/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
     }
-
-
 
     @Test
     public void checkTooLowLayerTest()
