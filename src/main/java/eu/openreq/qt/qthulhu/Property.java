@@ -8,7 +8,7 @@ public class Property {
     public static final String TOP_PROPOSED_LINKS_URL = "https://api.openreq.eu/milla/getTopProposedDependenciesOfRequirement?requirementId=";
     public static final String UPDATE_PROPOSED_DEPENDENCIES_URL = "https://api.openreq.eu/milla/updateProposedDependencies";
     public static final String CONSISTENCY_CHECK_URL = "https://api.openreq.eu/milla/getConsistencyCheckForRequirement?requirementId=";
-//
+////
 //
 //    public static final String TRANSITIVE_CLOSURE_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTransitiveClosureOfRequirement?requirementId=";
 //    public static final String TOP_PROPOSED_LINKS_URL = "https://bugreports-test.qt.io/rest/fisutankki/1/getTopProposedDependenciesOfRequirement?requirementId=";
