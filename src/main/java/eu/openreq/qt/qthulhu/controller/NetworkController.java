@@ -51,6 +51,9 @@ public class NetworkController {
         //issues are saved in uppercase in the database, lowercase does not return anything
         issue = issue.toUpperCase();
 
+
+        String issueString = "issue";
+
         try {
             //fetch issue data from mallikas (Database of UH)
             JsonObject issueData = UHServicesConnections.fetchTransitiveClosure(issue);
@@ -58,7 +61,7 @@ public class NetworkController {
             //in case the issue is not contained in mallikas
             if (issueData.getAsJsonArray("requirements").size() == 0) {
                 ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-                model.addObject("issue", issue);
+                model.addObject(issueString, issue);
                 return model;
             }
 
@@ -67,7 +70,7 @@ public class NetworkController {
 
             //add objects to model
             ModelAndView model = new ModelAndView("issueid", HttpStatus.OK);
-            model.addObject("issue", issue);
+            model.addObject(issueString, issue);
             model.addObject("depth", depth);
             model.addObject("nodeEdgeSet", nodeEdgeSet);
             model.addObject("maxDepth", nodeEdgeSet.get("max_depth").getAsInt());
@@ -75,7 +78,7 @@ public class NetworkController {
         } catch (HttpClientErrorException e) {
             //in case something goes wrong
             ModelAndView model = new ModelAndView("error", HttpStatus.NOT_FOUND);
-            model.addObject("issue", issue);
+            model.addObject(issueString, issue);
             return model;
         }
     }

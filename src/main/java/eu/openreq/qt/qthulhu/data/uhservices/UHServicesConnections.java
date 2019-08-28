@@ -72,11 +72,7 @@ public class UHServicesConnections
         {
             proposedLinks = template.getForObject(topProposedLinksURL, String.class);
         }
-        catch (HttpClientErrorException e)
-        {
-            throw (e);
-        }
-        catch (HttpServerErrorException e)
+        catch (Exception e)
         {
             throw (e);
         }
@@ -94,15 +90,10 @@ public class UHServicesConnections
         {
             response = template.postForObject(Property.UPDATE_PROPOSED_DEPENDENCIES_URL, updatedProposedLinks, String.class);
         }
-        catch (HttpClientErrorException e)
+        catch (Exception e)
         {
             throw (e);
         }
-        catch (HttpServerErrorException e)
-        {
-            throw (e);
-        }
-        System.out.println(response);
         return response;
     }
 
@@ -120,18 +111,12 @@ public class UHServicesConnections
             RestTemplate template = new RestTemplate();
             String consistencyCheckURL = Property.CONSISTENCY_CHECK_URL + issueKey;
 
-
-            String rawResponse;
             String consistencyCheck;
             try
             {
                 consistencyCheck = template.getForObject(consistencyCheckURL, String.class);
             }
-            catch (HttpClientErrorException e)
-            {
-                throw (e);
-            }
-            catch (HttpServerErrorException e)
+            catch (Exception e)
             {
                 throw (e);
             }
@@ -150,11 +135,7 @@ public class UHServicesConnections
             {
                 response = template.getForObject(URL, String.class);
             }
-            catch (HttpClientErrorException e)
-            {
-                throw (e);
-            }
-            catch (HttpServerErrorException e)
+            catch (Exception e)
             {
                 throw (e);
             }
@@ -172,11 +153,7 @@ public class UHServicesConnections
             {
                 response = template.postForObject(URL, token, String.class);
             }
-            catch (HttpClientErrorException e)
-            {
-                throw (e);
-            }
-            catch (HttpServerErrorException e)
+            catch (Exception e)
             {
                 throw (e);
             }

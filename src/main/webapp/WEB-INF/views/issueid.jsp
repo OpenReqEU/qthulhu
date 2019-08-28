@@ -176,8 +176,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="filter-tab" data-toggle="tab" href="#filter-box" role="tab"
-                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodesTab();">Node
-                        Filter
+                       aria-controls="filter-tab" aria-selected="false" onclick="filterNodesTab();">Node Filter
                     </a>
                 </li>
             </ul>
@@ -210,6 +209,7 @@
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                                         <p id="ccResult"></p>
+                    <button class="collapsible">Releases</button><div class="content"><p id="ccReleases"></p></div>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Only issues with one of the selected statuses and types will be displayed.</p>
@@ -384,43 +384,43 @@
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="0"/>
-                                <img src="../images/prio/0.png" width="20" height="20" align="middle" alt="P0: Blocker"/>P0: Blocker
+                                <img src="../images/prio/0.png" width="20" height="20" alt="P0: Blocker"/>P0: Blocker
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="1"/>
-                                <img src="../images/prio/1.png" width="20" height="20" align="middle" alt="P1: Critical"/>P1: Critical
+                                <img src="../images/prio/1.png" width="20" height="20" alt="P1: Critical"/>P1: Critical
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="2"/>
-                                <img src="../images/prio/2.png" width="20" height="20" align="middle" alt="P2: Important"/>P2: Important
+                                <img src="../images/prio/2.png" width="20" height="20" alt="P2: Important"/>P2: Important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="3"/>
-                                <img src="../images/prio/3.png" width="20" height="20" align="middle" alt="P3: Somewhat important"/>P3: Somewhat important
+                                <img src="../images/prio/3.png" width="20" height="20" alt="P3: Somewhat important"/>P3: Somewhat important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="4"/>
-                                <img src="../images/prio/4.png" width="20" height="20" align="middle" alt="P4: Low"/>P4: Low
+                                <img src="../images/prio/4.png" width="20" height="20" alt="P4: Low"/>P4: Low
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="5"/>
-                                <img src="../images/prio/5.png" width="20" height="20" align="middle" alt="P5: Not important"/>P5: Not important
+                                <img src="../images/prio/5.png" width="20" height="20" alt="P5: Not important"/>P5: Not important
                             </label>
                         </span>
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="7"/>
-                                <img src="../images/prio/7.png" width="20" height="20" align="middle" alt="Not evaluated"/>Not evaluated
+                                <img src="../images/prio/7.png" width="20" height="20" alt="Not evaluated"/>Not evaluated
                             </label>
                         </span>
                         <br>
@@ -471,6 +471,21 @@
 
     let nodeElements = [];
     let edgeElements = [];
+
+    let coll = document.getElementsByClassName("collapsible");
+    let i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            let content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
 
     $(document).ready(function () {
         infoTab();
@@ -1382,14 +1397,16 @@
                         regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                     }
                     let ccMessage = "";
+                    let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
                     if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                        ccMessage = ccMessage.concat("<strong><font color=\"#17b2ad\">Release plan is inconsistent.</font></strong>")
+                        ccMessage = ccMessage.concat("<h5><font color=\"#FB4A08\">Release plan is inconsistent.</font></h5>").concat(relIncMessage)
                     }
                     else {
-                        ccMessage = ccMessage.concat("<strong><font color=\"#FB4A08\">Release plan is consistent.</font></strong>")
+                        ccMessage = ccMessage.concat("<h5><font color=\"#17b2ad\">Release plan is consistent.</font></h5>")
                     }
-                    let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
-                    document.getElementById('ccResult').innerHTML = "<h5>Result:</h5>".concat(ccMessage).concat("<br>") + relIncMessage + "<br>" + "<button class=\"collapsible\">Releases</button><div class=\"content\"><p>" + regsInReleases + "</p> </div>"
+
+                    document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
+                    document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>")
                 }
             };
 
