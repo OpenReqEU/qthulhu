@@ -73,6 +73,14 @@
 </div>
 
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
+    <div class="row">
+        <p>
+        This is a prototype of the <a href="https://openreq.eu/"> OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool"> Qt Forum </a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <%--Header and Loader--%>
     <div class="row">
 
@@ -84,12 +92,6 @@
             <div class="loader" id="loader"></div>
         </div>
 
-    </div>
-</div>
-
-<div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
-    <div class="row">
-        This is a prototype of the <a href="https://openreq.eu/">OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum </a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
     </div>
 </div>
 
