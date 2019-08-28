@@ -7,7 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<!DOCTYPE html> TODO network size--%>
+<!DOCTYPE html>
 <html>
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -1640,7 +1640,20 @@
         });
     });
 
-    $(document).on("load")
+    $(document).on("load");
+
+    function resizeCanvas () {
+        $('#issueLinkMap').height($(document).height()*0.60)
+    }
+
+    $(document).ready(function () {
+        $(window).resize(function(){
+            resizeCanvas();
+        });
+    });
+
+    resizeCanvas();
+
 
     //    ######GRAVEYARD & INFORMATION######
     //    LINKS in Qt and OpenReq JSON
