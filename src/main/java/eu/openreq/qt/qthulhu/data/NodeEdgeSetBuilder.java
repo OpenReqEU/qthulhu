@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.calculateUniqueID;
 import static eu.openreq.qt.qthulhu.data.HelperFunctions.cleanText;
@@ -15,6 +16,8 @@ public class NodeEdgeSetBuilder
     private static HashMap<String, Integer> layerMap;
     //contains all the pairs of issue key and unique int id
     private static HashMap<String, Long> idMap;
+    //proposed Nodes
+    private static HashSet<String> proposedSet;
 
     // Constructor due to Sonarqube complains
     private NodeEdgeSetBuilder() {
@@ -25,10 +28,12 @@ public class NodeEdgeSetBuilder
     {
         layerMap = new HashMap<>();
         idMap = new HashMap<>();
+        proposedSet = new HashSet<>();
         int maxLayer = 0;
 
         //iterates through all requirements if this is a proposed set
         JsonArray reqs = issueData.getAsJsonArray("requirements");
+        JsonArray deps = issueData.getAsJsonArray("dependencies");
         if (isProposed)
         {
             for (int i = 0; i < reqs.size(); i++)
@@ -38,6 +43,29 @@ public class NodeEdgeSetBuilder
                 long nodeId = calculateUniqueID(key);
 
                 idMap.put(key, nodeId);
+            }
+            // dealing with proposed sets where nodes are missing in requirements but are in dependencies
+            for (int i = 0; i < deps.size(); i++)
+            {
+                JsonObject currentDep = deps.get(i).getAsJsonObject();
+                String fromid = currentDep.get("fromid").getAsString();
+                String toid = currentDep.get("toid").getAsString();
+
+                if(!idMap.containsKey(fromid))
+                {
+                    proposedSet.add(fromid);
+                }
+
+                if(!idMap.containsKey(toid))
+                {
+                    proposedSet.add(toid);
+                }
+
+                long fromNodeId = calculateUniqueID(fromid);
+                long toNodeId = calculateUniqueID(toid);
+
+                idMap.put(fromid, fromNodeId);
+                idMap.put(toid, toNodeId);
             }
         }
         // iterates through layers if this is not a proposed set
@@ -61,7 +89,7 @@ public class NodeEdgeSetBuilder
                 }
             }
         }
-        JsonArray deps = issueData.getAsJsonArray("dependencies");
+
         JsonObject depthNodeEdgeSet = buildDepthNodeEdgeSet(reqs, deps, isProposed);
         depthNodeEdgeSet.addProperty("max_depth", maxLayer);
 
@@ -90,7 +118,7 @@ public class NodeEdgeSetBuilder
         }
         else
         {
-            for (int i = 0; (i < 6) && !isProposed; i++)
+            for (int i = 0; (i < 6); i++)
             {
                 JsonObject depth = new JsonObject();
                 depth.add("nodes", new JsonArray());
@@ -176,6 +204,34 @@ public class NodeEdgeSetBuilder
 
             JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
             nodes.add(currentReq);
+        }
+        if(isProposed)
+        {
+            JsonArray nodes = depthNodeEdgeSet.getAsJsonArray("nodes");
+            for(String keyId : proposedSet)
+            {
+                JsonObject req = new JsonObject();
+                req.addProperty("id", keyId);
+                req.addProperty("nodeid", idMap.get(keyId));
+                req.addProperty("name", "Not in DB");
+                req.addProperty("requirement_type", "Not in DB");
+                req.addProperty("status", "Not in DB");
+                req.addProperty("resolution", "Not in DB");
+                req.add("requirementParts", new JsonArray());
+                JsonArray parts = req.getAsJsonArray("requirementParts");
+                parts = HelperFunctions.fillParts(parts, "Not in DB");
+                for (int k = 0; k < parts.size(); k++)
+                {
+                    JsonObject part = parts.get(k).getAsJsonObject();
+                    JsonElement name = part.get("name");
+                    String nameAsString = name.getAsString().toLowerCase();
+                    JsonElement text = part.get("text");
+                    String textCleaned = cleanText(text);
+                    req.addProperty(nameAsString, textCleaned);
+                }
+                req.remove("requirementParts");
+                nodes.add(req);
+            }
         }
         return depthNodeEdgeSet;
     }

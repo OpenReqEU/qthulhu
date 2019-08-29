@@ -1144,6 +1144,7 @@
             {
                 dependencies: []
             };
+        console.log(proposedNodesEdges);
         $.each(proposedNodesEdges['edges'], function (i, v) {
             let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
             let fromid = v['fromid'];
@@ -1217,6 +1218,8 @@
     let proposedNodesEdges = [];
     let proposedIssuesList = [];
     let numberOfProposedLinks = 0;
+
+    console.log(proposedNodesEdges);
 
     //Similarity detection functionality
     //Showing and removing proposed issues
@@ -1316,12 +1319,14 @@
                                     from: fromID,
                                     to: toID,
                                     arrows: edgearrow,
-                                    label: edgelabel,
+                                    label: "proposed",
                                     color: {color: '#172B4D', inherit: false},
                                     width: 2,
                                     dashes: true
                                 });
                             }
+
+                            console.log(proposedNodesEdges)
                         });
 
                         numberOfProposedLinks = proposedEdgeElements.length;
@@ -1330,7 +1335,7 @@
                         nodes.add(proposedNodeElements);
                         edges.add(proposedEdgeElements);
 
-                        proposedViewActive = true;
+                                                proposedViewActive = true;
                         if (proposedIssuesList.length === 0) {
                             document.getElementById('ddResult').innerHTML = "No proposed links for issue " + currentIssue + ".";
                         }
@@ -1348,17 +1353,20 @@
                             for (let i = 0; i < proposedIssuesList.length; i++) {
                                 stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
                                     "<option value='REQUIRES'>dependency</option>" +
-                                    "<option value='CONTRIBUTES'>relates</option>" +
                                     "<option value='DUPLICATES'>duplicate</option>" +
+                                    "<option value='DECOMPOSITION'>epic</option>" +
+                                    "<option value='CONTRIBUTES'>relates</option>" +
                                     "<option value='REPLACES'>replacement</option>" +
-                                    "<option value='REFINES'>work breakdown</option>" +
                                     "<option value='DECOMPOSITION'>subtask</option>" +
-                                    "<option value='DECOMPOSITION'>epic</option></select></div></td><td>"
+                                    "<option value='REFINES'>work breakdown</option>" +
+                                    "</select></div></td><td>"
                                     + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
                                     + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
                             }
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
+
+                            console.log(proposedNodesEdges)
                         }
                     }
 

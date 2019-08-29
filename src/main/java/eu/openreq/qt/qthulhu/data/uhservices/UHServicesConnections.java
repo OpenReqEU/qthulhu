@@ -41,7 +41,6 @@ public class UHServicesConnections
         }
         catch (HttpClientErrorException e)
         {
-//            System.out.println("Error " + e);
             throw (e);
         }
         catch (HttpServerErrorException e)
