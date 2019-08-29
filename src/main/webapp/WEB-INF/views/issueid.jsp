@@ -53,10 +53,10 @@
 
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
-    <a href="https://openreq.eu/"><img alt="or_logo"
+    <a target="_blank" href="https://openreq.eu/"><img alt="or_logo"
                                        src="../images/or_logo.png"
                                        width="116px" height="30px"/></a>
-    <a href="https://bugreports.qt.io/browse/">Qt's Jira</a>
+    <a target="_blank" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
     <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">Report a Bug</a>
@@ -140,9 +140,6 @@
                         <div class="box green" style="display: inline-block;">
                         </div>
                         Done
-                        <div class="box teal" style="display: inline-block;">
-                        </div>
-                        Proposed
                     </div>
                 </div>
             </div>
@@ -1164,7 +1161,12 @@
                 id: id,
                 status: "PROPOSED",
                 toid: toid,
-            })
+            });
+
+            $('#issueInput').val(issueKey);
+            $('#depthInput').val(depth);
+            //
+            document.forms["search-id"].submit();
         });
 
         for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
@@ -1263,6 +1265,7 @@
                             let nodestatus = v['status'];
                             let noderesolution = v['resolution'];
                             let nodehidden = v['layer'] > depth;
+                            let nodegroup = colorPaletteStatus[nodestatus] || "unknown";
                             let nodelabel = "";
                             if (nodetype !== null) {
                                 nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
@@ -1292,8 +1295,8 @@
                                 proposedNodeElements.push({
                                     id: ID,
                                     label: nodelabel,
-                                    group: "proposed",
-                                    shape: 'box',
+                                    group: nodegroup,
+                                    shape: 'ellipse',
                                     title: nodetitle,
                                     level: level,
                                     hidden: nodehidden,
@@ -1548,8 +1551,8 @@
                     borderWidth: 2,
                     font: {color: 'black', multi: 'html'}
                 },
-                "proposed": {
-                    color: {background: '#17b2ad', border: '#172B4D'},
+                "unknown": {
+                    color: {background: '#aaa', border: '#172B4D'},
                     borderWidth: 2,
                     font: {color: 'black', multi: 'html'}
                 }
