@@ -1144,7 +1144,7 @@
             {
                 dependencies: []
             };
-        console.log(proposedNodesEdges);
+        // console.log(proposedNodesEdges);
         $.each(proposedNodesEdges['edges'], function (i, v) {
             let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
             let fromid = v['fromid'];
@@ -1184,7 +1184,7 @@
                 else {
                     updatedProposedLinksJSON.dependencies.splice(i, 1);
                 }
-                console.log(updatedProposedLinksJSON)
+                // console.log(updatedProposedLinksJSON)
             }
         }
         let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
@@ -1219,7 +1219,7 @@
     let proposedIssuesList = [];
     let numberOfProposedLinks = 0;
 
-    console.log(proposedNodesEdges);
+    // console.log(proposedNodesEdges);
 
     //Similarity detection functionality
     //Showing and removing proposed issues
@@ -1326,7 +1326,7 @@
                                 });
                             }
 
-                            console.log(proposedNodesEdges)
+                            // console.log(proposedNodesEdges)
                         });
 
                         numberOfProposedLinks = proposedEdgeElements.length;
@@ -1366,7 +1366,7 @@
                             stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                             document.getElementById('ddResult').innerHTML = stringList;
 
-                            console.log(proposedNodesEdges)
+                            // console.log(proposedNodesEdges)
                         }
                     }
 
