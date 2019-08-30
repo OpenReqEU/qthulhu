@@ -1477,9 +1477,9 @@
                 let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + issue;
                 xhr.open("GET", url, true);
 
-                document.getElementById('ccResult').innerHTML = "pending...";
-                document.getElementById('ccRelIncButton').innerHTML = "inconsistent links are being calculated...";
-                document.getElementById('ccReleasesButton').innerHTML = "searching for Releases in link map...";
+                document.getElementById('ccResult').innerHTML = "Pending...";
+                document.getElementById('ccRelIncButton').innerHTML = "Inconsistent links are being calculated...";
+                document.getElementById('ccReleasesButton').innerHTML = "Searching for releases in link map...";
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let json = JSON.parse(xhr.responseText);
@@ -1492,11 +1492,9 @@
                             regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                         }
                         let ccMessage = "";
-                        let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
-
 
                         if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                            ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>").concat(relIncMessage);
+                            ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>");
                             let relInc = json.response[0].RelationshipsInconsistent;
                             let relList =
                                 "<table style='width: 100%'><tr>\n" +
