@@ -219,12 +219,7 @@
 /*nav pill customization*/
 
 .nav-tabs a {
-    border: none;
-    background-color: #ffffff;
     color: #138f8b;
-    /*border-radius: 4px;*/
-    font-size: 16px;
-    /*padding: 8px 32px;*/
 }
 
 .tab-pane {
@@ -240,6 +235,11 @@
     border: none;
 }
 
+.nav-tabs a:hover {
+    background-color: #138f8b;
+    color: #fff;
+    border: none;
+}
 
 .nav-item .tooltiptext {
     visibility: hidden;
@@ -273,11 +273,7 @@
     opacity: 1;
 }
 
-.nav-tabs a:hover {
-    background-color: #138f8b;
-    color: #fff;
-    border: none;
-}
+
 
 /*Spinning circle to indicate that the site is loading*/
 
