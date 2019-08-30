@@ -1258,8 +1258,8 @@
         function sendProjectToMulperi(projectID) {
             try {
                 let xhr = new XMLHttpRequest();
-                //https://api.openreq.eu/milla/sendProjectToMulperi?projectId=
-                let url = "http://localhost:9203/sendProjectToMulperi?projectId=" + projectID;
+                let url = "https://api.openreq.eu/milla/sendProjectToMulperi?projectId=" + projectID;
+                //let url = "http://localhost:9203/sendProjectToMulperi?projectId=" + projectID;
                 xhr.open("POST", url, true);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function () {
