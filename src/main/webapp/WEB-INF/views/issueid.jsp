@@ -204,6 +204,7 @@
                 <%--</div>--%>
                 <div class="tab-pane fade" id="sd-box" role="tabpanel" aria-labelledby="sd-tab">
                     <p id="ddResult"></p>
+                    <p id="ddPending"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                     <p id="ccResult"></p>
@@ -419,6 +420,7 @@
                         <span>
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="7"/>
+                                <img src="../images/prio/7.png" width="20" height="20" alt="Not evaluated"/>Not evaluated
                                 <img src="../images/prio/7.png" width="20" height="20" alt="Not evaluated"/>Not evaluated
                             </label>
                         </span>
@@ -1143,7 +1145,6 @@
                 {
                     dependencies: []
                 };
-            // console.log(proposedNodesEdges);
             $.each(proposedNodesEdges['edges'], function (i, v) {
                 let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
                 let fromid = v['fromid'];
@@ -1165,10 +1166,10 @@
                     toid: toid,
                 });
 
-                $('#issueInput').val(issueKey);
-                $('#depthInput').val(depth);
-                //
-                document.forms["search-id"].submit();
+                // $('#issueInput').val(issueKey);
+                // $('#depthInput').val(depth);
+                // //
+                // document.forms["search-id"].submit();
             });
 
             for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
@@ -1210,6 +1211,10 @@
                 //{ dependencies : [...] }  => [...]
                 updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":") + 1, updatedProposedLinksResponse.length - 1);
                 xhr.send(updatedProposedLinksResponse);
+                document.getElementById("ddPending").innerHTML = "your request is being processed<br>the page will reload afterwards"
+                //TODO Clara: beautify!
+                //uncomment line below to actually reload page
+                //location.reload();
             }
             catch
                 (err) {
