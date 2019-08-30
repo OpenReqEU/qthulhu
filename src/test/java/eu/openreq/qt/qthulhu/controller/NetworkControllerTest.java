@@ -74,13 +74,6 @@ public class NetworkControllerTest
     }
 
     @Test
-    public void checkDetectionService()
-    {
-        UHServicesConnections.fetchTopProposedLinks("QTWB-30", 5);
-        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
-    }
-
-    @Test
     public void depDetectionTest() throws Exception
     {
         mockMillaMvc.perform(get("/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
