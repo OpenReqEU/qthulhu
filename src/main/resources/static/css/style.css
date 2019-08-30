@@ -244,7 +244,7 @@
 .nav-item .tooltiptext {
     visibility: hidden;
     width: 80%;
-    background-color: #555;
+    background-color: #272727;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -265,7 +265,7 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    border-color: #272727 transparent transparent transparent;
 }
 
 .nav-item:hover .tooltiptext {
@@ -297,30 +297,45 @@
 }
 
 /*Collapsible button for release of consistency checker*/
-/* Style the button that is used to open and close the collapsible content */
-.collapsible {
-    background-color: #eee;
-    color: #444;
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #17b2ad;
+    color: #ffffff;
     cursor: pointer;
     padding: 18px;
     width: 100%;
-    border: none;
     text-align: left;
+    border: none;
     outline: none;
+    transition: 0.4s;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.collapsible:hover {
-    background-color: #ccc;
+.accordion.active, .accordion:hover {
+    background-color: #138f8b;
 }
 
-/* Style the collapsible content. Note: hidden by default */
-.content {
+/* Style the accordion panel. Note: hidden by default */
+.panel {
     padding: 0 18px;
+    background-color: white;
     display: none;
     overflow: hidden;
-    background-color: #f1f1f1;
+    border: solid 1px lightgray;
 }
+
+.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #ffffff;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
 
 /*Navigation buttons for vis, if they are enabled*/
 
@@ -444,5 +459,5 @@ select {
 /*Tables*/
 
 th, td {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid lightgray;
 }

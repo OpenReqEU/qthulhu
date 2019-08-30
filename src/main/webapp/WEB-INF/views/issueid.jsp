@@ -208,8 +208,10 @@
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
                     <p id="ccResult"></p>
-                    <button class="collapsible">Releases</button>
-                    <div class="content"><p id="ccReleases"></p></div>
+                    <button class="accordion" id="ccRelIncButton">Inconsistent releases</button>
+                    <div class="panel"><p id="ccRelInc"></p></div>
+                    <button class="accordion" id="ccReleasesButton">Releases</button>
+                    <div class="panel"><p id="ccReleases"></p></div>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Only issues with one of the selected statuses and types will be displayed.</p>
@@ -472,17 +474,21 @@
         let nodeElements = [];
         let edgeElements = [];
 
-        let coll = document.getElementsByClassName("collapsible");
+        let acc = document.getElementsByClassName("accordion");
         let i;
 
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function () {
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
                 this.classList.toggle("active");
-                let content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
+
+                /* Toggle between hiding and showing the active panel */
+                let panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
                 } else {
-                    content.style.display = "block";
+                    panel.style.display = "block";
                 }
             });
         }
@@ -1285,7 +1291,7 @@
                     if (xhr.readyState === 4 && xhr.status === 200)
                     {
                         console.log(projectID + " done");
-                        document.getElementById("ddPending").innerHTML = "The page will now reload.<br>If you have time to read this please reload the page manually."
+                        document.getElementById("ddPending").innerHTML = "The page will now reload.<br>If you have time to read this please reload the page manually.";
                         location.reload();
                     }
                 };
@@ -1472,9 +1478,13 @@
                 xhr.open("GET", url, true);
 
                 document.getElementById('ccResult').innerHTML = "pending...";
+                document.getElementById('ccRelIncButton').innerHTML = "inconsistent links are being calculated...";
+                document.getElementById('ccReleasesButton').innerHTML = "searching for Releases in link map...";
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let json = JSON.parse(xhr.responseText);
+
+                        console.log(json);
 
                         let releases = json.response[0].Releases;
                         let regsInReleases = "";
@@ -1483,15 +1493,32 @@
                         }
                         let ccMessage = "";
                         let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
+
+
                         if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                            ccMessage = ccMessage.concat("<h5><font color=\"#FB4A08\">Release plan is inconsistent.</font></h5>").concat(relIncMessage)
+                            ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>").concat(relIncMessage);
+                            let relInc = json.response[0].RelationshipsInconsistent;
+                            let relList =
+                                "<table style='width: 100%'><tr>\n" +
+                                "<th>Issue Keys</th>" +
+                                "<th>Link type</th>" +
+                                "</tr>";
+                            for (let i = 0; i < relInc.length; i++) {
+                                relList = relList + "<tr><td>" + relInc[i].To + ", " + relInc[i].From + "</a></td><td>" + relInc[i].Type + "</td></tr>";
+                            }
+                            relList = relList + "</table>";
+                            document.getElementById('ccRelInc').innerHTML = relList;
+                            document.getElementById('ccRelIncButton').innerHTML = "Inconsistent items";
                         }
                         else {
-                            ccMessage = ccMessage.concat("<h5><font color=\"#17b2ad\">Release plan is consistent.</font></h5>")
+                            ccMessage = ccMessage.concat("<h5><font color=\"#138f8b\">Release plan is consistent.</font></h5>");
+                            document.getElementById("ccRelInc").style.display = "none";
+                            document.getElementById("ccRelIncButton").style.display = "none"
                         }
 
                         document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
-                        document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>")
+                        document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>");
+                        document.getElementById('ccReleasesButton').innerHTML = "Releases found";
                     }
                 };
 
