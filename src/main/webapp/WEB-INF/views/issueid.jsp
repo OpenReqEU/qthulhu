@@ -1230,7 +1230,6 @@
                     else {
                         updatedProposedLinksJSON.dependencies.splice(i, 1);
                     }
-                    // console.log(updatedProposedLinksJSON)
                 }
             }
             let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
@@ -1737,6 +1736,7 @@
                         $('#issueInput').val(issueKey);
                         $('#depthInput').val(depth);
                         //
+                        buildURL();
                         document.forms["search-id"].submit();
                     }
                 }
