@@ -1468,7 +1468,7 @@
             try {
                 let xhr = new XMLHttpRequest();
 
-                let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+                let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + issue;
                 xhr.open("GET", url, true);
 
                 document.getElementById('ccResult').innerHTML = "pending...";
