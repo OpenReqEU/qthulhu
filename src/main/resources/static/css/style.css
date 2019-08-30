@@ -220,11 +220,11 @@
 
 .nav-tabs a {
     border: none;
-    background-color: #17b2ad;
-    color: #ffffff;
-    border-radius: 4px;
+    background-color: #ffffff;
+    color: #138f8b;
+    /*border-radius: 4px;*/
     font-size: 16px;
-    padding: 8px 32px;
+    /*padding: 8px 32px;*/
 }
 
 .tab-pane {
@@ -240,10 +240,6 @@
     border: none;
 }
 
-.nav-tabs a:hover {
-    background-color: #138f8b;
-    border: none;
-}
 
 .nav-item .tooltiptext {
     visibility: hidden;
@@ -279,6 +275,7 @@
 
 .nav-tabs a:hover {
     background-color: #138f8b;
+    color: #fff;
     border: none;
 }
 

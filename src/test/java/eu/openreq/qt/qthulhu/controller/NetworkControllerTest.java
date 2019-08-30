@@ -79,7 +79,7 @@ public class NetworkControllerTest
 //        UHServicesConnections.fetchTopProposedLinks("QTWB-30", 5);
 //        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
 //    }
-
+//
 //    @Test
 //    public void depDetectionTest() throws Exception
 //    {

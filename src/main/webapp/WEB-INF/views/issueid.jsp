@@ -14,7 +14,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146396443-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-146396443-1');
@@ -54,8 +58,8 @@
 <%--This is the navigation bar located at the top, it contains a link to the project website and a search box--%>
 <div class="topnav">
     <a target="_blank" href="https://openreq.eu/"><img alt="or_logo"
-                                       src="../images/or_logo.png"
-                                       width="116px" height="30px"/></a>
+                                                       src="../images/or_logo.png"
+                                                       width="116px" height="30px"/></a>
     <a target="_blank" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
     <%--<a target="_blank" href="https://forms.gle/GQQhym7obLEss3bCA">Feedback</a>--%>
@@ -75,7 +79,9 @@
 <div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <div class="row">
         <p>
-        This is a prototype of the <a href="https://openreq.eu/"> OpenReq project</a>, please give feedback through the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool"> Qt Forum </a> or this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
+            This is a prototype of the <a href="https://openreq.eu/"> OpenReq project</a>, please give feedback through
+            the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool"> Qt Forum </a> or
+            this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
         </p>
     </div>
 </div>
@@ -100,48 +106,46 @@
     <div class="row">
         <div class="col-8">
             <div class="row">
-                <%--Depth buttons--%>
-                <button class="button layer button-effect-teal" onclick="depth1()" id="depth-1-btn"
-                        style="margin-left: 2px;">Depth 1
-                </button>
-                <button class="button layer button-effect-teal" onclick="depth2()" id="depth-2-btn"
-                        style="margin-left: 2px;">Depth 2
-                </button>
-                <button class="button layer button-effect-teal" onclick="depth3()" id="depth-3-btn"
-                        style="margin-left: 2px;">Depth 3
-                </button>
-                <button class="button layer button-effect-teal" onclick="depth4()" id="depth-4-btn"
-                        style="margin-left: 2px;">Depth 4
-                </button>
-                <button class="button layer button-effect-teal" onclick="depth5()" id="depth-5-btn"
-                        style="margin-left: 2px;">Depth 5
-                </button>
+                <div class="col-8">
+                    <%--Depth buttons--%>
+                    <button class="button layer button-effect-teal" onclick="depth1()" id="depth-1-btn"
+                            style="margin-left: 2px;">Depth 1
+                    </button>
+                    <button class="button layer button-effect-teal" onclick="depth2()" id="depth-2-btn"
+                            style="margin-left: 2px;">Depth 2
+                    </button>
+                    <button class="button layer button-effect-teal" onclick="depth3()" id="depth-3-btn"
+                            style="margin-left: 2px;">Depth 3
+                    </button>
+                    <button class="button layer button-effect-teal" onclick="depth4()" id="depth-4-btn"
+                            style="margin-left: 2px;">Depth 4
+                    </button>
+                    <button class="button layer button-effect-teal" onclick="depth5()" id="depth-5-btn"
+                            style="margin-left: 2px;">Depth 5
+                    </button>
+                </div>
+                <%--Legend--%>
+                <div class="col-4">
+                    <p>
+                    <div class="box blue" style="display: inline-block;">
+                    </div>
+                    To-Do
+                    <div class="box red" style="display: inline-block;">
+                    </div>
+                    Stuck
+                    <div class="box yellow" style="display: inline-block;">
+                    </div>
+                    In Progress
+                    <div class="box green" style="display: inline-block;">
+                    </div>
+                    Done
+                    </p>
+                </div>
             </div>
             <div class="row">
                 <%--Issue Link Map--%>
                 <div class="card" id="issueLinkMap"></div>
                 <br>
-            </div>
-            <br>
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Legend</h5>
-                        <p class="card-text">
-                        <div class="box blue" style="display: inline-block;">
-                        </div>
-                        To-Do
-                        <div class="box red" style="display: inline-block;">
-                        </div>
-                        Stuck
-                        <div class="box yellow" style="display: inline-block;">
-                        </div>
-                        In Progress
-                        <div class="box green" style="display: inline-block;">
-                        </div>
-                        Done
-                    </div>
-                </div>
             </div>
         </div>
         <%--Information--%>
@@ -205,8 +209,9 @@
                     <p id="ddResult"></p>
                 </div>
                 <div class="tab-pane fade" id="cc-box" role="tabpanel" aria-labelledby="cc-tab">
-                                        <p id="ccResult"></p>
-                    <button class="collapsible">Releases</button><div class="content"><p id="ccReleases"></p></div>
+                    <p id="ccResult"></p>
+                    <button class="collapsible">Releases</button>
+                    <div class="content"><p id="ccReleases"></p></div>
                 </div>
                 <div class="tab-pane fade" id="filter-box" role="tabpanel" aria-labelledby="filter-tab">
                     <p>Only issues with one of the selected statuses and types will be displayed.</p>
@@ -438,1262 +443,1262 @@
     </div>
 </div>
 
-
-<script>
-    $('#search-id').submit(function () {
-        $('#loader').show();
-    });
-
-    //getting the data for the network and depth btn disabling
-    let issue = '${issue}';
-    let depth = '${depth}';
-    let max_depth = '${maxDepth}';
-    let nodeEdgeSet = '${nodeEdgeSet}';
-    let nodeEdgeObject = JSON.parse(nodeEdgeSet);
-    let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
-
-    let helpNodeSet = [];
-    let filteredNodes = [];
-    let filterArray = [];
-    let distance = 240;
-    let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
-
-
-    //proposed View active boolean
-    let proposedViewActive = false;
-    //infoTab View active boolean
-    let infoTabActive = true;
-    //saves the Issue that links get proposed for
-    let propLinksIssue;
-
-    let nodeElements = [];
-    let edgeElements = [];
-
-    let coll = document.getElementsByClassName("collapsible");
-    let i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            let content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
+    <script>
+        $('#search-id').submit(function () {
+            $('#loader').show();
         });
-    }
 
-    $(document).ready(function () {
-        infoTab();
-        if (allNodesArray[1].length > 12) {
-            distance *= Math.sqrt(allNodesArray[1].length / 12);
-        }
-        calculatePositions();
-        nodes.add(allNodesArray[0]);
-        nodes.add(allNodesArray[1]);
-        edges.add(depth0Edges);
-        edges.add(depth1Edges);
-        updateDepthButtons();
-        if (depth >= 2) {
-            add2layer()
-        }
-        if (depth >= 3) {
-            add3layer();
-        }
-        if (depth >= 4) {
-            add4layer();
-        }
-        if (depth === 5) {
-            add5layer();
-        }
-        filterNodes();
-    });
+        //getting the data for the network and depth btn disabling
+        let issue = '${issue}';
+        let depth = '${depth}';
+        let max_depth = '${maxDepth}';
+        let nodeEdgeSet = '${nodeEdgeSet}';
+        let nodeEdgeObject = JSON.parse(nodeEdgeSet);
+        let currentIssue = nodeEdgeObject['0']['nodes']['0']['id'];
 
-    //Help Functions
-    //builds URL for search form
-    function buildURL() {
-        let url = "../issue/" + document.getElementById("issueInput").value;
-        let search_form = document.getElementById("search-id");
-        search_form.action = url;
-    }
+        let helpNodeSet = [];
+        let filteredNodes = [];
+        let filterArray = [];
+        let distance = 240;
+        let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
 
-    //function to help find a specific item depending on its identifier
-    function findElement(arr, propName, propValue) {
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] === propValue)
-                return arr[i];
-        }
-    }
 
-    function findInAllNodes(id) {
-        let elem;
-        for (let i = 0; i < allNodesArray.length; i++) {
-            elem = findElement(allNodesArray[i], "id", id);
-            if (typeof elem !== "undefined") {
-                return elem;
-            }
-        }
-    }
+        //proposed View active boolean
+        let proposedViewActive = false;
+        //infoTab View active boolean
+        let infoTabActive = true;
+        //saves the Issue that links get proposed for
+        let propLinksIssue;
 
-    function getIndexInAll(id) {
-        for (let i = 0; i <= 5; i++) {
-            for (let j = 0; j < allNodesArray[i].length; j++) {
-                if (allNodesArray[i][j].id === id) {
-                    return [i, j];
+        let nodeElements = [];
+        let edgeElements = [];
+
+        let coll = document.getElementsByClassName("collapsible");
+        let i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                let content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
                 }
-            }
-        }
-    }
-
-    function checkElement(arr, propName, propValue) {
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i][propName] === propValue)
-                return true;
-        }
-        return false;
-    }
-
-    function checkNodesContains(id) {
-        return (nodes.get(id) !== null);
-    }
-
-    //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
-    function findProposed(status, type) {
-        if (status === "proposed")
-            return "proposed";
-        else {
-            return type;
-        }
-    }
-
-    function getCheckedCheckboxes() {
-        //let checkboxes = document.querySelectorAll('input[name="' + checkboxName + 'Status"]:checked'), values = [];
-        let checkboxes = document.querySelectorAll(':checked'), values = [];
-        Array.prototype.forEach.call(checkboxes, function (el) {
-            values.push(el.value);
-        });
-        return values;
-    }
-
-    function toggle(source) {
-        let checkboxes = document.getElementsByName(source.name);
-        for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = source.checked;
-        }
-    }
-
-    function toggleAll(source) {
-        let types = ["ToDoStatus", "ProgStatus", "StuckStatus", "DoneStatus", "Status"];
-        for (let i = 0; i < types.length; i++) {
-            toggle({name: types[i], checked: source.checked});
-        }
-    }
-
-    function isFiltered(status, type, priority) {
-        return !(filterArray.includes(status) && filterArray.includes(type) && filterArray.includes(priority));
-    }
-
-    /**
-     * arrange nodes in circles, with the currentIssue in the center
-     */
-    function calculatePositions() {
-        if (typeof allNodesArray[0][0] !== "undefined") {
-            // the one element with depth 0 is in the center
-            allNodesArray[0][0].x = 0;
-            allNodesArray[0][0].y = 0;
-            allNodesArray[0][0].angle = 0;
-            allNodesArray[0][0].fixed = true;
-            allNodesArray[0][0].heightConstraint = 60;
-            allNodesArray[0][0].widthConstraint = 135;
-            allNodesArray[0][0].font = {multi: true, size: 24};
-            // allNodesArray[1] is layer one and surrounds the center
-            for (let i = 0; i < allNodesArray[1].length; i++) {
-                positionsDepthOne(allNodesArray[1].length, i);
-            }
-            for (let i = 2; i <= max_depth; i++) {
-                positionsOuterRings(i);
-            }
-        }
-    }
-
-    function positionsDepthOne(maxElements, currentElement) {
-        let angle = 360 / maxElements;
-        let direction;
-        let resultingAngle;
-
-        // if depth 1 has only one element it will be displayed below the center
-        if (maxElements === 1) {
-            direction = getDirectionByAngle(0);
-            resultingAngle = 0;
-        }
-        // if there are two elements they will be displayed next to each other below the center
-        else if (maxElements === 2) {
-            direction = getDirectionByAngle(-45 + 90 * currentElement);
-            resultingAngle = -45 + 90 * currentElement;
-        }
-        // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
-        else if (maxElements % 2) {
-            direction = getDirectionByAngle(180 + (angle * currentElement));
-            resultingAngle = 180 + angle * currentElement;
-        }
-        // even amount: first element on the top right, rest circle around center
-        else {
-            direction = getDirectionByAngle(45 + (angle * currentElement));
-            resultingAngle = 45 + angle * currentElement;
-        }
-        allNodesArray[1][currentElement].x = distance * direction.x;
-        allNodesArray[1][currentElement].y = distance * direction.y;
-        allNodesArray[1][currentElement].angle = resultingAngle;
-    }
-
-    function positionsOuterRings(depth) {
-        let connectionsOut = [];
-        let index;
-        let direction;
-        let angleDiff;
-        for (let i = 0; i < allNodesArray[depth - 1].length; i++) {
-            connectionsOut = findConnectedNodesOuter(allNodesArray[depth - 1][i]);
-            allNodesArray[depth - 1][i].connections = connectionsOut;
-            for (let j = 0; j < connectionsOut.length; j++) {
-                index = getIndexInAll(connectionsOut[j]);
-                angleDiff = Math.min(15, 360 / allNodesArray[depth].length);
-                angleDiff *= Math.ceil(j / 2);
-
-                if (j % 2) { // j == odd
-                    angleDiff *= -1;
-                }
-                direction = getDirectionByAngle(allNodesArray[depth - 1][i].angle + angleDiff);
-
-                allNodesArray[index[0]][index[1]].x = distance * depth * direction.x;
-                allNodesArray[index[0]][index[1]].y = distance * depth * direction.y;
-                allNodesArray[index[0]][index[1]].angle = allNodesArray[depth - 1][i].angle + angleDiff;
-            }
-        }
-    }
-
-    //calculates positions for proposed issues if the selected issue is in layer 0
-    function calculateProposedDepthOnePositions(j, maxElements) {
-        let angle = 360 / maxElements;
-        let direction;
-
-        // if depth 1 has only one element it will be displayed below the center
-        if (maxElements === 1) {
-            direction = getDirectionByAngle(0);
-        }
-        // if there are two elements they will be displayed next to each other below the center
-        else if (maxElements === 2) {
-            direction = getDirectionByAngle(-45 + 90 * j);
-        }
-        // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
-        else if (maxElements % 2) {
-            direction = getDirectionByAngle(180 + (angle * j));
-        }
-        // even amount: first element on the top right, rest circle around center
-        else {
-            direction = getDirectionByAngle(45 + (angle * j));
-        }
-        let coord_x = 0.6 * distance * direction.x;
-        let coord_y = 0.6 * distance * direction.y;
-        return {x: coord_x, y: coord_y};
-    }
-
-    //calculates positions for proposed issues if the selected issue is not layer 0
-    function calculateProposedOuterPositions(issueInfo, j) {
-        let index = getIndexInAll(issueInfo.nodeid);
-        let angleDiff = Math.min(15, 360 / proposedNodesEdges['nodes'].length);
-        angleDiff *= Math.ceil(j / 2);
-        if (j % 2) { // j == odd
-            angleDiff *= -1;
-        }
-        j++;
-        let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
-
-        let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
-        let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
-        return {x: coord_x, y: coord_y};
-    }
-
-    function getDirectionByAngle(angle) {
-        let direction = {};
-        direction.x = Math.sin(angle * (Math.PI / 180));
-        direction.y = Math.cos(angle * (Math.PI / 180));
-        return direction;
-    }
-
-    function getAngleByRelativePosition(fromPoint, point) {
-        let dx = point.x - fromPoint.x;
-        let dy = point.y - fromPoint.y;
-        return Math.atan2(dx, dy) * 180 / Math.PI;
-    }
-
-    function findConnectedNodesOuter(paraElem) {
-        let connections = findConnectedNodes(paraElem.id);
-        let result = [];
-        let elem;
-        for (let i = 0; i < connections.length; i++) {
-            elem = findInAllNodes(connections[i]);
-            if ((typeof elem !== "undefined") && (paraElem.level === elem.level - 1)) {
-                result.push(elem.id)
-            }
-        }
-        return result;
-    }
-
-    function findConnectedNodes(id) {
-        let result = [];
-        for (let i = 0; i < allEdges[0].length; i++) {
-            if ((id === allEdges[0][i].from) && !result.includes(allEdges[0][i].to)) {
-                result.push(allEdges[0][i].to);
-            }
-            if ((id === allEdges[0][i].to) && !result.includes(allEdges[0][i].from)) {
-                result.push(allEdges[0][i].from);
-            }
-        }
-        return result;
-    }
-
-    //Palettes
-
-    //color map for status according to bucketing in Kanban board
-    //Open blue, Blocked red, In Progress yellow, Done green
-    let colorPaletteStatus = {
-        'Open': 'blue',
-        'Reopened': 'blue',
-        'Accepted': 'blue',
-        'Reported': 'blue',
-        'To-Do': 'blue',
-        'Blocked': 'red',
-        'On hold': 'red',
-        'Need more info': 'red',
-        'Waiting 3rd party': 'red',
-        'In Progress': 'yellow',
-        'Implemented': 'yellow',
-        'undefined': 'yellow',
-        'Resolved': 'green',
-        'Closed': 'green',
-        'Withdrawn': 'green',
-        'Rejected': 'green',
-        'Done': 'green',
-        'Verified': 'green'
-    };
-    //map to create the correct type of error, links like duplicates do not have a direction
-    let arrowPaletteType = {
-        'contributes': 'to',
-        'damages': 'to',
-        'refines': 'to', //work breakdown, test
-        'requires': 'to', //dependency
-        'incompatible': '',
-        'decomposition': 'to', //sub-task, epic
-        'similar': '', //relates
-        'duplicates': '', //duplicate
-        'replaces': 'to' //replaces
-    };
-    //map to visually differentiate between accepted and proposed links
-    let edgeStatusPalette = {
-        'accepted': false,
-        'proposed': true
-    };
-
-    //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
-    function updateDepthButtons() {
-        if (1 > max_depth) {
-            $("#depth-1-btn").prop("disabled", true);
-        } else {
-            $("#depth-1-btn").removeAttr('disabled');
-        }
-        if (2 > max_depth) {
-            $("#depth-2-btn").prop("disabled", true);
-        } else {
-            $("#depth-2-btn").removeAttr('disabled');
-        }
-        if (3 > max_depth) {
-            $("#depth-3-btn").prop("disabled", true);
-        } else {
-            $("#depth-3-btn").removeAttr('disabled');
-        }
-        if (4 > max_depth) {
-            $("#depth-4-btn").prop("disabled", true);
-        } else {
-            $("#depth-4-btn").removeAttr('disabled');
-        }
-        if (5 > max_depth) {
-            $("#depth-5-btn").prop("disabled", true);
-        } else {
-            $("#depth-5-btn").removeAttr('disabled');
-        }
-        if (1 == depth) {
-            $("#depth-1-btn").attr("class", "button layer button-effect-teal active");
-        } else {
-            $("#depth-1-btn").attr('class', "button layer button-effect-teal");
-        }
-        if (2 == depth) {
-            $("#depth-2-btn").attr("class", "button layer button-effect-teal active");
-        } else {
-            $("#depth-2-btn").attr('class', "button layer button-effect-teal");
-        }
-        if (3 == depth) {
-            $("#depth-3-btn").attr("class", "button layer button-effect-teal active");
-        } else {
-            $("#depth-3-btn").attr('class', "button layer button-effect-teal");
-        }
-        if (4 == depth) {
-            $("#depth-4-btn").attr("class", "button layer button-effect-teal active");
-        } else {
-            $("#depth-4-btn").attr('class', "button layer button-effect-teal");
-        }
-        if (5 == depth) {
-            $("#depth-5-btn").attr("class", "button layer button-effect-teal active");
-        } else {
-            $("#depth-5-btn").attr('class', "button layer button-effect-teal");
-        }
-    }
-
-    function depth1() {
-        let oldDepth = depth;
-        depth = 1;
-        if (oldDepth > depth) {
-            nodes.remove(allNodesArray[2]);
-            nodes.remove(allNodesArray[3]);
-            nodes.remove(allNodesArray[4]);
-            nodes.remove(allNodesArray[5]);
-            edges.remove(depth3Edges);
-            edges.remove(depth4Edges);
-            edges.remove(depth5Edges);
-            edges.remove(depth2Edges);
-        }
-        // network.fit();
-        updateDepthButtons();
-    }
-
-    function depth2() {
-        let oldDepth = depth;
-        depth = 2;
-        if (oldDepth > depth) {
-            nodes.remove(allNodesArray[3]);
-            nodes.remove(allNodesArray[4]);
-            nodes.remove(allNodesArray[5]);
-            edges.remove(depth3Edges);
-            edges.remove(depth4Edges);
-            edges.remove(depth5Edges);
-        }
-        if (oldDepth < depth) {
-            add2layer();
-        }
-        // network.fit();
-        updateDepthButtons();
-    }
-
-    function depth3() {
-        let oldDepth = depth;
-        depth = 3;
-        if (oldDepth > depth) {
-            nodes.remove(allNodesArray[4]);
-            nodes.remove(allNodesArray[5]);
-            edges.remove(depth4Edges);
-            edges.remove(depth5Edges);
-        }
-        if (oldDepth == 1) {
-            add2layer();
-            add3layer();
-        }
-        if (oldDepth == 2) {
-            add3layer();
-        }
-        // network.fit();
-        updateDepthButtons();
-    }
-
-    function depth4() {
-        let oldDepth = depth;
-        depth = 4;
-        if (oldDepth > depth) {
-            nodes.remove(allNodesArray[5]);
-            edges.remove(depth5Edges);
-        }
-        if (oldDepth == 1) {
-            add2layer();
-            add3layer();
-            add4layer();
-        }
-        if (oldDepth == 2) {
-            add3layer();
-            add4layer();
-        }
-        if (oldDepth == 3) {
-            add4layer();
-        }
-        // network.fit();
-        updateDepthButtons();
-    }
-
-    function depth5() {
-        let oldDepth = depth;
-        depth = 5;
-        if (oldDepth == 1) {
-            add2layer();
-            add3layer();
-            add4layer();
-            add5layer();
-        }
-        if (oldDepth == 2) {
-            add3layer();
-            add4layer();
-            add5layer();
-        }
-        if (oldDepth == 3) {
-            add4layer();
-            add5layer();
-        }
-        if (oldDepth == 4) {
-            add5layer();
-        }
-        // network.fit();
-        updateDepthButtons();
-    }
-
-    function add5layer() {
-        nodes.add(allNodesArray[5]);
-        edges.add(depth5Edges)
-    }
-
-    function add4layer() {
-        nodes.add(allNodesArray[4]);
-        edges.add(depth4Edges);
-    }
-
-    function add3layer() {
-        nodes.add(allNodesArray[3]);
-        edges.add(depth3Edges);
-    }
-
-    function add2layer() {
-        nodes.add(allNodesArray[2]);
-        edges.add(depth2Edges);
-    }
-
-
-    function createDepthLevelNodes(nodeEdgeObject) {
-        let depthLevelNodes = [];
-        $.each(nodeEdgeObject, function (i, v) {
-            helpNodeSet.push(v);
-            let nodedepth = v['depth'];
-            let ID = v['nodeid'];
-            let nodekey = v['id'];
-            let nodetype = v['requirement_type'];
-            let nodename = v['name'];
-            let nodestatus = v['status'];
-            let noderesolution = v['resolution'];
-            let nodegroup = colorPaletteStatus[nodestatus];
-            let nodesize = 25;
-            if (nodedepth == 0) {
-                nodesize = 40;
-            }
-            let nodehidden = v['layer'] > depth;
-            let nodelabel = "";
-            let nodeprio = v['priority'].toString();
-            if (v['priority'] === 6) {
-                nodeprio = "5";
-            }
-            if (typeof nodetype === "undefined") {
-                nodetype = "not specified"
-            }
-            if (!(nodetype == null)) {
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
-                nodelabel = nodelabel.concat("\n").concat(nodestatus).concat(", ").concat(noderesolution);
-            }
-            else
-                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-            let nodetitle = "";
-            if (nodename.toString().length > 20) {
-                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("...\n");
-            }
-            else {
-                nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
-            }
-            //blub
-
-            depthLevelNodes.push({
-                id: ID,
-                font: {multi: true},
-                label: nodelabel,
-                group: nodegroup,
-                shape: 'box',
-                title: nodetitle,
-                level: nodedepth,
-                status: nodestatus,
-                resolution: noderesolution,
-                hidden: nodehidden,
-                type: nodetype,
-                priority: nodeprio,
-                size: nodesize
             });
-        });
-        return depthLevelNodes;
-    }
+        }
 
-    function createDepthLevelEdges(nodeEdgeObject) {
-        let depthLevelEdges = [];
-        $.each(nodeEdgeObject, function (i, v) {
-            let edgestatus = v['status'];
-            let fromID = v['node_fromid'];
-            let toID = v['node_toid'];
-            let edgelabel = "";
-            if (typeof v['description'] === "undefined") {
-                edgelabel = findProposed(v['status'], v['dependency_type']);
-            } else {
-                edgelabel = findProposed(v['status'], v['description']['0']);
+        $(document).ready(function () {
+            infoTab();
+            if (allNodesArray[1].length > 12) {
+                distance *= Math.sqrt(allNodesArray[1].length / 12);
             }
-            let edgearrow = arrowPaletteType[edgelabel];
-            let edgedashes = edgeStatusPalette[edgestatus];
-            depth0Edges.push({
-                from: fromID,
-                to: toID,
-                arrows: edgearrow,
-                label: edgelabel,
-                color: {color: '#172B4D', inherit: false},
-                width: 2,
-                dashes: edgedashes
-            });
-        });
-        return depthLevelEdges;
-    }
-
-    let allNodesArray = [];
-    allNodesArray[0] = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
-    let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
-    allNodesArray[1] = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
-    let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
-    allNodesArray[2] = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
-    let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
-    allNodesArray[3] = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
-    let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
-    allNodesArray[4] = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
-    let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
-    allNodesArray[5] = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
-    let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
-    //let allNodes = allNodesArray[0].concat(allNodesArray[1]).concat(allNodesArray[2]).concat(allNodesArray[3]).concat(allNodesArray[4]).concat(allNodesArray[5]);
-
-    let allEdges = [depth0Edges, depth1Edges, depth2Edges, depth3Edges, depth4Edges, depth5Edges];
-
-
-    //create an array with nodes
-    nodes = new vis.DataSet(nodeElements);
-    // create an array with edges
-    edges = new vis.DataSet(edgeElements);
-
-    let linkDetectionResponse;
-
-    let testFilter;
-
-    function selectFilterTest(filter) {
-        testFilter = filter;
-    }
-
-    let proposedIssueOrderLDR = [];
-    function registerClick(elem) {
-        if (elem.id.charAt(1) === 'r') {
-            let btnid = "#" + elem.id;
-            if ($(btnid).hasClass('reject')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "a" + elem.id.substring(2);
-                if ($(otherbtnid).hasClass('accepted')) {
-                    $(otherbtnid).removeClass('accepted');
-                    $(otherbtnid).addClass('accept');
-                }
-                $(btnid).removeClass('reject');
-                $(btnid).addClass('rejected');
-                linkDetectionResponse[elem.id.charAt(0)] = "reject";
-                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
+            calculatePositions();
+            nodes.add(allNodesArray[0]);
+            nodes.add(allNodesArray[1]);
+            edges.add(depth0Edges);
+            edges.add(depth1Edges);
+            updateDepthButtons();
+            if (depth >= 2) {
+                add2layer()
             }
-            else {
-                $(btnid).removeClass('rejected');
-                $(btnid).addClass('reject');
-                delete linkDetectionResponse[elem.id.charAt(0)];
-                delete proposedIssueOrderLDR[elem.id.charAt(0)];
+            if (depth >= 3) {
+                add3layer();
+            }
+            if (depth >= 4) {
+                add4layer();
+            }
+            if (depth === 5) {
+                add5layer();
+            }
+            filterNodes();
+        });
+
+        //Help Functions
+        //builds URL for search form
+        function buildURL() {
+            let url = "../issue/" + document.getElementById("issueInput").value;
+            let search_form = document.getElementById("search-id");
+            search_form.action = url;
+        }
+
+        //function to help find a specific item depending on its identifier
+        function findElement(arr, propName, propValue) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i][propName] === propValue)
+                    return arr[i];
             }
         }
-        else {
-            let selectid = elem.id.charAt(0) + "s";
-            let selectedItem = document.getElementById(selectid).value;
-            let btnid = "#" + elem.id;
-            if ($(btnid).hasClass('accept')) {
-                let otherbtnid = "#" + elem.id.charAt(0) + "r" + elem.id.substring(2);
-                if ($(otherbtnid).hasClass('rejected')) {
-                    $(otherbtnid).removeClass('rejected');
-                    $(otherbtnid).addClass('reject');
+
+        function findInAllNodes(id) {
+            let elem;
+            for (let i = 0; i < allNodesArray.length; i++) {
+                elem = findElement(allNodesArray[i], "id", id);
+                if (typeof elem !== "undefined") {
+                    return elem;
                 }
-                $(btnid).removeClass('accept');
-                $(btnid).addClass('accepted');
-                linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
-                proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
-            }
-            else {
-                $(btnid).removeClass('accepted');
-                $(btnid).addClass('accept');
-                delete linkDetectionResponse[elem.id.charAt(0)];
-                delete proposedIssueOrderLDR[elem.id.charAt(0)];
             }
         }
-    }
 
-    function sendLinkData() {
-        let updatedProposedLinksJSON =
-            {
-                dependencies: []
-            };
-        // console.log(proposedNodesEdges);
-        $.each(proposedNodesEdges['edges'], function (i, v) {
-            let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
-            let fromid = v['fromid'];
-            let toid = v['toid'];
-            let id = v['id'];
-            let created_at = v['created_at'];
-            let dep_score = v['dependency_score'];
-            let description = v['description'];
-
-
-            updatedProposedLinksJSON.dependencies.push({
-                created_at: created_at,
-                dependency_score: dep_score,
-                dependency_type: dep_type,
-                description: description,
-                fromid: fromid,
-                id: id,
-                status: "PROPOSED",
-                toid: toid,
-            });
-
-            $('#issueInput').val(issueKey);
-            $('#depthInput').val(depth);
-            //
-            document.forms["search-id"].submit();
-        });
-
-        for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
-            let index = Math.max(proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].fromid), proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].toid));
-            if (index !== -1){
-                if (linkDetectionResponse[index] !== undefined) {
-                    if (linkDetectionResponse[index] !== "reject") {
-                        updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[index].toUpperCase();
-                        updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
-                        updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[index];
+        function getIndexInAll(id) {
+            for (let i = 0; i <= 5; i++) {
+                for (let j = 0; j < allNodesArray[i].length; j++) {
+                    if (allNodesArray[i][j].id === id) {
+                        return [i, j];
                     }
-                    else {
-                        updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
-                        //updatedProposedLinksJSON.dependencies[i].description = description;
+                }
+            }
+        }
+
+        function checkElement(arr, propName, propValue) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i][propName] === propValue)
+                    return true;
+            }
+            return false;
+        }
+
+        function checkNodesContains(id) {
+            return (nodes.get(id) !== null);
+        }
+
+        //the type of a proposed link is proposed where as the type of an accepted link is smth like duplicates, similar, etc.
+        function findProposed(status, type) {
+            if (status === "proposed")
+                return "proposed";
+            else {
+                return type;
+            }
+        }
+
+        function getCheckedCheckboxes() {
+            //let checkboxes = document.querySelectorAll('input[name="' + checkboxName + 'Status"]:checked'), values = [];
+            let checkboxes = document.querySelectorAll(':checked'), values = [];
+            Array.prototype.forEach.call(checkboxes, function (el) {
+                values.push(el.value);
+            });
+            return values;
+        }
+
+        function toggle(source) {
+            let checkboxes = document.getElementsByName(source.name);
+            for (let i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+
+        function toggleAll(source) {
+            let types = ["ToDoStatus", "ProgStatus", "StuckStatus", "DoneStatus", "Status"];
+            for (let i = 0; i < types.length; i++) {
+                toggle({name: types[i], checked: source.checked});
+            }
+        }
+
+        function isFiltered(status, type, priority) {
+            return !(filterArray.includes(status) && filterArray.includes(type) && filterArray.includes(priority));
+        }
+
+        /**
+         * arrange nodes in circles, with the currentIssue in the center
+         */
+        function calculatePositions() {
+            if (typeof allNodesArray[0][0] !== "undefined") {
+                // the one element with depth 0 is in the center
+                allNodesArray[0][0].x = 0;
+                allNodesArray[0][0].y = 0;
+                allNodesArray[0][0].angle = 0;
+                allNodesArray[0][0].fixed = true;
+                allNodesArray[0][0].heightConstraint = 60;
+                allNodesArray[0][0].widthConstraint = 135;
+                allNodesArray[0][0].font = {multi: true, size: 24};
+                // allNodesArray[1] is layer one and surrounds the center
+                for (let i = 0; i < allNodesArray[1].length; i++) {
+                    positionsDepthOne(allNodesArray[1].length, i);
+                }
+                for (let i = 2; i <= max_depth; i++) {
+                    positionsOuterRings(i);
+                }
+            }
+        }
+
+        function positionsDepthOne(maxElements, currentElement) {
+            let angle = 360 / maxElements;
+            let direction;
+            let resultingAngle;
+
+            // if depth 1 has only one element it will be displayed below the center
+            if (maxElements === 1) {
+                direction = getDirectionByAngle(0);
+                resultingAngle = 0;
+            }
+            // if there are two elements they will be displayed next to each other below the center
+            else if (maxElements === 2) {
+                direction = getDirectionByAngle(-45 + 90 * currentElement);
+                resultingAngle = -45 + 90 * currentElement;
+            }
+            // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
+            else if (maxElements % 2) {
+                direction = getDirectionByAngle(180 + (angle * currentElement));
+                resultingAngle = 180 + angle * currentElement;
+            }
+            // even amount: first element on the top right, rest circle around center
+            else {
+                direction = getDirectionByAngle(45 + (angle * currentElement));
+                resultingAngle = 45 + angle * currentElement;
+            }
+            allNodesArray[1][currentElement].x = distance * direction.x;
+            allNodesArray[1][currentElement].y = distance * direction.y;
+            allNodesArray[1][currentElement].angle = resultingAngle;
+        }
+
+        function positionsOuterRings(depth) {
+            let connectionsOut = [];
+            let index;
+            let direction;
+            let angleDiff;
+            for (let i = 0; i < allNodesArray[depth - 1].length; i++) {
+                connectionsOut = findConnectedNodesOuter(allNodesArray[depth - 1][i]);
+                allNodesArray[depth - 1][i].connections = connectionsOut;
+                for (let j = 0; j < connectionsOut.length; j++) {
+                    index = getIndexInAll(connectionsOut[j]);
+                    angleDiff = Math.min(15, 360 / allNodesArray[depth].length);
+                    angleDiff *= Math.ceil(j / 2);
+
+                    if (j % 2) { // j == odd
+                        angleDiff *= -1;
                     }
+                    direction = getDirectionByAngle(allNodesArray[depth - 1][i].angle + angleDiff);
+
+                    allNodesArray[index[0]][index[1]].x = distance * depth * direction.x;
+                    allNodesArray[index[0]][index[1]].y = distance * depth * direction.y;
+                    allNodesArray[index[0]][index[1]].angle = allNodesArray[depth - 1][i].angle + angleDiff;
+                }
+            }
+        }
+
+        //calculates positions for proposed issues if the selected issue is in layer 0
+        function calculateProposedDepthOnePositions(j, maxElements) {
+            let angle = 360 / maxElements;
+            let direction;
+
+            // if depth 1 has only one element it will be displayed below the center
+            if (maxElements === 1) {
+                direction = getDirectionByAngle(0);
+            }
+            // if there are two elements they will be displayed next to each other below the center
+            else if (maxElements === 2) {
+                direction = getDirectionByAngle(-45 + 90 * j);
+            }
+            // if the amount of nodes is odd the first element is displayed above the center and the rest in a circle around the center
+            else if (maxElements % 2) {
+                direction = getDirectionByAngle(180 + (angle * j));
+            }
+            // even amount: first element on the top right, rest circle around center
+            else {
+                direction = getDirectionByAngle(45 + (angle * j));
+            }
+            let coord_x = 0.6 * distance * direction.x;
+            let coord_y = 0.6 * distance * direction.y;
+            return {x: coord_x, y: coord_y};
+        }
+
+        //calculates positions for proposed issues if the selected issue is not layer 0
+        function calculateProposedOuterPositions(issueInfo, j) {
+            let index = getIndexInAll(issueInfo.nodeid);
+            let angleDiff = Math.min(15, 360 / proposedNodesEdges['nodes'].length);
+            angleDiff *= Math.ceil(j / 2);
+            if (j % 2) { // j == odd
+                angleDiff *= -1;
+            }
+            j++;
+            let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
+
+            let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
+            let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
+            return {x: coord_x, y: coord_y};
+        }
+
+        function getDirectionByAngle(angle) {
+            let direction = {};
+            direction.x = Math.sin(angle * (Math.PI / 180));
+            direction.y = Math.cos(angle * (Math.PI / 180));
+            return direction;
+        }
+
+        function getAngleByRelativePosition(fromPoint, point) {
+            let dx = point.x - fromPoint.x;
+            let dy = point.y - fromPoint.y;
+            return Math.atan2(dx, dy) * 180 / Math.PI;
+        }
+
+        function findConnectedNodesOuter(paraElem) {
+            let connections = findConnectedNodes(paraElem.id);
+            let result = [];
+            let elem;
+            for (let i = 0; i < connections.length; i++) {
+                elem = findInAllNodes(connections[i]);
+                if ((typeof elem !== "undefined") && (paraElem.level === elem.level - 1)) {
+                    result.push(elem.id)
+                }
+            }
+            return result;
+        }
+
+        function findConnectedNodes(id) {
+            let result = [];
+            for (let i = 0; i < allEdges[0].length; i++) {
+                if ((id === allEdges[0][i].from) && !result.includes(allEdges[0][i].to)) {
+                    result.push(allEdges[0][i].to);
+                }
+                if ((id === allEdges[0][i].to) && !result.includes(allEdges[0][i].from)) {
+                    result.push(allEdges[0][i].from);
+                }
+            }
+            return result;
+        }
+
+        //Palettes
+
+        //color map for status according to bucketing in Kanban board
+        //Open blue, Blocked red, In Progress yellow, Done green
+        let colorPaletteStatus = {
+            'Open': 'blue',
+            'Reopened': 'blue',
+            'Accepted': 'blue',
+            'Reported': 'blue',
+            'To-Do': 'blue',
+            'Blocked': 'red',
+            'On hold': 'red',
+            'Need more info': 'red',
+            'Waiting 3rd party': 'red',
+            'In Progress': 'yellow',
+            'Implemented': 'yellow',
+            'undefined': 'yellow',
+            'Resolved': 'green',
+            'Closed': 'green',
+            'Withdrawn': 'green',
+            'Rejected': 'green',
+            'Done': 'green',
+            'Verified': 'green'
+        };
+        //map to create the correct type of error, links like duplicates do not have a direction
+        let arrowPaletteType = {
+            'contributes': 'to',
+            'damages': 'to',
+            'refines': 'to', //work breakdown, test
+            'requires': 'to', //dependency
+            'incompatible': '',
+            'decomposition': 'to', //sub-task, epic
+            'similar': '', //relates
+            'duplicates': '', //duplicate
+            'replaces': 'to' //replaces
+        };
+        //map to visually differentiate between accepted and proposed links
+        let edgeStatusPalette = {
+            'accepted': false,
+            'proposed': true
+        };
+
+        //disables the layer buttons if the depth would be smaller than 1 or bigger than 5
+        function updateDepthButtons() {
+            if (1 > max_depth) {
+                $("#depth-1-btn").prop("disabled", true);
+            } else {
+                $("#depth-1-btn").removeAttr('disabled');
+            }
+            if (2 > max_depth) {
+                $("#depth-2-btn").prop("disabled", true);
+            } else {
+                $("#depth-2-btn").removeAttr('disabled');
+            }
+            if (3 > max_depth) {
+                $("#depth-3-btn").prop("disabled", true);
+            } else {
+                $("#depth-3-btn").removeAttr('disabled');
+            }
+            if (4 > max_depth) {
+                $("#depth-4-btn").prop("disabled", true);
+            } else {
+                $("#depth-4-btn").removeAttr('disabled');
+            }
+            if (5 > max_depth) {
+                $("#depth-5-btn").prop("disabled", true);
+            } else {
+                $("#depth-5-btn").removeAttr('disabled');
+            }
+            if (1 == depth) {
+                $("#depth-1-btn").attr("class", "button layer button-effect-teal active");
+            } else {
+                $("#depth-1-btn").attr('class', "button layer button-effect-teal");
+            }
+            if (2 == depth) {
+                $("#depth-2-btn").attr("class", "button layer button-effect-teal active");
+            } else {
+                $("#depth-2-btn").attr('class', "button layer button-effect-teal");
+            }
+            if (3 == depth) {
+                $("#depth-3-btn").attr("class", "button layer button-effect-teal active");
+            } else {
+                $("#depth-3-btn").attr('class', "button layer button-effect-teal");
+            }
+            if (4 == depth) {
+                $("#depth-4-btn").attr("class", "button layer button-effect-teal active");
+            } else {
+                $("#depth-4-btn").attr('class', "button layer button-effect-teal");
+            }
+            if (5 == depth) {
+                $("#depth-5-btn").attr("class", "button layer button-effect-teal active");
+            } else {
+                $("#depth-5-btn").attr('class', "button layer button-effect-teal");
+            }
+        }
+
+        function depth1() {
+            let oldDepth = depth;
+            depth = 1;
+            if (oldDepth > depth) {
+                nodes.remove(allNodesArray[2]);
+                nodes.remove(allNodesArray[3]);
+                nodes.remove(allNodesArray[4]);
+                nodes.remove(allNodesArray[5]);
+                edges.remove(depth3Edges);
+                edges.remove(depth4Edges);
+                edges.remove(depth5Edges);
+                edges.remove(depth2Edges);
+            }
+            // network.fit();
+            updateDepthButtons();
+        }
+
+        function depth2() {
+            let oldDepth = depth;
+            depth = 2;
+            if (oldDepth > depth) {
+                nodes.remove(allNodesArray[3]);
+                nodes.remove(allNodesArray[4]);
+                nodes.remove(allNodesArray[5]);
+                edges.remove(depth3Edges);
+                edges.remove(depth4Edges);
+                edges.remove(depth5Edges);
+            }
+            if (oldDepth < depth) {
+                add2layer();
+            }
+            // network.fit();
+            updateDepthButtons();
+        }
+
+        function depth3() {
+            let oldDepth = depth;
+            depth = 3;
+            if (oldDepth > depth) {
+                nodes.remove(allNodesArray[4]);
+                nodes.remove(allNodesArray[5]);
+                edges.remove(depth4Edges);
+                edges.remove(depth5Edges);
+            }
+            if (oldDepth == 1) {
+                add2layer();
+                add3layer();
+            }
+            if (oldDepth == 2) {
+                add3layer();
+            }
+            // network.fit();
+            updateDepthButtons();
+        }
+
+        function depth4() {
+            let oldDepth = depth;
+            depth = 4;
+            if (oldDepth > depth) {
+                nodes.remove(allNodesArray[5]);
+                edges.remove(depth5Edges);
+            }
+            if (oldDepth == 1) {
+                add2layer();
+                add3layer();
+                add4layer();
+            }
+            if (oldDepth == 2) {
+                add3layer();
+                add4layer();
+            }
+            if (oldDepth == 3) {
+                add4layer();
+            }
+            // network.fit();
+            updateDepthButtons();
+        }
+
+        function depth5() {
+            let oldDepth = depth;
+            depth = 5;
+            if (oldDepth == 1) {
+                add2layer();
+                add3layer();
+                add4layer();
+                add5layer();
+            }
+            if (oldDepth == 2) {
+                add3layer();
+                add4layer();
+                add5layer();
+            }
+            if (oldDepth == 3) {
+                add4layer();
+                add5layer();
+            }
+            if (oldDepth == 4) {
+                add5layer();
+            }
+            // network.fit();
+            updateDepthButtons();
+        }
+
+        function add5layer() {
+            nodes.add(allNodesArray[5]);
+            edges.add(depth5Edges)
+        }
+
+        function add4layer() {
+            nodes.add(allNodesArray[4]);
+            edges.add(depth4Edges);
+        }
+
+        function add3layer() {
+            nodes.add(allNodesArray[3]);
+            edges.add(depth3Edges);
+        }
+
+        function add2layer() {
+            nodes.add(allNodesArray[2]);
+            edges.add(depth2Edges);
+        }
+
+
+        function createDepthLevelNodes(nodeEdgeObject) {
+            let depthLevelNodes = [];
+            $.each(nodeEdgeObject, function (i, v) {
+                helpNodeSet.push(v);
+                let nodedepth = v['depth'];
+                let ID = v['nodeid'];
+                let nodekey = v['id'];
+                let nodetype = v['requirement_type'];
+                let nodename = v['name'];
+                let nodestatus = v['status'];
+                let noderesolution = v['resolution'];
+                let nodegroup = colorPaletteStatus[nodestatus];
+                let nodesize = 25;
+                if (nodedepth == 0) {
+                    nodesize = 40;
+                }
+                let nodehidden = v['layer'] > depth;
+                let nodelabel = "";
+                let nodeprio = v['priority'].toString();
+                if (v['priority'] === 6) {
+                    nodeprio = "5";
+                }
+                if (typeof nodetype === "undefined") {
+                    nodetype = "not specified"
+                }
+                if (!(nodetype == null)) {
+                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+                    nodelabel = nodelabel.concat("\n").concat(nodestatus).concat(", ").concat(noderesolution);
+                }
+                else
+                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+                let nodetitle = "";
+                if (nodename.toString().length > 20) {
+                    nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("...\n");
                 }
                 else {
-                    updatedProposedLinksJSON.dependencies.splice(i, 1);
+                    nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
                 }
-                // console.log(updatedProposedLinksJSON)
+                //blub
+
+                depthLevelNodes.push({
+                    id: ID,
+                    font: {multi: true},
+                    label: nodelabel,
+                    group: nodegroup,
+                    shape: 'box',
+                    title: nodetitle,
+                    level: nodedepth,
+                    status: nodestatus,
+                    resolution: noderesolution,
+                    hidden: nodehidden,
+                    type: nodetype,
+                    priority: nodeprio,
+                    size: nodesize
+                });
+            });
+            return depthLevelNodes;
+        }
+
+        function createDepthLevelEdges(nodeEdgeObject) {
+            let depthLevelEdges = [];
+            $.each(nodeEdgeObject, function (i, v) {
+                let edgestatus = v['status'];
+                let fromID = v['node_fromid'];
+                let toID = v['node_toid'];
+                let edgelabel = "";
+                if (typeof v['description'] === "undefined") {
+                    edgelabel = findProposed(v['status'], v['dependency_type']);
+                } else {
+                    edgelabel = findProposed(v['status'], v['description']['0']);
+                }
+                let edgearrow = arrowPaletteType[edgelabel];
+                let edgedashes = edgeStatusPalette[edgestatus];
+                depth0Edges.push({
+                    from: fromID,
+                    to: toID,
+                    arrows: edgearrow,
+                    label: edgelabel,
+                    color: {color: '#172B4D', inherit: false},
+                    width: 2,
+                    dashes: edgedashes
+                });
+            });
+            return depthLevelEdges;
+        }
+
+        let allNodesArray = [];
+        allNodesArray[0] = createDepthLevelNodes(nodeEdgeObject['0']['nodes']);
+        let depth0Edges = createDepthLevelEdges(nodeEdgeObject['0']['edges']);
+        allNodesArray[1] = createDepthLevelNodes(nodeEdgeObject['1']['nodes']);
+        let depth1Edges = createDepthLevelEdges(nodeEdgeObject['1']['edges']);
+        allNodesArray[2] = createDepthLevelNodes(nodeEdgeObject['2']['nodes']);
+        let depth2Edges = createDepthLevelEdges(nodeEdgeObject['2']['edges']);
+        allNodesArray[3] = createDepthLevelNodes(nodeEdgeObject['3']['nodes']);
+        let depth3Edges = createDepthLevelEdges(nodeEdgeObject['3']['edges']);
+        allNodesArray[4] = createDepthLevelNodes(nodeEdgeObject['4']['nodes']);
+        let depth4Edges = createDepthLevelEdges(nodeEdgeObject['4']['edges']);
+        allNodesArray[5] = createDepthLevelNodes(nodeEdgeObject['5']['nodes']);
+        let depth5Edges = createDepthLevelEdges(nodeEdgeObject['5']['edges']);
+        //let allNodes = allNodesArray[0].concat(allNodesArray[1]).concat(allNodesArray[2]).concat(allNodesArray[3]).concat(allNodesArray[4]).concat(allNodesArray[5]);
+
+        let allEdges = [depth0Edges, depth1Edges, depth2Edges, depth3Edges, depth4Edges, depth5Edges];
+
+
+        //create an array with nodes
+        nodes = new vis.DataSet(nodeElements);
+        // create an array with edges
+        edges = new vis.DataSet(edgeElements);
+
+        let linkDetectionResponse;
+
+        let testFilter;
+
+        function selectFilterTest(filter) {
+            testFilter = filter;
+        }
+
+        let proposedIssueOrderLDR = [];
+
+        function registerClick(elem) {
+            if (elem.id.charAt(1) === 'r') {
+                let btnid = "#" + elem.id;
+                if ($(btnid).hasClass('reject')) {
+                    let otherbtnid = "#" + elem.id.charAt(0) + "a" + elem.id.substring(2);
+                    if ($(otherbtnid).hasClass('accepted')) {
+                        $(otherbtnid).removeClass('accepted');
+                        $(otherbtnid).addClass('accept');
+                    }
+                    $(btnid).removeClass('reject');
+                    $(btnid).addClass('rejected');
+                    linkDetectionResponse[elem.id.charAt(0)] = "reject";
+                    proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
+                }
+                else {
+                    $(btnid).removeClass('rejected');
+                    $(btnid).addClass('reject');
+                    delete linkDetectionResponse[elem.id.charAt(0)];
+                    delete proposedIssueOrderLDR[elem.id.charAt(0)];
+                }
+            }
+            else {
+                let selectid = elem.id.charAt(0) + "s";
+                let selectedItem = document.getElementById(selectid).value;
+                let btnid = "#" + elem.id;
+                if ($(btnid).hasClass('accept')) {
+                    let otherbtnid = "#" + elem.id.charAt(0) + "r" + elem.id.substring(2);
+                    if ($(otherbtnid).hasClass('rejected')) {
+                        $(otherbtnid).removeClass('rejected');
+                        $(otherbtnid).addClass('reject');
+                    }
+                    $(btnid).removeClass('accept');
+                    $(btnid).addClass('accepted');
+                    linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
+                    proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
+                }
+                else {
+                    $(btnid).removeClass('accepted');
+                    $(btnid).addClass('accept');
+                    delete linkDetectionResponse[elem.id.charAt(0)];
+                    delete proposedIssueOrderLDR[elem.id.charAt(0)];
+                }
             }
         }
-        let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
-        try {
-
-            let xhr = new XMLHttpRequest();
-            // let url = "../milla/updateProposedDependencies";
-            let url = "https://api.openreq.eu/milla/updateProposedDependencies";
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let response = xhr.responseText;
-                    console.log(response);
-                }
-            };
-            // takes only the array out of the JSON
-            //{ dependencies : [...] }  => [...]
-            updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":")+1, updatedProposedLinksResponse.length -1);
-            xhr.send(updatedProposedLinksResponse);
-        }
-        catch
-            (err) {
-            alert(err);
-        }
-    }
-
-    let proposedNodeElements = [];
-    let proposedEdgeElements = [];
-    let proposedNodesEdges = [];
-    let proposedIssuesList = [];
-    let numberOfProposedLinks = 0;
-
-    // console.log(proposedNodesEdges);
-
-    //Similarity detection functionality
-    //Showing and removing proposed issues
-    function proposedLinks() {
-        infoTabActive = false;
-        if (propLinksIssue !== currentIssue || !proposedViewActive) {
-            propLinksIssue = currentIssue;
-
-            try {
-                nodes.remove(proposedNodeElements);
-                edges.remove(proposedEdgeElements);
-
-                proposedNodeElements = [];
-                proposedEdgeElements = [];
-                proposedNodesEdges = [];
-                proposedIssuesList = [];
+        function sendLinkData() {
+            let updatedProposedLinksJSON =
+                {
+                    dependencies: []
+                };
+            // console.log(proposedNodesEdges);
+            $.each(proposedNodesEdges['edges'], function (i, v) {
+                let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
+                let fromid = v['fromid'];
+                let toid = v['toid'];
+                let id = v['id'];
+                let created_at = v['created_at'];
+                let dep_score = v['dependency_score'];
+                let description = v['description'];
 
 
-                let xhr = new XMLHttpRequest();
+                updatedProposedLinksJSON.dependencies.push({
+                    created_at: created_at,
+                    dependency_score: dep_score,
+                    dependency_type: dep_type,
+                    description: description,
+                    fromid: fromid,
+                    id: id,
+                    status: "PROPOSED",
+                    toid: toid,
+                });
 
-                let url = "../milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
+                $('#issueInput').val(issueKey);
+                $('#depthInput').val(depth);
+                //
+                document.forms["search-id"].submit();
+            });
 
-                xhr.open("GET", url, true);
-
-                document.getElementById('ddResult').innerHTML = "pending...";
-                let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
-                let level = issueInfo.depth + 1;
-
-                xhr.onreadystatechange = function () {
-
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-
-                        proposedNodesEdges = JSON.parse(xhr.responseText);
-                        //add nodes
-                        let j = 0;
-                        $.each(proposedNodesEdges['nodes'], function (i, v) {
-                            let ID = v['nodeid'];
-                            let nodekey = v['id'];
-                            let nodetype = v['requirement_type'];
-                            let nodename = v['name'];
-                            let nodestatus = v['status'];
-                            let noderesolution = v['resolution'];
-                            let nodehidden = v['layer'] > depth;
-                            let nodegroup = colorPaletteStatus[nodestatus] || "unknown";
-                            let nodelabel = "";
-                            if (nodetype !== null) {
-                                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-
-                                if (nodename.toString().length > 20) {
-                                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-                                }
-                                else {
-                                    nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-                                }
-                            }
-                            else {
-                                nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
-                            }
-                            let nodetitle = "";
-                            nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
-
-                            //calculate positions for the proposed issue
-                            let positions;
-                            if (issue === propLinksIssue) {
-                                positions = calculateProposedDepthOnePositions(j, proposedNodesEdges['nodes'].length);
-                            } else {
-                                positions = calculateProposedOuterPositions(issueInfo, j);
-                            }
-                            j++;
-                            if (!checkNodesContains(ID)) {
-                                proposedNodeElements.push({
-                                    id: ID,
-                                    label: nodelabel,
-                                    group: nodegroup,
-                                    shape: 'ellipse',
-                                    title: nodetitle,
-                                    level: level,
-                                    hidden: nodehidden,
-                                    x: positions.x,
-                                    y: positions.y
-                                });
-                                proposedIssuesList.push({
-                                    id: nodekey
-                                })
-                            }
-                        });
-
-                        //add edges
-                        $.each(proposedNodesEdges['edges'], function (i, v) {
-                            let edgestatus = v['status'];
-                            let fromID = v['node_fromid'];
-                            let toID = v['node_toid'];
-                            let edgelabel = findProposed(v['status'], v['dependency_type']);
-                            let edgearrow = arrowPaletteType[edgelabel];
-
-                            if (!(checkNodesContains(fromID) && checkNodesContains(toID))) {
-                                proposedEdgeElements.push({
-                                    from: fromID,
-                                    to: toID,
-                                    arrows: edgearrow,
-                                    label: "proposed",
-                                    color: {color: '#172B4D', inherit: false},
-                                    width: 2,
-                                    dashes: true
-                                });
-                            }
-
-                            // console.log(proposedNodesEdges)
-                        });
-
-                        numberOfProposedLinks = proposedEdgeElements.length;
-                        linkDetectionResponse = Array(numberOfProposedLinks);
-
-                        nodes.add(proposedNodeElements);
-                        edges.add(proposedEdgeElements);
-
-                                                proposedViewActive = true;
-                        if (proposedIssuesList.length === 0) {
-                            document.getElementById('ddResult').innerHTML = "No proposed links for issue " + currentIssue + ".";
+            for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
+                let index = Math.max(proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].fromid), proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].toid));
+                if (index !== -1) {
+                    if (linkDetectionResponse[index] !== undefined) {
+                        if (linkDetectionResponse[index] !== "reject") {
+                            updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[index].toUpperCase();
+                            updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
+                            updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[index];
                         }
                         else {
-                            let stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
-                                "<table style='width: 100%'><tr>\n" +
-                                "<th>Issue Key</th>" +
-                                "<th>Link type</th>" +
-                                "<th>Accept</th>" +
-                                "<th>Reject</th>" +
-                                "</tr>";
-                            let selectionList = '<div class="custom-select">';
-                            let acceptBtn = "<button class='button accept button-effect-teal-light' role='radio' onclick=\"registerClick(this)\" id=";
-                            let rejectBtn = "<button class='button reject button-effect-orange-light' role='radio' onclick=\"registerClick(this)\" id=";
-                            for (let i = 0; i < proposedIssuesList.length; i++) {
-                                stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
-                                    "<option value='REQUIRES'>dependency</option>" +
-                                    "<option value='DUPLICATES'>duplicate</option>" +
-                                    "<option value='DECOMPOSITION'>epic</option>" +
-                                    "<option value='CONTRIBUTES'>relates</option>" +
-                                    "<option value='REPLACES'>replacement</option>" +
-                                    "<option value='DECOMPOSITION'>subtask</option>" +
-                                    "<option value='REFINES'>work breakdown</option>" +
-                                    "</select></div></td><td>"
-                                    + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
-                                    + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
-                            }
-                            stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
-                            document.getElementById('ddResult').innerHTML = stringList;
-
-                            // console.log(proposedNodesEdges)
+                            updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
+                            //updatedProposedLinksJSON.dependencies[i].description = description;
                         }
                     }
+                    else {
+                        updatedProposedLinksJSON.dependencies.splice(i, 1);
+                    }
+                    // console.log(updatedProposedLinksJSON)
+                }
+            }
+            let updatedProposedLinksResponse = JSON.stringify(updatedProposedLinksJSON);
 
+            try {
+
+                let xhr = new XMLHttpRequest();
+                // let url = "../milla/updateProposedDependencies";
+                let url = "https://api.openreq.eu/milla/updateProposedDependencies";
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let response = xhr.responseText;
+                        console.log(response);
+                    }
                 };
-                xhr.send(null);
-
-            } catch (err) {
-                document.getElementById('ddResult').innerHTML = "there was an error getting the proposed dependencies...";
+                // takes only the array out of the JSON
+                //{ dependencies : [...] }  => [...]
+                updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":") + 1, updatedProposedLinksResponse.length - 1);
+                xhr.send(updatedProposedLinksResponse);
+            }
+            catch
+                (err) {
                 alert(err);
             }
         }
-    }
 
-    function checkConsistency() {
-        if (proposedViewActive) {
-            nodes.remove(proposedNodeElements);
-            edges.remove(proposedEdgeElements);
-            proposedViewActive = false;
-        }
-        infoTabActive = false;
+        let proposedNodeElements = [];
+        let proposedEdgeElements = [];
+        let proposedNodesEdges = [];
+        let proposedIssuesList = [];
+        let numberOfProposedLinks = 0;
 
-        try {
-            let xhr = new XMLHttpRequest();
+        // console.log(proposedNodesEdges);
 
-            let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
-            xhr.open("GET", url, true);
+        //Similarity detection functionality
+        //Showing and removing proposed issues
+        function proposedLinks() {
+            infoTabActive = false;
+            if (propLinksIssue !== currentIssue || !proposedViewActive) {
+                propLinksIssue = currentIssue;
 
-            document.getElementById('ccResult').innerHTML = "pending...";
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let json = JSON.parse(xhr.responseText);
+                try {
+                    nodes.remove(proposedNodeElements);
+                    edges.remove(proposedEdgeElements);
 
-                    let releases = json.response[0].Releases;
-                    let regsInReleases = "";
-                    for (let i = 0; i < releases.length; i++) {
-                        regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
-                    }
-                    let ccMessage = "";
-                    let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
-                    if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                        ccMessage = ccMessage.concat("<h5><font color=\"#FB4A08\">Release plan is inconsistent.</font></h5>").concat(relIncMessage)
-                    }
-                    else {
-                        ccMessage = ccMessage.concat("<h5><font color=\"#17b2ad\">Release plan is consistent.</font></h5>")
-                    }
+                    proposedNodeElements = [];
+                    proposedEdgeElements = [];
+                    proposedNodesEdges = [];
+                    proposedIssuesList = [];
 
-                    document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
-                    document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>")
+
+                    let xhr = new XMLHttpRequest();
+
+                    let url = "../milla/getTopProposedDependenciesOfRequirement?requirementId=" + currentIssue + "&maxResults=" + "5";
+
+                    xhr.open("GET", url, true);
+
+                    document.getElementById('ddResult').innerHTML = "pending...";
+                    let issueInfo = findElement(nodeEdgeObject.nodes, "id", currentIssue);
+                    let level = issueInfo.depth + 1;
+
+                    xhr.onreadystatechange = function () {
+
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+
+                            proposedNodesEdges = JSON.parse(xhr.responseText);
+                            //add nodes
+                            let j = 0;
+                            $.each(proposedNodesEdges['nodes'], function (i, v) {
+                                let ID = v['nodeid'];
+                                let nodekey = v['id'];
+                                let nodetype = v['requirement_type'];
+                                let nodename = v['name'];
+                                let nodestatus = v['status'];
+                                let noderesolution = v['resolution'];
+                                let nodehidden = v['layer'] > depth;
+                                let nodegroup = colorPaletteStatus[nodestatus] || "unknown";
+                                let nodelabel = "";
+                                if (nodetype !== null) {
+                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
+
+                                    if (nodename.toString().length > 20) {
+                                        nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
+                                    }
+                                    else {
+                                        nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
+                                    }
+                                }
+                                else {
+                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+                                }
+                                let nodetitle = "";
+                                nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
+
+                                //calculate positions for the proposed issue
+                                let positions;
+                                if (issue === propLinksIssue) {
+                                    positions = calculateProposedDepthOnePositions(j, proposedNodesEdges['nodes'].length);
+                                } else {
+                                    positions = calculateProposedOuterPositions(issueInfo, j);
+                                }
+                                j++;
+                                if (!checkNodesContains(ID)) {
+                                    proposedNodeElements.push({
+                                        id: ID,
+                                        label: nodelabel,
+                                        group: nodegroup,
+                                        shape: 'ellipse',
+                                        title: nodetitle,
+                                        level: level,
+                                        hidden: nodehidden,
+                                        x: positions.x,
+                                        y: positions.y
+                                    });
+                                    proposedIssuesList.push({
+                                        id: nodekey
+                                    })
+                                }
+                            });
+
+                            //add edges
+                            $.each(proposedNodesEdges['edges'], function (i, v) {
+                                let edgestatus = v['status'];
+                                let fromID = v['node_fromid'];
+                                let toID = v['node_toid'];
+                                let edgelabel = findProposed(v['status'], v['dependency_type']);
+                                let edgearrow = arrowPaletteType[edgelabel];
+
+                                if (!(checkNodesContains(fromID) && checkNodesContains(toID))) {
+                                    proposedEdgeElements.push({
+                                        from: fromID,
+                                        to: toID,
+                                        arrows: edgearrow,
+                                        label: "proposed",
+                                        color: {color: '#172B4D', inherit: false},
+                                        width: 2,
+                                        dashes: true
+                                    });
+                                }
+
+                                // console.log(proposedNodesEdges)
+                            });
+
+                            numberOfProposedLinks = proposedEdgeElements.length;
+                            linkDetectionResponse = Array(numberOfProposedLinks);
+
+                            nodes.add(proposedNodeElements);
+                            edges.add(proposedEdgeElements);
+
+                            proposedViewActive = true;
+                            if (proposedIssuesList.length === 0) {
+                                document.getElementById('ddResult').innerHTML = "No proposed links for issue " + currentIssue + ".";
+                            }
+                            else {
+                                let stringList = " <h5>Proposed Links of " + currentIssue + "</h5>" +
+                                    "<table style='width: 100%'><tr>\n" +
+                                    "<th>Issue Key</th>" +
+                                    "<th>Link type</th>" +
+                                    "<th>Accept</th>" +
+                                    "<th>Reject</th>" +
+                                    "</tr>";
+                                let selectionList = '<div class="custom-select">';
+                                let acceptBtn = "<button class='button accept button-effect-teal-light' role='radio' onclick=\"registerClick(this)\" id=";
+                                let rejectBtn = "<button class='button reject button-effect-orange-light' role='radio' onclick=\"registerClick(this)\" id=";
+                                for (let i = 0; i < proposedIssuesList.length; i++) {
+                                    stringList = stringList + "<tr><td><a href='https://bugreports-test.qt.io/browse/" + proposedIssuesList[i].id + "' target='_blank'>" + proposedIssuesList[i].id + "</a></td><td>" + selectionList + "<select id=" + i + "s>" +
+                                        "<option value='REQUIRES'>dependency</option>" +
+                                        "<option value='DUPLICATES'>duplicate</option>" +
+                                        "<option value='DECOMPOSITION'>epic</option>" +
+                                        "<option value='CONTRIBUTES'>relates</option>" +
+                                        "<option value='REPLACES'>replacement</option>" +
+                                        "<option value='DECOMPOSITION'>subtask</option>" +
+                                        "<option value='REFINES'>work breakdown</option>" +
+                                        "</select></div></td><td>"
+                                        + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
+                                        + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
+                                }
+                                stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
+                                document.getElementById('ddResult').innerHTML = stringList;
+
+                                // console.log(proposedNodesEdges)
+                            }
+                        }
+
+                    };
+                    xhr.send(null);
+
+                } catch (err) {
+                    document.getElementById('ddResult').innerHTML = "there was an error getting the proposed dependencies...";
+                    alert(err);
                 }
+            }
+        }
+
+        function checkConsistency() {
+            if (proposedViewActive) {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+                proposedViewActive = false;
+            }
+            infoTabActive = false;
+
+            try {
+                let xhr = new XMLHttpRequest();
+
+                let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + currentIssue;
+                xhr.open("GET", url, true);
+
+                document.getElementById('ccResult').innerHTML = "pending...";
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let json = JSON.parse(xhr.responseText);
+
+                        let releases = json.response[0].Releases;
+                        let regsInReleases = "";
+                        for (let i = 0; i < releases.length; i++) {
+                            regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
+                        }
+                        let ccMessage = "";
+                        let relIncMessage = json.response[0].RelationshipsInconsistent_msg;
+                        if (json.response[0].Consistent_msg == "Release plan contains errors") {
+                            ccMessage = ccMessage.concat("<h5><font color=\"#FB4A08\">Release plan is inconsistent.</font></h5>").concat(relIncMessage)
+                        }
+                        else {
+                            ccMessage = ccMessage.concat("<h5><font color=\"#17b2ad\">Release plan is consistent.</font></h5>")
+                        }
+
+                        document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
+                        document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>")
+                    }
+                };
+
+                xhr.send(null);
+            }
+            catch (err) {
+                alert(err);
+                document.getElementById('ccResult').innerHTML = "there was an error...";
+            }
+        }
+
+
+        function infoTab() {
+
+            infoTabActive = true;
+
+            if (proposedViewActive) {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+                proposedViewActive = false;
+            }
+            //display the initial infobox only if the user put exactly one issue in the input
+            //get coressponding JSON
+            let issueInfo = findElement(helpNodeSet, "id", currentIssue);
+            //get information that should be displayed
+            let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
+            let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
+            let infoTitle = issueInfo.name;
+            //let infoType = issueInfo.requirement_type;
+            let infoStatus = issueInfo.status;
+            //let infoDescription = issueInfo.issueDescription;
+            let infoResolution = issueInfo.resolution;
+            let infoEnvironment = issueInfo.environment;
+            let infoComponent = issueInfo.components;
+            let infoLabel = issueInfo.labels;
+            let infoVersion = issueInfo.versions;
+            let infoPlatform = issueInfo.platforms;
+            let infoFixVersion = issueInfo.fixversion;
+            let infoPriority = priorityArray[issueInfo.priority];
+
+            //put the issues in the corressponding part of the website
+            document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
+            document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
+            //document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
+            document.getElementById('infoBoxIssueStatus').innerHTML = "<strong>Status: </strong>".concat(infoStatus);
+            document.getElementById('infoBoxIssueSummary').innerHTML = "<strong>Summary: </strong>".concat(infoTitle);
+            document.getElementById('infoBoxIssueResolution').innerHTML = "<strong>Resolution: </strong>".concat(infoResolution);
+            document.getElementById('infoBoxIssueEnv').innerHTML = "<strong>Environment: </strong>".concat(infoEnvironment);
+            document.getElementById('infoBoxIssueComponent').innerHTML = "<strong>Component: </strong>".concat(infoComponent);
+            document.getElementById('infoBoxIssueLabel').innerHTML = "<strong>Label: </strong>".concat(infoLabel);
+            document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
+            document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
+            document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
+            document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority:  </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(" ").concat(infoPriority);
+        }
+
+        function filterNodesTab() {
+            if (proposedViewActive) {
+                nodes.remove(proposedNodeElements);
+                edges.remove(proposedEdgeElements);
+                proposedViewActive = false;
+            }
+            infoTabActive = false;
+
+            filterNodes();
+        }
+
+        function filterNodes() {
+            filterArray = getCheckedCheckboxes();
+
+            $.each(filteredNodes, function (i, v) {
+                allNodesArray[v.level].push(v);
+            });
+            filteredNodes = [];
+            for (let j = 0; j < 6; j++) {
+                for (let i = 0; i < allNodesArray[j].length; i++) {
+                    // if the current node has a status that should not be shown it will be
+                    // spliced out of allNodesArray and pushed into filteredNodes
+                    if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type, allNodesArray[j][i].priority) && allNodesArray[j][i].level !== 0) {
+                        filteredNodes.push(allNodesArray[j].splice(i, 1)[0]);
+                        i--;
+                    }
+                }
+            }
+            // after splicing all filtered nodes out of allNodesArray calculate position will create a circle out of the remaining nodes
+            calculatePositions();
+            // nodes is cleared
+            nodes.clear();
+            // and refilled with the correct nodes
+            for (let i = 0; i <= depth; i++) {
+                nodes.add(allNodesArray[i]);
+            }
+        }
+
+        // Create the network after the page is loaded and the network containing div is rendered
+        $(document).ready(function () {
+            // create a network
+            let networkContainer = document.getElementById('issueLinkMap');
+            // provide the data in the vis format
+            let data = {
+                nodes: nodes,
+                edges: edges
             };
 
-            xhr.send(null);
-        }
-        catch (err) {
-            alert(err);
-            document.getElementById('ccResult').innerHTML = "there was an error...";
-        }
-    }
-
-
-    function infoTab() {
-
-        infoTabActive = true;
-
-        if (proposedViewActive) {
-            nodes.remove(proposedNodeElements);
-            edges.remove(proposedEdgeElements);
-            proposedViewActive = false;
-        }
-        //display the initial infobox only if the user put exactly one issue in the input
-        //get coressponding JSON
-        let issueInfo = findElement(helpNodeSet, "id", currentIssue);
-        //get information that should be displayed
-        let infoLink = "https://bugreports.qt.io/browse/" + currentIssue;
-        let infoLinkTestJIRA = "https://bugreports-test.qt.io/browse/" + currentIssue;
-        let infoTitle = issueInfo.name;
-        //let infoType = issueInfo.requirement_type;
-        let infoStatus = issueInfo.status;
-        //let infoDescription = issueInfo.issueDescription;
-        let infoResolution = issueInfo.resolution;
-        let infoEnvironment = issueInfo.environment;
-        let infoComponent = issueInfo.components;
-        let infoLabel = issueInfo.labels;
-        let infoVersion = issueInfo.versions;
-        let infoPlatform = issueInfo.platforms;
-        let infoFixVersion = issueInfo.fixversion;
-        let infoPriority = priorityArray[issueInfo.priority];
-
-        //put the issues in the corressponding part of the website
-        document.getElementById('infoBoxHeading').innerHTML = "".concat(currentIssue);
-        document.getElementById('infoBoxIssueLink').innerHTML = '<a href=\"' + infoLink + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt JIRA</a>';
-        //document.getElementById('infoBoxIssueLinkTestJIRA').innerHTML = '<a href=\"' + infoLinkTestJIRA + '\" class=\"button jira button-effect-orange center\" target="_blank">View Issue in Qt Test JIRA</a>';
-        document.getElementById('infoBoxIssueStatus').innerHTML = "<strong>Status: </strong>".concat(infoStatus);
-        document.getElementById('infoBoxIssueSummary').innerHTML = "<strong>Summary: </strong>".concat(infoTitle);
-        document.getElementById('infoBoxIssueResolution').innerHTML = "<strong>Resolution: </strong>".concat(infoResolution);
-        document.getElementById('infoBoxIssueEnv').innerHTML = "<strong>Environment: </strong>".concat(infoEnvironment);
-        document.getElementById('infoBoxIssueComponent').innerHTML = "<strong>Component: </strong>".concat(infoComponent);
-        document.getElementById('infoBoxIssueLabel').innerHTML = "<strong>Label: </strong>".concat(infoLabel);
-        document.getElementById('infoBoxIssueVersion').innerHTML = "<strong>Version: </strong>".concat(infoVersion);
-        document.getElementById('infoBoxIssueFix').innerHTML = "<strong>Fix Version: </strong>".concat(infoFixVersion);
-        document.getElementById('infoBoxIssuePlatform').innerHTML = "<strong>Platform(s): </strong>".concat(infoPlatform);
-        document.getElementById('infoBoxIssuePrio').innerHTML = '<strong>Priority:  </strong><img src="../images/prio/' + issueInfo.priority + '.png" width="20" height="20" align="middle"/>'.concat(" ").concat(infoPriority);
-    }
-
-    function filterNodesTab() {
-        if (proposedViewActive) {
-            nodes.remove(proposedNodeElements);
-            edges.remove(proposedEdgeElements);
-            proposedViewActive = false;
-        }
-        infoTabActive = false;
-
-        filterNodes();
-    }
-
-    function filterNodes() {
-        filterArray = getCheckedCheckboxes();
-
-        $.each(filteredNodes, function (i, v) {
-            allNodesArray[v.level].push(v);
-        });
-        filteredNodes = [];
-        for (let j = 0; j < 6; j++) {
-            for (let i = 0; i < allNodesArray[j].length; i++) {
-                // if the current node has a status that should not be shown it will be
-                // spliced out of allNodesArray and pushed into filteredNodes
-                if (isFiltered(allNodesArray[j][i].status, allNodesArray[j][i].type, allNodesArray[j][i].priority) && allNodesArray[j][i].level !== 0) {
-                    filteredNodes.push(allNodesArray[j].splice(i, 1)[0]);
-                    i--;
+            //specify options such as physics
+            let options = {
+                //size of the network
+                // autoResize: true,
+                // height: '1000px',
+                // width: '80%',
+                //specify the different groups
+                //TODO: There must be an easier way to create these groups
+                "groups": {
+                    "yellow": {
+                        color: {background: '#FECC3F', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "green": {
+                        color: {background: '#36DA46', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "blue": {
+                        color: {background: '#87A1C2', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "red": {
+                        color: {background: '#FF5E36', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    },
+                    "unknown": {
+                        color: {background: '#aaa', border: '#172B4D'},
+                        borderWidth: 2,
+                        font: {color: 'black', multi: 'html'}
+                    }
+                },
+                //node design
+                "nodes": {
+                    "font": {
+                        "face": 'Lato'
+                    },
+                    "margin": {
+                        "top": 10,
+                        "right": 10,
+                        "bottom": 10,
+                        "left": 10
+                    },
+                    "title": "HTML"
+                },
+                //edge design
+                "edges": {
+                    "font": {
+                        "face": 'Lato',
+                        "align": 'bottom'
+                    },
+                    "smooth": {
+                        "type": "curvedCW",
+                        "forceDirection": "none",
+                        "roundness": 0   // This is max roundness
+                    }
+                },
+                "interaction": {
+                    "multiselect": false,
+                    "navigationButtons": true
+                },
+                "physics": {
+                    "enabled": false,
+                    'forceAtlas2Based': {
+                        'gravitationalConstant': 26,
+                        'centralGravity': 0.005,
+                        'springLength': 230,
+                        'springConstant': 0.18,
+                        'avoidOverlap': 10
+                    },
+                    'maxVelocity': 146,
+                    'solver': 'forceAtlas2Based',
+                    'timestep': 0.35,
+                    'stabilization': {
+                        'enabled': true,
+                        "iterations": 1000,
+                        "updateInterval": 25
+                        // "minVelocity": 50,
+                        // // "repulsion": {
+                        // //     "nodeDistance": 150
+                        // // },
+                        // "barnesHut":
+                        //     {
+                        //         "avoidOverlap": 1
+                        //     },
+                        // "stabilization": {
+                        //     "enabled": true,
+                        //     "iterations": 50, // maximum number of iteration to stabilize
+                        //     "updateInterval": 1,
+                        //     "onlyDynamicEdges": false,
+                        //     "fit": true
+                    }
                 }
-            }
-        }
-        // after splicing all filtered nodes out of allNodesArray calculate position will create a circle out of the remaining nodes
-        calculatePositions();
-        // nodes is cleared
-        nodes.clear();
-        // and refilled with the correct nodes
-        for (let i = 0; i <= depth; i++) {
-            nodes.add(allNodesArray[i]);
-        }
-    }
+            };
+            //initialize network
+            let network = new vis.Network(networkContainer, data, options);
 
-    // Create the network after the page is loaded and the network containing div is rendered
-    $(document).ready(function () {
-        // create a network
-        let networkContainer = document.getElementById('issueLinkMap');
-        // provide the data in the vis format
-        let data = {
-            nodes: nodes,
-            edges: edges
-        };
+            network.on("stabilizationIterationsDone", function () {
+                network.setOptions({physics: false});
+            });
 
-        //specify options such as physics
-        let options = {
-            //size of the network
-            // autoResize: true,
-            // height: '1000px',
-            // width: '80%',
-            //specify the different groups
-            //TODO: There must be an easier way to create these groups
-            "groups": {
-                "yellow": {
-                    color: {background: '#FECC3F', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "green": {
-                    color: {background: '#36DA46', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "blue": {
-                    color: {background: '#87A1C2', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "red": {
-                    color: {background: '#FF5E36', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                },
-                "unknown": {
-                    color: {background: '#aaa', border: '#172B4D'},
-                    borderWidth: 2,
-                    font: {color: 'black', multi: 'html'}
-                }
-            },
-            //node design
-            "nodes": {
-                "font": {
-                    "face": 'Lato'
-                },
-                "margin": {
-                    "top": 10,
-                    "right": 10,
-                    "bottom": 10,
-                    "left": 10
-                },
-                "title": "HTML"
-            },
-            //edge design
-            "edges": {
-                "font": {
-                    "face": 'Lato',
-                    "align": 'bottom'
-                },
-                "smooth": {
-                    "type": "curvedCW",
-                    "forceDirection": "none",
-                    "roundness": 0   // This is max roundness
-                }
-            },
-            "interaction": {
-                "multiselect": false,
-                "navigationButtons": true
-            },
-            "physics": {
-                "enabled": false,
-                'forceAtlas2Based': {
-                    'gravitationalConstant': 26,
-                    'centralGravity': 0.005,
-                    'springLength': 230,
-                    'springConstant': 0.18,
-                    'avoidOverlap': 10
-                },
-                'maxVelocity': 146,
-                'solver': 'forceAtlas2Based',
-                'timestep': 0.35,
-                'stabilization': {
-                    'enabled': true,
-                    "iterations": 1000,
-                    "updateInterval": 25
-                    // "minVelocity": 50,
-                    // // "repulsion": {
-                    // //     "nodeDistance": 150
-                    // // },
-                    // "barnesHut":
-                    //     {
-                    //         "avoidOverlap": 1
-                    //     },
-                    // "stabilization": {
-                    //     "enabled": true,
-                    //     "iterations": 50, // maximum number of iteration to stabilize
-                    //     "updateInterval": 1,
-                    //     "onlyDynamicEdges": false,
-                    //     "fit": true
-                }
-            }
-        };
-        //initialize network
-        let network = new vis.Network(networkContainer, data, options);
+            // network.on("afterDrawing", function () {
+            //     network.fit();
+            // });
 
-        network.on("stabilizationIterationsDone", function () {
-            network.setOptions({physics: false});
-        });
+            //interact with network
+            //if a node is selected display information in infobox
+            network.on("selectNode", function (params) {
+                params.event = "[original event]";
 
-        // network.on("afterDrawing", function () {
-        //     network.fit();
-        // });
-
-        //interact with network
-        //if a node is selected display information in infobox
-        network.on("selectNode", function (params) {
-            params.event = "[original event]";
-
-            let node = nodes.get(params.nodes);
-            let issueID = node[0].id;
-            let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-            if (typeof issueNode !== 'undefined') {
-
-                currentIssue = issueNode.id;
-                if (infoTabActive) {
-                    infoTab();
-                }
-                if (proposedViewActive) {
-                    proposedLinks()
-                }
-            }
-        });
-
-        //doubleclicking searches for the clicked issue
-        network.on("doubleClick", function (params) {
-            params.event = "[original event]";
-            let node = nodes.get(params.nodes);
-            if (typeof node[0] !== "undefined") {
+                let node = nodes.get(params.nodes);
                 let issueID = node[0].id;
                 let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
-                if (typeof issueNode !== 'undefined' && issueNode.id !== issue) {
-                    let issueKey = issueNode.id;
-                    $('#issueInput').val(issueKey);
-                    $('#depthInput').val(depth);
-                    //
-                    document.forms["search-id"].submit();
+                if (typeof issueNode !== 'undefined') {
+
+                    currentIssue = issueNode.id;
+                    if (infoTabActive) {
+                        infoTab();
+                    }
+                    if (proposedViewActive) {
+                        proposedLinks()
+                    }
                 }
-            }
+            });
+
+            //doubleclicking searches for the clicked issue
+            network.on("doubleClick", function (params) {
+                params.event = "[original event]";
+                let node = nodes.get(params.nodes);
+                if (typeof node[0] !== "undefined") {
+                    let issueID = node[0].id;
+                    let issueNode = findElement(nodeEdgeObject.nodes, "nodeid", issueID);
+                    if (typeof issueNode !== 'undefined' && issueNode.id !== issue) {
+                        let issueKey = issueNode.id;
+                        $('#issueInput').val(issueKey);
+                        $('#depthInput').val(depth);
+                        //
+                        document.forms["search-id"].submit();
+                    }
+                }
+            });
         });
-    });
 
-    $(document).on("load");
+        $(document).on("load");
 
-    function resizeCanvas () {
-        $('#issueLinkMap').height($(document).height()*0.60)
-    }
+        function resizeCanvas() {
+            $('#issueLinkMap').height($(document).height() * 0.60)
+        }
 
-    $(document).ready(function () {
-        $(window).resize(function(){
-            resizeCanvas();
+        $(document).ready(function () {
+            $(window).resize(function () {
+                resizeCanvas();
+            });
         });
-    });
 
-    resizeCanvas();
+        resizeCanvas();
 
 
-    //    ######GRAVEYARD & INFORMATION######
-    //    LINKS in Qt and OpenReq JSON
-    //         'CONTRIBUTES'
-    //         'DAMAGES'
-    //         'REFINES'        work breakdown, test
-    //         'REQUIRES'       dependency
-    //         'INCOMPATIBLE'
-    //         'DECOMPOSITION'  sub-task, epic
-    //         'SIMILAR'        relates
-    //         'DUPLICATES'     duplicate
-    //         'REPLACES'       replaces
-</script>
+        //    ######GRAVEYARD & INFORMATION######
+        //    LINKS in Qt and OpenReq JSON
+        //         'CONTRIBUTES'
+        //         'DAMAGES'
+        //         'REFINES'        work breakdown, test
+        //         'REQUIRES'       dependency
+        //         'INCOMPATIBLE'
+        //         'DECOMPOSITION'  sub-task, epic
+        //         'SIMILAR'        relates
+        //         'DUPLICATES'     duplicate
+        //         'REPLACES'       replaces
+    </script>
 </body>
 </html>
