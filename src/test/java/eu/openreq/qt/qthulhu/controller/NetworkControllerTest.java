@@ -55,42 +55,42 @@ public class NetworkControllerTest
 //                .andExpect(view().name("index"));
     }
 
-//    @Test
-//    public void issueURLwithIDTest() throws Exception
-//    {
-//        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void issueURLwithIDandDepthTest() throws Exception
-//    {
-//        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void issueWrongKeyTest() throws Exception
-//    {
-//        mockMvc.perform(get("/issue/NOTAVALIDKEY-999")).andExpect(status().is4xxClientError());
-//    }
+    @Test
+    public void issueURLwithIDTest() throws Exception
+    {
+        mockMvc.perform(get("/issue/QTWB-30")).andExpect(status().isOk());
+    }
 
-//    @Test
-//    public void checkDetectionService()
-//    {
-//        UHServicesConnections.fetchTopProposedLinks("QTWB-30", 5);
-//        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
-//    }
-//
-//    @Test
-//    public void depDetectionTest() throws Exception
-//    {
-//        mockMillaMvc.perform(get("/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void consistCheckerTest() throws Exception
-//    {
-//        mockMillaMvc.perform(get("/milla/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
-//    }
+    @Test
+    public void issueURLwithIDandDepthTest() throws Exception
+    {
+        mockMvc.perform(get("/issue/QTWB-30?issue=QTWB-30&depth=6")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void issueWrongKeyTest() throws Exception
+    {
+        mockMvc.perform(get("/issue/NOTAVALIDKEY-999")).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void checkDetectionService()
+    {
+        UHServicesConnections.fetchTopProposedLinks("QTWB-30", 5);
+        UHServicesConnections.fetchConsistencyCheck("QTWB-30");
+    }
+
+    @Test
+    public void depDetectionTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/milla/getTopProposedDependenciesOfRequirement?requirementId=QTWB-30&maxResults=5")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void consistCheckerTest() throws Exception
+    {
+        mockMillaMvc.perform(get("/milla/getConsistencyCheckForRequirement?requirementId=QTWB-30")).andExpect(status().isOk());
+    }
 
     @Test
     public void checkTooLowLayerTest()

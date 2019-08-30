@@ -84,9 +84,6 @@
             this <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9"> anonynoums feedback form</a>.
         </p>
     </div>
-</div>
-
-<div class="container-fluid" style="padding-left: 50px; padding-top: 30px">
     <%--Header and Loader--%>
     <div class="row">
 

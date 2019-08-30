@@ -40,7 +40,7 @@
 <body>
 <div class="topnav">
     <a target="_blank" href="https://openreq.eu/"><img alt="or_logo"
-                                                       src="../images/or_logo.png"
+                                                       src="./images/or_logo.png"
                                                        width="116px" height="30px"/></a>
     <a target="_blank" href="https://bugreports.qt.io/browse/">Qt's Jira</a>
     <%--<a target="_blank" href="https://forum.qt.io/">Qt Forum</a>--%>
