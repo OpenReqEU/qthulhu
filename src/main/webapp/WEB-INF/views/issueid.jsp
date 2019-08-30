@@ -466,6 +466,8 @@
 
         //proposed View active boolean
         let proposedViewActive = false;
+        //has the Consistency Checker been called
+        let consistencyChecked = false;
         //infoTab View active boolean
         let infoTabActive = true;
         //saves the Issue that links get proposed for
@@ -1099,7 +1101,6 @@
             testFilter = filter;
         }
 
-        let selectedCount;
         let proposedIssueOrderLDR = [];
 
         function registerClick(elem) {
@@ -1110,20 +1111,17 @@
                     if ($(otherbtnid).hasClass('accepted')) {
                         $(otherbtnid).removeClass('accepted');
                         $(otherbtnid).addClass('accept');
-                        selectedCount--;
                     }
                     $(btnid).removeClass('reject');
                     $(btnid).addClass('rejected');
                     linkDetectionResponse[elem.id.charAt(0)] = "reject";
                     proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
-                    selectedCount++;
                 }
                 else {
                     $(btnid).removeClass('rejected');
                     $(btnid).addClass('reject');
                     delete linkDetectionResponse[elem.id.charAt(0)];
                     delete proposedIssueOrderLDR[elem.id.charAt(0)];
-                    selectedCount--;
                 }
             }
             else {
@@ -1135,33 +1133,18 @@
                     if ($(otherbtnid).hasClass('rejected')) {
                         $(otherbtnid).removeClass('rejected');
                         $(otherbtnid).addClass('reject');
-                        selectedCount--;
                     }
                     $(btnid).removeClass('accept');
                     $(btnid).addClass('accepted');
                     linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
                     proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
-                    selectedCount++;
                 }
                 else {
                     $(btnid).removeClass('accepted');
                     $(btnid).addClass('accept');
                     delete linkDetectionResponse[elem.id.charAt(0)];
                     delete proposedIssueOrderLDR[elem.id.charAt(0)];
-                    selectedCount--;
                 }
-            }
-            disOrEnableSave();
-        }
-
-        function disOrEnableSave() {
-            if (selectedCount > 0)
-            {
-                document.getElementById("ddSaveButton").disabled = false;
-            }
-            else
-            {
-                document.getElementById("ddSaveButton").disabled = true;
             }
         }
 
@@ -1325,7 +1308,6 @@
         //Similarity detection functionality
         //Showing and removing proposed issues
         function proposedLinks() {
-            selectedCount = 0;
             infoTabActive = false;
             if (propLinksIssue !== currentIssue || !proposedViewActive) {
                 propLinksIssue = currentIssue;
@@ -1466,8 +1448,10 @@
                                         + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
                                         + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
                                 }
-                                stringList = stringList + "<td><button class='button button-effect-teal' id='ddSaveButton' onclick ='sendLinkData()' disabled>Save</button></td><td></td><td></td><td></td></table>";
+                                stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
                                 document.getElementById('ddResult').innerHTML = stringList;
+
+                                // console.log(proposedNodesEdges)
                             }
                         }
 
@@ -1489,65 +1473,74 @@
             }
             infoTabActive = false;
 
-            try {
-                let xhr = new XMLHttpRequest();
+            if (!consistencyChecked)
+            {
+                try
+                {
+                    let xhr = new XMLHttpRequest();
 
-                let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + issue;
-                xhr.open("GET", url, true);
+                    let url = "../milla/getConsistencyCheckForRequirement?requirementId=" + issue;
+                    xhr.open("GET", url, true);
 
-                document.getElementById('ccResult').innerHTML = "Pending...";
-                document.getElementById('ccRelIncButton').innerHTML = "Inconsistent links are being calculated...";
-                document.getElementById('ccReleasesButton').innerHTML = "Searching for releases in link map...";
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        let json = JSON.parse(xhr.responseText);
+                    document.getElementById('ccResult').innerHTML = "Pending...";
+                    document.getElementById('ccRelIncButton').innerHTML = "Inconsistent links are being calculated...";
+                    document.getElementById('ccReleasesButton').innerHTML = "Searching for releases in link map...";
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            let json = JSON.parse(xhr.responseText);
 
-                        console.log(json);
+                            console.log(json);
 
-                        let releases = json.response[0].Releases;
-                        let regsInReleases = "";
-                        for (let i = 0; i < releases.length; i++) {
-                            regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
-                        }
-                        let ccMessage = "";
-                        let relList = "";
-
-                        if (json.response[0].Consistent_msg == "Release plan contains errors") {
-                            ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>");
-                            let relInc = json.response[0].RelationshipsInconsistent;
-                            relList = relList +
-                                "<table style='width: 100%'><tr>\n" +
-                                "<th>Issue Keys</th>" +
-                                "<th>Link type</th>" +
-                                "</tr>";
-                            for (let i = 0; i < relInc.length; i++) {
-                                relList = relList + "<tr><td>" + relInc[i].To + ", " + relInc[i].From + "</a></td><td>" + relInc[i].Type + "</td></tr>";
+                            let releases = json.response[0].Releases;
+                            let regsInReleases = "";
+                            for (let i = 0; i < releases.length; i++)
+                            {
+                                regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                             }
-                            relList = relList + "</table>";
-                            document.getElementById('ccRelInc').innerHTML = relList;
-                            document.getElementById('ccRelIncButton').innerHTML = "Inconsistent items";
+                            let ccMessage = "";
+                            let relList = "";
+
+                            if (json.response[0].Consistent_msg == "Release plan contains errors")
+                            {
+                                ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>");
+                                let relInc = json.response[0].RelationshipsInconsistent;
+                                relList = relList +
+                                    "<table style='width: 100%'><tr>\n" +
+                                    "<th>Issue Keys</th>" +
+                                    "<th>Link type</th>" +
+                                    "</tr>";
+                                for (let i = 0; i < relInc.length; i++)
+                                {
+                                    relList = relList + "<tr><td>" + relInc[i].To + ", " + relInc[i].From + "</a></td><td>" + relInc[i].Type + "</td></tr>";
+                                }
+                                relList = relList + "</table>";
+                                document.getElementById('ccRelInc').innerHTML = relList;
+                                document.getElementById('ccRelIncButton').innerHTML = "Inconsistent items";
+                            }
+                            else
+                            {
+                                ccMessage = ccMessage.concat("<h5><font color=\"#138f8b\">Release plan is consistent.</font></h5>");
+                                document.getElementById("ccRelInc").style.display = "none";
+                                document.getElementById("ccRelIncButton").style.display = "none"
+                            }
+
+                            document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
+                            document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>");
+                            document.getElementById('ccReleasesButton').innerHTML = "Releases found";
+
+                            consistencyChecked = true;
                         }
-                        else {
-                            ccMessage = ccMessage.concat("<h5><font color=\"#138f8b\">Release plan is consistent.</font></h5>");
-                            document.getElementById("ccRelInc").style.display = "none";
-                            document.getElementById("ccRelIncButton").style.display = "none"
-                        }
+                    };
 
-                        document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
-                        document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>");
-                        document.getElementById('ccReleasesButton').innerHTML = "Releases found";
-
-                        ccMessage = "";
-                        regsInReleases = "";
-                        relList = "";
-                    }
-                };
-
-                xhr.send(null);
-            }
-            catch (err) {
-                alert(err);
-                document.getElementById('ccResult').innerHTML = "there was an error...";
+                    xhr.send(null);
+                }
+                catch (err)
+                {
+                    alert(err);
+                    document.getElementById('ccResult').innerHTML = "there was an error...";
+                }
             }
         }
 
