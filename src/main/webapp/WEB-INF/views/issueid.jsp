@@ -1182,20 +1182,6 @@
                 let fromProject = fromID.substring(0, fromID.indexOf("-"));
                 let toProject = toID.substring(0, toID.indexOf("-"));
 
-                if (fromProject === currentProjectId)
-                {
-                    if (projectsToUpdate.indexOf(toProject) === -1)
-                    {
-                        projectsToUpdate.push(toProject);
-                    }
-                }
-                else if (toProject === currentProjectId)
-                {
-                    if (projectsToUpdate.indexOf(fromProject) === -1)
-                    {
-                        projectsToUpdate.push(fromProject);
-                    }
-                }
 
                 let index = Math.max(proposedIssueOrderLDR.indexOf(fromID), proposedIssueOrderLDR.indexOf(toID));
                 if (index !== -1) {
@@ -1204,10 +1190,41 @@
                             updatedProposedLinksJSON.dependencies[i].dependency_type = linkDetectionResponse[index].toUpperCase();
                             updatedProposedLinksJSON.dependencies[i].status = "ACCEPTED";
                             updatedProposedLinksJSON.dependencies[i].description[0] = linkDetectionResponse[index];
+
+                            //this will safe all projects that need to be updated
+                            if (fromProject === currentProjectId)
+                            {
+                                if (projectsToUpdate.indexOf(toProject) === -1)
+                                {
+                                    projectsToUpdate.push(toProject);
+                                }
+                            }
+                            else if (toProject === currentProjectId)
+                            {
+                                if (projectsToUpdate.indexOf(fromProject) === -1)
+                                {
+                                    projectsToUpdate.push(fromProject);
+                                }
+                            }
                         }
                         else {
                             updatedProposedLinksJSON.dependencies[i].status = "REJECTED";
-                            //updatedProposedLinksJSON.dependencies[i].description = description;
+
+                            //this will safe all projects that need to be updated
+                            if (fromProject === currentProjectId)
+                            {
+                                if (projectsToUpdate.indexOf(toProject) === -1)
+                                {
+                                    projectsToUpdate.push(toProject);
+                                }
+                            }
+                            else if (toProject === currentProjectId)
+                            {
+                                if (projectsToUpdate.indexOf(fromProject) === -1)
+                                {
+                                    projectsToUpdate.push(fromProject);
+                                }
+                            }
                         }
                     }
                     else {
