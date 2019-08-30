@@ -1229,11 +1229,14 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let response = xhr.responseText;
                         console.log(response);
+                        if (projectsToUpdate.includes("QTBUG"))
+                        {
+                            document.getElementById("ddPending").innerHTML += "<br><br> QTBUG is the largest project and will take a while to update. This can take up to 2 minutes";
+                        }
                         for (let count = 0; count < projectsToUpdate.length; count++)
                         {
-                            console.log(sendProjectToMulperi(projectsToUpdate[count]));
+                            sendProjectToMulperi(projectsToUpdate[count]);
                         }
-                        //location.reload();
                     }
                 };
                 // takes only the array out of the JSON
@@ -1265,7 +1268,9 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200)
                     {
-                        return projectID + " done";
+                        console.log(projectID + " done");
+                        document.getElementById("ddPending").innerHTML = "The page will now reload.<br>If you have time to read this please reload the page manually."
+                        //location.reload();
                     }
                 };
                 xhr.send("");
