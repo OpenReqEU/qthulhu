@@ -1492,11 +1492,12 @@
                             regsInReleases = regsInReleases + "<strong>Release " + releases[i].Release + "</strong><br>" + releases[i].RequirementsAssigned_msg + "<br>"
                         }
                         let ccMessage = "";
+                        let relList = "";
 
                         if (json.response[0].Consistent_msg == "Release plan contains errors") {
                             ccMessage = ccMessage.concat("<h5><font color=\"#d83d04\">Release plan is inconsistent.</font></h5>");
                             let relInc = json.response[0].RelationshipsInconsistent;
-                            let relList =
+                            relList = relList +
                                 "<table style='width: 100%'><tr>\n" +
                                 "<th>Issue Keys</th>" +
                                 "<th>Link type</th>" +
@@ -1517,6 +1518,10 @@
                         document.getElementById('ccResult').innerHTML = "<br>".concat(ccMessage).concat("<br>");
                         document.getElementById('ccReleases').innerHTML = "<br>".concat(regsInReleases).concat("<br>");
                         document.getElementById('ccReleasesButton').innerHTML = "Releases found";
+
+                        ccMessage = "";
+                        regsInReleases = "";
+                        relList = "";
                     }
                 };
 
