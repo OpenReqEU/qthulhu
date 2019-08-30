@@ -1145,6 +1145,9 @@
                 {
                     dependencies: []
                 };
+            let currentProjectId = currentIssue.substring(0, currentIssue.indexOf("-"));
+            let projectsToUpdate = [];
+
             $.each(proposedNodesEdges['edges'], function (i, v) {
                 let dep_type = v['dependency_type'].toUpperCase(); //when the type is not overwritten the standard is "similar". The API doesn't accept lowercase input
                 let fromid = v['fromid'];
@@ -1173,7 +1176,28 @@
             });
 
             for (let i = linkDetectionResponse.length - 1; i >= 0; i--) {
-                let index = Math.max(proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].fromid), proposedIssueOrderLDR.indexOf(updatedProposedLinksJSON.dependencies[i].toid));
+                //saves the projectIDs to update those later
+                let fromID = updatedProposedLinksJSON.dependencies[i].fromid;
+                let toID = updatedProposedLinksJSON.dependencies[i].toid;
+                let fromProject = fromID.substring(0, fromID.indexOf("-"));
+                let toProject = toID.substring(0, toID.indexOf("-"));
+
+                if (fromProject === currentProjectId)
+                {
+                    if (projectsToUpdate.indexOf(toProject) !== -1)
+                    {
+                        projectsToUpdate.push(toProject);
+                    }
+                }
+                else if (toProject === currentProjectId)
+                {
+                    if (projectsToUpdate.indexOf(fromProject) !== -1)
+                    {
+                        projectsToUpdate.push(fromProject);
+                    }
+                }
+
+                let index = Math.max(proposedIssueOrderLDR.indexOf(fromID), proposedIssueOrderLDR.indexOf(toID));
                 if (index !== -1) {
                     if (linkDetectionResponse[index] !== undefined) {
                         if (linkDetectionResponse[index] !== "reject") {
@@ -1205,6 +1229,8 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let response = xhr.responseText;
                         console.log(response);
+                        sendProjectsToMulperi(projectsToUpdate);
+                        location.reload();
                     }
                 };
                 // takes only the array out of the JSON
@@ -1213,8 +1239,6 @@
                 xhr.send(updatedProposedLinksResponse);
                 document.getElementById("ddPending").innerHTML = "your request is being processed<br>the page will reload afterwards"
                 //TODO Clara: beautify!
-                //uncomment line below to actually reload page
-                //location.reload();
             }
             catch
                 (err) {
@@ -1228,7 +1252,29 @@
         let proposedIssuesList = [];
         let numberOfProposedLinks = 0;
 
-        // console.log(proposedNodesEdges);
+        function sendProjectsToMulperi(projectArray) {
+            for (let i = 0; i < projectArray.length; i++)
+            {
+                let projectID = projectArray[i];
+                try {
+                    let xhr = new XMLHttpRequest();
+                    //https://api.openreq.eu/milla/sendProjectToMulperi?projectId=
+                    let url = "http://localhost:9203/sendProjectToMulperi?projectId=" + projectID;
+                    xhr.open("POST", url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            console.log(projectID + " done");
+                        }
+                    };
+                }
+                catch
+                    (err) {
+                    alert(err);
+                }
+            }
+        }
 
         //Similarity detection functionality
         //Showing and removing proposed issues
