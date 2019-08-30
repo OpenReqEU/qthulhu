@@ -1099,6 +1099,7 @@
             testFilter = filter;
         }
 
+        let selectedCount;
         let proposedIssueOrderLDR = [];
 
         function registerClick(elem) {
@@ -1109,17 +1110,20 @@
                     if ($(otherbtnid).hasClass('accepted')) {
                         $(otherbtnid).removeClass('accepted');
                         $(otherbtnid).addClass('accept');
+                        selectedCount--;
                     }
                     $(btnid).removeClass('reject');
                     $(btnid).addClass('rejected');
                     linkDetectionResponse[elem.id.charAt(0)] = "reject";
                     proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
+                    selectedCount++;
                 }
                 else {
                     $(btnid).removeClass('rejected');
                     $(btnid).addClass('reject');
                     delete linkDetectionResponse[elem.id.charAt(0)];
                     delete proposedIssueOrderLDR[elem.id.charAt(0)];
+                    selectedCount--;
                 }
             }
             else {
@@ -1131,18 +1135,33 @@
                     if ($(otherbtnid).hasClass('rejected')) {
                         $(otherbtnid).removeClass('rejected');
                         $(otherbtnid).addClass('reject');
+                        selectedCount--;
                     }
                     $(btnid).removeClass('accept');
                     $(btnid).addClass('accepted');
                     linkDetectionResponse[elem.id.charAt(0)] = selectedItem;
                     proposedIssueOrderLDR[elem.id.charAt(0)] = elem.id.substring(2);
+                    selectedCount++;
                 }
                 else {
                     $(btnid).removeClass('accepted');
                     $(btnid).addClass('accept');
                     delete linkDetectionResponse[elem.id.charAt(0)];
                     delete proposedIssueOrderLDR[elem.id.charAt(0)];
+                    selectedCount--;
                 }
+            }
+            disOrEnableSave();
+        }
+
+        function disOrEnableSave() {
+            if (selectedCount > 0)
+            {
+                document.getElementById("ddSaveButton").disabled = false;
+            }
+            else
+            {
+                document.getElementById("ddSaveButton").disabled = true;
             }
         }
 
@@ -1306,6 +1325,7 @@
         //Similarity detection functionality
         //Showing and removing proposed issues
         function proposedLinks() {
+            selectedCount = 0;
             infoTabActive = false;
             if (propLinksIssue !== currentIssue || !proposedViewActive) {
                 propLinksIssue = currentIssue;
@@ -1446,10 +1466,8 @@
                                         + acceptBtn + i + "a" + proposedIssuesList[i].id + ">&#x2713</button></td><td>"
                                         + rejectBtn + i + "r" + proposedIssuesList[i].id + ">&#x2717</button></td></tr>";
                                 }
-                                stringList = stringList + "<td><button class='button button-effect-teal' onclick ='sendLinkData()'>Save</button></td><td></td><td></td><td></td></table>";
+                                stringList = stringList + "<td><button class='button button-effect-teal' id='ddSaveButton' onclick ='sendLinkData()' disabled>Save</button></td><td></td><td></td><td></td></table>";
                                 document.getElementById('ddResult').innerHTML = stringList;
-
-                                // console.log(proposedNodesEdges)
                             }
                         }
 
