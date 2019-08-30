@@ -1270,7 +1270,7 @@
                     {
                         console.log(projectID + " done");
                         document.getElementById("ddPending").innerHTML = "The page will now reload.<br>If you have time to read this please reload the page manually."
-                        //location.reload();
+                        location.reload();
                     }
                 };
                 xhr.send("");
