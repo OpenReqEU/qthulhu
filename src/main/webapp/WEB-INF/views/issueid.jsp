@@ -1184,14 +1184,14 @@
 
                 if (fromProject === currentProjectId)
                 {
-                    if (projectsToUpdate.indexOf(toProject) !== -1)
+                    if (projectsToUpdate.indexOf(toProject) === -1)
                     {
                         projectsToUpdate.push(toProject);
                     }
                 }
                 else if (toProject === currentProjectId)
                 {
-                    if (projectsToUpdate.indexOf(fromProject) !== -1)
+                    if (projectsToUpdate.indexOf(fromProject) === -1)
                     {
                         projectsToUpdate.push(fromProject);
                     }
@@ -1229,8 +1229,11 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let response = xhr.responseText;
                         console.log(response);
-                        sendProjectsToMulperi(projectsToUpdate);
-                        location.reload();
+                        for (let count = 0; count < projectsToUpdate.length; count++)
+                        {
+                            console.log(sendProjectToMulperi(projectsToUpdate[count]));
+                        }
+                        //location.reload();
                     }
                 };
                 // takes only the array out of the JSON
@@ -1252,27 +1255,24 @@
         let proposedIssuesList = [];
         let numberOfProposedLinks = 0;
 
-        function sendProjectsToMulperi(projectArray) {
-            for (let i = 0; i < projectArray.length; i++)
-            {
-                let projectID = projectArray[i];
-                try {
-                    let xhr = new XMLHttpRequest();
-                    //https://api.openreq.eu/milla/sendProjectToMulperi?projectId=
-                    let url = "http://localhost:9203/sendProjectToMulperi?projectId=" + projectID;
-                    xhr.open("POST", url, true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200)
-                        {
-                            console.log(projectID + " done");
-                        }
-                    };
-                }
-                catch
-                    (err) {
-                    alert(err);
-                }
+        function sendProjectToMulperi(projectID) {
+            try {
+                let xhr = new XMLHttpRequest();
+                //https://api.openreq.eu/milla/sendProjectToMulperi?projectId=
+                let url = "http://localhost:9203/sendProjectToMulperi?projectId=" + projectID;
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200)
+                    {
+                        return projectID + " done";
+                    }
+                };
+                xhr.send("");
+            }
+            catch
+                (err) {
+                alert(err);
             }
         }
 
