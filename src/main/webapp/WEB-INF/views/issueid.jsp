@@ -164,7 +164,7 @@
                     <a class="nav-link" id="sd-tab" data-toggle="tab" href="#sd-box" role="tab"
                        aria-controls="sd-tab" aria-selected="false" onclick="proposedLinks();">Link Detection
                     </a>
-                    <span class="tooltiptext">The Link Detection service finds similar or related items based on the textual fields.</span>
+                    <span class="tooltiptext">The Link Detection service finds similar or related items based on the textual fields. The accepted and rejected links are NOT written to Jira.</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cc-tab" data-toggle="tab" href="#cc-box" role="tab"
@@ -1255,7 +1255,7 @@
                         console.log(response);
                         if (projectsToUpdate.includes("QTBUG"))
                         {
-                            document.getElementById("ddPending").innerHTML += "<br><br> QTBUG is the largest project and will take a while to update. This can take up to 2 minutes";
+                            document.getElementById("ddPending").innerHTML += "<br><br>QTBUG is the largest project and will take a while to update. This can take up to 2 minutes. Thank you for your patience.";
                         }
                         for (let count = 0; count < projectsToUpdate.length; count++)
                         {
@@ -1267,8 +1267,7 @@
                 //{ dependencies : [...] }  => [...]
                 updatedProposedLinksResponse = updatedProposedLinksResponse.substring(updatedProposedLinksResponse.indexOf(":") + 1, updatedProposedLinksResponse.length - 1);
                 xhr.send(updatedProposedLinksResponse);
-                document.getElementById("ddPending").innerHTML = "your request is being processed<br>the page will reload afterwards"
-                //TODO Clara: beautify!
+                document.getElementById("ddPending").innerHTML = "Your request is being processed.<br>The updated page will reload afterwards."
             }
             catch
                 (err) {
@@ -1459,7 +1458,7 @@
                     xhr.send(null);
 
                 } catch (err) {
-                    document.getElementById('ddResult').innerHTML = "there was an error getting the proposed dependencies...";
+                    document.getElementById('ddResult').innerHTML = "We are sorry, there was an error getting the proposed dependencies...";
                     alert(err);
                 }
             }
@@ -1675,7 +1674,7 @@
                 //node design
                 "nodes": {
                     "font": {
-                        "face": 'Lato'
+                        "face": 'Arial'
                     },
                     "margin": {
                         "top": 10,

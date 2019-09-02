@@ -15,7 +15,8 @@
     <script>
         window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
+        function gtag()
+        {
             dataLayer.push(arguments);
         }
 
@@ -124,9 +125,8 @@
             <div class="card-body">
                 <h3 class="card-title">Info</h3>
                 <p class="card-text">This prototype visualizes the link between issues in Qt's public Jira, it also
-                    offers
-                    one feature to find missing links in the Jira issues and one feature to check the consistency of a
-                    fix version.<br>
+                    offers a feature to find missing links bewteen issues in Qt Jira and a feature to check the consistency of a
+                    release (fix version).<br>
                     Typing in an issue key from <a
                             href="https://bugreports.qt.io/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=software">Qt's
                         public JIRA</a> can show you its direct and indirect links to other issues.
@@ -150,17 +150,19 @@
                 </p>
                 <h5 class="card-title">Link Detection</h5>
                 <p class="card-text">Use the link detection to find issues which might be related to the currently
-                    selected issue.</p>
+                    selected issue. Attention: The accepted and rejected links are <strong>not</strong> automatically
+                    transfered to the Jira database.</p>
                 <h5 class="card-title">Consistency Checker</h5>
                 <p class="card-text">The Consistency Checker verifies the viability of the release plan regarding the
-                    issue
-                    link map. For example if a feature is required by another one, it is not assigned to later
+                    issue link map. For example if a feature is required by another one, it is not assigned to later
                     release.</p>
                 <h4 class="card-title">We appreciate your feedback!</h4>
                 <p class="card-text">
                     <%--Click <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSf_hyBtBF8vdXA9S0Zaee9IMY2qwo86n23-fHURojWnA44AVQ/viewform">here</a>--%>
                     <%--if you would like give feedback to the services or visualizatiion:--%>
-                    You can either leave a comment in the <a target="_blank" href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt Forum</a> or give feedback anonynoumsly in this
+                    You can either leave a comment in the <a target="_blank"
+                                                             href="https://forum.qt.io/category/60/openreq-issue-link-map-tool">Qt
+                    Forum</a> or give feedback anonynoumsly in this
                     <a target="_blank" href="https://forms.gle/EG6fd6QyCMXt7DEW9">form</a>.<br>
                     Click <a target="_blank" href="https://github.com/OpenReqEU/qthulhu/issues">here</a> if you would
                     like to report a bug.
@@ -178,20 +180,25 @@
 
 <script>
     <%--If the search button is pressed a loading circle appears--%>
-    $('#search-id').submit(function () {
+    $('#search-id').submit(function ()
+    {
         $('#loader').show();
     });
 
-    function buildURL() {
-        if (document.getElementById("issue").value !== "") {
+    function buildURL()
+    {
+        if (document.getElementById("issue").value !== "")
+        {
             let url = "./issue/" + document.getElementById("issue").value;
             let search_form = document.getElementById("search-id");
             search_form.action = url;
         }
     }
 
-    function getAndOpenAuthorizeAddress() {
-        try {
+    function getAndOpenAuthorizeAddress()
+    {
+        try
+        {
             let xhr = new XMLHttpRequest();
 
             let url = "./authorize/getAddress";
@@ -199,8 +206,10 @@
 
             xhr.open("GET", url, true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+            xhr.onreadystatechange = function ()
+            {
+                if (xhr.readyState === 4 && xhr.status === 200)
+                {
                     let win = window.open(xhr.responseText, '_blank');
                     win.focus();
                 }
@@ -208,13 +217,16 @@
             xhr.send(null);
         }
         catch
-            (err) {
+            (err)
+        {
             alert(err);
         }
     }
 
-    function verifyAuthorization() {
-        try {
+    function verifyAuthorization()
+    {
+        try
+        {
             let token = document.getElementById('token-input').value;
             let xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
@@ -225,29 +237,36 @@
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("cache-control", "no-cache");
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+            xhr.onreadystatechange = function ()
+            {
+                if (xhr.readyState === 4 && xhr.status === 200)
+                {
                     alert(xhr.responseText);
                 }
             };
             xhr.send(token);
         }
         catch
-            (err) {
+            (err)
+        {
             alert(err);
         }
     }
 
-    function testForCORS() {
-        try {
+    function testForCORS()
+    {
+        try
+        {
             let xhr = new XMLHttpRequest();
 
             let url = "./milla/getConsistencyCheckForRequirement?requirementId=QTWB-30";
 
             xhr.open("GET", url, true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+            xhr.onreadystatechange = function ()
+            {
+                if (xhr.readyState === 4 && xhr.status === 200)
+                {
                     alert("call successful");
                     console.log(xhr.responseText);
                     console.log(xhr);
@@ -256,7 +275,8 @@
             xhr.send(null);
         }
         catch
-            (err) {
+            (err)
+        {
             alert(err);
         }
     }
