@@ -74,24 +74,31 @@ java -jar qthulhu-webapp-1.0.war
 
 ### How to use
 You can directly search for an issue [here](https://api.openreq.eu/openreq-issue-link-map/).
+
 ![Search1](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Search1.png)
 
 for example Issue: QTWB-30 and layer 2.
+
 ![Search2](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Search2.png)
 
 which will then give you the LinkMap for issue QTWB-30 with layer 2.
+
 ![LinkMapEx](https://github.com/OpenReqEU/qthulhu/blob/master/pics/ExampleLinkMap.png)
 
 Alternatively, you can access the test instance of Qt's jira https://bugreports-test.qt.io/secure/Dashboard.jspa and search for an issue. On the view page you can scroll down Issue Links, underneath this you will find OpenReq Dependency Browser (old name, needs to be updated to OpenReq Link Map)
+
 ![Search3](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Search3.png)
 
 You then can use the node filter, to filter the link map for the status, type or priority. Per default, issues with status done are not shown.
+
 ![Filter](https://github.com/OpenReqEU/qthulhu/blob/master/pics/Filter.png)
 
 To check a release plan for inconsistencies in the issues and links, you can use the consistency checker. It searches the link map up to depth 5 for inconsistencies. It also lists all releases and the found inconsistencies.
+
 ![ConsistencyCheck](https://github.com/OpenReqEU/qthulhu/blob/master/pics/ConsistencyCheck.png)
 
 The link detection searches for an issue potentially linked issues which are not linked in Jira. These missing links are then recommended and can be accepted or rejected by the users. Currently these changes are not written to the Jira database.
+
 ![LinkDetection](https://github.com/OpenReqEU/qthulhu/blob/master/pics/LinkDetection.png)
 
 
