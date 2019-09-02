@@ -47,13 +47,13 @@ The application is accessible [here](https://api.openreq.eu/openreq-issue-link-m
 
 ## How to install
 You first need to deploy the following OpenReq microservices:
-[mallikas](https://github.com/OpenReqEU/mallikas)
-[mulperi](https://github.com/OpenReqEU/mulperi)
-[keljucaas](https://github.com/OpenReqEU/keljucaas)
-[palmu](https://github.com/OpenReqEU/palmu)
-[milla](https://github.com/OpenReqEU/milla)
-[nikke](https://github.com/OpenReqEU/nikke)
-[similarity detection](https://github.com/OpenReqEU/similarity-detection) 
+-[mallikas](https://github.com/OpenReqEU/mallikas)
+-[mulperi](https://github.com/OpenReqEU/mulperi)
+-[keljucaas](https://github.com/OpenReqEU/keljucaas)
+-[palmu](https://github.com/OpenReqEU/palmu)
+-[milla](https://github.com/OpenReqEU/milla)
+-[nikke](https://github.com/OpenReqEU/nikke)
+-[similarity detection](https://github.com/OpenReqEU/similarity-detection) 
 Mallikas is a database that Qthulhu accesses over milla, so it needs to contain the issues you want to visualize.
 
 ### Change properties of Qthulhu
