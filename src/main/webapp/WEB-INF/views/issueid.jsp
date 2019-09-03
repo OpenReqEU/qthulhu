@@ -423,7 +423,6 @@
                             <label>
                                 <input name="Priority" type="checkbox" checked="checked" value="7"/>
                                 <img src="../images/prio/7.png" width="20" height="20" alt="Not evaluated"/>Not evaluated
-                                <img src="../images/prio/7.png" width="20" height="20" alt="Not evaluated"/>Not evaluated
                             </label>
                         </span>
                         <br>
@@ -460,7 +459,8 @@
         let helpNodeSet = [];
         let filteredNodes = [];
         let filterArray = [];
-        let distance = 240;
+        let distances = [];
+        let maxNodesPerLayer;
         let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
 
 
@@ -477,9 +477,8 @@
         let edgeElements = [];
 
         let acc = document.getElementsByClassName("accordion");
-        let i;
 
-        for (i = 0; i < acc.length; i++) {
+        for (let i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 /* Toggle between adding and removing the "active" class,
                 to highlight the button that controls the panel */
@@ -497,9 +496,6 @@
 
         $(document).ready(function () {
             infoTab();
-            if (allNodesArray[1].length > 12) {
-                distance *= Math.sqrt(allNodesArray[1].length / 12);
-            }
             calculatePositions();
             nodes.add(allNodesArray[0]);
             nodes.add(allNodesArray[1]);
@@ -610,6 +606,8 @@
          */
         function calculatePositions() {
             if (typeof allNodesArray[0][0] !== "undefined") {
+                distances[0] = 0;
+                maxNodesPerLayer = 1;
                 // the one element with depth 0 is in the center
                 allNodesArray[0][0].x = 0;
                 allNodesArray[0][0].y = 0;
@@ -632,6 +630,9 @@
             let angle = 360 / maxElements;
             let direction;
             let resultingAngle;
+            maxNodesPerLayer = Math.max(maxNodesPerLayer, allNodesArray[1].length);
+            // increasing the radius by 16 roughly increases circumference by 100
+            distances[1] = Math.max(allNodesArray[1].length * 16, 240);
 
             // if depth 1 has only one element it will be displayed below the center
             if (maxElements === 1) {
@@ -653,8 +654,8 @@
                 direction = getDirectionByAngle(45 + (angle * currentElement));
                 resultingAngle = 45 + angle * currentElement;
             }
-            allNodesArray[1][currentElement].x = distance * direction.x;
-            allNodesArray[1][currentElement].y = distance * direction.y;
+            allNodesArray[1][currentElement].x = distances[1] * direction.x;
+            allNodesArray[1][currentElement].y = distances[1] * direction.y;
             allNodesArray[1][currentElement].angle = resultingAngle;
         }
 
@@ -663,6 +664,12 @@
             let index;
             let direction;
             let angleDiff;
+
+            // increasing the radius by 16 roughly increases circumference by 100
+            distances[depth] = Math.max(allNodesArray[depth].length * 16, distances[depth - 1] + 240);
+
+            maxNodesPerLayer = Math.max(maxNodesPerLayer, allNodesArray[depth].length);
+
             for (let i = 0; i < allNodesArray[depth - 1].length; i++) {
                 connectionsOut = findConnectedNodesOuter(allNodesArray[depth - 1][i]);
                 allNodesArray[depth - 1][i].connections = connectionsOut;
@@ -676,8 +683,8 @@
                     }
                     direction = getDirectionByAngle(allNodesArray[depth - 1][i].angle + angleDiff);
 
-                    allNodesArray[index[0]][index[1]].x = distance * depth * direction.x;
-                    allNodesArray[index[0]][index[1]].y = distance * depth * direction.y;
+                    allNodesArray[index[0]][index[1]].x = distances[depth]  * direction.x;
+                    allNodesArray[index[0]][index[1]].y = distances[depth] * direction.y;
                     allNodesArray[index[0]][index[1]].angle = allNodesArray[depth - 1][i].angle + angleDiff;
                 }
             }
@@ -704,8 +711,8 @@
             else {
                 direction = getDirectionByAngle(45 + (angle * j));
             }
-            let coord_x = 0.6 * distance * direction.x;
-            let coord_y = 0.6 * distance * direction.y;
+            let coord_x = 0.6 * distances[1] * direction.x;
+            let coord_y = 0.6 * distances[1] * direction.y;
             return {x: coord_x, y: coord_y};
         }
 
@@ -720,8 +727,8 @@
             j++;
             let direction = getDirectionByAngle(allNodesArray[index[0]][index[1]].angle + angleDiff);
 
-            let coord_x = distance * (issueInfo.depth + 0.5) * direction.x;
-            let coord_y = distance * (issueInfo.depth + 0.5) * direction.y;
+            let coord_x = (distances[issueInfo.depth] + 120) * direction.x;
+            let coord_y = (distances[issueInfo.depth] + 120) * direction.y;
             return {x: coord_x, y: coord_y};
         }
 
@@ -1786,7 +1793,7 @@
         $(document).on("load");
 
         function resizeCanvas() {
-            $('#issueLinkMap').height($(document).height() * 0.60)
+            $('#issueLinkMap').height($(document).height() * 0.70)
         }
 
         $(document).ready(function () {
