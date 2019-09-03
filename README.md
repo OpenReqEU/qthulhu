@@ -35,6 +35,7 @@ The results of a link detection are also visualized, this view should can be tog
 Currently, accepted and rejected links are not written into the Jira database, just back to mallikas.
 - *Add more filter options*
 Adding more filter options to also filter f.e. egdes
+- *Highlighting issues and links that cause inconsistencies*
 
 #### Functionalities planned
 - *Editing* links
