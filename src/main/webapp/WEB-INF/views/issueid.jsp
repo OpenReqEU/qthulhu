@@ -460,6 +460,7 @@
         let filteredNodes = [];
         let filterArray = [];
         let distances = [];
+        let deprDistance = 240;
         let maxNodesPerLayer;
         let priorityArray = ["P0: Blocker", "P1: Critical", "P2: Important", "P3: Somewhat important", "P4: Low", "P5: Not important", "", "Not Evaluated"];
 
@@ -607,6 +608,10 @@
         function calculatePositions() {
             if (typeof allNodesArray[0][0] !== "undefined") {
                 distances[0] = 0;
+                deprDistance = 240;
+                if (allNodesArray[1].length > 12) {
+                    deprDistance *= Math.sqrt(allNodesArray[1].length / 12);
+                }
                 maxNodesPerLayer = 1;
                 // the one element with depth 0 is in the center
                 allNodesArray[0][0].x = 0;
@@ -654,8 +659,11 @@
                 direction = getDirectionByAngle(45 + (angle * currentElement));
                 resultingAngle = 45 + angle * currentElement;
             }
-            allNodesArray[1][currentElement].x = distances[1] * direction.x;
-            allNodesArray[1][currentElement].y = distances[1] * direction.y;
+            // allNodesArray[1][currentElement].x = distances[1] * direction.x;
+            // allNodesArray[1][currentElement].y = distances[1] * direction.y;
+
+            allNodesArray[1][currentElement].x = deprDistance * direction.x;
+            allNodesArray[1][currentElement].y = deprDistance * direction.y;
             allNodesArray[1][currentElement].angle = resultingAngle;
         }
 
@@ -683,8 +691,11 @@
                     }
                     direction = getDirectionByAngle(allNodesArray[depth - 1][i].angle + angleDiff);
 
-                    allNodesArray[index[0]][index[1]].x = distances[depth]  * direction.x;
-                    allNodesArray[index[0]][index[1]].y = distances[depth] * direction.y;
+                    // allNodesArray[index[0]][index[1]].x = distances[depth]  * direction.x;
+                    // allNodesArray[index[0]][index[1]].y = distances[depth] * direction.y;
+
+                    allNodesArray[index[0]][index[1]].x = deprDistance * depth * direction.x;
+                    allNodesArray[index[0]][index[1]].y = deprDistance * depth * direction.y;
                     allNodesArray[index[0]][index[1]].angle = allNodesArray[depth - 1][i].angle + angleDiff;
                 }
             }
