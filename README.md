@@ -29,9 +29,11 @@ Checking if the issues in the link map do not have conflicting link type and pri
 To support the user in navigating this link network filters should be in place to hide issues depending on their status, the link type between them.
 - *Accepting & rejecting* proposed links
 The results of a link detection are also visualized, this view should can be toggled on and off for a specific issue. While the link detection is enabled the user is given a list where he can decide what type of link should be used or if this proposed link should not be a link.
+- *Full Integration* into Jira as a *Jira plug-in*
+See [here](https://github.com/OpenReqEU/issuelinkmap-jira-plugin)
 
 #### Functionalities in development
-- *Full Integration* into Jira as a *Jira plug-in*
+- Automatic sync of databases
 Currently, accepted and rejected links are not written into the Jira database, just back to mallikas.
 - *Add more filter options*
 Adding more filter options to also filter f.e. egdes
@@ -41,9 +43,7 @@ Adding more filter options to also filter f.e. egdes
 By right-clicking an edge, the user can change the link type, switch direction or remove the link
 
 ### Accessing the application
-The application is accessible [here](https://api.openreq.eu/openreq-issue-link-map/)
-
-!This is currently broken! Additionally, a connection to the tool is in https://bugreports-test.qt.io/secure/Dashboard.jspa. This connection is created by installing the ["jira-redirction" plugin](https://github.com/OpenReqEU/jira-redirection).
+The application is accessible [here](https://api.openreq.eu/openreq-issue-link-map/) 
 
 ## How to install
 You first need to deploy the following OpenReq microservices:
@@ -54,6 +54,7 @@ You first need to deploy the following OpenReq microservices:
 - [milla](https://github.com/OpenReqEU/milla)
 - [nikke](https://github.com/OpenReqEU/nikke)
 - [similarity detection](https://github.com/OpenReqEU/similarity-detection) 
+Please check their readme's to set them up.
 
 Mallikas is a database that Qthulhu accesses over milla, so it needs to contain the issues you want to visualize.
 

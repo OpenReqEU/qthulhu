@@ -1366,21 +1366,22 @@
                                 let nodehidden = v['layer'] > depth;
                                 let nodegroup = colorPaletteStatus[nodestatus] || "unknown";
                                 let nodelabel = "";
-                                if (nodetype !== null) {
-                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n");
-
-                                    if (nodename.toString().length > 20) {
-                                        nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("...\n").concat(nodetype.toString());
-                                    }
-                                    else {
-                                        nodelabel = nodelabel.concat(nodename.toString().substring(0, 20)).concat("\n").concat(nodetype.toString());
-                                    }
+                                if (typeof nodetype === "undefined") {
+                                    nodetype = "not specified"
+                                }
+                                if (!(nodetype == null)) {
+                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n").concat(nodetype.toString());
+                                    nodelabel = nodelabel.concat("\n").concat(nodestatus).concat(", ").concat(noderesolution);
+                                }
+                                else
+                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+                                let nodetitle = "";
+                                if (nodename.toString().length > 20) {
+                                    nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("...\n");
                                 }
                                 else {
-                                    nodelabel = nodelabel + "<i>".concat(nodekey).concat("</i>").concat("\n not specified");
+                                    nodetitle = nodetitle.concat(nodename.toString().substring(0, 20)).concat("\n")
                                 }
-                                let nodetitle = "";
-                                nodetitle = nodetitle.concat(nodestatus).concat("\n, ").concat(noderesolution);
 
                                 //calculate positions for the proposed issue
                                 let positions;
