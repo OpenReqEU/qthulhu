@@ -2,6 +2,8 @@
 
 This repository is no longer maintained. This repository is archived for parties interested in the standalone functionality that this repo once offered. Now, the functionality has been moved to [OpenReq Issue Link Map](https://github.com/OpenReqEU/issuelinkmap-jira-plugin). For full details of capability and intended usage, please see [OpenReq Issue Link Map](https://github.com/OpenReqEU/issuelinkmap-jira-plugin).
 
+Before this project was archived it passed the sonarqube quality metrics. ![SonarqubeQthulhu](https://github.com/OpenReqEU/qthulhu/blob/master/pics/SonarqubeQthulhu.png)
+
 This web application was created as a result of the OpenReq project funded by the European Union Horizon 2020 Research and Innovation programme under grant agreement No 732463.
 
 This web application visualizes the links between issues inside Qt’s JIRA. It uses the microservices of UH ([API references](https://api.openreq.eu/#/services/milla)) to manage links and the similarity detection of UPC ([API references](https://api.openreq.eu/#/services/similarity-detection)) to recommend missing links.
